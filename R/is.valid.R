@@ -8,9 +8,9 @@ is.valid = function(descriptor,schema)  {
   
   if(jsonlite::validate(descriptor)==TRUE){
     
-    if(is.null(scheme)){
+    if(missing(schema)){
       
-      v = jsonvalidate::json_validator(paste(readLines("http://json-schema.org/draft-04/schema#"), collapse=""))
+      v = jsonvalidate::json_validator(paste(readLines("https://schemas.frictionlessdata.io/tabular-data-package.json"), collapse=""))
       
       
     } else {
@@ -23,7 +23,7 @@ is.valid = function(descriptor,schema)  {
     
     #.print.validator(valid)
     valid
-  }else message("This is not a valid JSON file.")
+  } else message("This is not a valid JSON file.")
   
   
 }
