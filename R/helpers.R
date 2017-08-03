@@ -1,6 +1,6 @@
 #' 
 #' @rdname get.field.descriptors
-#' 
+#' @importFrom jsonlite fromJSON
 #' @export
 #' 
 
@@ -13,7 +13,7 @@ get.field.descriptors=function(descriptor){
     fields = as.data.frame(descriptor.object[["resources"]][["schema"]][["fields"]])
     
     if ( "name" %in% names(fields) | 
-         !purrr::is_empty(fields) | 
+         !length(fields) | 
          !any(is.null(fields$name))
          ) {
       names(fields) 
