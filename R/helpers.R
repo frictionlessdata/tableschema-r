@@ -1,10 +1,10 @@
 #' 
-#' @rdname get.field.descriptors
+#' @rdname get.field.descriptors.properties
 #' @importFrom jsonlite fromJSON
 #' @export
 #' 
 
-get.field.descriptors=function(descriptor){
+get.field.descriptors.properties=function(descriptor){
   
   if(is.valid(descriptor)==TRUE){
     
@@ -78,7 +78,7 @@ get.field.descriptors=function(descriptor){
 # "version": "2011"
 # }'
 # 
-#   get.field.descriptors(descriptor)
+#   get.field.descriptors.properties(descriptor)
 
 
 
@@ -93,4 +93,4 @@ get.field.descriptors=function(descriptor){
 #   }
 #   }'
 # 
-#   get.field.descriptors(descriptor)
+#   get.field.descriptors.properties(descriptor)
