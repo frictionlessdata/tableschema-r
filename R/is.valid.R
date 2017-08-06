@@ -18,7 +18,7 @@ is.valid = function(descriptor,schema)  {
       v = jsonvalidate::json_validator("schema.json")
     }
     
-    valid=v(json,verbose = T, greedy=TRUE,error=F)
+    valid=v(descriptor,verbose = T, greedy=TRUE,error=F)
     class(valid)="logical"
     
     #.print.validator(valid)
