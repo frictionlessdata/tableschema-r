@@ -1,4 +1,49 @@
+#' Extract the field descriptors properties
+#' @param descriptor The datapackage.json 
 #' 
+#' @export get.field.descriptor.properties
+#' @importFrom jsonlite fromJSON
+#' @importFrom purrr pmap_chr
+#' @importFrom purrr pmap_int
+#' @importFrom tibble data_frame
+
+get.field.descriptor.properties= function(descriptor) {
+  
+  if(is.valid(descriptor)==TRUE) {
+    
+    descriptor.object=jsonlite::fromJSON(descriptor,simplifyVector =T,flatten = F)
+  
+    field_descriptor_classes= purrr::pmap_chr(descriptor.object$resources$schema$fields , class )
+  
+    field_descriptor_classes= gsub("data.frame","array/list/object",field_descriptor_classes) # needs fix
+  
+    field_descriptor_classes_length = purrr::pmap_dbl(descriptor.object$resources$schema$fields , function(x) colSums(!is.na(as.data.frame(x))) )
+    
+    if (has_name_field_descriptor(descriptor.object)){
+      
+      df= tibble::data_frame(
+        root  = names2(field_descriptor_classes),
+        class = field_descriptor_classes,
+        items = field_descriptor_classes_length
+      )
+      
+    } else df = message("The field descriptor MUST contain a name property. More spec details in https://specs.frictionlessdata.io/table-schema/#field-descriptors.")
+    
+  } else df = message("This is not a valid descriptor.")
+  
+  return(df)
+}
+
+#' 
+#' @export
+#' 
+has_name_field_descriptor=function(descriptor){
+  "name" %in% names2(descriptor) 
+  }
+
+
+
+#' OLD
 #' @rdname get.field.descriptors.properties
 #' @importFrom jsonlite fromJSON
 #' @export
@@ -78,7 +123,7 @@ get.field.descriptors.properties=function(descriptor){
 # "version": "2011"
 # }'
 # 
-#   get.field.descriptors.properties(descriptor)
+#   get.field.descriptor.properties(descriptor)
 
 
 
@@ -93,4 +138,5 @@ get.field.descriptors.properties=function(descriptor){
 #   }
 #   }'
 # 
-#   get.field.descriptors.properties(descriptor)
+#   get.field.descriptor.properties(descriptor)
+
