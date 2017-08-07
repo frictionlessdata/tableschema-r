@@ -6,6 +6,7 @@
 #' @importFrom purrr pmap_chr
 #' @importFrom purrr pmap_int
 #' @importFrom tibble data_frame
+#' @importFrom rlang names2
 
 get.field.descriptor.properties= function(descriptor) {
   
@@ -22,7 +23,7 @@ get.field.descriptor.properties= function(descriptor) {
     if (has_name_field_descriptor(descriptor.object)){
       
       df= tibble::data_frame(
-        root  = names2(field_descriptor_classes),
+        root  = rlang::names2(field_descriptor_classes),
         class = field_descriptor_classes,
         items = field_descriptor_classes_length
       )
@@ -38,10 +39,10 @@ get.field.descriptor.properties= function(descriptor) {
 #' @export
 #' 
 has_name_field_descriptor=function(descriptor){
-  "name" %in% names2(descriptor) 
+  "name" %in% names2(descriptor) && colSums(!is.na(as.data.frame(x)))
   }
-
-
+na_s=as.data.frame(descriptor.object$resources$schema$fields)
+na_s[is.na(na_s)]=0
 
 #' OLD
 #' @rdname get.field.descriptors.properties
@@ -139,4 +140,30 @@ get.field.descriptors.properties=function(descriptor){
 #   }'
 # 
 #   get.field.descriptor.properties(descriptor)
+
+
+
+#' http://www.adidas.com
+#' 
+#' http://www.adidas.gr/
+#' 
+is.url <- function(x.url){
+  
+  if(!is.character(x.url)) message("The url should be character")
+  
+  operation= grepl("www.| http:| https:", x.url) & !httr::http_error(x.url)
+  
+  if (!isTRUE(operation)) {
+    
+    operation = http_status(GET(x.url))
+    
+  }
+  
+  return(operation)
+}
+
+## it is not a formal check it is based on regular expressions (issue on https://www.r-bloggers.com/validating-email-adresses-in-r/)
+is.email <- function(x) {
+  grepl("\\<[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\>", as.character(x), ignore.case=TRUE)
+}
 
