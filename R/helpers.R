@@ -1,169 +1,24 @@
-#' Extract the field descriptors properties
-#' @param descriptor The datapackage.json 
-#' 
-#' @export get.field.descriptor.properties
-#' @importFrom jsonlite fromJSON
-#' @importFrom purrr pmap_chr
-#' @importFrom purrr pmap_int
-#' @importFrom tibble data_frame
-#' @importFrom rlang names2
-
-get.field.descriptor.properties= function(descriptor) {
-  
-  if(is.valid(descriptor)==TRUE) {
-    
-    descriptor.object=jsonlite::fromJSON(descriptor,simplifyVector =T,flatten = F)
-  
-    field_descriptor_classes= purrr::pmap_chr(descriptor.object$resources$schema$fields , class )
-  
-    field_descriptor_classes= gsub("data.frame","array/list/object",field_descriptor_classes) # needs fix
-  
-    field_descriptor_classes_length = purrr::pmap_dbl(descriptor.object$resources$schema$fields , function(x) colSums(!is.na(as.data.frame(x))) )
-    
-    if (has_name_field_descriptor(descriptor.object)){
-      
-      df= tibble::data_frame(
-        root  = rlang::names2(field_descriptor_classes),
-        class = field_descriptor_classes,
-        items = field_descriptor_classes_length
-      )
-      
-    } else df = message("The field descriptor MUST contain a name property. More spec details in https://specs.frictionlessdata.io/table-schema/#field-descriptors.")
-    
-  } else df = message("This is not a valid descriptor.")
-  
-  return(df)
-}
-
-#' 
 #' @export
-#' 
-has_name_field_descriptor=function(descriptor){
-  "name" %in% names2(descriptor) && colSums(!is.na(as.data.frame(x)))
-  }
-na_s=as.data.frame(descriptor.object$resources$schema$fields)
-na_s[is.na(na_s)]=0
 
-#' OLD
-#' @rdname get.field.descriptors.properties
-#' @importFrom jsonlite fromJSON
-#' @export
-#' 
+library(R6)
+library(hash)
+library(config)
 
-get.field.descriptors.properties=function(descriptor){
-  
-  if(is.valid(descriptor)==TRUE){
-    
-    descriptor.object=jsonlite::fromJSON(descriptor, flatten = FALSE)
-    
-    fields = as.data.frame(descriptor.object[["resources"]][["schema"]][["fields"]])
-    
-    if ( "name" %in% names(fields) | 
-         !length(fields) | 
-         !any(is.null(fields$name))
-         ) {
-      names(fields) 
-      
-    } else {
-      
-      message("The field descriptor MUST contain a name property. More spec details in https://specs.frictionlessdata.io/table-schema/#field-descriptors.")
+Helpers <- R6Class("Helpers", public = list())
+
+Helpers$expandFieldDescriptor <- function(descriptor) {
+    if (!is.hash(descriptor)) {
+        stop("Field descriptor should be a hash instance.")
     }
-    
-  } else message("This is not a valid descriptor.")
-
-}  
-# # Test 1 - valid field descriptors
-# descriptor='{
-#   "description": "Country, regional and world GDP in current US Dollars ($). Regional means collections of countries e.g. Europe & Central Asia. Data is sourced from the World Bank and turned into a standard normalized CSV.",
-# "image": "http://assets.okfn.org/p/opendatahandbook/img/data-wrench.png",
-# "keywords": [
-# "GDP",
-# "World",
-# "Gross Domestic Product",
-# "Time series"
-# ],
-# "last_updated": "2011-09-21",
-# "license": "PDDL-1.0",
-# "name": "gdp",
-# "resources": [
-# {
-#   "name": "gdp",
-#   "path": "data/gdp.csv",
-#   "schema": {
-#   "fields": [
-#   {
-#   "name": "Country Name",
-#   "type": "string"
-#   },
-#   {
-#   "foreignkey": "iso-3-geo-codes/id",
-#   "name": "Country Code",
-#   "type": "string"
-#   },
-#   {
-#   "format": "any",
-#   "name": "Year",
-#   "type": "date"
-#   },
-#   {
-#   "description": "GDP in current USD",
-#   "name": "Value",
-#   "type": "number"
-#   }
-#   ]
-#   }
-# }
-# ],
-# "sources": [
-# {
-#   "name": "World Bank and OECD",
-#   "web": "http://data.worldbank.org/indicator/NY.GDP.MKTP.CD"
-# }
-# ],
-# "title": "Country, Regional and World GDP (Gross Domestic Product)",
-# "version": "2011"
-# }'
-# 
-#   get.field.descriptor.properties(descriptor)
-
-
-
-# # Test 2 - NOT a valid field descriptors - name field is required
-# descriptor='
-# {
-#   "title": "A nicer human readable label or title for the field",
-#   "type": "A string specifying the type",
-#   "format": "A string specifying a format",
-#   "description": "A description for the field",
-#   "constraints": {
-#   }
-#   }'
-# 
-#   get.field.descriptor.properties(descriptor)
-
-
-
-#' http://www.adidas.com
-#' 
-#' http://www.adidas.gr/
-#' 
-is.url <- function(x.url){
-  
-  if(!is.character(x.url)) message("The url should be character")
-  
-  operation= grepl("www.| http:| https:", x.url) & !httr::http_error(x.url)
-  
-  if (!isTRUE(operation)) {
-    
-    operation = http_status(GET(x.url))
-    
-  }
-  
-  return(operation)
+    if (!has.key("type", descriptor)) {
+        descriptor$type <- config::get("DEFAULT_FIELD_TYPE")
+    }
+    if (!has.key("format", descriptor)) {
+        descriptor$format <- config::get("DEFAULT_FIELD_FORMAT")
+    }
+    return(descriptor)
 }
 
-## it is not a formal check it is based on regular expressions (issue on https://www.r-bloggers.com/validating-email-adresses-in-r/)
-is.email <- function(x) {
-  grepl("\\<[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\>", as.character(x), ignore.case=TRUE)
-}
+
+
 
