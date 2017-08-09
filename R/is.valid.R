@@ -1,8 +1,8 @@
-#' 
+#' @title Is valid
 #' @rdname is.valid
-#' 
+#' description is.valid
 #' @export
-#' 
+#' @description description
 
 is.valid = function(descriptor,schema)  {
   
@@ -28,9 +28,9 @@ is.valid = function(descriptor,schema)  {
   
 }
 
-#' 
+#' @title print validator
 #' @rdname .print.validator
-#' 
+#' @param x x
 #' @export
 #' 
 .print.validator = function (x, ...){

@@ -25,7 +25,7 @@ Imports:
 RoxygenNote: 6.0.1
 Suggests:
     testthat
-Collate:
+Collate: 
     'constraints.enum.R'
     'constraints.maximum.R'
     'constraints.minimum.R'

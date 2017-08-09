@@ -1,10 +1,11 @@
+#' Table class
+#'
 #' @docType class
-#' @export
-#' @include  field.R
-#' @include  schema.R
 #' @importFrom R6 R6Class
+#' @export
+#' @keywords data
+#' @return Object of \code{\link{R6Class}} .
 #' @format \code{\link{R6Class}} object.
-
 
 Table <- R6Class("Table",
                  public = list(

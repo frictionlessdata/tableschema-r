@@ -1,5 +1,11 @@
-#' @export 
-
+#' String class
+#'
+#' @docType class
+#' @importFrom R6 R6Class
+#' @export
+#' @keywords data
+#' @return Object of \code{\link{R6Class}} .
+#' @format \code{\link{R6Class}} object.
 String <- R6Class("String", public = list(
 
 castString = function(format, value, options = list()) {

@@ -1,5 +1,12 @@
-#' @include  types.R
+#' Field class
+#'
+#' @docType class
+#' @importFrom R6 R6Class
 #' @export
+#' @include types.R
+#' @include constraints.R
+#' @keywords data
+#' @return Object of \code{\link{R6Class}} .
 #' @format \code{\link{R6Class}} object.
 
 Field <- R6Class(

@@ -1,4 +1,12 @@
-#' @export 
+#' Minimum class
+#'
+#' @docType class
+#' @importFrom R6 R6Class
+#' @export
+#' @keywords data
+#' @return Object of \code{\link{R6Class}} .
+#' @format \code{\link{R6Class}} object.
+
 
 Minimum <- R6Class("Minimum", public = list(
 

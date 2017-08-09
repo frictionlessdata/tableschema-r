@@ -1,10 +1,10 @@
-#' 
+#' @title get descriptor
 #' @usage get.descriptor.path(directory= ".")
 #' 
 #' @param directory A character vector of full path name. The default corresponds to the working directory specified by /code{/link[base]{getwd}}
 #' @rdname get.descriptor.path
 #' @export
-#' 
+#' @description get descriptor
 
 get.descriptor.path <- function(directory= "."){
   
@@ -24,13 +24,14 @@ get.descriptor.path <- function(directory= "."){
   
 }
 
-get.descriptor.path('C:/Users/Kleanthis-Okf/Documents/datapackage-r/a/gdp-master')
+#get.descriptor.path('C:/Users/Kleanthis-Okf/Documents/datapackage-r/a/gdp-master')
 
 
-#' 
+#' @title filepath
 #' @rdname filepath
 #' @export
-#' 
+#' @param x x
+#' @description filepath
 
 filepath <- function(x){
   
