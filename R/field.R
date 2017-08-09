@@ -1,6 +1,15 @@
-library(R6)
+#' @title field object
+#' 
+#' @description ...
+#' 
+#' @field descriptor  
+#' @field missing_values = ['']
+#' 
+#' @importFrom R6 R6Class
+#' 
+#' @export
 
-Field <- R6Class("Field", public = list(
+Field <- R6Class("Field",portable=TRUE, public = list(
   name = NULL, 
   type = NULL, 
   format = NULL, 
@@ -8,8 +17,8 @@ Field <- R6Class("Field", public = list(
   constraints = NULL, 
   descriptor = NULL, 
   
-  cast_value = function(...) {}, 
-  test_value = function(...) { },
+  cast_value = function(value, constraints=TRUE) {}, 
+  test_value = function(value, constraints=TRUE) {},
 print = function(...) {
     args = list(...);
     fields = NULL;

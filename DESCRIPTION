@@ -9,5 +9,5 @@ Description: ...
 License: MIT | file LICENSE
 Encoding: UTF-8
 LazyData: true
-Imports: jsonvalidate
+Imports: jsonvalidate, R6
 RoxygenNote: 6.0.1
