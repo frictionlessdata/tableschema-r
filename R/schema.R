@@ -1,6 +1,7 @@
+#' @docType class
 #' @export
-
-library(R6)
+#' @importFrom R6 R6Class
+#' @format \code{\link{R6Class}} object.
 
 Schema <- R6Class("Schema",
     public = list(

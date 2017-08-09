@@ -1,6 +1,10 @@
+#' @docType class
 #' @export
+#' @include  field.R
+#' @include  schema.R
+#' @importFrom R6 R6Class
+#' @format \code{\link{R6Class}} object.
 
-library(R6)
 
 Table <- R6Class("Table",
                  public = list(

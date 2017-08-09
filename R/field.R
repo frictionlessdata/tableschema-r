@@ -1,5 +1,6 @@
 #' @include  types.R
 #' @export
+#' @format \code{\link{R6Class}} object.
 
 Field <- R6Class(
 "Field",
@@ -42,7 +43,6 @@ cast_value = function(...) {
     return(private$castValue(...))
 },
 testValue = function(value, constraints = TRUE) {
-
     result = tryCatch({
         private$castValue(value, constraints)
 
