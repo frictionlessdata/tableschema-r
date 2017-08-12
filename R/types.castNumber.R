@@ -18,13 +18,13 @@ types.castNumber <- function (format, value, options={}) {
   
   if ( !is.numeric(value) ) {
     if ( !is.character(value) ) stop("The input value should be numeric or character", call. = FALSE)
-    if ( stringi::stri_length(value) < 1 ) stop("The input value has zero length", call. = FALSE)
+    if ( nchar(value) < 1 ) stop("The input value has zero length", call. = FALSE) #stringi::stri_length
     
     value = gsub('\\s', '', value)
-    if (stringi::stri_length(decimalChar) > 0) {
+    if (nchar(decimalChar) > 0) { #stringi::stri_length
       value = gsub(stringr::str_interp("[${decimalChar}]"), '.', value)
     }
-    if (stringi::stri_length(groupChar) > 0) {
+    if (nchar(groupChar) > 0) { #stringi::stri_length
       value = gsub(stringr::str_interp("[${groupChar}]"), '', value)
     }
     if (!is.null(currency) && currency != FALSE) {
