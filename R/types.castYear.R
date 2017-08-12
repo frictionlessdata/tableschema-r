@@ -4,43 +4,56 @@
 #' @export
 #' @description cast year
 #' 
-types.castYear <- function (format, value) {
-  
-  if(!is.integer(value)){
-    if (!is.character(value)) stop()
-    if (nchar !=4) stop()
+types.castYear <- function (value) { #format parameter is not used    tryCatch(stop("fails"),  error = function(e) print(vari))
+   
+  if(!is_integer(value)){
+    if (!is.character(value)) stop("The input value should be integer or character", call. = FALSE)
+    if (nchar(value) != 4) stop("The year value should be specified by 4 digits.", call. = FALSE)
     
     tryCatch({
-      
-      if (is.nan(result) | as.character(result)!= value) stop()
-    })
+      result = as.integer(value)
+      if (is.nan(result) | as.character(result) != value)  stop(3, call. = FALSE)
+      value = result
+    },
+    error = function(e)  err <<- e,
+    warning=function(w) warn <<- w
+      )
+    
   }
   
-  if (value < 0 | value > 9999) stop()
+  if (value < 0 | value > 9999) stop("The input year should not be negative or over 9999", call. = FALSE)
   
   return(value)
   
 }
 
-  if (!lodash.isInteger(value)) {
-    if (!lodash.isString(value)) {
-      return ERROR
-    }
-    if (value.length !== 4) {
-      return ERROR
-    }
-    try {
-      const result = parseInt(value, 10)
-      if (lodash.isNaN(result) || result.toString() !== value) {
-        return ERROR
-      }
-      value = result
-    } catch (error) {
-      return ERROR
-    }
-  }
-  if (value < 0 || value > 9999) {
-    return ERROR
-  }
-  return value
+
+
+#' Is integer
+#' @description is integer
+#' @rdname types.castYear
+#' @export
+#' 
+is_integer=function(x, tol = .Machine$double.eps^0.5) {
+  
+  withCallingHandlers( tryCatch({
+    
+    if(is.character(x)) {
+      
+      war=warning("Tried to convert character to integer",call. = FALSE)
+      
+      if(!grepl("\\.",x) ){
+        
+        as.integer(x)%%1==0
+        
+      } else FALSE
+      
+    } else x%%1==0
+    
+  }, 
+  error=function(e) FALSE
+  ),
+  
+  warning=function(w) warn<<-w )
 }
+
