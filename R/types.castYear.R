@@ -4,7 +4,7 @@
 #' @export
 #' @description cast year
 #' 
-types.castYear <- function (value) { #format parameter is not used    tryCatch(stop("fails"),  error = function(e) print(vari))
+types.castYear <- function (value) { #format parameter is not used   
    
   if(!is_integer(value)){
     if (!is.character(value)) stop("The input value should be integer or character", call. = FALSE)
