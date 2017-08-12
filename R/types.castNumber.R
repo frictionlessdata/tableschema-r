@@ -17,8 +17,8 @@ types.castNumber <- function (format, value, options={}) {
   
   
   if ( !is.numeric(value) ) {
-    if ( !is.character(value) ) stop("1")
-    if ( stringi::stri_length(value) < 1 ) stop("2")
+    if ( !is.character(value) ) stop("The input value should be numeric or character", call. = FALSE)
+    if ( stringi::stri_length(value) < 1 ) stop("The input value has zero length", call. = FALSE)
     
     value = gsub('\\s', '', value)
     if (stringi::stri_length(decimalChar) > 0) {
@@ -42,7 +42,7 @@ types.castNumber <- function (format, value, options={}) {
     )
   }
   
-  if (is.nan(value)) stop(3)
+  if (is.nan(value)) stop("Value is Not a Number", call. = FALSE)
   
   if (percentage) value = value / 100 
   
