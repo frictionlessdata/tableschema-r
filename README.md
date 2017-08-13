@@ -19,86 +19,86 @@ Table below shows the available types, formats and resultant value of the cast:
 </colgroup>
 <thead>
 <tr class="header">
-<th>Type</th>
-<th>Formats</th>
-<th>Casting result</th>
+<th align="left">Type</th>
+<th align="left">Formats</th>
+<th align="left">Casting result</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><p>any</p></td>
-<td><p>default</p></td>
-<td><p>Any</p></td>
+<td align="left"><p>any</p></td>
+<td align="left"><p>default</p></td>
+<td align="left"><p>Any</p></td>
 </tr>
 <tr class="even">
-<td><p>array</p></td>
-<td><p>default</p></td>
-<td><p>Array</p></td>
+<td align="left"><p>array</p></td>
+<td align="left"><p>default</p></td>
+<td align="left"><p>Array</p></td>
 </tr>
 <tr class="odd">
-<td><p>boolean</p></td>
-<td><p>default</p></td>
-<td><p>Boolean</p></td>
+<td align="left"><p>boolean</p></td>
+<td align="left"><p>default</p></td>
+<td align="left"><p>Boolean</p></td>
 </tr>
 <tr class="even">
-<td><p>date</p></td>
-<td><p>default, any</p></td>
-<td><p>Date</p></td>
+<td align="left"><p>date</p></td>
+<td align="left"><p>default, any</p></td>
+<td align="left"><p>Date</p></td>
 </tr>
 <tr class="odd">
-<td><p>datetime</p></td>
-<td><p>default, any</p></td>
-<td><p>Date</p></td>
+<td align="left"><p>datetime</p></td>
+<td align="left"><p>default, any</p></td>
+<td align="left"><p>Date</p></td>
 </tr>
 <tr class="even">
-<td><p>duration</p></td>
-<td><p>default</p></td>
-<td><p>Duration</p></td>
+<td align="left"><p>duration</p></td>
+<td align="left"><p>default</p></td>
+<td align="left"><p>Duration</p></td>
 </tr>
 <tr class="odd">
-<td><p>geojson</p></td>
-<td><p>default, topojson</p></td>
-<td><p>Object</p></td>
+<td align="left"><p>geojson</p></td>
+<td align="left"><p>default, topojson</p></td>
+<td align="left"><p>Object</p></td>
 </tr>
 <tr class="even">
-<td><p>geopoint</p></td>
-<td><p>default, array, object</p></td>
-<td><p>[Number, Number]</p></td>
+<td align="left"><p>geopoint</p></td>
+<td align="left"><p>default, array, object</p></td>
+<td align="left"><p>[Number, Number]</p></td>
 </tr>
 <tr class="odd">
-<td><p>integer</p></td>
-<td><p>default</p></td>
-<td><p>Number</p></td>
+<td align="left"><p>integer</p></td>
+<td align="left"><p>default</p></td>
+<td align="left"><p>Number</p></td>
 </tr>
 <tr class="even">
-<td><p>number</p></td>
-<td><p>default</p></td>
-<td><p>Number</p></td>
+<td align="left"><p>number</p></td>
+<td align="left"><p>default</p></td>
+<td align="left"><p>Number</p></td>
 </tr>
 <tr class="odd">
-<td><p>object</p></td>
-<td><p>default</p></td>
-<td><p>Object</p></td>
+<td align="left"><p>object</p></td>
+<td align="left"><p>default</p></td>
+<td align="left"><p>Object</p></td>
 </tr>
 <tr class="even">
-<td><p>string</p></td>
-<td><p>default, uri, email, binary</p></td>
-<td><p>String</p></td>
+<td align="left"><p>string</p></td>
+<td align="left"><p>default, uri, email, binary</p></td>
+<td align="left"><p>String</p></td>
 </tr>
 <tr class="odd">
-<td><p>time</p></td>
-<td><p>default, any</p></td>
-<td><p>Date</p></td>
+<td align="left"><p>time</p></td>
+<td align="left"><p>default, any</p></td>
+<td align="left"><p>Date</p></td>
 </tr>
 <tr class="even">
-<td><p>year</p></td>
-<td><p>default</p></td>
-<td><p>Number</p></td>
+<td align="left"><p>year</p></td>
+<td align="left"><p>default</p></td>
+<td align="left"><p>Number</p></td>
 </tr>
 <tr class="odd">
-<td><p>yearmonth</p></td>
-<td><p>default</p></td>
-<td><p>[Number, Number]</p></td>
+<td align="left"><p>yearmonth</p></td>
+<td align="left"><p>default</p></td>
+<td align="left"><p>[Number, Number]</p></td>
 </tr>
 </tbody>
 </table>
