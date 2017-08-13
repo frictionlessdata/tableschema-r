@@ -1,7 +1,7 @@
 Package: tableschema.r
 Type: Package
 Title: 'R Table Schema'
-Version: 0.0.0.1000
+Version: 0.0.0.9000
 Date: 2017-07-01
 Author: c(
     person("Lazaros", "Ioannidis", email = "larjohn@gmail.com", role = "cre"),
@@ -12,16 +12,17 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
-    jsonvalidate,
-    jsonlite,
-    R6,
-    hash,
     config,
 	devtools,
+    hash,
+    jsonvalidate,
+    jsonlite,
+    lubridate,
+    purrr,
+    R6,
 	roxygen2,
 	stringi,
-	stringr,
-    purrr
+	stringr
 RoxygenNote: 6.0.1
 Suggests:
     testthat
@@ -43,7 +44,6 @@ Collate:
     'helpers.R'
     'is.valid.R'
     'methods.R'
-    'proxeiro.R'
     'schema.R'
     'table.R'
     'types.castArray.R'
