@@ -1,9 +1,9 @@
 #' @title cast yearmonth
+#' @description cast yearmonth
 #' @param format format
 #' @param value value
 #' @rdname types.castYearmonth
 #' @export
-#' @description cast yearmonth
 #' 
 
 types.castYearmonth <- function (format = "%y-%m", value) {
@@ -23,11 +23,11 @@ types.castYearmonth <- function (format = "%y-%m", value) {
       
       #if (!year || !month) stop()
       
-      if (month < 1 | month > 12) stop ("Specify a true value for month")
+      if (value$month < 1 | value$month > 12) stop ("Specify a true value for month")
       
     },
     
-    error=function(e) err<<-e
+    error=function(e)  e
     
     )
     

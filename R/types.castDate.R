@@ -1,9 +1,9 @@
 #' @title cast date
+#' @description cast date
 #' @param format format
 #' @param value value
 #' @rdname types.castDate
 #' @export
-#' @description cast date
 #' 
 types.castDate <- function (format = "%y-%m-%d", value) {
   
@@ -40,10 +40,10 @@ types.castDate <- function (format = "%y-%m-%d", value) {
       
      },
       
-      error = function(e)  err <<- e
+      error = function(e)  e
      ),
       
-      warning=function(w) warn <<- w
+      warning=function(w)  w
      )
       
   }

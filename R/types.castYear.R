@@ -1,23 +1,32 @@
 #' @title cast year
-#' 
+#' @description cast year
+#' @param value value
 #' @rdname types.castYear
 #' @export
-#' @description cast year
 #' 
 types.castYear <- function (value) { #format parameter is not used   
    
   if(!is_integer(value)){
+    
     if (!is.character(value)) stop("The input value should be integer or character", call. = FALSE)
+    
     if (nchar(value) != 4) stop("The year value should be specified by 4 digits.", call. = FALSE)
     
     tryCatch({
+      
       result = as.integer(value)
+      
       if (is.nan(result) | as.character(result) != value)  stop(3, call. = FALSE)
+      
       value = result
+      
     },
-    error = function(e)  err <<- e,
-    warning=function(w) warn <<- w
-      )
+    
+    error = function(e)  e,
+    
+    warning=function(w)  w
+    
+    )
     
   }
   
@@ -31,7 +40,9 @@ types.castYear <- function (value) { #format parameter is not used
 
 #' Is integer
 #' @description is integer
-#' @rdname types.castYear
+#' @param x value
+#' @param tol tolerance
+#' @rdname is_integer
 #' @export
 #' 
 is_integer=function(x, tol = .Machine$double.eps^0.5) {
@@ -54,6 +65,6 @@ is_integer=function(x, tol = .Machine$double.eps^0.5) {
   error=function(e) FALSE
   ),
   
-  warning=function(w) warn<<-w )
+  warning=function(w)  w )
 }
 

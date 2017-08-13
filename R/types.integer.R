@@ -1,7 +1,7 @@
 #' Integer class
 #'
 #' @docType class
-#' @importFrom R6 R6Class
+#' @import R6
 #' @export
 #' @keywords data
 #' @return Object of \code{\link{R6Class}} .

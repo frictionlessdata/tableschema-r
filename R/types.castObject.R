@@ -1,8 +1,8 @@
 #' @title cast object
+#' @description cast object
 #' @param value value
 #' @rdname types.castObject
 #' @export
-#' @description cast object
 #' 
 
 types.castObject <- function (value) { #format parameter is not used
@@ -15,7 +15,8 @@ types.castObject <- function (value) { #format parameter is not used
       
       value = jsonlite::fromJSON(value),
       
-      error =  function(e) err<<-e
+      error =  function(e) e
+      
       )
     
   }

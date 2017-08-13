@@ -1,13 +1,14 @@
 #' @title cast time
-#' 
+#' @description cast time
+#' @param format format
+#' @param value value
 #' @rdname types.castTime
 #' @export
-#' @description cast time
 #' 
 
 types.castTime <- function (format="%H:%M:%S", value) {
   
-  if (!lubridate::is.POSIXct(value)|!is.POSIXt(value)) {
+  if (!lubridate::is.POSIXct(value)|!lubridate::is.POSIXt(value)) {
     
     if (!is.character(value)) stop( 1 ,call. = FALSE)
     
@@ -46,7 +47,7 @@ types.castTime <- function (format="%H:%M:%S", value) {
       
     },
     
-    error= function(e) err<<-e
+    error= function(e) e
     )
   }
   

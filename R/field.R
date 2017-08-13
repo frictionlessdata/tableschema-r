@@ -111,7 +111,7 @@ format = function() {
     return(private$descriptor_$format)
 },
 constraints = function() {
-    if (is.hash(private$descriptor_) &&
+    if (hash::is.hash(private$descriptor_) &&
     hash::has.key("constraints", private$descriptor_)) {
         return(private$descriptor_$constraints)
     }

@@ -1,8 +1,8 @@
 #' @title cast array
+#' @description cast array
 #' @param value value
 #' @rdname types.castArray
 #' @export
-#' @description cast array
 #' 
 types.castArray <- function (value) { #format parameter is not used
   

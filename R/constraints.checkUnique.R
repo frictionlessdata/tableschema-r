@@ -1,6 +1,5 @@
 #' is unique
-#' @param constraint constraint
-#' @param value value
+#' @param x x
 #' @return TRUE if unique 
 #' @rdname constraints.checkUnique
 #' @export

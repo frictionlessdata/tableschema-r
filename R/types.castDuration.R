@@ -1,8 +1,8 @@
 #' @title cast duration
+#' @description cast duration
 #' @param value value
 #' @rdname types.castDuration
 #' @export
-#' @description cast duration
 #' 
 
 types.castDuration <- function (value) { #format parameter is not used   
