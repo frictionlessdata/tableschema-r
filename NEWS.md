@@ -1,8 +1,8 @@
 NEWS
 ================
 
-#### tableschema-r v0.0.0.1000
+#### tableschema-r v0.0.0.9000
 
-Complete types, formats and result value of the cast
+Complete types, formats and result value of cast
 
 ------------------------------------------------------------------------
