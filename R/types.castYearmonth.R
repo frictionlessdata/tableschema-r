@@ -1,0 +1,36 @@
+#' @title cast yearmonth
+#' 
+#' @rdname types.castYearmonth
+#' @export
+#' @description cast yearmonth
+#' 
+
+types.castYearmonth <- function (format="%y-%m", value) {
+  
+  
+  if (is.array(value) | is.list(value)) {
+    
+    if (length(value) != 2) stop("Length should be 2")
+    
+  } else if (is.character(value)) {
+    
+    tryCatch({
+      
+      value = lubridate::as_date(value,format="%Y-%m-%d")
+      
+      value = format(value, format = format)
+      
+      #if (!year || !month) stop()
+      
+      if (month < 1 | month > 12) stop("Specify a true value for month")
+      
+    },
+    
+    error=function(e) err<<-e
+    )
+    
+  } else stop("Could not cast yearmonth from the input")
+  
+  return (value)
+}
+
