@@ -7,7 +7,42 @@ Table Schema
 tableschema-r
 =============
 
-An R library for working with Data Package.
+An R library for working with Table Schema.
+
+Features
+========
+
+-   **Table** class for working with data and schema
+-   **Schema** class for working with schemas
+-   **Field** class for working with schema fields
+-   **validate** function for validating schema descriptors
+-   **infer** function that creates a schema based on a data sample
+
+Getting started
+===============
+
+Installation
+------------
+
+``` r
+install.packages("devtools")
+```
+
+``` r
+devtools::install_github("okgreece/tableschema-r")
+```
+
+Documentation
+=============
+
+Table
+-----
+
+Schema
+------
+
+Field
+-----
 
 Table below shows the available types, formats and resultant value of the cast:
 
@@ -102,3 +137,11 @@ Table below shows the available types, formats and resultant value of the cast:
 </tr>
 </tbody>
 </table>
+
+Changelog - News
+----------------
+
+Github
+======
+
+-   <https://github.com/okgreece/tableschema-r>

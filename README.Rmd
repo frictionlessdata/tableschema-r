@@ -7,6 +7,7 @@ output:
   number_sections: yes
 subtitle: "..."
 ---
+
 [![Build Status](https://travis-ci.org/okgreece/tableschema-r.svg?branch=master)](https://travis-ci.org/okgreece/tableschema-r)
 [![Coverage Status](https://coveralls.io/repos/github/okgreece/tableschema-r/badge.svg?branch=master)](https://coveralls.io/github/okgreece/tableschema-r?branch=master)
 [![Github Issues](http://githubbadges.herokuapp.com/okgreece/tableschema-r/issues.svg)](https://github.com/okgreece/tableschema-r/issues)
@@ -24,11 +25,39 @@ subtitle: "..."
 
 
 # tableschema-r
-An R library for working with Data Package.
+An R library for working with Table Schema.
+
+# Features
+
++ **Table** class for working with data and schema
++ **Schema** class for working with schemas
++ **Field** class for working with schema fields
++ **validate** function for validating schema descriptors
++ **infer** function that creates a schema based on a data sample
+
+# Getting started
+
+## Installation
+
+```{r, eval=FALSE, include=T}
+install.packages("devtools")
+```
+
+
+```{r, eval=FALSE, include=T}
+devtools::install_github("okgreece/tableschema-r")
+```
+
+# Documentation
+
+## Table
+
+## Schema
+
+## Field
 
 
 Table below shows the available types, formats and resultant value of the cast:
-
 
 +-----------+-----------------------------+------------------+
 | Type      | Formats                     | Casting result   |
@@ -64,3 +93,11 @@ Table below shows the available types, formats and resultant value of the cast:
 | yearmonth | default                     | [Number, Number] |
 +-----------+-----------------------------+------------------+
 
+
+## Changelog - News
+
+
+
+# Github
+
++ https://github.com/okgreece/tableschema-r
