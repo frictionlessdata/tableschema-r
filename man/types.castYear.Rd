@@ -2,15 +2,13 @@
 % Please edit documentation in R/types.castYear.R
 \name{types.castYear}
 \alias{types.castYear}
-\alias{is_integer}
 \title{cast year}
 \usage{
 types.castYear(value)
-
-is_integer(x, tol = .Machine$double.eps^0.5)
+}
+\arguments{
+\item{value}{value}
 }
 \description{
 cast year
-
-is integer
 }

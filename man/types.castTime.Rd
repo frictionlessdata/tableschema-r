@@ -6,6 +6,11 @@
 \usage{
 types.castTime(format = "\%H:\%M:\%S", value)
 }
+\arguments{
+\item{format}{format}
+
+\item{value}{value}
+}
 \description{
 cast time
 }

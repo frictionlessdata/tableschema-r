@@ -13,16 +13,16 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     config,
-	devtools,
+    devtools,
     hash,
     jsonvalidate,
     jsonlite,
     lubridate,
     purrr,
     R6,
-	roxygen2,
-	stringi,
-	stringr
+    roxygen2,
+    stringi,
+    stringr
 RoxygenNote: 6.0.1
 Suggests:
     testthat
@@ -51,6 +51,8 @@ Collate:
     'types.castDate.R'
     'types.castDatetime.R'
     'types.castDuration.R'
+    'types.castGeojson.R'
+    'types.castGeopoint.R'
     'types.castNumber.R'
     'types.castObject.R'
     'types.castTime.R'

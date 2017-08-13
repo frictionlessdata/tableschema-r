@@ -7,9 +7,7 @@
 constraints.checkUnique(x)
 }
 \arguments{
-\item{constraint}{constraint}
-
-\item{value}{value}
+\item{x}{x}
 }
 \value{
 TRUE if unique
