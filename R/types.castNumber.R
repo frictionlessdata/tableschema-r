@@ -88,17 +88,17 @@ DEFAULT_GROUP_CHAR = ''
 
 #' default percent char
 #' @export
-PERCENT_CHAR = c("\u066A", # ٪ arabic percent sign	
-                 "\uFE6A", # ﹪ small percent sign
-                 "\uFF05", # ％ fullwidth percent sign
-                 "\u2031", # ‱ per thousand sign
-                 "\u2030", # ‰ per mille sign              
-                 "\u0025" # % percent sign
+PERCENT_CHAR = c("\u066A", # arabic percent sign	
+                 "\uFE6A", # small percent sign
+                 "\uFF05", # fullwidth percent sign
+                 "\u2031", # per thousand sign
+                 "\u2030", # per mille sign              
+                 "\u0025"  # percent sign
                  )
 
 #' default currecy char
 #' @export
-CURRENCY_CHAR = c("\u20AC", # € euro sign
-                  "\u00A3", # £ pound sign
-                  "\u0024"  # $ dollar sign
+CURRENCY_CHAR = c("\u20AC", # euro sign
+                  "\u00A3", # pound sign
+                  "\u0024"  # dollar sign
                   )
