@@ -9,4 +9,96 @@ tableschema-r
 
 An R library for working with Data Package.
 
-Table below shows the available types, formats and resultant value of the cast: +--------------------+--------------------------------------------------------------------------------------------+------------------+ | Type | Formats | Casting result | +====================+============================================================================================+==================+ | json\_data | The json string, URL or file from Open Spending API | Any | +--------------------+--------------------------------------------------------------------------------------------+------------------+ | dimensions | The dimensions of the input data | Array | +--------------------+--------------------------------------------------------------------------------------------+------------------+ | amounts | The measures of the input data | Boolean | +--------------------+--------------------------------------------------------------------------------------------+------------------+ | measured.dimensions| The dimensions to which correspond amount/numeric variables | Date | +--------------------+--------------------------------------------------------------------------------------------+------------------+ | coef.outl | Determines the length of the "whiskers" plot. Default is 1.5. | Date | +--------------------+--------------------------------------------------------------------------------------------+------------------+ | box.outliers | If TRUE the outliers will be computed at the selected "coef.outl" level | Duration | +--------------------+--------------------------------------------------------------------------------------------+------------------+ | box.width | The width level is determined 0.15 times the square root of the size of the input data. | Object | +--------------------+--------------------------------------------------------------------------------------------+------------------+ | cor.method | The correlation coefficient method to compute: "pearson" (default),"kendall" or "spearman".| \[Number, Number\] | +--------------------+--------------------------------------------------------------------------------------------+------------------+ | freq.select | One or more nominal variables to calculate their corresponding frequencies. | Number | +--------------------+--------------------------------------------------------------------------------------------+------------------+ | freq.select | One or more nominal variables to calculate their corresponding frequencies. | Number | +--------------------+--------------------------------------------------------------------------------------------+------------------+ | freq.select | One or more nominal variables to calculate their corresponding frequencies. | Object | +--------------------+--------------------------------------------------------------------------------------------+------------------+ | freq.select | One or more nominal variables to calculate their corresponding frequencies. | String | +--------------------+--------------------------------------------------------------------------------------------+------------------+ | freq.select | One or more nominal variables to calculate their corresponding frequencies. | Date | +--------------------+--------------------------------------------------------------------------------------------+------------------+ | freq.select | One or more nominal variables to calculate their corresponding frequencies. | Number | +--------------------+--------------------------------------------------------------------------------------------+------------------+ | freq.select | One or more nominal variables to calculate their corresponding frequencies. | \[Number, Number\] | +--------------------+--------------------------------------------------------------------------------------------+------------------+
+Table below shows the available types, formats and resultant value of the cast:
+
+<table style="width:85%;">
+<colgroup>
+<col width="16%" />
+<col width="41%" />
+<col width="26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Formats</th>
+<th>Casting result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>any</p></td>
+<td><p>default</p></td>
+<td><p>Any</p></td>
+</tr>
+<tr class="even">
+<td><p>array</p></td>
+<td><p>default</p></td>
+<td><p>Array</p></td>
+</tr>
+<tr class="odd">
+<td><p>boolean</p></td>
+<td><p>default</p></td>
+<td><p>Boolean</p></td>
+</tr>
+<tr class="even">
+<td><p>date</p></td>
+<td><p>default, any</p></td>
+<td><p>Date</p></td>
+</tr>
+<tr class="odd">
+<td><p>datetime</p></td>
+<td><p>default, any</p></td>
+<td><p>Date</p></td>
+</tr>
+<tr class="even">
+<td><p>duration</p></td>
+<td><p>default</p></td>
+<td><p>Duration</p></td>
+</tr>
+<tr class="odd">
+<td><p>geojson</p></td>
+<td><p>default, topojson</p></td>
+<td><p>Object</p></td>
+</tr>
+<tr class="even">
+<td><p>geopoint</p></td>
+<td><p>default, array, object</p></td>
+<td><p>[Number, Number]</p></td>
+</tr>
+<tr class="odd">
+<td><p>integer</p></td>
+<td><p>default</p></td>
+<td><p>Number</p></td>
+</tr>
+<tr class="even">
+<td><p>number</p></td>
+<td><p>default</p></td>
+<td><p>Number</p></td>
+</tr>
+<tr class="odd">
+<td><p>object</p></td>
+<td><p>default</p></td>
+<td><p>Object</p></td>
+</tr>
+<tr class="even">
+<td><p>string</p></td>
+<td><p>default, uri, email, binary</p></td>
+<td><p>String</p></td>
+</tr>
+<tr class="odd">
+<td><p>time</p></td>
+<td><p>default, any</p></td>
+<td><p>Date</p></td>
+</tr>
+<tr class="even">
+<td><p>year</p></td>
+<td><p>default</p></td>
+<td><p>Number</p></td>
+</tr>
+<tr class="odd">
+<td><p>yearmonth</p></td>
+<td><p>default</p></td>
+<td><p>[Number, Number]</p></td>
+</tr>
+</tbody>
+</table>

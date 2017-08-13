@@ -1,9 +1,9 @@
 ---
 title: Table Schema
 date: "..."
-output:
+output: 
   github_document:
-    html_preview: false
+    html_preview: no
   number_sections: yes
 subtitle: "..."
 ---
@@ -28,37 +28,39 @@ An R library for working with Data Package.
 
 
 Table below shows the available types, formats and resultant value of the cast:
-+--------------------+--------------------------------------------------------------------------------------------+------------------+
-| Type               | Formats                                                                                    | Casting result   |
-+====================+============================================================================================+==================+
-| json_data          | The json string, URL or file from Open Spending API                                        | Any              |
-+--------------------+--------------------------------------------------------------------------------------------+------------------+
-| dimensions         | The dimensions of the input data                                                           | Array            |
-+--------------------+--------------------------------------------------------------------------------------------+------------------+
-| amounts            | The measures of the input data                                                             | Boolean          |
-+--------------------+--------------------------------------------------------------------------------------------+------------------+
-| measured.dimensions| The dimensions to which correspond amount/numeric variables                                | Date             |
-+--------------------+--------------------------------------------------------------------------------------------+------------------+
-| coef.outl          | Determines the length of the "whiskers" plot. Default is 1.5.                              | Date             |
-+--------------------+--------------------------------------------------------------------------------------------+------------------+
-| box.outliers       | If TRUE the outliers will be computed at the selected "coef.outl" level                    | Duration         |
-+--------------------+--------------------------------------------------------------------------------------------+------------------+
-| box.width          | The width level is determined 0.15 times the square root of the size of the input data.    | Object           |
-+--------------------+--------------------------------------------------------------------------------------------+------------------+
-| cor.method         | The correlation coefficient method to compute: "pearson" (default),"kendall" or "spearman".| [Number, Number] |
-+--------------------+--------------------------------------------------------------------------------------------+------------------+
-| freq.select        | One or more nominal variables to calculate their corresponding frequencies.                | Number           |
-+--------------------+--------------------------------------------------------------------------------------------+------------------+
-| freq.select        | One or more nominal variables to calculate their corresponding frequencies.                | Number           |
-+--------------------+--------------------------------------------------------------------------------------------+------------------+
-| freq.select        | One or more nominal variables to calculate their corresponding frequencies.                | Object           |
-+--------------------+--------------------------------------------------------------------------------------------+------------------+
-| freq.select        | One or more nominal variables to calculate their corresponding frequencies.                | String           |
-+--------------------+--------------------------------------------------------------------------------------------+------------------+
-| freq.select        | One or more nominal variables to calculate their corresponding frequencies.                | Date             |
-+--------------------+--------------------------------------------------------------------------------------------+------------------+
-| freq.select        | One or more nominal variables to calculate their corresponding frequencies.                | Number           |
-+--------------------+--------------------------------------------------------------------------------------------+------------------+
-| freq.select        | One or more nominal variables to calculate their corresponding frequencies.                | [Number, Number] |
-+--------------------+--------------------------------------------------------------------------------------------+------------------+
+
+
++-----------+-----------------------------+------------------+
+| Type      | Formats                     | Casting result   |
++===========+=============================+==================+
+| any       | default                     | Any              |
++-----------+-----------------------------+------------------+
+| array     | default                     | Array            |
++-----------+-----------------------------+------------------+
+| boolean   | default                     | Boolean          |
++-----------+-----------------------------+------------------+
+| date      | default, any                | Date             |
++-----------+-----------------------------+------------------+
+| datetime  | default, any                | Date             |
++-----------+-----------------------------+------------------+
+| duration  | default                     | Duration         |
++-----------+-----------------------------+------------------+
+| geojson   | default, topojson           | Object           |
++-----------+-----------------------------+------------------+
+| geopoint  | default, array, object      | [Number, Number] |
++-----------+-----------------------------+------------------+
+| integer   | default                     | Number           |
++-----------+-----------------------------+------------------+
+| number    | default                     | Number           |
++-----------+-----------------------------+------------------+
+| object    | default                     | Object           |
++-----------+-----------------------------+------------------+
+| string    | default, uri, email, binary | String           |
++-----------+-----------------------------+------------------+
+| time      | default, any                | Date             |
++-----------+-----------------------------+------------------+
+| year      | default                     | Number           |
++-----------+-----------------------------+------------------+
+| yearmonth | default                     | [Number, Number] |
++-----------+-----------------------------+------------------+
 
