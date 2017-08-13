@@ -1,5 +1,5 @@
 #' @title cast boolean
-#' 
+#' @param value value
 #' @rdname types.castBoolean
 #' @export
 #' @description cast boolean

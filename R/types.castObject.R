@@ -1,11 +1,11 @@
 #' @title cast object
-#' 
+#' @param value value
 #' @rdname types.castObject
 #' @export
 #' @description cast object
 #' 
 
-types.castObject <- function (format, value) {
+types.castObject <- function (value) { #format parameter is not used
   
   if (!is.object(value)) {
     

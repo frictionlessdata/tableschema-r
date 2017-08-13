@@ -1,5 +1,7 @@
 #' @title cast number
-#' 
+#' @param value value
+#' @param format format
+#' @param options options
 #' @rdname types.castNumber
 #' @export
 #' @description cast number

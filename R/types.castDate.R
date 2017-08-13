@@ -1,5 +1,6 @@
 #' @title cast date
-#' 
+#' @param format format
+#' @param value value
 #' @rdname types.castDate
 #' @export
 #' @description cast date

@@ -1,5 +1,5 @@
 #' @title cast duration
-#' 
+#' @param value value
 #' @rdname types.castDuration
 #' @export
 #' @description cast duration

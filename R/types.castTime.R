@@ -7,7 +7,7 @@
 
 types.castTime <- function (format="%H:%M:%S", value) {
   
-  if (!is.POSIXct(value)|!is.POSIXt(value)) {
+  if (!lubridate::is.POSIXct(value)|!is.POSIXt(value)) {
     
     if (!is.character(value)) stop( 1 ,call. = FALSE)
     
@@ -40,7 +40,7 @@ types.castTime <- function (format="%H:%M:%S", value) {
         #value = strftime(value, format = format)
       }
       
-      if ( !is.POSIXlt(strptime(value, format = format)) ) stop("Value is not a valid time object",call. = FALSE)
+      if ( !lubridate::is.POSIXlt(strptime(value, format = format)) ) stop("Value is not a valid time object",call. = FALSE)
       
       value = strftime(as.POSIXlt(value, format = format), format = format) 
       
