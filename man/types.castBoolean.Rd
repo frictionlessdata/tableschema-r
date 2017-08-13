@@ -6,6 +6,9 @@
 \usage{
 types.castBoolean(value)
 }
+\arguments{
+\item{value}{value}
+}
 \description{
 cast boolean
 }

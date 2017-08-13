@@ -6,6 +6,11 @@
 \usage{
 constraints.checkPattern(constraint, value)
 }
+\arguments{
+\item{constraint}{constraint}
+
+\item{value}{value}
+}
 \value{
 TRUE if the constraint of character pattern is met
 }

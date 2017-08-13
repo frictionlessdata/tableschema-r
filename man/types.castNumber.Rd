@@ -6,6 +6,13 @@
 \usage{
 types.castNumber(format, value, options = { })
 }
+\arguments{
+\item{format}{format}
+
+\item{value}{value}
+
+\item{options}{options}
+}
 \description{
 cast number
 }

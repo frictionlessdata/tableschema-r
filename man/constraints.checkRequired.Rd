@@ -6,6 +6,11 @@
 \usage{
 constraints.checkRequired(constraint, value)
 }
+\arguments{
+\item{constraint}{constraint}
+
+\item{value}{value}
+}
 \value{
 TRUE if the constraint of minimum character length is met
 }

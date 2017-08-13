@@ -6,6 +6,11 @@
 \usage{
 constraints.checkMaxLength(constraint, value)
 }
+\arguments{
+\item{constraint}{constraint}
+
+\item{value}{value}
+}
 \value{
 TRUE if the constraint of maximum character length is met
 }

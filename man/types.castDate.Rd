@@ -6,6 +6,11 @@
 \usage{
 types.castDate(format = "\%y-\%m-\%d", value)
 }
+\arguments{
+\item{format}{format}
+
+\item{value}{value}
+}
 \description{
 cast date
 }

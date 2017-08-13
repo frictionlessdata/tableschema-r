@@ -4,7 +4,10 @@
 \alias{types.castObject}
 \title{cast object}
 \usage{
-types.castObject(format, value)
+types.castObject(value)
+}
+\arguments{
+\item{value}{value}
 }
 \description{
 cast object

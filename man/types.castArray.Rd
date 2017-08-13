@@ -6,6 +6,9 @@
 \usage{
 types.castArray(value)
 }
+\arguments{
+\item{value}{value}
+}
 \description{
 cast array
 }

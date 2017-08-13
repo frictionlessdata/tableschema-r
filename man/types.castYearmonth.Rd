@@ -6,6 +6,11 @@
 \usage{
 types.castYearmonth(format = "\%y-\%m", value)
 }
+\arguments{
+\item{format}{format}
+
+\item{value}{value}
+}
 \description{
 cast yearmonth
 }

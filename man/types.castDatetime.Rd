@@ -6,6 +6,11 @@
 \usage{
 types.castDatetime(format = "\%Y-\%m-\%dT\%H:\%M:\%SZ", value)
 }
+\arguments{
+\item{format}{format}
+
+\item{value}{value}
+}
 \description{
 cast date time
 }

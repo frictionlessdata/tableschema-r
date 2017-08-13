@@ -6,6 +6,11 @@
 \usage{
 constraints.checkUnique(x)
 }
+\arguments{
+\item{constraint}{constraint}
+
+\item{value}{value}
+}
 \value{
 TRUE if unique
 }

@@ -6,6 +6,9 @@
 \usage{
 types.castDuration(value)
 }
+\arguments{
+\item{value}{value}
+}
 \description{
 cast duration
 }
