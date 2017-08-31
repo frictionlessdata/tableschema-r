@@ -73,3 +73,9 @@ has_name_field_descriptor=function(descriptor){
   "name" %in% rlang::names2(descriptor) | all(!is.na(as.data.frame(descriptor$resources$schema$fields)[,"name"]))
 }
 
+#' check binary inputs
+#' @rdname is.binary
+#' @return TRUE if binary
+#' @export
+
+is.binary = function (x) length(unique(na.omit(x)))<=2
