@@ -80,9 +80,9 @@ has_name_field_descriptor=function(descriptor){
 
 is.binary = function (x) length(unique(na.omit(x)))<=2
 
-#' check binary inputs
+#' check uuid inputs
 #' @rdname is.uuid
-#' @return TRUE if binary
+#' @return TRUE if uuid
 #' @export
 
 is.uuid = function (x) {
