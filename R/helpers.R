@@ -79,3 +79,16 @@ has_name_field_descriptor=function(descriptor){
 #' @export
 
 is.binary = function (x) length(unique(na.omit(x)))<=2
+
+#' check binary inputs
+#' @rdname is.uuid
+#' @return TRUE if binary
+#' @export
+
+is.uuid = function (x) {
+  
+  if(!is.character(x)) stop("This is not a uuid object",call. = FALSE)
+  
+  nchar(x) == 36 & grepl("\\-",x)
+}
+
