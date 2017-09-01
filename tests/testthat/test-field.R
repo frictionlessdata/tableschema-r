@@ -37,6 +37,12 @@ test_that("should cast value", {
 
 })
 
+test_that("should cast percentage", {
+  field <- Field$new(DESCRIPTOR_MIN)
+  expect_equal(field$cast_value(value="1,1",options = list(decimalChar=",")), 1.1)
+  
+})
+
 test_that("should fail to cast value", {
     field <- Field$new(DESCRIPTOR_MIN)
     expect_error(field$cast_value('string'))

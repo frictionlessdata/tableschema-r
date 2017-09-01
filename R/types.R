@@ -7,14 +7,14 @@
 #' @return Object of \code{\link{R6Class}} .
 #' @format \code{\link{R6Class}} object.
 
-#' @include types.number.R
+#' @include types.castNumber.R
 #' @include types.string.R
 #' @include types.integer.R
 
 
 Types <- R6Class("Types", public = list(casts = list(
 
-castNumber = Number$new()$castNumber,
+castNumber =  types.castNumber,
 castString = String$new()$castString,
 castInteger = Integer$new()$castInteger
 
