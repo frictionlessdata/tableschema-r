@@ -50,13 +50,18 @@ types.castNumber <- function (format, value, options={}) {
       
     }
     
-    #tryCatch(
+    value = tryCatch({
+      as.numeric(value)
+    },
+    warning = function(w) {
+      return(config::get("ERROR"))
       
-      value = as.numeric(value)#, 
-      
-    #  error=function(e) error<<-e
-      
-  #  )
+    },
+    error = function(e) {
+      return(config::get("ERROR"))
+    },
+    finally = {
+    })
     
   }
   
