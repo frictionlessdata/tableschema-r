@@ -37,11 +37,7 @@ test_that("should cast value", {
 
 })
 
-test_that("extra test with decimalChar in options", {
-  field <- Field$new(DESCRIPTOR_MIN)
-  expect_equal(field$cast_value(value="1,1",options = list(decimalChar=",")), 1.1)
-  
-})
+
 
 test_that("should fail to cast value", {
     field <- Field$new(DESCRIPTOR_MIN)
