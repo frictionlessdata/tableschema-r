@@ -6,12 +6,33 @@
 #' 
 types.castArray <- function (value) { #format parameter is not used
   
- if( !is.array(value) | !is.list(value) | !is.character(value) ) stop("value is not a valid array or list object")
+ if( !is.array(value) )
+   if(!is.character(value) ) return(config::get("ERROR"))
   
-  tryCatch({
-   #value=jsonlite::fromJSON(value)
-   if (!is.array(value) | !is.list(value) ) stop()
+  value = tryCatch({   
+    
+    value = jsonlite::fromJSON(value)
+    
   },
-  error= function(e) message("value is not a valid array or list object")  )
+  
+  warning = function(w) {
+    
+    return(config::get("ERROR"))
+    
+  },
+  
+  error = function(e) {
+    
+    return(config::get("ERROR"))
+    
+  },
+  
+  finally = {
+    
+  })
+  
+  if (!is.array(value) ) return(config::get("ERROR"))
+  
+  return (value)
   
 }
