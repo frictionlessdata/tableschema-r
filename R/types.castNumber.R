@@ -2,7 +2,7 @@
 #' @description cast number
 #' @param value value
 #' @param format format
-#' @param options options
+#' @param options options decimalChar,groupChar, bareNumber
 #' @rdname types.castNumber
 #' @export
 #' 
@@ -38,29 +38,37 @@ types.castNumber <- function (format, value, options={}) {
       
     }
     
-    if (!missing(options)){
+    if ("bareNumber" %in% names(options)) {
       
-      if ("bareNumber" %in% names(options)) {
-        
-        bareNumber = options[["bareNumber"]]
-        
-        value = gsub(gregexpr("((^\\D*)|(\\D*$))"), "", value)
-        
+      bareNumber = options[["bareNumber"]]
+      
+      if(bareNumber==FALSE){
+      
+      value = gsub(gregexpr("((^\\D*)|(\\D*$))", value), "", value)
+      
       }
-      
     }
     
     value = tryCatch({
+      
       as.numeric(value)
+      
     },
+    
     warning = function(w) {
+      
       return(config::get("ERROR"))
       
     },
+    
     error = function(e) {
+      
       return(config::get("ERROR"))
+      
     },
+    
     finally = {
+      
     })
     
   }

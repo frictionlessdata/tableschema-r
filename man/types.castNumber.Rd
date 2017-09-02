@@ -11,7 +11,7 @@ types.castNumber(format, value, options = { })
 
 \item{value}{value}
 
-\item{options}{options}
+\item{options}{options decimalChar,groupChar, bareNumber}
 }
 \description{
 cast number
