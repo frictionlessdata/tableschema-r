@@ -54,6 +54,7 @@ Collate:
     'types.castDuration.R'
     'types.castGeojson.R'
     'types.castGeopoint.R'
+    'types.castList.R'
     'types.castObject.R'
     'types.castTime.R'
     'types.castYear.R'
