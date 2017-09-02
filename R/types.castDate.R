@@ -1,11 +1,11 @@
 #' @title cast date
 #' @description cast date
-#' @param format format
+#' @param format specify format, default is "\%Y-\%m-\%d"
 #' @param value value
 #' @rdname types.castDate
 #' @export
 #' 
-types.castDate <- function (format = DEFAULT_PATTERN, value) {
+types.castDate <- function (format = "%Y-%m-%d", value) {
   
   if ( !lubridate::is.Date(value) ) {
     
@@ -13,9 +13,9 @@ types.castDate <- function (format = DEFAULT_PATTERN, value) {
     
     tryCatch({
       
-      if ( is.null(format) | format == "default" | format == DEFAULT_PATTERN ){
+      if ( is.null(format) | format == "default" | format == "%Y-%m-%d" ){
         
-        value = as.Date(lubridate::parse_date_time(x = value, orders = DEFAULT_PATTERN), format = DEFAULT_PATTERN)
+        value = as.Date(lubridate::parse_date_time(x = value, orders = "%Y-%m-%d"), format = "%Y-%m-%d")
         
         #if (is.na(value) | is.null(value)) return(config::get("ERROR"))
         
@@ -67,7 +67,3 @@ types.castDate <- function (format = DEFAULT_PATTERN, value) {
   
     return (value)
 }
-
-#' default date pattern
-#' @export
-DEFAULT_PATTERN = "%Y-%m-%d"

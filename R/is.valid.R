@@ -29,18 +29,18 @@ is.valid = function(descriptor,schema)  {
   
 }
 
-#' @title print validator
-#' @param x x
-#' @param ... other parameters
-#' @rdname .print.validator
-#' @export
-#' 
-.print.validator = function (x, ...){
-  inherits(x,"logical")
-  cat("This is a valid input descriptor:\n")
-  x
-}
-
+# #' @title print validator
+# #' @param x x
+# #' @param ... other parameters
+# #' @rdname .print.validator
+# #' @export
+# #' 
+# .print.validator = function (x, ...){
+#   inherits(x,"logical")
+#   cat("This is a valid input descriptor:\n")
+#   x
+# }
+# 
 # 
 # 
 # 

@@ -1,53 +1,70 @@
 #' @title cast date time
 #' @description cast date time
-#' @param format format
+#' @param format specify format, default is "\%Y-\%m-\%dT\%H:\%M:\%SZ"
 #' @param value value
 #' @rdname types.castDatetime
 #' @export
 #' 
 
-types.castDatetime <- function (format="%Y-%m-%dT%H:%M:%SZ", value) {
+types.castDatetime <- function (format = "%Y-%m-%dT%H:%M:%SZ", value) {
   
   if ( !lubridate::is.Date(value) ) {
     
-    if( !is.character(value) ) stop("Value should be character or date class",call. = FALSE)  
+    if( !is.character(value) ) return(config::get("ERROR"))
     
-    
-    withCallingHandlers(
+    tryCatch({
       
-      tryCatch({
+      if ( is.null(format) | format == "default" | format == "%Y-%m-%dT%H:%M:%SZ" ){
         
+        value = as.Date(lubridate::parse_date_time(x = value, orders = "%Y-%m-%dT%H:%M:%SZ"), format = "%Y-%m-%dT%H:%M:%SZ")
         
-        if (format == "%Y-%m-%dT%H:%M:%SZ"){
+        #if (is.na(value) | is.null(value)) return(config::get("ERROR"))
+        
+      } else if ( format != "default" & !startsWith(format,"fmt:") ) { #format == "any"
+        
+        value = as.Date( x = value, format )
+        
+        #if (is.na(value) | is.null(value)) return(config::get("ERROR")) 
+        
+      } else {
+        
+        if ( startsWith(format,"fmt:") ) {
           
-          value = lubridate::as_datetime(lubridate::parse_date_time(value, format))
+          message(config::get("WARNING"))
           
-        } else if (startsWith(format,"fmt:") ){
+          #warn=message("Format ",format," is deprecated.\nPlease use ",unlist(strsplit(format,":"))[2]," without 'fmt:' prefix.", call. = FALSE) 
           
-          warning("Format ",format," is deprecated.\nPlease use ",unlist(strsplit(format,":"))[2]," without 'fmt:' prefix.", call. = FALSE) 
-          
-          format = trimws(gsub("fmt:","",format),which="both")
-          
-          value = lubridate::as_datetime(lubridate::parse_date_time(value, format))
-          
-        } else if ( format != "%Y-%m-%dT%H:%M:%SZ" & !startsWith(format,"fmt:") ) {
-          
-          value = lubridate::as_datetime(value, format) 
-          
+          format = trimws( gsub("fmt:", "", format), which = "both")
         }
         
-        if ( !lubridate::is.Date(lubridate::as_datetime(value, format = format)) ) stop("Value is not a valid date",call. = FALSE)
+        value = as.Date(x = value, format )
         
-        value = lubridate::as_datetime(value, format) 
+      }
+      
+      if (!lubridate::is.instant(as.Date(x = value, format = format)) | is.na(as.Date(x = value, format = format))) {
         
-      },
+        return(config::get("ERROR"))
+        
+      } else value = as.Date(x = value, format = format) 
       
-      error = function(e)   e
-      ),
-      
-      warning=function(w)  w
-    )
+    },
     
+    warning = function(w) {
+      
+      message(config::get("WARNING"))
+      
+    },
+    
+    error = function(e) {
+      
+      return(config::get("ERROR"))
+      
+    },
+    
+    finally = { 
+      
+    })
   }
-  return(value)
+  
+  return (value)
 }

@@ -7,7 +7,7 @@
 types.castDatetime(format = "\%Y-\%m-\%dT\%H:\%M:\%SZ", value)
 }
 \arguments{
-\item{format}{format}
+\item{format}{specify format, default is "\%Y-\%m-\%dT\%H:\%M:\%SZ"}
 
 \item{value}{value}
 }
