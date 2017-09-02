@@ -5,48 +5,69 @@
 #' @rdname types.castDate
 #' @export
 #' 
-types.castDate <- function (format = "%y-%m-%d", value) {
+types.castDate <- function (format = DEFAULT_PATTERN, value) {
   
   if ( !lubridate::is.Date(value) ) {
     
-    if( !is.character(value) ) stop("Value should be character or date class",call. = FALSE)
+    if( !is.character(value) ) return(config::get("ERROR"))
     
-    withCallingHandlers(
+    tryCatch({
       
-      tryCatch({
+      if ( is.null(format) | format == "default" | format == DEFAULT_PATTERN ){
         
+        value = as.Date(lubridate::parse_date_time(x = value, orders = DEFAULT_PATTERN), format = DEFAULT_PATTERN)
         
-        if (format == "%y-%m-%d"){
+        #if (is.na(value) | is.null(value)) return(config::get("ERROR"))
+        
+      } else if ( format != "default" & !startsWith(format,"fmt:") ) { #format == "any"
+        
+        value = as.Date( x = value, format )
+        
+        #if (is.na(value) | is.null(value)) return(config::get("ERROR")) 
+        
+      } else {
+        
+        if ( startsWith(format,"fmt:") ) {
           
-          value = lubridate::as_date(lubridate::parse_date_time(value, format))
+          message(config::get("WARNING"))
           
-        } else if (startsWith(format,"fmt:") ){
+          #warn=message("Format ",format," is deprecated.\nPlease use ",unlist(strsplit(format,":"))[2]," without 'fmt:' prefix.", call. = FALSE) 
           
-          warning("Format ",format," is deprecated.\nPlease use ",unlist(strsplit(format,":"))[2]," without 'fmt:' prefix.", call. = FALSE) 
-          
-          format = trimws(gsub("fmt:","",format),which="both")
-          
-          value = lubridate::as_date(lubridate::parse_date_time(value, format))
-          
-        } else if ( format != "%y-%m-%d" & !startsWith(format,"fmt:") ) {
-          
-          value = lubridate::as_date(value, format) 
-          
+          format = trimws( gsub("fmt:", "", format), which = "both")
         }
         
-      if ( !lubridate::is.Date(lubridate::as_date(value, format = format)) ) stop("Value is not a valid date",call. = FALSE)
+        value = as.Date(x = value, format )
+        
+      }
+      
+      if (!lubridate::is.instant(as.Date(x = value, format = format)) | is.na(as.Date(x = value, format = format))) {
+        
+        return(config::get("ERROR"))
+        
+      } else value = as.Date(x = value, format = format) 
+      
+    },
     
-      value = lubridate::as_date(value, format) 
+    warning = function(w) {
       
-     },
+      message(config::get("WARNING"))
       
-      error = function(e)  e
-     ),
+    },
+    
+    error = function(e) {
       
-      warning=function(w)  w
-     )
+      return(config::get("ERROR"))
       
+    },
+    
+    finally = { 
+      
+    })
   }
-  return(value)
+  
+    return (value)
 }
 
+#' default date pattern
+#' @export
+DEFAULT_PATTERN = "%Y-%m-%d"

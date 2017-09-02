@@ -22,7 +22,7 @@ is.valid = function(descriptor,schema)  {
     valid=v(descriptor,verbose = T, greedy=TRUE,error=F)
     class(valid)="logical"
     
-    #.print.validator(valid)
+    #print.validator(valid)
     valid
   } else message("This is not a valid JSON file.")
   
@@ -30,11 +30,12 @@ is.valid = function(descriptor,schema)  {
 }
 
 #' @title print validator
-#' @rdname .print.validator
 #' @param x x
+#' @param ... other parameters
+#' @rdname print.validator
 #' @export
 #' 
-.print.validator = function (x, ...){
+print.validator = function (x, ...){
   inherits(x,"logical")
   cat("This is a valid input descriptor:\n")
   x
