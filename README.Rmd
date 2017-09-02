@@ -1,5 +1,5 @@
 ---
-title: tableschema
+title: Table Schema
 output: 
   github_document:
     html_preview: no
@@ -37,11 +37,13 @@ R library for working with [Table Schema][tableschema].
 ## Installation
 
 ```{r, eval=FALSE, include=T}
+# Install devtools package if not already
 install.packages("devtools")
 ```
 
 
 ```{r, eval=FALSE, include=T}
+# And then install the development version from github
 devtools::install_github("okgreece/tableschema-r")
 ```
 
