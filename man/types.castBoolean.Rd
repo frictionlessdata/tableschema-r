@@ -4,10 +4,12 @@
 \alias{types.castBoolean}
 \title{cast boolean}
 \usage{
-types.castBoolean(value)
+types.castBoolean(value, options = { })
 }
 \arguments{
 \item{value}{value}
+
+\item{options}{options specify trueValues or/and falseValues}
 }
 \description{
 cast boolean

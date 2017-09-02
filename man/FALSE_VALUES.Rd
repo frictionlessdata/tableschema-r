@@ -3,12 +3,12 @@
 \docType{data}
 \name{FALSE_VALUES}
 \alias{FALSE_VALUES}
-\title{false values}
-\format{An object of class \code{character} of length 5.}
+\title{default false values}
+\format{An object of class \code{character} of length 4.}
 \usage{
 FALSE_VALUES
 }
 \description{
-false values
+default false values
 }
 \keyword{datasets}

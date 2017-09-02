@@ -3,12 +3,12 @@
 \docType{data}
 \name{TRUE_VALUES}
 \alias{TRUE_VALUES}
-\title{true values}
-\format{An object of class \code{character} of length 5.}
+\title{default true values}
+\format{An object of class \code{character} of length 4.}
 \usage{
 TRUE_VALUES
 }
 \description{
-true values
+default true values
 }
 \keyword{datasets}
