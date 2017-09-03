@@ -87,7 +87,7 @@ is.uri<- function(uri){
   
   if (!isTRUE(pattern)) {
     
-    pattern = http_status(GET(uri))
+    pattern = httr::http_status(httr::GET(uri))
     
   }
   
@@ -128,3 +128,47 @@ is.uuid = function (x) {
   nchar(x) == 36 & grepl("\\-",x)
 }
 
+#' Is integer
+#' @description is integer
+#' @param x value
+#' @param tol tolerance
+#' @rdname is_integer
+#' @export
+#' 
+
+is_integer=function(x, tol = .Machine$double.eps^0.5) {
+  
+  tryCatch({
+    
+    if(is.character(x)) {
+      
+      message(config::get("WARNING"))
+      
+      #war=warning("Tried to convert character to integer",call. = FALSE)
+      
+      if(!grepl("\\.",x) ){
+        
+        as.integer(x)%%1==0
+        
+      } else FALSE
+      
+    } else x%%1==0
+    
+  }, 
+  warning = function(w) {
+    
+    message(config::get("WARNING"))
+    
+  },
+  
+  error = function(e) {
+    
+    return(config::get("ERROR"))
+    
+  },
+  
+  finally = {
+    
+  })
+  
+}
