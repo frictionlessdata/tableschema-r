@@ -57,13 +57,25 @@ types.castGeopoint <- function (format, value) {
     
   },
   
-  error= function(e) e
+  warning = function(w) {
+    
+    message(config::get("WARNING"))
+    
+  },
   
-  )
+  error = function(e) {
+    
+    return(config::get("ERROR"))
+    
+  },
   
-  if (is.nan(lon_lat$lon) | lon_lat$lon > 180 | lon_lat$lon < -180) stop("Lon is not a valid geo point",call. = FALSE)
+  finally = {
+    
+  })
   
-  if (is.nan(lon_lat$lat) | lon_lat$lat > 90 | lon_lat$lat < -90) stop("Lon is not a valid geo point", call. = FALSE)
+  if (is.nan(lon_lat$lon) | lon_lat$lon > 180 | lon_lat$lon < -180) return(config::get("ERROR"))
+  
+  if (is.nan(lon_lat$lat) | lon_lat$lat > 90 | lon_lat$lat < -90) return(config::get("ERROR"))
   
   return (lon_lat)
   
