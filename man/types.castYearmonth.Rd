@@ -4,12 +4,12 @@
 \alias{types.castYearmonth}
 \title{cast yearmonth}
 \usage{
-types.castYearmonth(format = "\%y-\%m", value)
+types.castYearmonth(value)
 }
 \arguments{
-\item{format}{format}
-
 \item{value}{value}
+
+\item{format}{format}
 }
 \description{
 cast yearmonth
