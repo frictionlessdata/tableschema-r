@@ -8,29 +8,39 @@ types.castYear <- function (value) { #format parameter is not used
    
   if(!is_integer(value)){
     
-    if (!is.character(value)) stop("The input value should be integer or character", call. = FALSE)
+    if (!is.character(value)) return(config::get("ERROR"))
     
-    if (nchar(value) != 4) stop("The year value should be specified by 4 digits.", call. = FALSE)
+    if (nchar(value) != 4) return(config::get("ERROR"))
     
     tryCatch({
       
       result = as.integer(value)
       
-      if (is.nan(result) | as.character(result) != value)  stop(3, call. = FALSE)
+      if (is.nan(result) | as.character(result) != value)  return(config::get("ERROR"))
       
       value = result
       
     },
     
-    error = function(e)  e,
+    warning = function(w) {
+      
+      message(config::get("WARNING"))
+      
+    },
     
-    warning=function(w)  w
+    error = function(e) {
+      
+      return(config::get("ERROR"))
+      
+    },
     
-    )
+    finally = {
+      
+    })
     
   }
   
-  if (value < 0 | value > 9999) stop("The input year should not be negative or over 9999", call. = FALSE)
+  if (value < 0 | value > 9999) return(config::get("ERROR"))
   
   return(value)
   
@@ -47,11 +57,13 @@ types.castYear <- function (value) { #format parameter is not used
 #' 
 is_integer=function(x, tol = .Machine$double.eps^0.5) {
   
-  withCallingHandlers( tryCatch({
+  tryCatch({
     
     if(is.character(x)) {
       
-      war=warning("Tried to convert character to integer",call. = FALSE)
+      message(config::get("WARNING"))
+      
+      #war=warning("Tried to convert character to integer",call. = FALSE)
       
       if(!grepl("\\.",x) ){
         
@@ -62,9 +74,21 @@ is_integer=function(x, tol = .Machine$double.eps^0.5) {
     } else x%%1==0
     
   }, 
-  error=function(e) FALSE
-  ),
+  warning = function(w) {
+    
+    message(config::get("WARNING"))
+    
+  },
   
-  warning=function(w)  w )
+  error = function(e) {
+    
+    return(config::get("ERROR"))
+    
+  },
+  
+  finally = {
+    
+  })
+  
 }
 
