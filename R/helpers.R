@@ -73,6 +73,40 @@ has_name_field_descriptor=function(descriptor){
   "name" %in% rlang::names2(descriptor) | all(!is.na(as.data.frame(descriptor$resources$schema$fields)[,"name"]))
 }
 
+#' is uri
+#' @param uri uri input
+#' @return TRUE if uri string
+#' @rdname is.uri
+#' @export
+#' 
+is.uri<- function(uri){
+  
+  if (!is.character(uri)) message("The uri should be character")
+  
+  pattern = grepl("^http[s]?://", uri) & !httr::http_error(uri)
+  
+  if (!isTRUE(pattern)) {
+    
+    pattern = http_status(GET(uri))
+    
+  }
+  
+  return(pattern)
+}
+
+#' is email
+#' @param x email string
+#' @rdname is.email
+#' @return TRUE if email string
+#' @export
+#' 
+
+is.email <- function(x) {
+  
+  grepl("[^@]+@[^@]+\\.[^@]+", as.character(x), ignore.case=TRUE) # other email expr "\\<[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\>"
+  
+}
+
 #' check binary inputs
 #' @param x input
 #' @rdname is.binary
