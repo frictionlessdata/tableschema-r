@@ -15,6 +15,7 @@ Imports:
     config,
     devtools,
     hash,
+    httr,
     jsonvalidate,
     jsonlite,
     lubridate,
@@ -54,6 +55,7 @@ Collate:
     'types.castDuration.R'
     'types.castGeojson.R'
     'types.castGeopoint.R'
+    'types.castInteger.R'
     'types.castList.R'
     'types.castObject.R'
     'types.castString.R'
