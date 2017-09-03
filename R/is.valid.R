@@ -11,7 +11,9 @@ is.valid = function(descriptor,schema)  {
     
     if(missing(schema)){
       
-      v = jsonvalidate::json_validator(paste(readLines("https://schemas.frictionlessdata.io/tabular-data-package.json"), collapse=""))
+      path_table_schema <- system.file("profiles/table-schema.json", package = "tableschema.r")
+      
+      v = jsonvalidate::json_validator(paste(readLines(path_table_schema), collapse="")) #"https://schemas.frictionlessdata.io/tabular-data-package.json"
       
       
     } else {

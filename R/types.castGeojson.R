@@ -38,8 +38,8 @@ types.castGeojson <- function (format, value) {
   if (format == "default") {
     
     tryCatch( {
-      
-      valid = is.valid(descriptor = value, schema = profile) # profile a geojson schema
+      path_geojson <- system.file("profiles/geojson.json", package = "tableschema.r")
+      valid = is.valid(descriptor = value, schema = path_geojson) # ./inst/profiles/geojson.json
       
       if (!valid) return(config::get("ERROR"))
       
@@ -68,3 +68,6 @@ types.castGeojson <- function (format, value) {
   }
   return (value)
 }
+
+# path_geojson <- system.file("profiles/geojson.json", package = "tableschema.r")
+# path_table_schema <- system.file("profiles/table-schema.json", package = "tableschema.r")
