@@ -56,6 +56,7 @@ Collate:
     'types.castGeopoint.R'
     'types.castList.R'
     'types.castObject.R'
+    'types.castString.R'
     'types.castTime.R'
     'types.castYear.R'
     'types.castYearmonth.R'
