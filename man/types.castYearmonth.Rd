@@ -8,8 +8,6 @@ types.castYearmonth(value)
 }
 \arguments{
 \item{value}{value}
-
-\item{format}{format}
 }
 \description{
 cast yearmonth
