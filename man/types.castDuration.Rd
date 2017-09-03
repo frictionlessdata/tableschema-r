@@ -4,11 +4,16 @@
 \alias{types.castDuration}
 \title{cast duration}
 \usage{
-types.castDuration(value)
+types.castDuration(value, format = "seconds")
 }
 \arguments{
 \item{value}{value}
+
+\item{format}{time unit of x}
 }
 \description{
 cast duration
+}
+\details{
+Available inputs for format of input value are picoseconds, nanoseconds, microseconds, milliseconds, seconds, minutes, hours, days, weeks, years
 }

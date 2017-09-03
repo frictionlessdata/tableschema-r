@@ -57,7 +57,7 @@ types.castNumber <- function (format, value, options={}) {
     
     warning = function(w) {
       
-      return(config::get("ERROR"))
+      message(config::get("WARNING"))
       
     },
     

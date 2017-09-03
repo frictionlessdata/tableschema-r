@@ -3,6 +3,7 @@
 export(Constraints)
 export(DEFAULT_DECIMAL_CHAR)
 export(DEFAULT_GROUP_CHAR)
+export(Duration)
 export(Enum)
 export(FALSE_VALUES)
 export(Field)
