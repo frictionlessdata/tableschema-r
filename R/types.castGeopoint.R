@@ -28,7 +28,7 @@ types.castGeopoint <- function (format, value) {
         
       }
       
-    } else if (format == "array") {
+    } else if (format == "list" | format == "array") {
       
       if (is.character(value)) {
         

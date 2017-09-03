@@ -10,34 +10,61 @@ types.castGeojson <- function (format, value) {
   
   if (!is.object(value)) {
     
-    if (!is.character(value)) stop("This is not a valid object." ,call. = FALSE)
+    if (!is.character(value)) return(config::get("ERROR"))
     
     tryCatch( {
       
       value = jsonlite::fromJSON(value)
       
-    },error=function(e) e
+    },
     
-    )
+    warning = function(w) {
+      
+      message(config::get("WARNING"))
+      
+    },
+    
+    error = function(e) {
+      
+      return(config::get("ERROR"))
+      
+    },
+    
+    finally = {
+      
+    })
+    
   }
-  
   if (format == "default") {
     
     tryCatch( {
       
-      valid = is.valid(value, "profile") # profile a geojson schema
+      valid = is.valid(descriptor = value, schema = profile) # profile a geojson schema
       
-      if (!valid) stop("This is not a valid geojson object", call. = FALSE)
+      if (!valid) return(config::get("ERROR"))
       
-    },error = function(e) e
+    },
     
-    )
+    warning = function(w) {
+      
+      message(config::get("WARNING"))
+      
+    },
+    
+    error = function(e) {
+      
+      return(config::get("ERROR"))
+      
+    },
+    
+    finally = {
+      
+    })
     
   } else if (format == "topojson") {
     
-    if ( !is.null(value) | !is.list(value) ) stop("This is not a valid geojson object",call. = FALSE)
+    if ( !is.null(value) | !is.list(value) ) return(config::get("ERROR"))  #!isPlainObject(value)
     
   }
-  
   return (value)
 }

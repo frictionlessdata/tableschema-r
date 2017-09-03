@@ -8,9 +8,9 @@
 
 types.castTime <- function (format="%H:%M:%S", value) {
   
-  if (!lubridate::is.POSIXct(value)|!lubridate::is.POSIXt(value)) {
+  if (!lubridate::is.instant(value)) {
     
-    if (!is.character(value)) stop( 1 ,call. = FALSE)
+    if (!is.character(value)) return(config::get("ERROR"))
     
     tryCatch( {
       
@@ -24,15 +24,17 @@ types.castTime <- function (format="%H:%M:%S", value) {
         
       } else if (startsWith(format,"fmt:") ){
         
-          warning("Format ",format," is deprecated.\nPlease use ",unlist(strsplit(format,":"))[2]," without 'fmt:' prefix.", call. = FALSE) 
+        message(config::get("WARNING"))
+        
+        #warning("Format ",format," is deprecated.\nPlease use ",unlist(strsplit(format,":"))[2]," without 'fmt:' prefix.", call. = FALSE) 
+        
+        format = trimws(gsub("fmt:","",format),which="both")
+        
+        value = as.POSIXlt(value, format = format)
+        
+        #value = strftime(value, format = format)
           
-          format = trimws(gsub("fmt:","",format),which="both")
-          
-          value = as.POSIXlt(value, format = format)
-          
-          #value = strftime(value, format = format)
-          
-      } else if ( format != "%y-%m-%d" & !startsWith(format,"fmt:") ) {
+      } else if ( format != "%H:%M:%S" & !startsWith(format,"fmt:") ) {
         
         value = format(value, format=format)
         
@@ -41,14 +43,27 @@ types.castTime <- function (format="%H:%M:%S", value) {
         #value = strftime(value, format = format)
       }
       
-      if ( !lubridate::is.POSIXlt(strptime(value, format = format)) ) stop("Value is not a valid time object",call. = FALSE)
+      if ( !lubridate::is.POSIXlt(strptime(value, format = format)) ) return(config::get("ERROR"))
       
       value = strftime(as.POSIXlt(value, format = format), format = format) 
       
     },
     
-    error= function(e) e
-    )
+    warning = function(w) {
+      
+      message(config::get("WARNING"))
+      
+    },
+    
+    error = function(e) {
+      
+      return(config::get("ERROR"))
+      
+    },
+    
+    finally = { 
+      
+    })
   }
   
   return (value)
