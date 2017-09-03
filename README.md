@@ -143,7 +143,7 @@ Changelog - News
 
 In [NEWS.md](https://github.com/okgreece/tableschema-r/blob/master/NEWS.md) described only breaking and the most important changes. The full changelog could be found in nicely formatted [commit](https://github.com/okgreece/tableschema-r/commits/master) history.
 
-Github
-======
+Github <img src="okfgr.png" align="right" width=120px /><img src="frictionlessdata.png" align="right" width=120px />
+====================================================================================================================
 
 -   <https://github.com/okgreece/tableschema-r>
