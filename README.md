@@ -33,6 +33,14 @@ install.packages("devtools")
 devtools::install_github("okgreece/tableschema-r")
 ```
 
+Load library
+------------
+
+``` r
+# load the library using
+library(tableschema.r)
+```
+
 Documentation
 =============
 
@@ -46,6 +54,31 @@ Schema
 
 Field
 -----
+
+Class represents field in the schema.
+
+Data values can be cast to native R types. Casting a value will check the value is of the expected type, is in the correct format, and complies with any constraints imposed by a schema.
+
+``` r
+{
+    'name': 'birthday',
+    'type': 'date',
+    'format': 'default',
+    'constraints': {
+        'required': True,
+        'minimum': '2015-05-30'
+    }
+}
+```
+
+Following code will not raise the exception, despite the fact our date is less than minimum constraints in the field, because we do not check constraints of the field descriptor
+
+``` r
+dateType = types.castDate(value = '2014-05-29') # cast date
+dateType # print the result
+```
+
+    ## [1] "2014-05-29"
 
 Table below shows the available types, formats and resultant value of the cast:
 
