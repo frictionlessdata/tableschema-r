@@ -80,6 +80,8 @@ dateType # print the result
 
     ## [1] "2014-05-29"
 
+Values that can't be cast will raise an Error exception. Casting a value that doesn't meet the constraints will raise an Error exception.
+
 Table below shows the available types, formats and resultant value of the cast:
 
 <table style="width:85%;">
@@ -173,6 +175,10 @@ Table below shows the available types, formats and resultant value of the cast:
 </tr>
 </tbody>
 </table>
+
+### Validate - `is.valid()`
+
+> `is.valid()` validates whether a **schema** is a validate Table Schema accordingly to the [specifications](http://schemas.datapackages.org/json-table-schema.json). It does **not** validate data against a schema.
 
 Changelog - News
 ----------------
