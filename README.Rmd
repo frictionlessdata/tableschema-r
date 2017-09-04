@@ -1,10 +1,11 @@
 ---
-title: Table Schema
+title: <img src="okgr.png" align="right" width=130px /><img src="oklabs.png" align="right" width=130px /><br><br/><img src="frictionlessdata.png" align="left" width=90 />rictionless Data - <br/>Table Schema
 output: 
   github_document:
     html_preview: no
   number_sections: yes
 ---
+
 
 [![Build Status](https://travis-ci.org/okgreece/tableschema-r.svg?branch=master)](https://travis-ci.org/okgreece/tableschema-r)
 [![Coverage Status](https://coveralls.io/repos/github/okgreece/tableschema-r/badge.svg?branch=master)](https://coveralls.io/github/okgreece/tableschema-r?branch=master)
@@ -20,7 +21,7 @@ output:
 
 ```
 
-
+# Description
 
 R library for working with [Table Schema][tableschema].
 
@@ -100,9 +101,12 @@ Table below shows the available types, formats and resultant value of the cast:
 
 In [NEWS.md][news] described only breaking and the most important changes. The full changelog could be found in nicely formatted [commit][commits] history.  
 
-# Github
+# Github 
 
 + https://github.com/okgreece/tableschema-r
+
+<img src="okgr.png" align="right" width=120px /><img src="oklabs.png" align="right" width=120px />
+
 
 [tableschema]: http://specs.frictionlessdata.io/table-schema/
 [news]: https://github.com/okgreece/tableschema-r/blob/master/NEWS.md

@@ -1,7 +1,10 @@
-<img src="okfgr.png" align="right" width=120px /><img src="frictionlessdata.png" align="right" width=120px /><br><br/>Table Schema
+<img src="okgr.png" align="right" width=130px /><img src="oklabs.png" align="right" width=130px /><br><br/><img src="frictionlessdata.png" align="left" width=90 />rictionless Data - <br/>Table Schema
 ================
 
 [![Build Status](https://travis-ci.org/okgreece/tableschema-r.svg?branch=master)](https://travis-ci.org/okgreece/tableschema-r) [![Coverage Status](https://coveralls.io/repos/github/okgreece/tableschema-r/badge.svg?branch=master)](https://coveralls.io/github/okgreece/tableschema-r?branch=master) [![Github Issues](http://githubbadges.herokuapp.com/okgreece/tableschema-r/issues.svg)](https://github.com/okgreece/tableschema-r/issues) [![Pending Pull-Requests](http://githubbadges.herokuapp.com/okgreece/tableschema-r/pulls.svg)](https://github.com/okgreece/tableschema-r/pulls) [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![packageversion](https://img.shields.io/badge/Package%20version-0.0.0.9000-orange.svg?style=flat-square)](commits/master) [![minimal R version](https://img.shields.io/badge/R%3E%3D-3.1-6666ff.svg)](https://cran.r-project.org/) [![Licence](https://img.shields.io/badge/licence-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/frictionlessdata/chat)
+
+Description
+===========
 
 R library for working with [Table Schema](http://specs.frictionlessdata.io/table-schema/).
 
@@ -143,7 +146,9 @@ Changelog - News
 
 In [NEWS.md](https://github.com/okgreece/tableschema-r/blob/master/NEWS.md) described only breaking and the most important changes. The full changelog could be found in nicely formatted [commit](https://github.com/okgreece/tableschema-r/commits/master) history.
 
-Github <img src="okfgr.png" align="right" width=120px /><img src="frictionlessdata.png" align="right" width=120px />
-====================================================================================================================
+Github
+======
 
 -   <https://github.com/okgreece/tableschema-r>
+
+<img src="okgr.png" align="right" width=120px /><img src="oklabs.png" align="right" width=120px />
