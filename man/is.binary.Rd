@@ -2,7 +2,7 @@
 % Please edit documentation in R/helpers.R
 \name{is.binary}
 \alias{is.binary}
-\title{check binary inputs}
+\title{is binary}
 \usage{
 is.binary(x)
 }
@@ -13,5 +13,5 @@ is.binary(x)
 TRUE if binary
 }
 \description{
-check binary inputs
+is binary
 }
