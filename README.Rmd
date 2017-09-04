@@ -1,5 +1,5 @@
 ---
-title: <img src="okgr.png" align="right" width=130px /><img src="oklabs.png" align="right" width=130px /><br><br/><img src="frictionlessdata.png" align="left" width=90 />rictionless Data - <br/>Table Schema
+title: <img src="okgr.png" align="right" width=130px /><img src="oklabs.png" align="right" width=130px /><br><br/><img src="frictionlessdata.png" align="left" width=90 />rictionless Data - <br/>   Table Schema
 output: 
   github_document:
     html_preview: no
