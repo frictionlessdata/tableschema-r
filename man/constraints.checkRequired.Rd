@@ -2,7 +2,7 @@
 % Please edit documentation in R/constraints.checkRequired.R
 \name{constraints.checkRequired}
 \alias{constraints.checkRequired}
-\title{Check Minimum Length of Character/s according to a constraint}
+\title{Check if a field is required}
 \usage{
 constraints.checkRequired(constraint, value)
 }
@@ -12,8 +12,8 @@ constraints.checkRequired(constraint, value)
 \item{value}{value}
 }
 \value{
-TRUE if the constraint of minimum character length is met
+TRUE if a field is required
 }
 \description{
-Check Minimum Length of Character/s according to a constraint
+Check if a field is required
 }

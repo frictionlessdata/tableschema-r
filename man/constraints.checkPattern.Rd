@@ -2,7 +2,7 @@
 % Please edit documentation in R/constraints.checkPattern.R
 \name{constraints.checkPattern}
 \alias{constraints.checkPattern}
-\title{Check a Character pattern according to a constraint}
+\title{evaluate value over a constraint}
 \usage{
 constraints.checkPattern(constraint, value)
 }
@@ -15,5 +15,5 @@ constraints.checkPattern(constraint, value)
 TRUE if the constraint of character pattern is met
 }
 \description{
-Check a Character pattern according to a constraint
+evaluate value over a constraint
 }

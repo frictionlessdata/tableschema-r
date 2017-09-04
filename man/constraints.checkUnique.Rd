@@ -2,7 +2,7 @@
 % Please edit documentation in R/constraints.checkUnique.R
 \name{constraints.checkUnique}
 \alias{constraints.checkUnique}
-\title{is unique}
+\title{Check if a field is unique}
 \usage{
 constraints.checkUnique(x)
 }
@@ -10,8 +10,8 @@ constraints.checkUnique(x)
 \item{x}{x}
 }
 \value{
-TRUE if unique
+TRUE if field is unique
 }
 \description{
-is unique
+Check if a field is unique
 }
