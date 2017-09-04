@@ -1,7 +1,7 @@
-#' Check Minimum Length of Character/s according to a constraint
+#' Check if a field is required
 #' @param constraint constraint
 #' @param value value
-#' @return TRUE if the constraint of minimum character length is met 
+#' @return TRUE if a field is required
 #' @rdname constraints.checkRequired
 #' @export
 

@@ -107,7 +107,7 @@ is.email <- function(x) {
   
 }
 
-#' check binary inputs
+#' is binary 
 #' @param x input
 #' @rdname is.binary
 #' @return TRUE if binary
@@ -115,7 +115,7 @@ is.email <- function(x) {
 
 is.binary = function (x) length(unique(stats::na.omit(x)))<=2
 
-#' check uuid inputs
+#' is uuid 
 #' @param x input
 #' @rdname is.uuid
 #' @return TRUE if uuid

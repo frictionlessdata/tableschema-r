@@ -22,6 +22,7 @@
 #' @include types.castYear.R
 #' @include types.castYearmonth.R
 #' 
+
 Types <- R6Class("Types", public = list(casts = list(
 
 castArray     = types.castArray,

@@ -1,4 +1,4 @@
-#' Check a Character pattern according to a constraint
+#' evaluate value over a constraint
 #' @param constraint constraint
 #' @param value value
 #' @return TRUE if the constraint of character pattern is met 
@@ -8,7 +8,7 @@
 
 constraints.checkPattern <- function (constraint, value) {
   
-  any ( is.null(value) | all(grep(value,constraint)) ) 
+  any ( is.null(value) | all(grepl(value,constraint)) ) 
   
 }
 
