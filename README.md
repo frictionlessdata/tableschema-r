@@ -178,12 +178,39 @@ Table below shows the available types, formats and resultant value of the cast:
 
 ### Validate - `is.valid()`
 
-> `is.valid()` validates whether a **schema** is a validate Table Schema accordingly to the [specifications](http://schemas.datapackages.org/json-table-schema.json). It does **not** validate data against a schema.
+> `is.valid()` validates whether a **schema** is a validate Table Schema accordingly to the [specifications](http://schemas.datapackages.org/json-table-schema.json). It does **not** validate data against any other schema.
 
 Changelog - News
 ----------------
 
 In [NEWS.md](https://github.com/okgreece/tableschema-r/blob/master/NEWS.md) described only breaking and the most important changes. The full changelog could be found in nicely formatted [commit](https://github.com/okgreece/tableschema-r/commits/master) history.
+
+Contributing
+============
+
+The project follows the [Open Knowledge International coding standards](https://github.com/okfn/coding-standards). There are common commands to work with the project.Recommended way to get started is to create, activate and load the library environment. To install package and development dependencies into active environment:
+
+``` r
+devtools::install_github("okgreece/tableschema-r",dependencies=TRUE)
+```
+
+To run tests:
+
+``` r
+devtools::test()
+```
+
+    ## Loading tableschema.r
+
+    ## Loading required package: testthat
+
+    ## Testing tableschema.r
+
+    ## hash-2.2.6 provided by Decision Patterns
+
+    ## Fields: ..................
+    ## 
+    ## DONE ======================================================================
 
 Github
 ======
