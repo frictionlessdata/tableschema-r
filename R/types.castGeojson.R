@@ -39,7 +39,10 @@ types.castGeojson <- function (format, value) {
     
     tryCatch( {
       path_geojson <- system.file("profiles/geojson.json", package = "tableschema.r")
-      valid = is.valid(descriptor = value, schema = path_geojson) # ./inst/profiles/geojson.json
+      
+      v = jsonvalidate::json_validator(path_geojson)
+      
+      valid = v(value,verbose = T, greedy=TRUE,error=F) # ./inst/profiles/geojson.json
       
       if (!valid) return(config::get("ERROR"))
       

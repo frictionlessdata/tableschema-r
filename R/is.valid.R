@@ -1,33 +1,27 @@
 #' @title Is valid
 #' @param descriptor descriptor
-#' @param schema schema
 #' @description is.valid
 #' @rdname is.valid
 #' @export
 
-is.valid = function(descriptor,schema)  {
+is.valid = function(descriptor)  {
   
-  if(jsonlite::validate(descriptor)==TRUE){
+  future::plan(future::multiprocess)
+  
+  future::future({
     
-    if(missing(schema)){
+    if(jsonlite::validate(descriptor)==TRUE){
       
       path_table_schema <- system.file("profiles/table-schema.json", package = "tableschema.r")
       
       v = jsonvalidate::json_validator(paste(readLines(path_table_schema), collapse="")) #"https://schemas.frictionlessdata.io/tabular-data-package.json"
       
       
-    } else {
-      #local
-      v = jsonvalidate::json_validator("schema.json")
-    }
-    
-    valid=v(descriptor,verbose = T, greedy=TRUE,error=F)
-    class(valid)="logical"
-    
-    #.print.validator(valid)
-    valid
+      valid=v(descriptor,verbose = T, greedy=TRUE,error=F)
+      
   } else message("This is not a valid JSON file.")
-  
+    
+  })
   
 }
 

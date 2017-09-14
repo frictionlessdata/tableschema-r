@@ -4,12 +4,10 @@
 \alias{is.valid}
 \title{Is valid}
 \usage{
-is.valid(descriptor, schema)
+is.valid(descriptor)
 }
 \arguments{
 \item{descriptor}{descriptor}
-
-\item{schema}{schema}
 }
 \description{
 is.valid
