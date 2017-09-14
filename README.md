@@ -36,7 +36,7 @@ To install the `tableschema` library it is necessary to install first `devtools`
 install.packages("devtools")
 ```
 
-Install `tableschema-r`
+Install `tableschema.r`
 
 ``` r
 # And then install the development version from github
