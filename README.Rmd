@@ -1,11 +1,10 @@
 ---
-title: <img src="okgr.png" align="right" width=130px /><img src="oklabs.png" align="right" width=130px /><br><br/><img src="frictionlessdata.png" align="left" width=90 />rictionless Data - <br/>   Table Schema
+title: <img src="okgr.png" align="right" width=130px /><img src="oklabs.png" align="right" width=130px /><br><br/><img src="frictionlessdata.png" align="left" width=60 />rictionless Data - <br/>   Table Schema 
 output: 
   github_document:
     html_preview: no
   number_sections: yes
 ---
-
 
 [![Build Status](https://travis-ci.org/okgreece/tableschema-r.svg?branch=master)](https://travis-ci.org/okgreece/tableschema-r)
 [![Coverage Status](https://coveralls.io/repos/github/okgreece/tableschema-r/badge.svg?branch=master)](https://coveralls.io/github/okgreece/tableschema-r?branch=master)
@@ -37,6 +36,14 @@ R library for working with [Table Schema][tableschema].
 
 ## Installation
 
+In order to install the latest distribution of [R software][Rs] to your computer you have to select one of the mirror sites of the [Comprehensive R Archive Network][R] and then select the appropriate link for your operating system.
+
+More detailed installation instructions can be found in [R Installation and Administration manual][Rman].
+
+To install [RStudio][Rstudio], you can download [RStudio Desktop][Rstudiodown] with Open Source License.
+
+To install the `tableschema` library it is necessary to install first `devtools` library to make installation of github libraries available.
+
 ```{r, eval=FALSE, include=T}
 # Install devtools package if not already
 install.packages("devtools")
@@ -46,6 +53,12 @@ install.packages("devtools")
 ```{r, eval=FALSE, include=T}
 # And then install the development version from github
 devtools::install_github("okgreece/tableschema-r")
+```
+
+## Load library
+```{r, echo=TRUE}
+# load the library using
+library(tableschema.r)
 ```
 
 # Documentation
@@ -59,6 +72,32 @@ Let's see how we could use it in practice.
 
 ## Field
 
+Class represents field in the schema.
+
+Data values can be cast to native R types. Casting a value will check the value is of the expected type, is in the correct format, and complies with any constraints imposed by a schema.
+
+
+```{r, eval=FALSE, include=T}
+{
+    'name': 'birthday',
+    'type': 'date',
+    'format': 'default',
+    'constraints': {
+        'required': True,
+        'minimum': '2015-05-30'
+    }
+}
+
+```
+
+Following code will not raise the exception, despite the fact our date is less than minimum constraints in the field, because we do not check constraints of the field descriptor
+
+```{r, echo=TRUE}
+dateType = types.castDate(value = '2014-05-29') # cast date
+dateType # print the result
+```
+
+Values that can't be cast will raise an Error exception. Casting a value that doesn't meet the constraints will raise an Error exception.
 
 Table below shows the available types, formats and resultant value of the cast:
 
@@ -96,10 +135,25 @@ Table below shows the available types, formats and resultant value of the cast:
 | yearmonth | default                     | [Number, Number] |
 +-----------+-----------------------------+------------------+
 
+### Validate - `is.valid()`
+> `is.valid()` validates whether a **schema** is a validate Table Schema accordingly to the [specifications](http://schemas.datapackages.org/json-table-schema.json). It does **not** validate data against any other schema.
 
 ## Changelog - News
 
 In [NEWS.md][news] described only breaking and the most important changes. The full changelog could be found in nicely formatted [commit][commits] history.  
+
+# Contributing
+The project follows the [Open Knowledge International coding standards][coding_standards]. There are common commands to work with the project.Recommended way to get started is to create, activate and load the library environment. To install package and development dependencies into active environment:
+
+```{r, eval=FALSE, include=T}
+devtools::install_github("okgreece/tableschema-r",dependencies=TRUE)
+```
+
+To run tests:
+```{r}
+devtools::test()
+```
+
 
 # Github 
 
@@ -107,7 +161,12 @@ In [NEWS.md][news] described only breaking and the most important changes. The f
 
 <img src="okgr.png" align="right" width=120px /><img src="oklabs.png" align="right" width=120px />
 
-
+[Rs]: https://www.r-project.org/
+[R]: https://cloud.r-project.org/
+[Rman]: https://cran.r-project.org/doc/manuals/R-admin.html
+[Rstudio]: https://www.rstudio.com/
+[Rstudiodown]: https://www.rstudio.com/products/rstudio/download/
+[coding_standards]: https://github.com/okfn/coding-standards
 [tableschema]: http://specs.frictionlessdata.io/table-schema/
 [news]: https://github.com/okgreece/tableschema-r/blob/master/NEWS.md
 [commits]: https://github.com/okgreece/tableschema-r/commits/master
