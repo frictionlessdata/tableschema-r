@@ -36,11 +36,11 @@ R library for working with [Table Schema][tableschema].
 
 ## Installation
 
-In order to install the latest distribution of [R software][Rs] to your computer you have to select one of the mirror sites of the [Comprehensive R Archive Network][R] and then select the appropriate link for your operating system.
+In order to install the latest distribution of [R software][Rs] to your computer you have to select one of the mirror sites of the [Comprehensive R Archive Network][R], select the appropriate link for your operating system and follow the wizard instructions.
 
-More detailed installation instructions can be found in [R Installation and Administration manual][Rman].
+Even more detailed installation instructions can be found in [R Installation and Administration manual][Rman].
 
-To install [RStudio][Rstudio], you can download [RStudio Desktop][Rstudiodown] with Open Source License.
+To install [RStudio][Rstudio], you can download [RStudio Desktop][Rstudiodown] with Open Source License and follow the wizard instructions.
 
 To install the `tableschema` library it is necessary to install first `devtools` library to make installation of github libraries available.
 
@@ -49,6 +49,8 @@ To install the `tableschema` library it is necessary to install first `devtools`
 install.packages("devtools")
 ```
 
+
+Install `tableschema-r`
 
 ```{r, eval=FALSE, include=T}
 # And then install the development version from github

@@ -23,11 +23,11 @@ Getting started
 Installation
 ------------
 
-In order to install the latest distribution of [R software](https://www.r-project.org/) to your computer you have to select one of the mirror sites of the [Comprehensive R Archive Network](https://cloud.r-project.org/) and then select the appropriate link for your operating system.
+In order to install the latest distribution of [R software](https://www.r-project.org/) to your computer you have to select one of the mirror sites of the [Comprehensive R Archive Network](https://cloud.r-project.org/), select the appropriate link for your operating system and follow the wizard instructions.
 
-More detailed installation instructions can be found in [R Installation and Administration manual](https://cran.r-project.org/doc/manuals/R-admin.html).
+Even more detailed installation instructions can be found in [R Installation and Administration manual](https://cran.r-project.org/doc/manuals/R-admin.html).
 
-To install [RStudio](https://www.rstudio.com/), you can download [RStudio Desktop](https://www.rstudio.com/products/rstudio/download/) with Open Source License.
+To install [RStudio](https://www.rstudio.com/), you can download [RStudio Desktop](https://www.rstudio.com/products/rstudio/download/) with Open Source License and follow the wizard instructions.
 
 To install the `tableschema` library it is necessary to install first `devtools` library to make installation of github libraries available.
 
@@ -35,6 +35,8 @@ To install the `tableschema` library it is necessary to install first `devtools`
 # Install devtools package if not already
 install.packages("devtools")
 ```
+
+Install `tableschema-r`
 
 ``` r
 # And then install the development version from github
