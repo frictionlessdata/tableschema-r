@@ -57,6 +57,7 @@ Collate:
     'types.castDate.R'
     'types.castBoolean.R'
     'types.castArray.R'
+    'types.castAny.R'
     'types.R'
     'field.R'
     'helpers.R'
