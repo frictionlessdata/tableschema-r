@@ -6,6 +6,7 @@
 #' @keywords data
 #' @return Object of \code{\link{R6Class}} .
 #' @format \code{\link{R6Class}} object.
+#' @include types.castAny.R
 #' @include types.castArray.R
 #' @include types.castBoolean.R
 #' @include types.castDate.R
@@ -24,21 +25,23 @@
 #' 
 
 Types <- R6Class("Types", public = list(casts = list(
-
-castArray     = types.castArray,
-castBoolean   = types.castBoolean,
-castDate      = types.castDate,
-castDatetime  = types.castDatetime,
-castDuration  = types.castDuration,
-castGeojson   = types.castGeojson,
-castGeopoint  = types.castGeopoint,
-castInteger   = types.castInteger,
-castList      = types.castList,
-castNumber    = types.castNumber,
-castObject    = types.castObject,
-castString    = types.castString,
-castTime      = types.castTime,
-castYear      = types.castYear,
-castYearmonth = types.castYearmonth
+  
+  
+  castAny     = types.castAny,
+  castArray     = types.castArray,
+  castBoolean   = types.castBoolean,
+  castDate      = types.castDate,
+  castDatetime  = types.castDatetime,
+  castDuration  = types.castDuration,
+  castGeojson   = types.castGeojson,
+  castGeopoint  = types.castGeopoint,
+  castInteger   = types.castInteger,
+  castList      = types.castList,
+  castNumber    = types.castNumber,
+  castObject    = types.castObject,
+  castString    = types.castString,
+  castTime      = types.castTime,
+  castYear      = types.castYear,
+  castYearmonth = types.castYearmonth
 
     )))
