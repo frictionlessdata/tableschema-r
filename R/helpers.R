@@ -24,6 +24,15 @@ Helpers$expandFieldDescriptor <- function(descriptor) {
 }
 
 
+helpers.retrieveDescriptor <- function(descriptor) {
+  return(future::future( {return(descriptor)}))
+}
+
+helpers.expandSchemaDescriptor <- function(descriptor) {
+  return(descriptor)
+}
+
+
 
 #' Extract the field descriptors properties
 #' @param descriptor The datapackage.json 

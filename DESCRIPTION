@@ -3,11 +3,12 @@ Type: Package
 Title: 'R Table Schema'
 Version: 0.0.0.9000
 Date: 2017-07-01
-Author: c(
-    person("Lazaros", "Ioannidis", email = "larjohn@gmail.com", role = "cre"),
-    person("Kleanthis", "Koupidis", email = "koupidis.okfgr@gmail.com", role = "cre"))
+Author: c( person("Lazaros", "Ioannidis", email = "larjohn@gmail.com", role =
+    "cre"), person("Kleanthis", "Koupidis", email = "koupidis.okfgr@gmail.com", role
+    = "cre"))
 Maintainer: Open Knowledge Greece <info@okfn.gr>
-Description: A library for working with Table Schema (http://specs.frictionlessdata.io/table-schema/).
+Description: A library for working with Table Schema (http://
+    specs.frictionlessdata.io/table-schema/).
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -25,7 +26,9 @@ Imports:
     rlang,
     roxygen2,
     stringi,
-    stringr
+    stringr,
+    async,
+    future
 RoxygenNote: 6.0.1
 Suggests:
     testthat
@@ -39,9 +42,6 @@ Collate:
     'constraints.checkMaximum.R'
     'constraints.checkEnum.R'
     'constraints.R'
-    'constraints.enum.R'
-    'constraints.maximum.R'
-    'constraints.minimum.R'
     'types.castYearmonth.R'
     'types.castYear.R'
     'types.castTime.R'
@@ -63,8 +63,9 @@ Collate:
     'helpers.R'
     'is.valid.R'
     'methods.R'
+    'profile.R'
+    'tableschemaerror.R'
     'schema.R'
     'table.R'
     'types.integer.R'
     'types.number.R'
-    'types.string.R'
