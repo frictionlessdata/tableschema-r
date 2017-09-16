@@ -1,7 +1,7 @@
 #' Schema class
 #'
 #' @docType class
-#' @importFrom R6 R6Class future
+#' @importFrom R6 R6Class
 #' @export
 #' @include types.R
 #' @include constraints.R

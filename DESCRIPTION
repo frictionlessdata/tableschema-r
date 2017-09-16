@@ -26,9 +26,7 @@ Imports:
     rlang,
     roxygen2,
     stringi,
-    stringr,
-    async,
-    future
+    stringr
 RoxygenNote: 6.0.1
 Suggests:
     testthat
@@ -67,5 +65,3 @@ Collate:
     'tableschemaerror.R'
     'schema.R'
     'table.R'
-    'types.integer.R'
-    'types.number.R'
