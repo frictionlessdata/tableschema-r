@@ -11,6 +11,7 @@
 
 Profile <- R6Class(
 "Profile",
+# PUBLIC
 public = list(
   initialize = function(profile) {
     # Set attributes
@@ -21,9 +22,36 @@ public = list(
   }
   
   
+),
+
+# Private
+private = list(
   
+  profile_ = NULL,
+  
+  jsonschema_ = tryCatch({
+    
+    load(readLines('./inst/profiles/${profile}.json'))
+    
+  },
+  
+  error = function(e) {
+    
+    message = stringr::str_interp('Can\'t load profile "${profile}"')
+
+    return(TableSchemaError$new(message))
+    
+  },
+  
+  warning = function(w) {
+    
+    message(config::get("WARNING"))
+    
+  },
+  
+  finally = {
+    
+  })
 )
-
-
 
 )
