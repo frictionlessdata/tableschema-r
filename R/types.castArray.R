@@ -17,7 +17,7 @@ types.castArray <- function (value) { #format parameter is not used
   
   warning = function(w) {
     
-    return(config::get("ERROR"))
+    message(config::get("WARNING"))
     
   },
   
