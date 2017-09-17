@@ -51,7 +51,43 @@ private = list(
   
   finally = {
     
-  })
+  }),
+  
+  # INTERNAL
+  
+  validatePrimaryKey = function (descriptor) {
+  
+    messages = list()
+    
+    # const fieldNames = (descriptor.fields || []).map(field => field.name)
+    
+    if (!is.null(descriptor["primaryKey"])) {
+    
+        #const primaryKey = descriptor["primaryKey"]
+      
+        if (is.character(primaryKey)) {
+        
+          if (!fieldNames %in% primaryKey) {
+          
+            messages.push("primary key ${primaryKey} must match schema field names")
+          }
+          
+        } else if (is.array(primaryKey)) { # or list
+          
+          for (pk in seq_along(primaryKey)) {
+            
+            if (!fieldNames.includes(pk)) {
+              
+              messages.push("primary key ${pk} must match schema field names")
+              
+            }
+          }
+        }
+    }
+    
+    return (messages)
+  }
+
 )
 
 )
