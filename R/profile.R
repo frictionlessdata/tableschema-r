@@ -17,12 +17,75 @@ public = list(
     # Set attributes
   
   },
+  
+  active = list(
+    
+    name = function() {
+      
+      if (!this._jsonschema$title) NULL
+      
+      return (tolower(gsub(' ', '-', this._jsonschema$title)))
+      
+    },
+    
+    jsonschema = function() {
+      
+      return (this._jsonschema)
+      
+    }
+  ),
+  
+    
+  validate= function(descriptor) {
+      
+      errors = list()
+      
+      # Basic validation
+      validateMultiple = jsonvalidate::json_validator(paste(readLines(this._jsonschema), collapse="")) 
+      
+      validation=validateMultiple(descriptor,verbose = T, greedy=TRUE,error=F)
+      
+      for (validationError in validation$errors) {
+        
+        errors = modifyList(errors, list(Error=stringr::str_interp(
+          'Descriptor validation error:
+            ${validationError.message}
+          at "${validationError.dataPath}" in descriptor and
+          at "${validationError.schemaPath}" in profile'
+          )))
+
+      }
+      
+      # Extra validation
+      
+      if (!length(errors)) {
+        
+        # PrimaryKey validation
+        
+        for (message in validatePrimaryKey(descriptor)) {
+          
+          errors = modifyList(errors, list(Error=message) )
+          
+        }
+        
+        # ForeignKeys validation
+        
+        for (message in validateForeignKeys(descriptor)) {
+          
+          errors = modifyList(errors, list(Error=message) )
+          
+        }
+        
+      
+    }
+    
+    return (valid= c(!length(errors), errors) )
+  },
+  
   validate = function(descriptor = list()){
     return(list("valid" = TRUE))
   }
-  
-  
-),
+  ),
 
 # Private
 private = list(
@@ -31,7 +94,7 @@ private = list(
   
   jsonschema_ = tryCatch({
     
-    load(readLines('./inst/profiles/${profile}.json'))
+    load(readLines(stringr::str_interp('./inst/profiles/${profile}.json')))
     
   },
   
@@ -71,16 +134,16 @@ private = list(
         
           if (!fieldNames %in% primaryKey) {
           
-            messages.push("primary key ${primaryKey} must match schema field names")
+            messages = modifyList(messages,list(stringr::str_interp("primary key ${primaryKey} must match schema field names")))
           }
           
         } else if (is.array(primaryKey)) { # or list
           
-          for (pk in seq_along(primaryKey)) {
+          for (pk in primaryKey ) {
             
-            if (!fieldNames.includes(pk)) {
+            if (!fieldNames (pk)) {
               
-              messages.push("primary key ${pk} must match schema field names")
+              messages = modifyList(messages,list(stringr::str_interp("primary key ${pk} must match schema field names")))
               
             }
           }
@@ -96,67 +159,67 @@ private = list(
     
     #const fieldNames = (descriptor.fields || []).map(field => field.name)
     
-    if (!is.null(descriptor["foreignKeys]")) {
+    if (!is.null(descriptor["foreignKeys"])) {
       
-      foreignKeys = descriptor["foreignKeys]")
+      foreignKeys = descriptor["foreignKeys"]
 
-      for ( fk in seq_along(foreignKeys)) {
+      for ( fk in foreignKeys) {
         
-        if (is.character(fk.fields)) {
+        if (is.character(descriptor$fields[[fk]]) ) {
           
-          if (!fieldNames.includes(fk.fields)) {
+          if (!fieldNames %in% descriptor$fields[[fk]] ) {
             
-            messages.push("foreign key ${fk.fields} must match schema field names")
+            messages = modifyList(messages,list(stringr::str_interp("foreign key ${fk.fields} must match schema field names")))
             
           }
           
-          if (!is.character(fk.reference.fields)) {
+          if (!is.character(reference$fields[fk])) {
             
-            messages.push("foreign key ${fk.reference.fields} must be same type as ${fk.fields}")
+            messages = modifyList(messages,list(stringr::str_interp("foreign key ${fk.reference.fields} must be same type as ${fk.fields}")))
             
           }
           
-        } else if (is.array(fk.fields)) {
+        } else if (is.array(fields[fk])) { #is.list
           
-          for ( field in seq_along(fk["fields"])) {
+          for ( field in fields["fk"]) {
             
-            if (!fieldNames.includes(field)) {
+            if (!fieldNames %in% names(field) ) {
               
-              messages.push("foreign key ${field} must match schema field names")
+              messages = modifyList(messages,list(stringr::str_interp("foreign key ${field} must match schema field names")))
               
             }
             
           }
           
-          if (!is.array(fk.reference.fields)) {
+          if (!is.array(reference$fields[fk])) { #is.list
             
-            messages.push("foreign key ${fk.reference.fields} must be same type as ${fk.fields}")
+            messages = modifyList(messages,list(stringr::str_interp("foreign key ${fk.reference.fields} must be same type as ${fk.fields}")))
             
-          } else if (fk.reference.fields.length != length(fk["fields"])) {
+          } else if (length(reference$fields[fk]) != length(fields["fk"])) {
             
-            messages.push('foreign key fields must have the same length as reference.fields')
+            messages = modifyList(messages,list(stringr::str_interp('foreign key fields must have the same length as reference.fields')))
             
           }
           
         }
         
-        if (fk.reference.resource == '') {
+        if (reference$resource[fk] == '') {
           
-          if (isString(fk.reference.fields)) {
+          if (is.character(reference$fields[fk])) {
             
-            if (!fieldNames.includes(fk.reference.fields)) {
+            if (!fieldNames %in% reference$fields[fk]) {
               
-              messages.push("foreign key ${fk.fields} must be found in the schema field names")
+              messages = modifyList(messages, list(stringr::str_interp("foreign key ${fk.fields} must be found in the schema field names")))
               
             }
             
-          } else if (is.array(fk.reference.fields)) { # is.list
+          } else if (is.array(reference$fields[fk])) { # is.list
             
-            for ( field in fk.reference.fields) {
+            for ( field in reference$fields[fk]) {
               
               if (!fieldNames %in% field) {
                 
-                messages.push("foreign key ${field} must be found in the schema field names")
+                messages = modifyList(messages, list(stringr::str_interp("foreign key ${field} must be found in the schema field names")))
                 
               }
               
@@ -170,9 +233,7 @@ private = list(
 
     }
     
-    return (messages)
+    return (message(messages))
   }
-
 )
-
 )
