@@ -4,7 +4,8 @@
 #' @importFrom R6 R6Class
 #' @export
 #' @include types.R
-#' @include constraints.R
+#' @include constraints.R 
+#' @include tableschemaerror.R
 #' @keywords data
 #' @return Object of \code{\link{R6Class}} .
 #' @format \code{\link{R6Class}} object.

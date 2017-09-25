@@ -61,7 +61,7 @@ Collate:
     'helpers.R'
     'is.valid.R'
     'methods.R'
-    'profile.R'
     'tableschemaerror.R'
+    'profile.R'
     'schema.R'
     'table.R'
