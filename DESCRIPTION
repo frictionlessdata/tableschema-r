@@ -65,3 +65,4 @@ Collate:
     'profile.R'
     'schema.R'
     'table.R'
+    'test-constraints.checkEnum.R'
