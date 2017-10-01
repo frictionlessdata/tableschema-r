@@ -25,9 +25,25 @@ Installation
 
 In order to install the latest distribution of [R software](https://www.r-project.org/) to your computer you have to select one of the mirror sites of the [Comprehensive R Archive Network](https://cloud.r-project.org/), select the appropriate link for your operating system and follow the wizard instructions.
 
+For windows users you can:
+
+1.  Go to CRAN
+2.  Click download R for Windows
+3.  Click Base (This is what you want to install R for the first time)
+4.  Download the latest R version
+5.  Run installation file and follow the instrustions of the installer.
+
+(Mac) OS X and Linux users may need to follow different steps depending on their system version to install R successfully and it is recommended to read the instructions on CRAN site carefully.
+
 Even more detailed installation instructions can be found in [R Installation and Administration manual](https://cran.r-project.org/doc/manuals/R-admin.html).
 
-To install [RStudio](https://www.rstudio.com/), you can download [RStudio Desktop](https://www.rstudio.com/products/rstudio/download/) with Open Source License and follow the wizard instructions.
+To install [RStudio](https://www.rstudio.com/), you can download [RStudio Desktop](https://www.rstudio.com/products/rstudio/download/) with Open Source License and follow the wizard instructions:
+
+1.  Go to [RStudio](https://www.rstudio.com/products/rstudio/)
+2.  Click download on RStudio Desktop
+3.  Download on RStudio Desktop free download
+4.  Select the appropriate file for your system
+5.  Run installation file
 
 To install the `tableschema` library it is necessary to install first `devtools` library to make installation of github libraries available.
 
@@ -216,9 +232,9 @@ devtools::test()
 
     ## Testing tableschema.r
 
-    ## hash-2.2.6 provided by Decision Patterns
+    ## Warning: package 'foreach' was built under R version 3.4.2
 
-    ## Fields: ..................
+    ## constraints.checkEnum: ...
     ## 
     ## DONE ======================================================================
 
