@@ -4,9 +4,11 @@
 \alias{types.castBoolean}
 \title{cast boolean}
 \usage{
-types.castBoolean(value, options = { })
+types.castBoolean(format, value, options = { })
 }
 \arguments{
+\item{format}{format}
+
 \item{value}{value}
 
 \item{options}{options specify trueValues or/and falseValues}
