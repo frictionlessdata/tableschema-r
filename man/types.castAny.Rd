@@ -4,9 +4,11 @@
 \alias{types.castAny}
 \title{cast any}
 \usage{
-types.castAny(value)
+types.castAny(format, value)
 }
 \arguments{
+\item{format}{format}
+
 \item{value}{value}
 }
 \description{
