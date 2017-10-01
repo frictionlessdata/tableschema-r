@@ -4,6 +4,10 @@
 #' @rdname constraints.checkUnique
 #' @export
 
-constraints.checkUnique <- function (x) {
-  all(!anyDuplicated(x))
+constraints.checkUnique <- function (constraint, value) {
+  
+  if (isTRUE(value=="any") ) return(TRUE) #!anyDuplicated(value) | 
+  
+  return(TRUE)
+  
 }
