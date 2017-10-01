@@ -7,6 +7,10 @@
 
 constraints.checkEnum <- function (constraint, value) {
   
-  is.null(value) | value %in% constraint
+  if( is.null(value) ) return (TRUE)
+  
+  if ( all(value %in% constraint) ) return (TRUE)
+  
+  return (FALSE)
   
 }
