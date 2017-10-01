@@ -1,5 +1,6 @@
 #' Check if a field is unique
-#' @param x x
+#' @param constraint constraint
+#' @param value value
 #' @return TRUE if field is unique 
 #' @rdname constraints.checkUnique
 #' @export
