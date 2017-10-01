@@ -23,6 +23,7 @@ is.valid = function(descriptor)  {
     
   })
   
+  return (list(valid=valid, errors=list()))
 }
 
 # #' @title print validator
