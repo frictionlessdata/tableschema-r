@@ -8,7 +8,10 @@
 
 constraints.checkPattern <- function (constraint, value) {
   
-  any ( is.null(value) | all(grepl(value,constraint)) ) 
+  if( is.null(value) ) return (TRUE)
+  
+  if (isTRUE(grepl(value,constraint))) return (TRUE)
+  
+  return (FALSE)
   
 }
-
