@@ -220,6 +220,14 @@ The project follows the [Open Knowledge International coding standards](https://
 devtools::install_github("okgreece/tableschema-r",dependencies=TRUE)
 ```
 
+To make test:
+
+``` r
+  test_that(description, {
+    expect_equal(test, expected result)
+  })
+```
+
 To run tests:
 
 ``` r
@@ -235,8 +243,32 @@ devtools::test()
     ## Warning: package 'foreach' was built under R version 3.4.2
 
     ## constraints.checkEnum: ...
+    ## constraints.checkMaximum: ...
+    ## constraints.checkMaxLength: ...
+    ## constraints.checkMinimum: ...
+    ## constraints.checkMinLength: ...
+    ## constraints.checkPattern: ..
+    ## constraints.checkRequired: ....
+    ## constraints.checkUnique: ..
+
+    ## hash-2.2.6 provided by Decision Patterns
+
+    ## Fields: ..................
+    ## types.castAny: .....
+    ## types.castBoolean: ..........................
+
+    ## 
+    ## Attaching package: 'lubridate'
+
+    ## The following object is masked from 'package:base':
+    ## 
+    ##     date
+
+    ## types.castDate: .................
     ## 
     ## DONE ======================================================================
+
+more detailed information about how to create and run tests you can find in [testthat package](https://github.com/hadley/testthat)
 
 Github
 ======

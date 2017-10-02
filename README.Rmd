@@ -167,11 +167,18 @@ The project follows the [Open Knowledge International coding standards][coding_s
 devtools::install_github("okgreece/tableschema-r",dependencies=TRUE)
 ```
 
+To make test:
+```{r, eval=FALSE, include=TRUE}
+  test_that(description, {
+    expect_equal(test, expected result)
+  })
+```
+
 To run tests:
 ```{r}
 devtools::test()
 ```
-
+more detailed information about how to create and run tests you can find in [testthat package](https://github.com/hadley/testthat)
 
 # Github 
 
