@@ -13,7 +13,7 @@ types.castDate <- function (format = "%Y-%m-%d", value) {
     
     tryCatch({
       
-      if ( is.null(format) | format == "default" | format == "%Y-%m-%d" ){
+      if ( is.null(format) | format == "default" | format == "any" | format == "%Y-%m-%d" ){
         
         value = as.Date(lubridate::parse_date_time(x = value, orders = "%Y-%m-%d"), format = "%Y-%m-%d")
         
@@ -50,7 +50,7 @@ types.castDate <- function (format = "%Y-%m-%d", value) {
     
     warning = function(w) {
       
-      message(config::get("WARNING"))
+      return(config::get("ERROR"))
       
     },
     
@@ -63,6 +63,7 @@ types.castDate <- function (format = "%Y-%m-%d", value) {
     finally = { 
       
     })
+    
   }
   
     return (value)
