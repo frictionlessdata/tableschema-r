@@ -54,7 +54,6 @@ Collate:
     'types.castDatetime.R'
     'types.castDate.R'
     'types.castBoolean.R'
-    'types.castArray.R'
     'types.castAny.R'
     'types.R'
     'field.R'
@@ -65,3 +64,4 @@ Collate:
     'profile.R'
     'schema.R'
     'table.R'
+    'types.castArray.R'
