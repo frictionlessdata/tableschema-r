@@ -3,3 +3,14 @@
 ^packrat/
 ^\.Rprofile$
 ^\.travis\.yml$
+^NEWS\.Rmd$
+^README\.Rmd$
+^config\.yml$
+^data\.txt$
+^frictionlessdata\.png$
+^okgr\.png$
+^oklabs\.png$
+^tableschema-r\.rxproj$
+^tableschema-r\.sln$
+^\.coveralls\.yml$
+^\.idea$
