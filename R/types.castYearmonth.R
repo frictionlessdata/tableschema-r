@@ -5,9 +5,11 @@
 #' @export
 #' 
 
-types.castYearmonth <- function (value) { #format parameter is not used
+types.castYearmonth <- function (format, value) { 
   
-  if (is.array(value) | is.list(value)) {
+  if ( isTRUE(is_empty(value))) return(config::get("ERROR"))
+  
+  if (is.array(value) | is.list(value) ) {
     
     if (length(value) != 2) return(config::get("ERROR"))
     
@@ -17,22 +19,25 @@ types.castYearmonth <- function (value) { #format parameter is not used
       
       value = as.list( unlist( strsplit(value, split = "-")))
       
-      names(value) = c("year", "month")
+      if ( nchar(as.integer(value[[1]])) != 4 ) return(config::get("ERROR"))
       
-      year = as.integer(value$year)
+      #names(value) = c("year", "month")
       
-      month = as.integer(value$month)
+      year = as.integer(value[[1]])
       
-      if (!year | !month) return(config::get("ERROR"))
+      month = as.integer(value[[2]])
+      
+      #if (!year | !month) return(config::get("ERROR"))
       
       if (month < 1 | month > 12) return(config::get("ERROR"))
       
-      value = list(year = year, month = month)
+      #value = list(year = year, month = month)
+      value = list(year, month)
       
       }, 
       warning = function(w) {
         
-        message(config::get("WARNING"))
+        return(config::get("ERROR"))
         
       },
       

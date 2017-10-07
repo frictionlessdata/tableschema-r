@@ -169,3 +169,15 @@ is_integer=function(x) {
   })
   
 }
+
+#' Is empty
+#' @description is empty
+#' @param x x
+#' @rdname is_empty
+#' @export
+#' 
+is_empty = function(x){
+  
+  any(is.na(x) | is.null(x) | x=="")
+  
+}
