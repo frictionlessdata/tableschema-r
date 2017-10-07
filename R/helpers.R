@@ -145,23 +145,11 @@ is.uuid = function (x) {
 #' @export
 #' 
 
-is_integer=function(x, tol = .Machine$double.eps^0.5) {
+is_integer=function(x) {
   
   tryCatch({
     
-    if(is.character(x)) {
-      
-      message(config::get("WARNING"))
-      
-      #war=warning("Tried to convert character to integer",call. = FALSE)
-      
-      if(!grepl("\\.",x) ){
-        
-        as.integer(x)%%1==0
-        
-      } else FALSE
-      
-    } else x%%1==0
+    if(!is.character(x)) x%%1==0 else FALSE
     
   }, 
   warning = function(w) {
