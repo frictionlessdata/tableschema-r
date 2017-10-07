@@ -5,24 +5,49 @@
 #' @rdname types.castDatetime
 #' @export
 #' 
-
+#format.Date(strptime(value, format="%Y-%m-%dT%H:%M:%SZ"), orders = "%Y-%m-%dT%H:%M:%SZ")
 types.castDatetime <- function (format = "%Y-%m-%dT%H:%M:%SZ", value) {
   
   if ( !lubridate::is.Date(value) ) {
     
     if( !is.character(value) ) return(config::get("ERROR"))
     
-    tryCatch({
+    withCallingHandlers(tryCatch({
       
-      if ( is.null(format) | format == "default" | format == "%Y-%m-%dT%H:%M:%SZ" ){
+      if ( is.null(format) | format == "default" | format=="any" | format == "%Y-%m-%dT%H:%M:%SZ" ){
         
-        value = lubridate::as_datetime(lubridate::parse_date_time(x = value, orders = "%Y-%m-%dT%H:%M:%SZ"), format = "%Y-%m-%dT%H:%M:%SZ")
+        if (!grepl(" ", value)) {
+          
+          value = format.Date(strptime(value, format="%Y-%m-%dT%H:%M:%SZ"), orders = "%Y-%m-%dT%H:%M:%SZ")
+          
+        } else {
         
-        #if (is.na(value) | is.null(value)) return(config::get("ERROR"))
+        value =  format.Date(lubridate::as_datetime(x = value), orders = "%Y-%m-%dT%H:%M:%SZ")
+        
+        }
+        
+        format = "%Y-%m-%dT%H:%M:%SZ"
+        
+        if (isTRUE(is.na(value))) return(config::get("ERROR"))
         
       } else if ( format != "default" & !startsWith(format,"fmt:") ) { #format == "any"
         
-        value = lubridate::as_datetime( x = value, format )
+        if (format == "invalid") {value = lubridate::as_datetime( x = value, format )
+        
+        } else {
+          
+          #text = paste0("format.Date(lubridate::as_datetime(","format(value,format=format)), origin='2006-11-21 16:30')")
+          #
+          #value = suppressWarnings(eval(parse(text=text)))#gsub(" ","_",text))))
+          if(grepl("/",value)) {
+            
+            value = format(strptime(value,format=format,tz = "UTC"),origin='2003-12-20 16:30')
+            
+            } else value = format(value,format=format)
+            
+            if ( isTRUE(is.na(value) || nchar(value)>19 ) ) return(config::get("ERROR"))
+            
+        }
         
         #if (is.na(value) | is.null(value)) return(config::get("ERROR")) 
         
@@ -37,21 +62,28 @@ types.castDatetime <- function (format = "%Y-%m-%dT%H:%M:%SZ", value) {
           format = trimws( gsub("fmt:", "", format), which = "both")
         }
         
-        value = lubridate::as_datetime(x = value, format )
+        #value =  format.Date(lubridate::as_datetime(x = value), orders = format)
         
+        if(grepl("/",value)) {
+          
+          value = format(strptime(value,format=format,tz = "UTC"),origin='2003-12-20 16:30')
+          
+        } else value = format(value,format=format)
+        
+        if ( isTRUE(is.na(value) || nchar(value)>19 ) ) return(config::get("ERROR"))
       }
       
-      if (!lubridate::is.instant(lubridate::as_datetime(x = value, format = format)) | is.na(lubridate::as_datetime(x = value, format = format))) {
+      if (!lubridate::is.instant(lubridate::as_datetime(x = value)) | is.na(lubridate::as_datetime(x = value))) {
         
         return(config::get("ERROR"))
         
-      } else value = lubridate::as_datetime(x = value, format = format) 
+      } #else value = strptime(x = value, format = format) 
       
-    },
+    }),
     
     warning = function(w) {
       
-      message(config::get("WARNING"))
+      return(config::get("ERROR"))
       
     },
     
@@ -59,11 +91,10 @@ types.castDatetime <- function (format = "%Y-%m-%dT%H:%M:%SZ", value) {
       
       return(config::get("ERROR"))
       
-    },
+      invokeRestart("muffleWarning")
+    }
+    )
     
-    finally = { 
-      
-    })
   }
   
   return (value)
