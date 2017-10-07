@@ -4,7 +4,7 @@
 #' @rdname types.castYear
 #' @export
 #' 
-types.castYear <- function (value) { #format parameter is not used   
+types.castYear <- function (format, value) { 
    
   if(!is_integer(value)){
     

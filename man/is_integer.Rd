@@ -4,7 +4,7 @@
 \alias{is_integer}
 \title{Is integer}
 \usage{
-is_integer(x, tol = .Machine$double.eps^0.5)
+is_integer(x)
 }
 \arguments{
 \item{x}{value}
