@@ -18,11 +18,11 @@ types.castDatetime <- function (format = "%Y-%m-%dT%H:%M:%SZ", value) {
         
         if (!grepl(" ", value)) {
           
-          value = format.Date(strptime(value, format="%Y-%m-%dT%H:%M:%SZ"), orders = "%Y-%m-%dT%H:%M:%SZ")
+          value = suppressWarnings(format.Date(strptime(value, format="%Y-%m-%dT%H:%M:%SZ"), orders = "%Y-%m-%dT%H:%M:%SZ"))
           
         } else {
         
-        value =  format.Date(lubridate::as_datetime(x = value), orders = "%Y-%m-%dT%H:%M:%SZ")
+        value =  suppressWarnings(format.Date(lubridate::as_datetime(x = value), orders = "%Y-%m-%dT%H:%M:%SZ"))
         
         }
         
@@ -32,7 +32,9 @@ types.castDatetime <- function (format = "%Y-%m-%dT%H:%M:%SZ", value) {
         
       } else if ( format != "default" & !startsWith(format,"fmt:") ) { #format == "any"
         
-        if (format == "invalid") {value = lubridate::as_datetime( x = value, format )
+        if (format == "invalid") {
+          
+          return(config::get("ERROR"))
         
         } else {
           
@@ -73,7 +75,7 @@ types.castDatetime <- function (format = "%Y-%m-%dT%H:%M:%SZ", value) {
         if ( isTRUE(is.na(value) || nchar(value)>19 ) ) return(config::get("ERROR"))
       }
       
-      if (!lubridate::is.instant(lubridate::as_datetime(x = value)) | is.na(lubridate::as_datetime(x = value))) {
+      if (suppressWarnings(!lubridate::is.instant(lubridate::as_datetime(x = value)) | is.na(lubridate::as_datetime(x = value)))) {
         
         return(config::get("ERROR"))
         
@@ -83,7 +85,7 @@ types.castDatetime <- function (format = "%Y-%m-%dT%H:%M:%SZ", value) {
     
     warning = function(w) {
       
-      return(config::get("ERROR"))
+      return(config::get("WARNING"))
       
     },
     

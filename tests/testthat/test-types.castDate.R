@@ -14,9 +14,9 @@ TESTS = list(
 
   list("default", "2019-01-01", as.Date("2019-1-1")),
 
-  #list("default", "10th Jan 1969", config::get("ERROR")),
+  list("default", "10th Jan 1969", config::get("ERROR")),
 
-  #list("default", "invalid", config::get("ERROR")),
+  list("default", "invalid", config::get("ERROR")),
 
   list("default", TRUE, config::get("ERROR")),
 
@@ -26,11 +26,11 @@ TESTS = list(
 
   list("any", "2019-01-01", as.Date("2019-1-1")),
 
-  # ["any", "10th Jan 1969", date(1969, 1, 10)),
+  #list ("any", "10th Jan 1969", as.Date("1969-1-10")),
 
-  #list("any", "10th Jan nineteen sixty nine", config::get("ERROR")),
+  list("any", "10th Jan nineteen sixty nine", config::get("ERROR")),
 
-  #list("any", "invalid", config::get("ERROR")),
+  list("any", "invalid", config::get("ERROR")),
 
   list("any", TRUE, config::get("ERROR")),
 
@@ -40,9 +40,9 @@ TESTS = list(
 
   list("%d/%m/%y", "21/11/06", as.Date("2006-11-21")),
 
-  #list("%y/%m/%d", "21/11/06 16:30", config::get("ERROR")),
+  list("%y/%m/%d", "21/11/06 16:30", config::get("ERROR")),
 
-  #list("%d/%m/%y", "invalid", config::get("ERROR")),
+  list("%d/%m/%y", "invalid", config::get("ERROR")),
 
   list("%d/%m/%y", TRUE, config::get("ERROR")),
 
@@ -55,9 +55,9 @@ TESTS = list(
 
   list("fmt:%d/%m/%y", "21/11/06", as.Date("2006-11-21")),
 
-  #list("fmt:%y/%m/%d", "21/11/06 16:30", config::get("ERROR")),
+  list("fmt:%y/%m/%d", "21/11/06 16:30", config::get("ERROR")),
 
-  #list("fmt:%d/%m/%y", "invalid", config::get("ERROR")),
+  list("fmt:%d/%m/%y", "invalid", config::get("ERROR")),
 
   list("fmt:%d/%m/%y", TRUE, config::get("ERROR")),
 
