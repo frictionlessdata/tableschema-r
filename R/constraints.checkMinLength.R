@@ -7,6 +7,9 @@
 
 constraints.checkMinLength <- function(constraint, value){
   
-  any( is.null(value) | nchar(value) >= constraint )
+  if( is.null(value) ) return (TRUE)
   
+  if ( all(nchar(value) >= constraint) ) return (TRUE)
+  
+  return (FALSE)
 }

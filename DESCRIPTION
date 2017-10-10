@@ -30,7 +30,7 @@ Imports:
     readr
 RoxygenNote: 6.0.1
 Suggests:
-    testthat
+    testthat,foreach
 Collate: 
     'constraints.checkUnique.R'
     'constraints.checkRequired.R'
@@ -55,7 +55,6 @@ Collate:
     'types.castDatetime.R'
     'types.castDate.R'
     'types.castBoolean.R'
-    'types.castArray.R'
     'types.castAny.R'
     'types.R'
     'field.R'
@@ -67,3 +66,4 @@ Collate:
     'profiles.R'
     'schema.R'
     'table.R'
+    'types.castArray.R'

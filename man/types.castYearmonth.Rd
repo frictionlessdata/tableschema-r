@@ -4,7 +4,7 @@
 \alias{types.castYearmonth}
 \title{cast yearmonth}
 \usage{
-types.castYearmonth(value)
+types.castYearmonth(format, value)
 }
 \arguments{
 \item{value}{value}

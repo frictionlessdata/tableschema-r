@@ -4,7 +4,7 @@
 \alias{types.castDate}
 \title{cast date}
 \usage{
-types.castDate(format = "\%Y-\%m-\%d", value)
+types.castDate(format, value)
 }
 \arguments{
 \item{format}{specify format, default is "\%Y-\%m-\%d"}

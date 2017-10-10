@@ -4,10 +4,12 @@
 \alias{constraints.checkUnique}
 \title{Check if a field is unique}
 \usage{
-constraints.checkUnique(x)
+constraints.checkUnique(constraint, value)
 }
 \arguments{
-\item{x}{x}
+\item{constraint}{constraint}
+
+\item{value}{value}
 }
 \value{
 TRUE if field is unique

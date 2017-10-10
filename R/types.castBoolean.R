@@ -1,33 +1,36 @@
 #' @title cast boolean
 #' @description cast boolean
+#' @param format format
 #' @param value value
 #' @param options options specify trueValues or/and falseValues
 #' @rdname types.castBoolean
 #' @export
 #' 
 
-types.castBoolean <- function (value, options={}) { #format parameter is not used
+types.castBoolean <- function (format, value, options={}) { #format parameter is not used
   
   if ("trueValues" %in% names(options)) TRUE_VALUES = options[["trueValues"]]
   
   if ("falseValues" %in% names(options)) FALSE_VALUES = options[["falseValues"]]
   
   
-  if  ( !is.logical(value) )
+  if  ( !is.logical(value) ) {
     
     if ( !is.character(value) ) return(config::get("ERROR"))
-  
-  value = trimws(tolower(value))
-  
-  if ( value %in% TRUE_VALUES ) {
     
-    value = TRUE
+    value = trimws(tolower(value))
     
-  } else if ( value %in% FALSE_VALUES ) {
+    if ( value %in% TRUE_VALUES ) {
+      
+      value = TRUE
+      
+    } else if ( value %in% FALSE_VALUES ) {
+      
+      value = FALSE
+      
+    } else  return(config::get("ERROR"))
     
-    value = FALSE
-    
-  } else  return(config::get("ERROR"))
+  }
   
   return(value)
   

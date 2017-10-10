@@ -4,7 +4,7 @@
 \alias{types.castYear}
 \title{cast year}
 \usage{
-types.castYear(value)
+types.castYear(format, value)
 }
 \arguments{
 \item{value}{value}
