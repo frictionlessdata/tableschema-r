@@ -1,3 +1,4 @@
+
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "id": "https://raw.githubusercontent.com/fge/sample-json-schemas/master/geojson/geojson.json#",
@@ -205,5 +206,4 @@
             "items": { "type": "number" }
         }
     }
-	
 }

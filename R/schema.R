@@ -20,9 +20,8 @@ Schema <- R6Class(
       # Set attributes
       private$strict_ = strict
       private$caseInsensitiveHeaders_ = caseInsensitiveHeaders
-      private$currentDescriptor_ = descriptor
-      private$nextDescriptor_ = descriptor
-      private$profile_ = Profile$new('table-schema')
+      private$currentDescriptor_json = descriptor
+      private$profile_ = Profile$new('tableschema')
       private$errors_ = list()
       private$fields_ = list()
       
@@ -187,7 +186,7 @@ Schema <- R6Class(
       contents <-
         jsonlite::toJSON(private$currentDescriptor_, pretty = TRUE)
       
-      deferred_ = async::async(function() {
+      deferred_ = future::future(function() {
         y <- list(a = 1, b = TRUE, c = "oops")
         base::save(contents, file = target)
       })
@@ -253,28 +252,39 @@ Schema <- R6Class(
     strict_ = NULL,
     caseInsensitiveHeaders_ = NULL,
     currentDescriptor_ = NULL,
+    currentDescriptor_json = NULL,
     nextDescriptor_ = NULL,
     profile_ = NULL,
     errors_ = NULL,
     fields_ = NULL,
     build_ = function() {
+      
       # Process descriptor
-      private$currentDescriptor_ = helpers.expandSchemaDescriptor(private$currentDescriptor_)
-      private$nextDescriptor_ = private$currentDescriptor_
+      #private$currentDescriptor_json = jsonlite::toJSON(private$currentDescriptor_, auto_unbox = TRUE)
       
       # Validate descriptor
       private$errors_ = list()
-      current = private$profile_$validate(private$currentDescriptor_)
+      current = private$profile_$validate(private$currentDescriptor_json)
+      
       if (!current[['valid']]) {
+        
         private$errors_ = current[['errors']]
-        if (private$strict_) {
+
+        if (private$strict_ == TRUE) {
+
           message = stringr::str_interp(
-            "There are ${length(current[['errors']]) validation errors (see 'error$errors')}"
+            "There are ${length(current[['errors']])} validation errors (see 'error$errors')"
           )
-          stop(TableSchemaError$new(message, current[['errors']]))
-          
+          stop((message))
         }
       }
+      
+      descriptor = jsonlite::fromJSON(private$currentDescriptor_json, simplifyVector = FALSE)
+      descriptor =  helpers.retrieveDescriptor(descriptor)$value
+      
+      
+      private$currentDescriptor_ = helpers.expandSchemaDescriptor(descriptor)
+      private$nextDescriptor_ = private$currentDescriptor_
       
       # Populate fields
       private$fields_ = list()
@@ -297,11 +307,11 @@ Schema <- R6Class(
           return(field)
         },
         finally = {
-         
+          
         })
         
         private$fields_ = append(private$fields_, list(field))
-
+        
       }
       
     },
@@ -359,30 +369,20 @@ Schema <- R6Class(
   
 )
 
-schema.load = function(descriptor = list(),
-                       strict = FALSE,
-                       caseInsensitiveHeaders = FALSE) {
-  res = helpers.retrieveDescriptor(descriptor)
-  af = async::await(res)$then(function(descriptor) {
-    Schema$new(descriptor, strict, caseInsensitiveHeaders)
-  })
-  return(af())
-  #async::delay(10)
-  
-  #  Helpers$new()$retrieveDescriptor(descriptor))
-  
-  
-  
-}
-schema.load2 = function(descriptor = list(),
+schema.load = function(descriptor = "",
                        strict = FALSE,
                        caseInsensitiveHeaders = FALSE) {
   
-  descriptor =  helpers.retrieveDescriptor(descriptor)$value
-  
-  return(future::future(function(){
-    return(Schema$new(descriptor = descriptor, strict = strict, caseInsensitiveHeaders = caseInsensitiveHeaders ))
-  })) 
+
+  return(future::future(function() {
+    return(
+      Schema$new(
+        descriptor = descriptor,
+        strict = strict,
+        caseInsensitiveHeaders = caseInsensitiveHeaders
+      )
+    )
+  }))
   
   
 }

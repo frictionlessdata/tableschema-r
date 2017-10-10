@@ -26,7 +26,8 @@ Imports:
     rlang,
     roxygen2,
     stringi,
-    stringr
+    stringr,
+    readr
 RoxygenNote: 6.0.1
 Suggests:
     testthat
@@ -63,5 +64,6 @@ Collate:
     'methods.R'
     'tableschemaerror.R'
     'profile.R'
+    'profiles.R'
     'schema.R'
     'table.R'
