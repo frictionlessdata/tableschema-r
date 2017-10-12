@@ -140,7 +140,6 @@ is.uuid = function (x) {
 #' Is integer
 #' @description is integer
 #' @param x value
-#' @param tol tolerance
 #' @rdname is_integer
 #' @export
 #' 

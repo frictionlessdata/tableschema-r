@@ -8,8 +8,6 @@ is_integer(x)
 }
 \arguments{
 \item{x}{value}
-
-\item{tol}{tolerance}
 }
 \description{
 is integer
