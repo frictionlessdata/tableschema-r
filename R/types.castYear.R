@@ -1,6 +1,7 @@
 #' @title cast year
 #' @description cast year
 #' @param value value
+#' @param format format
 #' @rdname types.castYear
 #' @export
 #' 

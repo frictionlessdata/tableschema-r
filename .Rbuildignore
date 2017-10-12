@@ -6,7 +6,6 @@
 ^NEWS\.Rmd$
 ^README\.Rmd$
 ^config\.yml$
-^data\.txt$
 ^frictionlessdata\.png$
 ^okgr\.png$
 ^oklabs\.png$
@@ -14,3 +13,4 @@
 ^tableschema-r\.sln$
 ^\.coveralls\.yml$
 ^\.idea$
+^field\.R\.annot\.R$

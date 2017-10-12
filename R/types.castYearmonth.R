@@ -1,6 +1,7 @@
 #' @title cast yearmonth
 #' @description cast yearmonth
 #' @param value value
+#' @param format format
 #' @rdname types.castYearmonth
 #' @export
 #' 
