@@ -92,16 +92,17 @@ is.uri<- function(uri){
   
   if (!is.character(uri)) message("The uri should be character")
   
-  pattern = grepl("^http[s]?://", uri) & !httr::http_error(uri)
+  pattern = grepl("^http[s]?://", uri) | RCurl::url.exists(uri) #& !httr::http_error(uri)
   
-  if (!isTRUE(pattern)) {
-    
-    pattern = httr::http_status(httr::GET(uri))
-    
-  }
+  # if (!isTRUE(pattern)) {
+  #   
+  #   pattern = httr::http_status(httr::GET(uri))
+  #   
+  # }
   
   return(pattern)
 }
+
 
 #' is email
 #' @param x email string
