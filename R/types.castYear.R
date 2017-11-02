@@ -12,7 +12,6 @@ types.castYear <- function (format, value) {
     if (!is.character(value)) return(config::get("ERROR"))
     
     if (nchar(value) != 4) return(config::get("ERROR"))
-    
     tryCatch({
       
       result = as.integer(value)

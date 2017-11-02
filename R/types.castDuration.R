@@ -7,28 +7,30 @@
 #' @export
 #' 
 
-types.castDuration <- function (value, format = "seconds") { #format parameter is not used   
+types.castDuration <- function(format = "seconds", value) { #format parameter is not used   
   
   if (!lubridate::is.duration(value)) {
-    
+
     if (!is.character(value)) return(config::get("ERROR"))
     
-    tryCatch({
+    result = tryCatch({
       
       value = Duration(as.integer(value), type = format)  # as.integer change to types.castInteger function
       
-      if(!lubridate::is.duration(value) | is.na(value)) return(config::get("ERROR"))
+      if (!lubridate::is.duration(value) || is.na(value)) return(config::get("ERROR"))
+      else {
+        return(value)
+      }
       
     },
     
     warning = function(w) {
-      
       message(config::get("WARNING"))
+      return(config::get("ERROR"))
       
     },
     
     error = function(e) {
-      
       return(config::get("ERROR"))
       
     },
@@ -40,8 +42,7 @@ types.castDuration <- function (value, format = "seconds") { #format parameter i
     #if( not in milliseconds()) stop("Value should be in milliseconds",call. = FALSE)
     
     #},error= function(e) err<<-e)
-    
-    return(value)
+    return(result)
     
   }
 }

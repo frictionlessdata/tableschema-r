@@ -12,7 +12,7 @@ types.castTime <- function (format="%H:%M:%S", value) {
     
     if (!is.character(value)) return(config::get("ERROR"))
     
-    tryCatch( {
+    value = tryCatch( {
       
       if (format == "%H:%M:%S") {
         
@@ -42,8 +42,8 @@ types.castTime <- function (format="%H:%M:%S", value) {
         
         #value = strftime(value, format = format)
       }
-      
-      if ( !lubridate::is.POSIXlt(strptime(value, format = format)) ) return(config::get("ERROR"))
+
+      if ( !lubridate::is.POSIXlt(strptime(value, format = format)) || is.na(value) ) return(config::get("ERROR"))
       
       value = strftime(as.POSIXlt(value, format = format), format = format) 
       
@@ -51,7 +51,7 @@ types.castTime <- function (format="%H:%M:%S", value) {
     
     warning = function(w) {
       
-      message(config::get("WARNING"))
+      return(config::get("ERROR"))
       
     },
     
@@ -66,6 +66,6 @@ types.castTime <- function (format="%H:%M:%S", value) {
     })
   }
   
-  return (value)
+  return(value)
 }
 

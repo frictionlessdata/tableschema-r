@@ -68,9 +68,8 @@ Profile <- R6Class(
         errors = modifyList(errors, list(
           Error = stringr::str_interp(
             'Descriptor validation error:
-            ${validationError.message}
-            at "${validationError.dataPath}" in descriptor and
-            at "${validationError.schemaPath}" in profile'
+            ${validationError}
+           '
           )
           ))
         

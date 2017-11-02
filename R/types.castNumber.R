@@ -57,7 +57,7 @@ types.castNumber <- function (format, value, options={}) {
     
     warning = function(w) {
       
-      message(config::get("WARNING"))
+      return(config::get("ERROR"))
       
     },
     
@@ -73,7 +73,8 @@ types.castNumber <- function (format, value, options={}) {
     
   }
   
-  if (is.nan(value)) return(config::get("ERROR"))
+
+  if (is.null(value) || is.nan(value)) return(config::get("ERROR"))
   
   return(value)
   

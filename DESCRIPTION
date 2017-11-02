@@ -27,7 +27,8 @@ Imports:
     roxygen2,
     stringi,
     stringr,
-    readr
+    readr,
+    readtext
 RoxygenNote: 6.0.1
 Suggests:
     testthat,foreach
@@ -41,6 +42,7 @@ Collate:
     'constraints.checkMaximum.R'
     'constraints.checkEnum.R'
     'constraints.R'
+    'types.castArray.R'
     'types.castYearmonth.R'
     'types.castYear.R'
     'types.castTime.R'
@@ -66,4 +68,3 @@ Collate:
     'profiles.R'
     'schema.R'
     'table.R'
-    'types.castArray.R'

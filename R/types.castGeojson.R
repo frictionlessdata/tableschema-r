@@ -6,21 +6,19 @@
 #' @export
 #' 
 
-types.castGeojson <- function (format, value) {
+types.castGeojson <- function(format, value) {
   
   if (!is.object(value)) {
     
     if (!is.character(value)) return(config::get("ERROR"))
-    
-    tryCatch( {
+    value = tryCatch( {
       
       value = jsonlite::fromJSON(value)
-      
     },
     
     warning = function(w) {
       
-      message(config::get("WARNING"))
+      return(config::get("ERROR"))
       
     },
     
@@ -35,9 +33,14 @@ types.castGeojson <- function (format, value) {
     })
     
   }
+  
+  if(value == config::get("ERROR")){
+    return(value)
+  }
+  
   if (format == "default") {
     
-    tryCatch( {
+    result = tryCatch( {
       path_geojson <- system.file("profiles/geojson.json", package = "tableschema.r")
       
       v = jsonvalidate::json_validator(path_geojson)
@@ -45,17 +48,18 @@ types.castGeojson <- function (format, value) {
       valid = v(value,verbose = T, greedy=TRUE,error=F) # ./inst/profiles/geojson.json
       
       if (!valid) return(config::get("ERROR"))
+      else return(value)
+      
+    
       
     },
     
     warning = function(w) {
-      
-      message(config::get("WARNING"))
+      return(config::get("WARNING"))
       
     },
     
     error = function(e) {
-      
       return(config::get("ERROR"))
       
     },

@@ -10,7 +10,7 @@ types.castGeopoint <- function (format, value) {
   
   lon_lat = list( lon=NULL, lat=NULL)
   
-  tryCatch({
+  lon_lat = tryCatch({
     
     if (format == "default") {
       
@@ -18,9 +18,9 @@ types.castGeopoint <- function (format, value) {
         
         lon_lat = unlist(strsplit(value, ","))
         
-        lon_lat$lon = trimws(lon_lat$lon, which = "both")
+        lon_lat[["lon"]] = trimws(lon_lat$lon, which = "both")
         
-        lon_lat$lon = trimws(lon_lat$lat, which = "both")
+        lon_lat[["lat"]] = trimws(lon_lat$lat, which = "both")
         
       } else if (is.list(value) | is.array(value)) { 
         
@@ -54,17 +54,17 @@ types.castGeopoint <- function (format, value) {
     lon_lat$lon = as.numeric(lon_lat$lon) # or types.castNumber
     
     lon_lat$lat = as.numeric(lon_lat$lat) # or types.castNumber
+    if (is.nan(lon_lat$lon) | lon_lat$lon > 180 | lon_lat$lon < -180) return(config::get("ERROR"))
     
+    if (is.nan(lon_lat$lat) | lon_lat$lat > 90 | lon_lat$lat < -90) return(config::get("ERROR"))
   },
   
   warning = function(w) {
-    
-    message(config::get("WARNING"))
+    return(config::get("ERROR"))
     
   },
   
   error = function(e) {
-    
     return(config::get("ERROR"))
     
   },
@@ -72,11 +72,8 @@ types.castGeopoint <- function (format, value) {
   finally = {
     
   })
+
   
-  if (is.nan(lon_lat$lon) | lon_lat$lon > 180 | lon_lat$lon < -180) return(config::get("ERROR"))
-  
-  if (is.nan(lon_lat$lat) | lon_lat$lat > 90 | lon_lat$lat < -90) return(config::get("ERROR"))
-  
-  return (lon_lat)
+  return(lon_lat)
   
 }

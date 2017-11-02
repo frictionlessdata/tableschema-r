@@ -21,14 +21,13 @@
 #' @include types.castTime.R
 #' @include types.castYear.R
 #' @include types.castYearmonth.R
-#' 
-# @include types.castArray.R
+#' @include types.castArray.R
 
 Types <- R6Class("Types", public = list(casts = list(
   
   
   castAny     = types.castAny,
-  #castArray     = types.castArray,
+  castArray     = types.castArray,
   castBoolean   = types.castBoolean,
   castDate      = types.castDate,
   castDatetime  = types.castDatetime,

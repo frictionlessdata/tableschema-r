@@ -14,7 +14,7 @@
 Schema <- R6Class(
   "Schema",
   public = list(
-    initialize = function(descriptor,
+    initialize = function(descriptor = "{}",
                           strict = FALSE,
                           caseInsensitiveHeaders = FALSE) {
       # Set attributes
@@ -30,7 +30,7 @@ Schema <- R6Class(
       
     },
     
-    getField = function(fieldName, index = 0) {
+    getField = function(fieldName, index = 1) {
       name = fieldName
       fields = purrr::keep(private$fields_, function(field) {
         if (!is.null(private$caseInsensitiveHeaders_))
@@ -40,8 +40,8 @@ Schema <- R6Class(
       if (length(fields) < 1) {
         return(NULL)
       }
-      if (is.null(index)) {
-        return(fields[[0]])
+      if ((index == 1)) {
+        return(fields[[1]])
       }
       return(private$fields_[[index]])
     },
@@ -76,62 +76,60 @@ Schema <- R6Class(
       
       if (length(headers) != length(items)) {
         message = 'Row dimension doesn\'t match schema\'s fields dimension'
-        stop(TableSchemaError$new(message))
+        stop(message)
       }
       
-      for (i in 0:length(items)) {
-        tryCatch({
+      
+      for (i in 1:length(items)) {
+        attempt = tryCatch({
           field = self$getField(headers[[i]], i)
-          value = field$castValue(items[[i]], list(constraints = !skipConstraints))
-          
+          value = field$cast_value(value = items[[i]],
+                                   constraints = !skipConstraints)
+
           # TODO: reimplement
-          # That's very wrong - on schema level uniqueness doesn't make sense
           # and it's very bad to use it for exteral (by Table) monkeypatching
           if (!skipConstraints) {
             # unique constraints available only from Resource
-            if (self$uniqueness &&
-                self$uniqueHeaders) {
-              Helpers$new()$checkUnique(field$name,
-                                        value,
-                                        self$uniqueHeaders,
-                                        self$uniqueness)
+            if (!is.null(self$uniqueness) &&
+                !is.null(self$uniqueHeaders) && self$uniqueness == TRUE &&
+                self$uniqueHeaders == TRUE) {
+              helpers.checkUnique(field$name,
+                                  value,
+                                  self$uniqueHeaders,
+                                  self$uniqueness)
             }
+            
           }
+          
           result = append(result, value)
-          return(value)
         },
         error = function(e) {
-          switch(e$name,
-                 'UniqueConstraintsError' = {
-                   error <- TableSchemaError$new(message)
-                 },
-                 {
-                   error <-
-                     TableSchemaError$new(
-                       stringr::str_interp(
-                         "Wrong type for header: ${headers[[i]]} and value: ${items[[i]]}"
-                       )
-                     )
-                 })
-          
+          #TODO:  UniqueConstraintsError
+
+          error <-
+            stringr::str_interp("Wrong type for header: ${headers[[i]]} and value: ${items[[i]]}")
           if (failFast == TRUE) {
             stop(error)
           } else {
-            errors = append(errors, error)
+            attempt = list(error = error)
+            
+            
           }
-        },
-        warning = function(cond) {
-          
-        },
-        finally = {
-          
         })
-        
+        if (is.list(attempt) && ('error' %in% names(attempt))) {
+          errors = append(errors, attempt[['error']])
+        }
       }
       
       if (length(errors) > 0) {
-        message = stringr::str_interp("There are ${length(errors)} cast errors (see 'error$errors')")
-        stop(TableSchemaError$new(message, errors))
+        error_message = paste(errors, collapse = ' | ')
+        error_message = c(
+          stringr::str_interp("There are ${length(errors)} cast errors (see following"),
+          ' - ',
+          error_message
+        )
+        
+        stop(error_message)
       }
       
       return(result)
@@ -155,14 +153,16 @@ Schema <- R6Class(
       
       # Get descriptor
       descriptor = list(fields = list())
+      i = 1
       for (entry in headers) {
         # This approach is not effective, we should go row by row
         columnValues = purrr::map(rows, function(row) {
-          return(row[entry[["index"]]])
+          return(row[[i]])
         })
         type = private$guessType_(columnValues)
-        field = list(name = entry[["header"]], type = type)
-        descriptor$fields = append(descriptor$fields, field)
+        field = list(name = entry, type = type)
+        descriptor$fields = append(descriptor$fields, list(field))
+        i = i + 1
       }
       
       # Commit descriptor
@@ -177,7 +177,8 @@ Schema <- R6Class(
         private$strict_ = strict
       else if (identical(private$currentDescriptor_, private$nextDescriptor_))
         return(FALSE)
-      private$currentDescriptor = private$nextDescriptor_
+      private$currentDescriptor_ = private$nextDescriptor_
+      private$currentDescriptor_json = jsonlite::toJSON(private$currentDescriptor_, auto_unbox = TRUE)
       private$build_()
       return(TRUE)
     },
@@ -212,13 +213,18 @@ Schema <- R6Class(
     
     foreignKeys = function() {
       foreignKeys = private$currentDescriptor_$foreignKeys
-      for (key in foreignKeys) {
+      if(is.null(foreignKeys)){
+        foreignKeys = list()
+      }
+      
+      foreignKeys = lapply(foreignKeys, function(key){
+        
         if (is.null(key$fields))
           key$fields = list()
         if (is.null(key$reference))
           key$reference = list()
         if (is.null(key$reference$resource))
-          key$reference$resource = list()
+          key$reference$resource = ''
         if (is.null(key$reference$fields))
           key$reference$fields = list()
         
@@ -228,8 +234,25 @@ Schema <- R6Class(
         if (!is.list(key$reference$fields)) {
           key$reference$fields = list(key$reference$fields)
         }
-      }
+        
+        return(key)
+        
+        
+      })
+      
+    
       return(foreignKeys)
+    },
+    
+    primaryKey = function(){
+      key = private$currentDescriptor_$primaryKey
+      if (is.null(key)) {
+        key = list()
+      }
+      if (!is.list(key)) {
+        key = list(key)
+      }
+      return(key)
     },
     
     
@@ -258,59 +281,50 @@ Schema <- R6Class(
     errors_ = NULL,
     fields_ = NULL,
     build_ = function() {
-      
       # Process descriptor
       #private$currentDescriptor_json = jsonlite::toJSON(private$currentDescriptor_, auto_unbox = TRUE)
-      
       # Validate descriptor
       private$errors_ = list()
       current = private$profile_$validate(private$currentDescriptor_json)
       
       if (!current[['valid']]) {
-        
         private$errors_ = current[['errors']]
-
+        
         if (private$strict_ == TRUE) {
-
           message = stringr::str_interp(
             "There are ${length(current[['errors']])} validation errors (see 'error$errors')"
           )
           stop((message))
         }
       }
-      
+      private$currentDescriptor_json =  helpers.retrieveDescriptor(private$currentDescriptor_json)$value
       descriptor = jsonlite::fromJSON(private$currentDescriptor_json, simplifyVector = FALSE)
-      descriptor =  helpers.retrieveDescriptor(descriptor)$value
-      
-      
+
       private$currentDescriptor_ = helpers.expandSchemaDescriptor(descriptor)
       private$nextDescriptor_ = private$currentDescriptor_
-      
       # Populate fields
       private$fields_ = list()
       for (field in private$currentDescriptor_$fields) {
         missingValues = private$currentDescriptor_$missingValues
-        tryCatch({
-          field = Field$new(field, missingValues)
-          return(field)
+        
+        field2 =  tryCatch({
+          Field$new(field, missingValues)
+          
         },
         error = function(cond) {
-          field = FALSE
+          field2 = FALSE
           
           # Choose a return value in case of error
-          return(field)
+          return(field2)
         },
         warning = function(cond) {
-          field = FALSE
+          field2 = FALSE
           
           # Choose a return value in case of warning
-          return(field)
-        },
-        finally = {
-          
+          return(field2)
         })
+        private$fields_ = append(private$fields_, list(field2))
         
-        private$fields_ = append(private$fields_, list(field))
         
       }
       
@@ -337,11 +351,13 @@ Schema <- R6Class(
     
     
     guessType_ = function(row) {
+
       # Get matching types
       matches = list()
       for (value in row) {
         for (type in private$GUESS_TYPE_ORDER_) {
-          cast = private$types$casts[[stringr::str_interp("cast${stringr::str_to_title(self$type)}")]]
+          cast = private$types$casts[[stringr::str_interp("cast${stringr::str_to_title(type)}")]]
+          
           result = cast('default', value)
           if (result != config::get("ERROR")) {
             matches = append(matches, type)
@@ -349,17 +365,19 @@ Schema <- R6Class(
           }
         }
       }
-      
+
       # Get winner type
       winner = 'any'
       count = 0
-      for (entry in private$countBy(matches)) {
+      candidateTypes = unique(purrr::map(matches, function(match){list(itemType = match,itemCount = length(Filter(function(x) x == match, matches)))}))
+      
+      for (entry in candidateTypes) {
         if (entry[['itemCount']] > count) {
           winner = entry[['itemType']]
           count = entry[['itemCount']]
         }
       }
-      
+
       return(winner)
     }
     
@@ -372,8 +390,6 @@ Schema <- R6Class(
 schema.load = function(descriptor = "",
                        strict = FALSE,
                        caseInsensitiveHeaders = FALSE) {
-  
-
   return(future::future(function() {
     return(
       Schema$new(

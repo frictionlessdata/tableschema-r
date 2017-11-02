@@ -12,12 +12,12 @@
 Field <- R6Class(
 "Field",
 public = list(
-required = NULL,
 initialize = function(descriptor,
 base_path = NULL,
 strict = NULL,
 missingValues = config::get("DEFAULT_MISSING_VALUES"),
 ...) {
+
     if (missing(base_path)) {
         private$base_path <- NULL
     }
@@ -40,9 +40,8 @@ missingValues = config::get("DEFAULT_MISSING_VALUES"),
     if (!missing(missingValues)) {
         private$missingValues <- missingValues
     }
-
-    descriptor <- Helpers$expandFieldDescriptor(descriptor)
-
+    private$descriptor_ = Helpers$expandFieldDescriptor(descriptor)
+    
 
 },
 
@@ -67,31 +66,7 @@ testValue = function(value, constraints = TRUE) {
     return(result)
 
 
-},
-print = function(...) {
-    args = list(...)
-
-    fields = NULL
-
-    to.print = list()
-
-    if (is.null(args$fields)) {
-        fields = names(get(class(self))$public_fields)
-    } else {
-        fields = args$fields
-    }
-    for (f in fields) {
-        if (R6::is.R6(self[[f]])) {
-            to.print[[f]] = self[[f]]$print()
-        }
-        else {
-            to.print[[f]] = self[[f]]
-        }
-
-    }
-    print(to.print)
 }
-
 
 
 ),
@@ -101,6 +76,14 @@ descriptor = function() {
 
 },
 
+required = function(){
+  if(!is.null(private$descriptor_)){
+    return(identical(private$descriptor_$required, TRUE))
+  }
+  else{
+    return(FALSE)
+  }
+},
 name = function() {
     return(private$descriptor_$name)
 },
@@ -111,8 +94,8 @@ format = function() {
     return(private$descriptor_$format)
 },
 constraints = function() {
-    if (hash::is.hash(private$descriptor_) &&
-    hash::has.key("constraints", private$descriptor_)) {
+    if (is.list(private$descriptor_) && "constraints"  %in% names(private$descriptor_))
+    {
         return(private$descriptor_$constraints)
     }
     else {
@@ -155,27 +138,26 @@ castFunction = function() {
     func <- private$types$casts[[stringr::str_interp("cast${stringr::str_to_title(self$type)}")]]
     if (is.null(func))
     stop(stringr::str_interp("Not supported field type ${self$type}"))
-
-    cast <- purrr::partial(func, format = private$format)
+    cast <- purrr::partial(func, format = self$format)
 
     return(cast)
 },
 
 castValue = function(value, constraints = TRUE, ...) {
-    if (value %in% private$missingValues) {
+   
+   if (value %in% private$missingValues) {
         value <- NULL
 
     }
-
+  
     castValue <- value
-
+    
     if (!is.null(value)) {
-
+      
         castFunction <- private$castFunction()
 
         castValue = castFunction(value)
-
-        if (castValue == config::get("ERROR")) {
+        if (identical(castValue , config::get("ERROR"))) {
             err_message <-
             stringr::str_interp(
             "Field ${private$name} can't cast value ${value} for type ${self$type} with format ${self$format}"
@@ -221,13 +203,12 @@ castValue = function(value, constraints = TRUE, ...) {
         }
 
     }
-
     return(castValue)
 
 },
 checkFunctions = function() {
 
-    checks  =list()
+    checks = list()
     cast <-
     purrr::partial(private$castValue, constraints = FALSE)
 

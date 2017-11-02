@@ -1,13 +1,11 @@
 library(stringr)
-library(hash)
 library(tableschema.r)
 library(testthat)
-
 
 testthat::context("Fields")
 
 
-DESCRIPTOR_MIN <- hash(name = "height", type = "number")
+DESCRIPTOR_MIN <- list(name = "height", type = "number")
 
 
 
@@ -46,14 +44,13 @@ test_that("should fail to cast value", {
 })
 
 test_that("should cast value", {
-    field <- Field$new(hash(name = "name"))
-    expect_equivalent(field$descriptor, hash(name="name", type="string", format="default"))
-
+    field <- Field$new(list(name = "name"))
+    expect_equivalent(field$descriptor, list(name = "name", type = "string", format = "default"))
 })
 
 
 test_that('should parse descriptor with "enum" constraint', {
-    field <- Field$new(hash(name = "status", type = "string", constraints = list(enum = list('active', 'inactive'))))
+    field <- Field$new(list(name = "status", type = "string", constraints = list(enum = list('active', 'inactive'))))
     expect_equal(field$testValue('active'), TRUE)
     expect_equal(field$testValue('inactive'), TRUE)
     expect_equal(field$testValue('activia'), FALSE)
@@ -64,14 +61,14 @@ test_that('should parse descriptor with "enum" constraint', {
 
 
 test_that('should parse descriptor with "minimum" constraint', {
-    field <- Field$new(hash(name = "length", type = "integer", constraints = list(minimum = 100)))
+    field <- Field$new(list(name = "length", type = "integer", constraints = list(minimum = 100)))
     expect_equal(field$testValue(200), TRUE)
     expect_equal(field$testValue(50), FALSE)
 
 })
 
 test_that('should parse descriptor with "maximum" constraint', {
-    field <- Field$new(hash(name = "length", type = "integer", constraints = list(maximum = 100)))
+    field <- Field$new(list(name = "length", type = "integer", constraints = list(maximum = 100)))
     expect_equal(field$testValue(50), TRUE)
     expect_equal(field$testValue(200), FALSE)
 

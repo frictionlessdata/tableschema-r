@@ -5,19 +5,19 @@
 #' @export
 #' 
 
-types.castObject <- function (value) { #format parameter is not used
+types.castObject <- function(format, value) { #format parameter is not used
   
   if (!is.object(value)) {
     
     if (!is.character(value))  return(config::get("ERROR"))
     
-    tryCatch(
-      
-      value = jsonlite::fromJSON(value),
-      
+    value = tryCatch(
+      {
+        value = jsonlite::fromJSON(value)
+      },
       warning = function(w) {
         
-        message(config::get("WARNING"))
+        return(config::get("WARNING"))
         
       },
       

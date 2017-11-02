@@ -6,9 +6,10 @@ library(lubridate)
 
 testthat::context("types.castDatetime")
 
-datetime = function(year, month, day, hour="00", minute="00", second="00"){
+datetime = function(year, month, day, hour=0, minute=0, second=0){
   
-  format.Date( paste0( year, "-" ,month, "-", day, " ", hour,":", minute, ":", second), orders="%Y-%m-%dT%H:%M:%SZ")
+  return(lubridate::as_date(lubridate::make_datetime(year, month, day, hour, minute, second)))
+  
   
 }
 

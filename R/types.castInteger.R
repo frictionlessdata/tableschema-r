@@ -24,7 +24,7 @@ types.castInteger <- function (format, value, options={}) {
       }
     }
     
-    tryCatch({
+    value = tryCatch({
       
       result = as.integer(value)
       
@@ -36,7 +36,7 @@ types.castInteger <- function (format, value, options={}) {
     
     warning = function(w) {
       
-      message(config::get("WARNING"))
+      return(config::get("ERROR"))
       
     },
     
@@ -52,5 +52,5 @@ types.castInteger <- function (format, value, options={}) {
     
   }
   
-  return (value)
+  return(value)
 }
