@@ -23,12 +23,12 @@ Imports:
     lubridate,
     purrr,
     R6,
+    RCurl,
     rlang,
     roxygen2,
     stringi,
     stringr,
-    readr,
-    readtext
+    readr
 RoxygenNote: 6.0.1
 Suggests:
     testthat,foreach
