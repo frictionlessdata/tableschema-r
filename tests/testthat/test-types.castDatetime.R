@@ -8,7 +8,7 @@ testthat::context("types.castDatetime")
 
 datetime = function(year, month, day, hour=0, minute=0, second=0){
   
-  return(lubridate::as_date(lubridate::make_datetime(year, month, day, hour, minute, second)))
+  return(lubridate::as_date(lubridate::make_datetime(year, month, day, hour, minute, second,tz = "UTC")))
   
   
 }
