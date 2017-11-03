@@ -4,7 +4,35 @@ language: R
 sudo: false
 cache: packages
 
+r:
+  - oldrel
+  - release
+  - devel  
+before_install:
+  - tlmgr install index
+github_packages:
+  - devtools
+r_packages:
+  - config,
+  - devtools,
+  - future,
+  - hash,
+  - httr,
+  - jsonvalidate,
+  - jsonlite,
+  - lubridate,
+  - purrr,
+  - R6,
+  - RCurl,
+  - rlang,
+  - roxygen2,
+  - stringi,
+  - stringr,
+  - readr
 addons:
   apt:
     packages:
       - libv8-3.14-dev
+warnings_are_errors: false
+after_success:
+  - Rscript -e 'covr::codecov()'
