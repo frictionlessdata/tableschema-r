@@ -13,22 +13,24 @@ before_install:
 github_packages:
   - devtools
 r_packages:
-  - config,
-  - devtools,
-  - future,
-  - hash,
-  - httr,
-  - jsonvalidate,
-  - jsonlite,
-  - lubridate,
-  - purrr,
-  - R6,
-  - RCurl,
-  - rlang,
-  - roxygen2,
-  - stringi,
-  - stringr,
-  - readr
+ - config
+ - devtools
+ - future
+ - hash
+ - httr
+ - jsonvalidate
+ - jsonlite
+ - lubridate
+ - purrr
+ - R6
+ - RCurl
+ - rlang
+ - roxygen2
+ - stringi
+ - stringr
+ - readr
+ - testthat
+ - foreach
 addons:
   apt:
     packages:
