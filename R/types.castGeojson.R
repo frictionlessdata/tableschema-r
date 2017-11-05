@@ -11,6 +11,7 @@ types.castGeojson <- function(format, value) {
   if (!is.object(value)) {
     
     if (!is.character(value)) return(config::get("ERROR"))
+    
     value = tryCatch( {
       
       value = jsonlite::fromJSON(value)
@@ -34,32 +35,28 @@ types.castGeojson <- function(format, value) {
     
   }
   
-  if(value == config::get("ERROR")){
-    return(value)
-  }
+  # if(value == config::get("ERROR")){
+  #   return(value)
+  # }
   
   if (format == "default") {
     
-    result = tryCatch( {
+    value = tryCatch( {
+      
       path_geojson <- system.file("profiles/geojson.json", package = "tableschema.r")
       
       v = jsonvalidate::json_validator(path_geojson)
       
-      valid = v(value,verbose = T, greedy=TRUE,error=F) # ./inst/profiles/geojson.json
+      valid = v(value,verbose = TRUE, greedy = TRUE, error = FALSE) # ./inst/profiles/geojson.json
       
-      if (!valid) return(config::get("ERROR"))
+      if (!isTRUE(valid)) return(config::get("ERROR"))
+      
       else return(value)
-      
-    
-      
-    },
-    
-    warning = function(w) {
-      return(config::get("WARNING"))
       
     },
     
     error = function(e) {
+      
       return(config::get("ERROR"))
       
     },
@@ -70,9 +67,11 @@ types.castGeojson <- function(format, value) {
     
   } else if (format == "topojson") {
     
-    if ( !is.null(value) | !is.list(value) ) return(config::get("ERROR"))  #!isPlainObject(value)
+    
+    if ( !is_object(value) ) return(config::get("ERROR"))  #!isPlainObject(value)
     
   }
+  
   return (value)
 }
 
