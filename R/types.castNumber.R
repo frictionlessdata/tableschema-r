@@ -9,32 +9,31 @@
 
 types.castNumber <- function (format, value, options={}) {
   
-  decimalChar = DEFAULT_DECIMAL_CHAR # or through options
+  if ("decimalChar" %in% names(options)) decimalChar = options[["decimalChar"]] else decimalChar = DEFAULT_DECIMAL_CHAR 
   
-  groupChar = DEFAULT_GROUP_CHAR
-  
-  if ("decimalChar" %in% names(options)) decimalChar = options[["decimalChar"]]
-  
-  if ("groupChar" %in% names(options)) groupChar = options[["groupChar"]]
+  if ("groupChar" %in% names(options)) groupChar = options[["groupChar"]] else groupChar = DEFAULT_GROUP_CHAR
   
   
   if ( !is.numeric(value) ) {
     
     if ( !is.character(value) )  return(config::get("ERROR"))
     
-    if ( nchar(value) < 1 ) return(config::get("ERROR"))
+    if ( isTRUE(nchar(value) < 1) ) return(config::get("ERROR"))
     
-    value = gsub("\\s", "", value)
+    value = stringr::str_replace_all(string=value, pattern="[\\s]", repl="") #gsub("\\s", "", value)
     
-    if (nchar(decimalChar) > 0) { #stringi::stri_length
+    if ("decimalChar" %in% names(options) ) { #stringi::stri_length
       
-      value = gsub(paste("[",paste(decimalChar,collapse=""),"]",sep=""), ".", value)
+      #value = gsub(paste("[",paste(decimalChar,collapse=""),"]",sep=""), ".", value)
+      
+      value = stringr::str_replace_all(string=value, pattern=stringr::str_interp("[${decimalChar}]"), repl=".") #gsub("\\s", "", value)
       
     }
     
-    if (nchar(groupChar) > 0) { #stringi::stri_length
+    if ("groupChar" %in% names(options)) { #stringi::stri_length
       
-      value = gsub(paste("[",paste(groupChar,collapse=""),"]",sep=""), "", value)
+      #value = gsub(paste("[",paste(groupChar,collapse=""),"]",sep=""), "", value)
+      value = stringr::str_replace_all(string=value, pattern=stringr::str_interp("[${groupChar}]"), repl="") #gsub("\\s", "", value)
       
     }
     
@@ -42,10 +41,11 @@ types.castNumber <- function (format, value, options={}) {
       
       bareNumber = options[["bareNumber"]]
       
-      if(bareNumber==FALSE){
-      
-      value = gsub(gregexpr("((^\\D*)|(\\D*$))", value), "", value)
-      
+      if (bareNumber==FALSE){
+        
+        #value = gsub("(^\\D*)|(\\D*$)", "", value)
+        value = stringr::str_replace_all(string=value, pattern="(^\\D*)|(\\D*$)", repl="") #gsub("\\s", "", value)
+        
       }
     }
     
@@ -73,7 +73,7 @@ types.castNumber <- function (format, value, options={}) {
     
   }
   
-
+  
   if (is.null(value) || is.nan(value)) return(config::get("ERROR"))
   
   return(value)
