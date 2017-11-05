@@ -25,6 +25,7 @@ Imports:
     R6,
     RCurl,
     rlang,
+    rlist,
     roxygen2,
     stringi,
     stringr,
