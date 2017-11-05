@@ -66,7 +66,7 @@ tryCatch({
   })
   
   
-  if (is_empty(lon_lat) | is.null(lon_lat) )  return(config::get("ERROR"))
+  if (is_empty(lon_lat) | is.null(lon_lat) | !is.null(names(lon_lat)) )  return(config::get("ERROR"))
   
   if (length(lon_lat) !=2)  return(config::get("ERROR"))
   
