@@ -19,7 +19,8 @@ types.castInteger <- function (format, value, options={}) {
       
       if(bareNumber==FALSE){
         
-        value = gsub(gregexpr("((^\\D*)|(\\D*$))", value), "", value)
+        #value = gsub("(^\\D*)|(\\D*$)", value, "", value)
+        value = stringr::str_replace_all(string=value, pattern="(^\\D*)|(\\D*$)", repl="") #gsub("\\s", "", value)
         
       }
     }
