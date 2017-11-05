@@ -28,11 +28,11 @@ tryCatch({
         
       } else return(config::get("ERROR"))
       
-    } else if (format == 'array') {
+    } else if (format == 'array' | format== 'list') {
       
       if (is.character(value)) {
         
-        value = jsonlite::fromJSON('string')
+        value = jsonlite::fromJSON(value, simplifyVector = FALSE)
         
       }
       

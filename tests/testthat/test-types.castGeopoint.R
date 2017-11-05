@@ -19,7 +19,7 @@ TESTS = list(
   list('default', '3.14', config::get("ERROR") ),
   list('default', '', config::get("ERROR") ),
   list('array', list(180, 90), list(180, 90) ),
-  #list('array', '[180, -90]', list(180, -90)),
+  list('array', '[180, -90]', list(180, -90)),
   list('array', list(lon = 180, lat = 90), config::get("ERROR")),
   list('array', list(181, 90), config::get("ERROR")),
   list('array', list(0, 91), config::get("ERROR")),
