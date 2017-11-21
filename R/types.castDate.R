@@ -15,7 +15,7 @@ types.castDate <- function(format, value) {
 
         if (is.null(format) ||
             format == "default" || format == "any"  || format == "%Y-%m-%d") {
-
+    
           value = suppressWarnings(as.Date(
             lubridate::parse_date_time(x = value, orders = "%Y-%m-%d"),
             format = "%Y-%m-%d"

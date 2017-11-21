@@ -4,7 +4,7 @@
 \alias{types.castObject}
 \title{cast object}
 \usage{
-types.castObject(value)
+types.castObject(format, value)
 }
 \arguments{
 \item{value}{value}

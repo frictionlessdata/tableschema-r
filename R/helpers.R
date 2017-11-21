@@ -34,6 +34,7 @@ helpers.retrieveDescriptor <- function(descriptor) {
   return(future::future({
     # Inline
 
+    
     if (jsonlite::validate(descriptor)) {
       descriptor = descriptor
       
@@ -44,32 +45,44 @@ helpers.retrieveDescriptor <- function(descriptor) {
       
       # Loading error
       if (httr::status_code(res) >= 400) {
-        browser()
-        
-        stop(TableSchemaError$new(
+
+        stop(
           stringr::str_interp("Can\'t load descriptor at '${descriptor}'"),
           errors
-        ))
+        )
       }
       
       # Local
     } else {
       # Load/parse data
       descriptor = tryCatch({
-        readr::read_file(system.file(descriptor, package = "tableschema.r"))
-
+        data = readLines(descriptor,encoding="UTF-8", warn = FALSE)
+        valid = jsonlite::validate(data)
+        
+        if (valid == FALSE) {
+          stop(
+          stringr::str_interp("Can\'t load descriptor at '${descriptor}'")          )
+        }
+        else{
+          return(data)
+        }
+        
       },
       error = function(cond) {
-
         # Choose a return value in case of error
-        return(TableSchemaError$new(
-          stringr::str_interp("Can\'t load descriptor at '${descriptor}'")
-        ))
+        stop(
+          stringr::str_interp("Can\'t load descriptor at '${descriptor}': ${cond$message}")
+        )
+      },
+      warning = function(cond) {
+        # Choose a return value in case of error
+        stop(
+          stringr::str_interp("Can\'t load descriptor at '${descriptor}': ${cond$message}")
+        )
       })
 
       
     }
-    
     return(descriptor)
   }))
 }

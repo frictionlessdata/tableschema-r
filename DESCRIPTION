@@ -12,6 +12,7 @@ Description: A library for working with Table Schema (http://
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Remotes: r-lib/later
 Imports:
     config,
     devtools,
@@ -28,7 +29,11 @@ Imports:
     stringi,
     stringr,
     readr,
-    readtext
+    readtext,
+    iterators,
+    itertools2,
+    rlist,
+    bitops
 RoxygenNote: 6.0.1
 Suggests:
     testthat,foreach
@@ -66,5 +71,9 @@ Collate:
     'tableschemaerror.R'
     'profile.R'
     'profiles.R'
+    'readable.R'
+    'readable.array.R'
+    'readable.connection.R'
     'schema.R'
     'table.R'
+    'writable.R'

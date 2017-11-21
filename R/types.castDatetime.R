@@ -13,12 +13,12 @@ types.castDatetime <- function (format = "%Y-%m-%dT%H:%M:%SZ", value) {
     if (!is.character(value)) return(config::get("ERROR"))
     value = tryCatch({
       if (format == 'default'){
-        value = lubridate::as_date(lubridate::fast_strptime(value, "%Y-%m-%dT%H:%M:%SZ" ))
+        value = lubridate::as_datetime(lubridate::fast_strptime(value, "%Y-%m-%dT%H:%M:%SZ" ))
 
       }
       else if (format == 'any') {
         
-        value = as.Date(value)
+        value = lubridate::force_tz(as.POSIXct(value, tz= 'UTC'), 'UTC')
 
       }
       
@@ -26,7 +26,7 @@ types.castDatetime <- function (format = "%Y-%m-%dT%H:%M:%SZ", value) {
         if (startsWith(format, 'fmt:')){
           format = gsub('fmt:', '', format)
         }
-        value =  lubridate::as_date(lubridate::fast_strptime(value, format))
+        value =  lubridate::as_datetime(lubridate::fast_strptime(value, format))
 
         
       }
@@ -35,6 +35,7 @@ types.castDatetime <- function (format = "%Y-%m-%dT%H:%M:%SZ", value) {
         return(config::get("ERROR"))
 
       }
+      
 
       return(value)
       

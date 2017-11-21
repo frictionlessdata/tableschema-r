@@ -4,12 +4,12 @@
 \alias{types.castDuration}
 \title{cast duration}
 \usage{
-types.castDuration(value, format = "seconds")
+types.castDuration(format = "seconds", value)
 }
 \arguments{
-\item{value}{value}
-
 \item{format}{time unit of x}
+
+\item{value}{value}
 }
 \description{
 cast duration

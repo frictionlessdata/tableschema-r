@@ -85,7 +85,6 @@ Schema <- R6Class(
           field = self$getField(headers[[i]], i)
           value = field$cast_value(value = items[[i]],
                                    constraints = !skipConstraints)
-
           # TODO: reimplement
           # and it's very bad to use it for exteral (by Table) monkeypatching
           if (!skipConstraints) {
@@ -101,7 +100,7 @@ Schema <- R6Class(
             
           }
           
-          result = append(result, value)
+          result = append(result, list(value))
         },
         error = function(e) {
           #TODO:  UniqueConstraintsError
@@ -117,7 +116,7 @@ Schema <- R6Class(
           }
         })
         if (is.list(attempt) && ('error' %in% names(attempt))) {
-          errors = append(errors, attempt[['error']])
+          errors = append(errors, list(attempt[['error']]))
         }
       }
       
@@ -285,6 +284,14 @@ Schema <- R6Class(
       #private$currentDescriptor_json = jsonlite::toJSON(private$currentDescriptor_, auto_unbox = TRUE)
       # Validate descriptor
       private$errors_ = list()
+      
+
+      private$currentDescriptor_json =  helpers.retrieveDescriptor(private$currentDescriptor_json)$value
+      if(inherits(private$currentDescriptor_json, "simpleError")) {
+        stop(private$currentDescriptor_json$message)
+      }
+      
+      descriptor = jsonlite::fromJSON(private$currentDescriptor_json, simplifyVector = FALSE)
       current = private$profile_$validate(private$currentDescriptor_json)
       
       if (!current[['valid']]) {
@@ -297,9 +304,6 @@ Schema <- R6Class(
           stop((message))
         }
       }
-      private$currentDescriptor_json =  helpers.retrieveDescriptor(private$currentDescriptor_json)$value
-      descriptor = jsonlite::fromJSON(private$currentDescriptor_json, simplifyVector = FALSE)
-
       private$currentDescriptor_ = helpers.expandSchemaDescriptor(descriptor)
       private$nextDescriptor_ = private$currentDescriptor_
       # Populate fields
@@ -360,7 +364,7 @@ Schema <- R6Class(
           
           result = cast('default', value)
           if (result != config::get("ERROR")) {
-            matches = append(matches, type)
+            matches = append(matches, list(type))
             break
           }
         }

@@ -25,23 +25,6 @@ SCHEMA <- '{
 }'
 
 
-test_that("sould work with primary/foreign keys as string", {
-  
-  descriptor = '{
-    "fields": [{"name": "name"}],
-    "primaryKey": "name",
-    "foreignKeys": [{
-      "fields": "parent_id",
-      "reference": {"resource": "resource", "fields": "id"}
-    }]
-  }';
-  def  = schema.load(descriptor)
-  schema = def$value()
-  expect_equivalent(schema$primaryKey, list("name"))
-  expect_equivalent(schema$foreignKeys, list(list(fields = list("parent_id"), reference = list(resource = "resource", fields = list("id")))))
-  
-  
-})
 
 
 
@@ -105,7 +88,7 @@ test_that("should return null if field name does not exists", {
 
 
 test_that("should load local json file", {
-  descriptor = 'inst/extdata/schema.json'
+  descriptor = system.file('inst/extdata/schema.json', package = 'tableschema.r')
   def  = schema.load(descriptor)
   schema = def$value()
   expect_equivalent(schema$fieldNames, list('id', 'capital', 'url'))
@@ -235,4 +218,21 @@ test_that("should work with primary/foreign keys as arrays", {
   })
 
 
+test_that("sould work with primary/foreign keys as string", {
+  
+  descriptor = '{
+    "fields": [{"name": "name"}],
+    "primaryKey": "name",
+    "foreignKeys": [{
+      "fields": "parent_id",
+      "reference": {"resource": "resource", "fields": "id"}
+    }]
+  }';
+  def  = schema.load(descriptor)
+  schema = def$value()
+  expect_equivalent(schema$primaryKey, list("name"))
+  expect_equivalent(schema$foreignKeys, list(list(fields = list("parent_id"), reference = list(resource = "resource", fields = list("id")))))
+  
+  
+})
 
