@@ -7,6 +7,8 @@
 types.castObject(format, value)
 }
 \arguments{
+\item{format}{format}
+
 \item{value}{value}
 }
 \description{

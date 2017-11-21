@@ -8,71 +8,79 @@
 
 types.castGeopoint <- function (format, value) {
   
-  lon_lat = list( lon=NULL, lat=NULL)
+tryCatch({
   
-  lon_lat = tryCatch({
-    
-    if (format == "default") {
+  lon_lat=list()
+  
+    if (format == 'default') {
       
       if (is.character(value)) {
         
-        lon_lat = unlist(strsplit(value, ","))
+        lon_lat = as.list(unlist(strsplit(value, ",")))
         
-        lon_lat[["lon"]] = trimws(lon_lat$lon, which = "both")
+        lon_lat[[1]] = trimws(lon_lat[[1]], which = "both")
         
-        lon_lat[["lat"]] = trimws(lon_lat$lat, which = "both")
+        lon_lat[[2]] = trimws(lon_lat[[2]], which = "both")
         
-      } else if (is.list(value) | is.array(value)) { 
+      } else if (is.array(value) | is.list(value)) {
         
         lon_lat = value
         
-      }
+      } else return(config::get("ERROR"))
       
-    } else if (format == "list" | format == "array") {
+    } else if (format == 'array' | format== 'list') {
       
       if (is.character(value)) {
         
-        value = jsonlite::fromJSON(value)
+        value = jsonlite::fromJSON(value, simplifyVector = FALSE)
+        
       }
       
       lon_lat = value
       
-    } else if (format == "object") {
+    } else if (format == 'object') {
       
       if (is.character(value)) {
         
         value = jsonlite::fromJSON(value)
         
-      }
+      }  
       
-      lon_lat$lon = value$lon
       
-      lon_lat$lat = value$lat
+      lon_lat[[1]] = value[[1]]
+      
+      lon_lat[[2]] = value[[2]]
       
     }
     
-    lon_lat$lon = as.numeric(lon_lat$lon) # or types.castNumber
+    lon_lat[[1]] = as.numeric(lon_lat[[1]])
     
-    lon_lat$lat = as.numeric(lon_lat$lat) # or types.castNumber
-    if (is.nan(lon_lat$lon) | lon_lat$lon > 180 | lon_lat$lon < -180) return(config::get("ERROR"))
-    
-    if (is.nan(lon_lat$lat) | lon_lat$lat > 90 | lon_lat$lat < -90) return(config::get("ERROR"))
-  },
-  
-  warning = function(w) {
-    return(config::get("ERROR"))
+    lon_lat[[2]] = as.numeric(lon_lat[[2]])
     
   },
   
   error = function(e) {
+    
     return(config::get("ERROR"))
     
-  },
-  
-  finally = {
-    
   })
-
+  
+  
+  if (is_empty(lon_lat) | is.null(lon_lat) | !is.null(names(lon_lat)) )  return(config::get("ERROR"))
+  
+  if (length(lon_lat) !=2)  return(config::get("ERROR"))
+  
+  if (is.nan(lon_lat[[1]]) | lon_lat[[1]] > 180 | lon_lat[[1]] < -180) {
+    
+    return(config::get("ERROR"))
+    
+  }
+  
+  if (is.nan(lon_lat[[2]]) | lon_lat[[2]] > 90 | lon_lat[[2]] < -90) {
+    
+    return(config::get("ERROR"))
+    
+  }
   
   return(lon_lat)
   

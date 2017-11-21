@@ -245,6 +245,29 @@ is_integer = function(x) {
 #' @export
 #'
 is_empty = function(x) {
-  any(is.na(x) | is.null(x) | x == "")
+  
+  if(is.list(x) & length(x) == 0) TRUE
+    
+    else any(is.na(x) | is.null(x) | x == "")
+  
+}
+
+#' Is object
+#' @description is object
+#' @param x x
+#' @rdname is_object
+#' @export
+#'
+is_object = function (x) {
+  
+  if (is.character(x)) {
+    
+    valid = jsonlite::validate(x)
+    
+    if (isTRUE(valid)) x = jsonlite::fromJSON(x) else FALSE
+    
+  }
+  
+  is.object(x) | is.list(x) | "json" %in% class(x)
   
 }

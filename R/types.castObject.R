@@ -1,5 +1,6 @@
 #' @title cast object
 #' @description cast object
+#' @param format format
 #' @param value value
 #' @rdname types.castObject
 #' @export
