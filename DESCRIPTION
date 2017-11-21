@@ -15,29 +15,29 @@ LazyData: true
 Remotes: r-lib/later
 Imports:
     antiword,
+    bitops,
     config,
     devtools,
     future,
     hash,
     httr,
-    jsonvalidate,
+    iterators,
+    itertools2,
     jsonlite,
+    jsonvalidate,
     lubridate,
     pdftools,
     purrr,
     R6,
     RCurl,
+    readr,
+    readtext,    
     rlang,
     rlist,
     roxygen2,
     stringi,
     stringr,
-    readr,
-    readtext,
-    iterators,
-    itertools2,
-    rlist,
-    bitops
+    sys
 RoxygenNote: 6.0.1
 Suggests:
     testthat,foreach
