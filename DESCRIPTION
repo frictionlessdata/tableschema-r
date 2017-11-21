@@ -14,6 +14,7 @@ Encoding: UTF-8
 LazyData: true
 Remotes: r-lib/later
 Imports:
+    antiword,
     config,
     devtools,
     future,
@@ -22,6 +23,7 @@ Imports:
     jsonvalidate,
     jsonlite,
     lubridate,
+    pdftools,
     purrr,
     R6,
     RCurl,
