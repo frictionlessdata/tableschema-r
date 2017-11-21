@@ -19,6 +19,7 @@ Imports:
     config,
     devtools,
     future,
+    git2r,
     hash,
     httr,
     iterators,
