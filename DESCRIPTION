@@ -38,7 +38,8 @@ Imports:
     roxygen2,
     stringi,
     stringr,
-    sys
+    sys,
+    V8
 RoxygenNote: 6.0.1
 Suggests:
     testthat,foreach
