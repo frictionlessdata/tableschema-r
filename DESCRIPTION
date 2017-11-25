@@ -72,6 +72,7 @@ Collate:
     'types.R'
     'field.R'
     'helpers.R'
+    'infer.R'
     'is.valid.R'
     'methods.R'
     'tableschemaerror.R'
