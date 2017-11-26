@@ -12,16 +12,15 @@ r:
 before_install:
   - tlmgr install index
 github_packages:
-  - hadley/devtools
   - hadley/testthat
   - okgreece/datapackage.r
 brew_packages:
  - jsonvalidate
- - sys
  - V8
 r_packages:
  - brew
  - config
+ - devtools
  - future
  - git2r
  - hash
