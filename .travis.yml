@@ -17,6 +17,7 @@ github_packages:
   - okgreece/datapackage.r
 brew_packages:
  - jsonvalidate
+ - sys
  - V8
 r_packages:
  - brew
@@ -33,13 +34,14 @@ r_packages:
  - purrr
  - R6
  - RCurl
+ - Rcpp
  - readr
- - readtext 
  - rlang
  - rlist
  - roxygen2
  - stringi
- - string
+ - stringr
+ - xml2
 addons:
   apt:
     packages:
