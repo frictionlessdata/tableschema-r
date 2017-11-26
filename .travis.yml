@@ -1,6 +1,7 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
-language: R
+language: r
+pandoc_version: 1.19
 sudo: false
 cache: packages
 
@@ -11,28 +12,39 @@ r:
 before_install:
   - tlmgr install index
 github_packages:
-  - devtools
-r_packages:
- - config
- - devtools
- - future
- - hash
- - httr
+  - hadley/devtools
+  - okgreece/datapackage.r
+brew_packages:
  - jsonvalidate
- - jsonlite
- - lubridate
- - purrr
- - R6
- - RCurl
- - rlang
- - roxygen2
- - stringi
- - stringr
- - readr
+ - V8
+r_packages:
+ - antiword,
+ - bitops,
+ - config,
+ - future,
+ - git2r,
+ - hash,
+ - httr,
+ - iterators,
+ - itertools2,
+ - jsonlite,
+ - lubridate,
+ - pdftools,
+ - purrr,
+ - R6,
+ - RCurl,
+ - readr,
+ - readtext,    
+ - rlang,
+ - rlist,
+ - roxygen2,
+ - stringi,
+ - stringr,
+ - sys
  - testthat
- - foreach
 addons:
   apt:
     packages:
-      - libv8-3.14-dev
+      - libxml2-dev
+      - libv8-dev
 warnings_are_errors: false
