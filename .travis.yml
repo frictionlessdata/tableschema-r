@@ -40,7 +40,6 @@ r_packages:
  - roxygen2,
  - stringi,
  - stringr,
- - sys
  - testthat
 addons:
   apt:
