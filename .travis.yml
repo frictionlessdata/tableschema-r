@@ -47,4 +47,5 @@ addons:
     packages:
       - libxml2-dev
       - libv8-dev
+      - libpoppler-cpp-dev
 warnings_are_errors: false
