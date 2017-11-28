@@ -124,12 +124,13 @@ Table <- R6Class(
         
         
         # Resolve relations
-        if (relations) {
-          if (self$schema) {
+        if (!is.null(relations)) {
+          if (!is.null(self$schema)) {
             for (foreignKey in self$schema$foreignKeys) {
+
               row = table.resolveRelations(row, self$headers, relations, foreignKey)
               if (is.null(row)) {
-                message =  stringr::str_interp("Foreign key '${foreignKey$fields}' violation in row 'rowNumber'")
+                message =  stringr::str_interp("Foreign key '${foreignKey$fields}' violation in row '${private$rowNumber_}'")
                 stop(message)
               }
             }
@@ -301,16 +302,15 @@ table.load = function(source,
 }
 
 table.resolveRelations = function(row, headers, relations, foreignKey) {
-  
   # Prepare helpers - needed data structures
   keyedRow = row
   names(keyedRow) = headers
 
   fields = rlist::list.zip(foreignKey$fields, foreignKey$reference$fields)
-  
+
   reference = relations[[foreignKey$reference$resource]]
   
-  if (!reference) {
+  if (is.null(reference)) {
     return(row)
   }
   
@@ -318,8 +318,9 @@ table.resolveRelations = function(row, headers, relations, foreignKey) {
   valid = TRUE
   values = list()
   for (index in 1:length(fields)) {
-    field = fields[[index]][[0]]
-    refField = fields[[index]][[1]]
+    field = fields[[index]][[1]]
+    refField = fields[[index]][[2]]
+    
     if (!is.null(field) && !is.null(refField)) {
       values[[refField]] = keyedRow[[field]]
       if (!is.null(keyedRow[[field]])) {
@@ -331,14 +332,18 @@ table.resolveRelations = function(row, headers, relations, foreignKey) {
     
   }
 
-  
+
   # Resolve values - valid if match found
   if (!valid) {
+
     for (index in 1:length(reference)) {
+
       refValues = reference[[index]]
-      if (all.equal(refValues, values)) {
+
+      if (all(all.equal(refValues[names(values)], values) == TRUE)) {
         for (index2 in 1:length(fields)) {
-            field = fields[[index]]
+
+            field = fields[[index2]][[1]]
             keyedRow[[field]] = refValues
         }
         valid = TRUE
@@ -347,8 +352,9 @@ table.resolveRelations = function(row, headers, relations, foreignKey) {
     }
 
   }
+
   if (valid) {
-    return(rlist::list.flatten(keyedRow, use.names = FALSE))
+    return(unname(keyedRow))
   }
   else {
     return(NULL)

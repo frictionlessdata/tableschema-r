@@ -212,7 +212,7 @@ Schema <- R6Class(
     
     foreignKeys = function() {
       foreignKeys = private$currentDescriptor_$foreignKeys
-      if(is.null(foreignKeys)){
+      if (is.null(foreignKeys)) {
         foreignKeys = list()
       }
       
@@ -285,9 +285,8 @@ Schema <- R6Class(
       # Validate descriptor
       private$errors_ = list()
       
-
       private$currentDescriptor_json =  helpers.retrieveDescriptor(private$currentDescriptor_json)$value
-      if(inherits(private$currentDescriptor_json, "simpleError")) {
+      if (inherits(private$currentDescriptor_json, "simpleError")) {
         stop(private$currentDescriptor_json$message)
       }
       

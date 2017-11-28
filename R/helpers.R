@@ -56,7 +56,7 @@ helpers.retrieveDescriptor <- function(descriptor) {
     } else {
       # Load/parse data
       descriptor = tryCatch({
-        data = readLines(descriptor,encoding="UTF-8", warn = FALSE)
+        data = readLines(descriptor,encoding = "UTF-8", warn = FALSE)
         valid = jsonlite::validate(data)
         
         if (valid == FALSE) {
@@ -191,7 +191,7 @@ is.email <- function(x) {
 #' @return TRUE if binary
 #' @export
 
-is.binary = function (x)
+is.binary = function(x)
   length(unique(stats::na.omit(x))) <= 2
 
 #' is uuid
@@ -200,7 +200,7 @@ is.binary = function (x)
 #' @return TRUE if uuid
 #' @export
 
-is.uuid = function (x) {
+is.uuid = function(x) {
   if (!is.character(x))
     stop("This is not a uuid object", call. = FALSE)
   
@@ -246,7 +246,7 @@ is_integer = function(x) {
 #'
 is_empty = function(x) {
   
-  if(is.list(x) & length(x) == 0) TRUE
+  if (is.list(x) & length(x) == 0) TRUE
     
     else any(is.na(x) | is.null(x) | x == "")
   
@@ -258,7 +258,7 @@ is_empty = function(x) {
 #' @rdname is_object
 #' @export
 #'
-is_object = function (x) {
+is_object = function(x) {
   
   if (is.character(x)) {
     
@@ -270,4 +270,12 @@ is_object = function (x) {
   
   is.object(x) | is.list(x) | "json" %in% class(x)
   
+}
+
+helpers.from.json.to.list = function(lst){
+  return(jsonlite::fromJSON(lst, simplifyVector = FALSE))
+}
+
+helpers.from.list.to.json = function(json){
+  return(jsonlite::toJSON(json, auto_unbox = TRUE))
 }
