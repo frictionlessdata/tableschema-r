@@ -4,7 +4,16 @@ library(testthat)
 library(foreach)
 library(lubridate)
 
-testthat::context("table")
+
+
+
+#
+
+
+
+
+
+testthat::context("table-general")
 
 SOURCE = '[
   ["id", "height", "age", "name", "occupation"],
@@ -59,6 +68,7 @@ test_that("should work with Schema instance", {
   expect_identical(length(rows),5L)
 })
 
+
 test_that("should work with array source", {
   
   
@@ -80,6 +90,8 @@ test_that("should work with connection", {
   expect_identical(length(rows),100L)
 })
 
+
+
 test_that("should work with local path", {
   
   def2  = table.load(system.file('inst/extdata/data_big.csv', package = 'tableschema.r'))
@@ -87,6 +99,9 @@ test_that("should work with local path", {
   rows = table$read()
   expect_identical(length(rows),100L)
 })
+
+
+
 
 test_that("should cast source data", {
   
@@ -96,6 +111,7 @@ test_that("should cast source data", {
   expect_equivalent(rows[[1]], list(1, 10.0, 1, 'string1',  lubridate::make_datetime(2012,6,15) ))
 })
 
+
 test_that("should not cast source data with cast false", {
   
   def2  = table.load(jsonlite::fromJSON(SOURCE, simplifyVector = FALSE), schema = SCHEMA)
@@ -103,6 +119,7 @@ test_that("should not cast source data with cast false", {
   rows = table$read(cast = FALSE)
   expect_equivalent(rows[[1]], list(1, '10.0', 1, 'string1',  '2012-06-15 00:00:00' ))
 })
+
 
 
 test_that("should throw on unique constraints violation", {
@@ -116,6 +133,7 @@ test_that("should throw on unique constraints violation", {
   
   
 })
+
 
 
 test_that("unique constraints violation for primary key", {
@@ -132,6 +150,7 @@ test_that("unique constraints violation for primary key", {
 
 
 
+
 test_that("should read source data and limit rows", {
   
   def2  = table.load(jsonlite::fromJSON(SOURCE, simplifyVector = FALSE), schema = SCHEMA)
@@ -144,6 +163,7 @@ test_that("should read source data and limit rows", {
 })
 
 
+
 test_that("should read source data and return keyed rows", {
   
   def2  = table.load(jsonlite::fromJSON(SOURCE, simplifyVector = FALSE), schema = SCHEMA)
@@ -153,6 +173,7 @@ test_that("should read source data and return keyed rows", {
   
 })
 
+
 test_that("should read source data and return extended rows", {
   
   def2  = table.load(jsonlite::fromJSON(SOURCE, simplifyVector = FALSE), schema = SCHEMA)
@@ -161,6 +182,7 @@ test_that("should read source data and return extended rows", {
   expect_equivalent(rows[[1]], list(2, list('id', 'height', 'age', 'name', 'occupation'), list(id = 1, height = 10.0, age = 1, name = 'string1', occupation =  lubridate::make_datetime(2012,6,15) )))
   
 })
+
 
 
 
@@ -175,6 +197,7 @@ test_that("should infer headers and schema", {
 })
 
 
+
 test_that("should throw on read for headers/fieldNames missmatch", {
   source = list(
     list('id', 'bad', 'age', 'name', 'occupation'),
@@ -186,5 +209,8 @@ test_that("should throw on read for headers/fieldNames missmatch", {
   expect_error(table$read(), ".*match schema field names.*")
   
 })
+
+
+
 
 

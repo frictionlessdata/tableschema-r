@@ -380,7 +380,6 @@ Schema <- R6Class(
           count = entry[['itemCount']]
         }
       }
-
       return(winner)
     }
     

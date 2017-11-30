@@ -88,6 +88,24 @@ helpers.retrieveDescriptor <- function(descriptor) {
 }
 
 helpers.expandSchemaDescriptor <- function(descriptor) {
+  
+  for (index in 1:length(descriptor$fields)) {
+    field = descriptor$fields[[index]]
+    descriptor$fields[[index]] = helpers.expandFieldDescriptor(field)
+  }
+  if (is.null(descriptor$missingValues) || descriptor$missingValues == FALSE)  descriptor$missingValues = config::get("DEFAULT_MISSING_VALUES")
+  
+  return(descriptor)
+}
+
+
+
+
+helpers.expandFieldDescriptor = function(descriptor) {
+  if (is.list(descriptor)) {
+    if (is.null(descriptor$type)) descriptor$type = config::get("DEFAULT_FIELD_TYPE")
+    if (is.null(descriptor$format)) descriptor$format = config::get("DEFAULT_FIELD_FORMAT")
+  }
   return(descriptor)
 }
 

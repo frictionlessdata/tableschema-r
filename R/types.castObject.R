@@ -15,6 +15,9 @@ types.castObject <- function(format, value) { #format parameter is not used
     value = tryCatch(
       {
         value = jsonlite::fromJSON(value)
+        if (!is.list(value)){
+          return(config::get("ERROR"))
+        }
       },
       warning = function(w) {
         

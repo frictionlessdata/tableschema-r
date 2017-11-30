@@ -72,7 +72,8 @@ testValue = function(value, constraints = TRUE) {
 ),
 active = list(
 descriptor = function() {
-    private$descriptor_
+  
+    return(private$descriptor_)
 
 },
 

@@ -7,13 +7,17 @@
 
 # Module API
 
-infer <- function(source, options ="{}" ) {
+infer <- function(source, options = list()) {
   
   # https://github.com/frictionlessdata/tableschema-js#infer
+  arguments = list(source)
+  arguments = append(arguments, options)
+
+  def2  = do.call(table.load, arguments )
+  table = def2$value();
   
-  table = Table$load(source, options)
-  
+
   descriptor = table$infer(limit = options[["limit"]])
   
-  return (descriptor)
+  return(descriptor)
 }

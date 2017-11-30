@@ -26,7 +26,6 @@ Table <- R6Class(
         self$schema <- schema
       }
       
-      
       private$src <- src
       
       private$strict_ = strict
@@ -46,10 +45,10 @@ Table <- R6Class(
     
     
     infer = function(limit = 100) {
-
       if (is.null(private$schema_) || is.null(private$headers_)) {
         #Headers
         sample = self$read(limit = limit, cast = FALSE)
+        
         # Schema
         if (is.null(private$schema_)) {
           schema = Schema$new()
@@ -80,9 +79,9 @@ Table <- R6Class(
       # Get table row stream
       private$rowNumber_ = 0
       tableRowStream = iterators::iter(function() {
+
         row = iterators::nextElem(iterable_)
         private$rowNumber_ = private$rowNumber_ + 1
-        
         # Get headers
         if (identical(private$rowNumber_ , private$headersRow_)) {
           private$headers_ = row
@@ -163,14 +162,15 @@ Table <- R6Class(
                     relations = FALSE,
                     limit = NULL) {
       iterator  = self$iter(keyed, extended, cast, relations)
-      
       rows = list()
       count = 0
       repeat {
+
+        
         count = count + 1
         finished = tryCatch({
           it = iterators::nextElem(iterator)
-          
+
           rows = append(rows, list(it))
           0
           
@@ -204,7 +204,31 @@ Table <- R6Class(
       return(rows)
       
     },
-    save = function(...) {
+    save = function(connection) {
+      open(connection)
+      stream = private$createRowStream_(private$src)
+      
+      iterable_ = stream$iterable()
+      
+      tryCatch({
+        it = iterators::nextElem(iterable_)
+        row = paste(it, collapse = ',')
+        writeLines(row, con = connection, sep = "\n", useBytes = FALSE)
+       
+        0
+        
+      },
+      error = function(cond) {
+        if (identical(cond$message, 'StopIteration')) {
+          return(1)
+          
+        }
+
+      },
+      warning = function(cond) {
+        stop(cond)
+        
+      })
       
     }
     
@@ -287,7 +311,7 @@ Table <- R6Class(
 table.load = function(source,
                       schema = NULL,
                       strict = FALSE,
-                      headers = 1) {
+                      headers = 1, ...) {
   return(future::future(function() {
     # Load schema
     if (!is.null(schema) && class(schema)[[1]] != "Schema") {
