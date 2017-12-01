@@ -78,6 +78,7 @@ Table <- R6Class(
       
       # Get table row stream
       private$rowNumber_ = 0
+      private$currentStream_ = con
       tableRowStream = iterators::iter(function() {
 
         row = iterators::nextElem(iterable_)
@@ -197,6 +198,7 @@ Table <- R6Class(
           break
         }
         if (!is.null(limit) && !missing(limit) && count >= limit) {
+          private$currentStream_$destroy()
           break
         }
         
@@ -252,6 +254,7 @@ Table <- R6Class(
     src = NULL,
     schema_ = NULL,
     uniqueFieldsCache_ = list(),
+    currentStream_ = NULL,
     
     createUniqueFieldsCache = function(schema) {
       cache = list()

@@ -58,7 +58,7 @@ Readable <- R6Class(
     unshift = function(chunk) {
     },
     destroy = function() {
-      
+      private$destroy_()
     },
 
     push = function(chunk, encoding) {

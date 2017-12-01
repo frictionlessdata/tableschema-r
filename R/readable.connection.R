@@ -53,7 +53,7 @@ ReadableConnection <- R6Class(
       return(private$connection_)
     },
     destroy_ = function() {
-      
+      close.connection(private$connection_)
     }
  
     

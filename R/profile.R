@@ -33,27 +33,13 @@ Profile <- R6Class(
         
       })
       
-      browser()
-      
+
 
       
   
     },
     
-    active = list(
-      name = function() {
-        if (!private$jsonschema_$title)
-          NULL
-        
-        return(tolower(gsub(' ', '-', private$jsonschema_$title)))
-        
-      },
-      
-      jsonschema = function() {
-        return(private$jsonschema_)
-        
-      }
-    ),
+  
     
     
     validate = function(descriptor) {
@@ -63,9 +49,8 @@ Profile <- R6Class(
       
       
       validation = jsonlite::validate(descriptor)
-      
       for (validationError in attr(validation, "err")) {
-        errors = modifyList(errors, list(
+        errors = append(errors, list(
           Error = stringr::str_interp(
             'Descriptor validation error:
             ${validationError}
@@ -92,23 +77,36 @@ Profile <- R6Class(
 
       # Extra validation
       
-      if (!length(errors)) {
+      if (length(errors)<1) {
         # PrimaryKey validation
-        
-        for (message in private$validatePrimaryKey(descriptor)) {
-          errors = modifyList(errors, list(Error = message))
+        for (message in private$validatePrimaryKey(helpers.from.json.to.list(descriptor))) {
+          errors = append(errors, list(Error = message))
         }
-        
+
         # ForeignKeys validation
-        
-        for (message in private$validateForeignKeys(descriptor)) {
-          errors = modifyList(errors, list(Error = message))
+        messages =  private$validateForeignKeys(helpers.from.json.to.list(descriptor))
+        for (message in messages) {
+          errors = append(errors, list(Error = message))
         }
+
       }
       return(list(valid = length(errors) < 1, errors = errors))
     }
         ),
-  
+  active = list(
+    name = function() {
+      if (!private$jsonschema_$title)
+        NULL
+      
+      return(tolower(gsub(' ', '-', private$jsonschema_$title)))
+      
+    },
+    
+    jsonschema = function() {
+      return(private$jsonschema_)
+      
+    }
+  ),
   # Private
   private = list(
     profile_ = NULL,
@@ -120,32 +118,29 @@ Profile <- R6Class(
     
     validatePrimaryKey = function(descriptor) {
       messages = list()
-      
       # const fieldNames = (descriptor.fields || []).map(field => field.name)
       
-      fieldNames = if (!"fields" %in% names(descriptor))
+      fieldNames = if (!("fields" %in% names(descriptor)))
         list()
       else
-        purrr::map(descriptor['fields']$fields, "name")
+        purrr::map(descriptor$fields, "name")
       
-      if ("primaryKey" %in% names(descriptor)) {
-        # is.null(descriptor["primaryKey"])
-        
-        primaryKey = descriptor["primaryKey"]
-        
+      if (!is.null(descriptor$primaryKey)) {
+        primaryKey = descriptor[["primaryKey"]]
+
         if (is.character(primaryKey)) {
-          if (!fieldNames %in% primaryKey) {
-            messages = modifyList(messages, list(
+          if (!(primaryKey  %in% fieldNames)) {
+            messages = append(messages, list(
               stringr::str_interp("primary key ${primaryKey} must match schema field names")
             ))
           }
           
-        } else if (is.array(primaryKey)) {
+        } else if (is.list(primaryKey) && is.null(names(primaryKey))) {
           # or list
-          
           for (pk in primaryKey) {
-            if (!fieldNames(pk)) {
-              messages = modifyList(messages, list(
+            if (!(pk %in% fieldNames)) {
+
+              messages = append(messages, list(
                 stringr::str_interp("primary key ${pk} must match schema field names")
               ))
               
@@ -154,22 +149,25 @@ Profile <- R6Class(
         }
       }
       
+
+      
       return(messages)
     },
     
     validateForeignKeys = function(descriptor) {
       messages = list()
-      descriptor = jsonlite::fromJSON(descriptor)
-      
-      fieldNames = descriptor$fields[["name"]]
-      return(list())
+      fieldNames = if (!("fields" %in% names(descriptor)))
+        list()
+      else
+        purrr::map(descriptor$fields, "name")
       if (!is.null(descriptor$foreignKeys)) {
         foreignKeys = descriptor$foreignKeys
         
         for (fk in foreignKeys) {
-          if (is.character(descriptor$fields[[fk]])) {
-            if (! descriptor$fields[[fk]] %in% fieldNames ) {
-              messages = modifyList(messages, list(
+          if (is.character(fk$fields)) {
+
+            if (!(fk$fields %in% fieldNames )) {
+              messages = append(messages, list(
                 stringr::str_interp(
                   "foreign key ${fk.fields} must match schema field names"
                 )
@@ -177,8 +175,8 @@ Profile <- R6Class(
               
             }
             
-            if (!is.character(desciptor$foreignKeys$reference$fields[[fk]])) {
-              messages = modifyList(messages, list(
+            if (!is.character(fk$reference$fields)) {
+              messages = append(messages, list(
                 stringr::str_interp(
                   "foreign key ${fk.reference.fields} must be same type as ${fk.fields}"
                 )
@@ -186,12 +184,13 @@ Profile <- R6Class(
               
             }
             
-          } else if (is.array(descriptor$fields[[fk]])) {
+          } else if (is.list(fk$fields) && is.null(names(fk$fields))) {
             #is.list
             
-            for (field in descriptor$fields[["fk"]]) {
-              if (!fieldNames %in% names(field)) {
-                messages = modifyList(messages, list(
+            for (field in fk$fields) {
+
+              if (!(field %in% fieldNames)) {
+                messages = append(messages, list(
                   stringr::str_interp("foreign key ${field} must match schema field names")
                 ))
                 
@@ -199,17 +198,17 @@ Profile <- R6Class(
               
             }
             
-            if (!is.array(reference$fields[fk])) {
+            if (!(is.list(fk$reference$fields) && is.null(names(fk$reference$fields)))) {
               #is.list
               
-              messages = modifyList(messages, list(
+              messages = append(messages, list(
                 stringr::str_interp(
                   "foreign key ${fk.reference.fields} must be same type as ${fk.fields}"
                 )
               ))
               
-            } else if (length(reference$fields[fk]) != length(fields["fk"])) {
-              messages = modifyList(messages, list(
+            } else if (length(fk$reference$fields) != length(fk$fields)) {
+              messages = append(messages, list(
                 stringr::str_interp(
                   'foreign key fields must have the same length as reference.fields'
                 )
@@ -219,10 +218,10 @@ Profile <- R6Class(
             
           }
           
-          if (reference$resource[fk] == '') {
-            if (is.character(reference$fields[fk])) {
-              if (!fieldNames %in% reference$fields[fk]) {
-                messages = modifyList(messages, list(
+          if (fk$reference$resource == '') {
+            if (is.character(fk$reference$fields)) {
+              if (!(fk$reference$fields %in%  fieldNames)) {
+                messages = append(messages, list(
                   stringr::str_interp(
                     "foreign key ${fk.fields} must be found in the schema field names"
                   )
@@ -230,12 +229,12 @@ Profile <- R6Class(
                 
               }
               
-            } else if (is.array(reference$fields[fk])) {
+            } else if (is.list(fk$reference$fields) && is.null(names(fk$reference$fields))) {
               # is.list
               
-              for (field in reference$fields[fk]) {
-                if (!fieldNames %in% field) {
-                  messages = modifyList(messages, list(
+              for (field in fk$reference$fields) {
+                if (!(field %in% fieldNames)) {
+                  messages = append(messages, list(
                     stringr::str_interp(
                       "foreign key ${field} must be found in the schema field names"
                     )
@@ -252,8 +251,11 @@ Profile <- R6Class(
         }
         
       }
-      
-      return(message(messages))
+      return(messages)
     }
   )
 )
+
+profile.load = function(profile){
+  return(Profile$new(profile))
+}
