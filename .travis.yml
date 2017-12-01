@@ -14,6 +14,7 @@ before_install:
 github_packages:
   - hadley/testthat
   - okgreece/datapackage.r
+  - r-lib/covr
 brew_packages:
  - jsonvalidate
  - V8
@@ -49,3 +50,5 @@ addons:
       - libv8-dev
       - libpoppler-cpp-dev
 warnings_are_errors: false
+after_success:
+ - Rscript -e 'covr::coveralls()'
