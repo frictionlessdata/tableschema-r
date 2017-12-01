@@ -1,7 +1,6 @@
-#' infer 
-#' @param source source
-#' @param options options
-#' @rdname infer
+#' validate descriptor
+#' @param descriptor descriptor
+#' @rdname validate
 #' @export
 #' 
 
