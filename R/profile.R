@@ -16,30 +16,27 @@ Profile <- R6Class(
   public = list(
     initialize = function(profile) {
       tryCatch({
-        private$jsonschema_ = readr::read_file( system.file(profiles[[profile]], package = "tableschema.r"))
+        private$jsonschema_ = jsonlite::fromJSON(profiles[[profile]])
         return(private$jsonschema_)
       },
       error = function(cond) {
         message = 'Can\'t load profile'
-        stop(TableSchemaError$new(message))
+        TableSchemaError$new(message)$message
       },
       warning = function(cond) {
         field = FALSE
         
         # Choose a return value in case of warning
         return(field)
-      },
-      finally = {
-        
       })
       
-
-
       
-  
+      
+      
+      
     },
     
-  
+    
     
     
     validate = function(descriptor) {
@@ -54,27 +51,27 @@ Profile <- R6Class(
           Error = stringr::str_interp(
             'Descriptor validation error:
             ${validationError}
-           '
+            '
           )
           ))
         
       }
       if (validation == TRUE) {
         
-         validation = jsonvalidate::json_validate(descriptor, private$jsonschema_, greedy = TRUE, verbose = TRUE)
+        validation = jsonvalidate::json_validate(descriptor, private$jsonschema_, greedy = TRUE, verbose = TRUE)
         errs = attr(validation,"errors")
-         for (i in rownames(errs) ) {
-           errors = c(errors, stringr::str_interp(
+        for (i in rownames(errs) ) {
+          errors = c(errors, stringr::str_interp(
             'Descriptor validation error:
             ${errs[i, "field"]} - ${errs[i, "message"]}'
-           
+            
           )
           )
-           
-         }
+          
+        }
         
       }
-
+      
       # Extra validation
       
       if (length(errors)<1) {
@@ -82,17 +79,17 @@ Profile <- R6Class(
         for (message in private$validatePrimaryKey(helpers.from.json.to.list(descriptor))) {
           errors = append(errors, list(Error = message))
         }
-
+        
         # ForeignKeys validation
         messages =  private$validateForeignKeys(helpers.from.json.to.list(descriptor))
         for (message in messages) {
           errors = append(errors, list(Error = message))
         }
-
+        
       }
       return(list(valid = length(errors) < 1, errors = errors))
     }
-        ),
+  ),
   active = list(
     name = function() {
       if (!private$jsonschema_$title)
@@ -112,7 +109,7 @@ Profile <- R6Class(
     profile_ = NULL,
     
     jsonschema_ = NULL,
- 
+    
     
     # INTERNAL
     
@@ -127,7 +124,7 @@ Profile <- R6Class(
       
       if (!is.null(descriptor$primaryKey)) {
         primaryKey = descriptor[["primaryKey"]]
-
+        
         if (is.character(primaryKey)) {
           if (!(primaryKey  %in% fieldNames)) {
             messages = append(messages, list(
@@ -139,7 +136,7 @@ Profile <- R6Class(
           # or list
           for (pk in primaryKey) {
             if (!(pk %in% fieldNames)) {
-
+              
               messages = append(messages, list(
                 stringr::str_interp("primary key ${pk} must match schema field names")
               ))
@@ -149,7 +146,7 @@ Profile <- R6Class(
         }
       }
       
-
+      
       
       return(messages)
     },
@@ -165,7 +162,7 @@ Profile <- R6Class(
         
         for (fk in foreignKeys) {
           if (is.character(fk$fields)) {
-
+            
             if (!(fk$fields %in% fieldNames )) {
               messages = append(messages, list(
                 stringr::str_interp(
@@ -188,7 +185,7 @@ Profile <- R6Class(
             #is.list
             
             for (field in fk$fields) {
-
+              
               if (!(field %in% fieldNames)) {
                 messages = append(messages, list(
                   stringr::str_interp("foreign key ${field} must match schema field names")
@@ -256,6 +253,22 @@ Profile <- R6Class(
   )
 )
 
-profile.load = function(profile){
+#' load profile
+#' @param profile profile
+#' @param ... other arguments to pass
+#' @rdname Profile.load
+#' @export
+
+Profile.load = function(profile, ...){
   return(Profile$new(profile))
 }
+
+
+profiles = list(
+  
+  geojson = 'inst/profiles/geojson.json',
+  
+  tableschema = 'inst/profiles/tableschema.json'
+  
+)
+

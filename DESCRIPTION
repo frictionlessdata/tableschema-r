@@ -54,7 +54,6 @@ Collate:
     'methods.R'
     'tableschemaerror.R'
     'profile.R'
-    'profiles.R'
     'readable.R'
     'readable.array.R'
     'readable.connection.R'

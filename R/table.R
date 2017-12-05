@@ -311,6 +311,17 @@ Table <- R6Class(
   
 )
 
+
+#' load table
+#' @param source source
+#' @param schema schema
+#' @param strict strict
+#' @param headers headers
+#' @param ... other arguments to pass
+#' @rdname table.load
+#' @export
+#' 
+
 table.load = function(source,
                       schema = NULL,
                       strict = FALSE,

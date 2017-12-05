@@ -389,6 +389,14 @@ Schema <- R6Class(
   
 )
 
+#' load schema
+#' @param descriptor descriptor
+#' @param strict strict
+#' @param caseInsensitiveHeaders caseInsensitiveHeaders
+#' @rdname schema.load
+#' @export
+#' 
+
 schema.load = function(descriptor = "",
                        strict = FALSE,
                        caseInsensitiveHeaders = FALSE) {

@@ -47,8 +47,8 @@ helpers.retrieveDescriptor <- function(descriptor) {
       if (httr::status_code(res) >= 400) {
 
         stop(
-          stringr::str_interp("Can\'t load descriptor at '${descriptor}'"),
-          errors
+          stringr::str_interp("Can\'t load descriptor at '${descriptor}'")#,
+          #errors
         )
       }
       
@@ -289,11 +289,19 @@ is_object = function(x) {
   is.object(x) | is.list(x) | "json" %in% class(x)
   
 }
-
+#' from json to list
+#' @param lst list
+#' @rdname helpers.from.json.to.list
+#' @export
+#'
 helpers.from.json.to.list = function(lst){
   return(jsonlite::fromJSON(lst, simplifyVector = FALSE))
 }
-
+#' from list to json
+#' @param json json
+#' @rdname helpers.from.list.to.json
+#' @export
+#'
 helpers.from.list.to.json = function(json){
   return(jsonlite::toJSON(json, auto_unbox = TRUE))
 }

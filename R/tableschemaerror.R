@@ -11,12 +11,5 @@
 
 TableSchemaError <- R6Class(
 "TableSchemaError",
-public = list(
-initialize = function(message, errors){
-  
-}
-)
-
-
-
+inherit = datapackage.r::DataPackageError
 )
