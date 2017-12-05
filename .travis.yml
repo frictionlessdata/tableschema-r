@@ -11,8 +11,10 @@ r:
   - devel  
 before_install:
   - tlmgr install index
+env:
+  global:
+  - _R_CHECK_FORCE_SUGGESTS_=false
 github_packages:
-  - hadley/testthat
   - okgreece/datapackage.r
   - r-lib/covr
 brew_packages:
@@ -39,8 +41,9 @@ r_packages:
  - rlang
  - rlist
  - roxygen2
- - stringi
  - stringr
+ - urltools		
+ - utils
  - unix
  - xml2
 addons:
@@ -48,7 +51,6 @@ addons:
     packages:
       - libxml2-dev
       - libv8-dev
-      - libpoppler-cpp-dev
 warnings_are_errors: false
 after_success:
  - Rscript -e 'covr::coveralls()'

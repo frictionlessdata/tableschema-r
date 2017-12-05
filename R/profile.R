@@ -259,7 +259,8 @@ validateForeignKeys = function(descriptor) {
 Profile.load = function(profile, ...){
   # Remote
   
-  if (is.character(profile) && datapackage.r::isRemotePath(profile) ) {
+  if (is.character(profile) && (startsWith("http",unlist(strsplit(profile,":")))[1] |
+      startsWith("https", unlist(strsplit(profile,":")))[1]) ) {
     
     jsonschema = profile
     
@@ -272,7 +273,7 @@ Profile.load = function(profile, ...){
       },
       
       error= function(e) {
-        DataPackageError$new(stringr::str_interp("Can not retrieve remote profile '${profile}'"))$message
+        TableSchemaError$new(stringr::str_interp("Can not retrieve remote profile '${profile}'"))$message
       })
       
       #cache_[profile] = jsonschema

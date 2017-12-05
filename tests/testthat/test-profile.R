@@ -5,13 +5,12 @@ library(foreach)
 library(lubridate)
 library(readr)
 
-
 testthat::context("profile")
 
 
 test_that("table-schema is up-to-date", {
   # jsonlite::toJSON(jsonlite::fromJSON(profile$jsonschema))
-
+  
   res = jsonlite::fromJSON('https://specs.frictionlessdata.io/schemas/table-schema.json',simplifyVector = T)
   profile = Profile.load('tableschema')
   ## compare the charater lengths instead
