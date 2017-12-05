@@ -191,8 +191,248 @@ stream.on('data', (row) => {
 
 It was onle basic introduction to the `Table` class. To learn more let's take a look on `Table` class API reference.
 
+#### `Table.load(source, schema, strict=FALSE, headers=1, ...)`
+
+Constructor to instantiate `Table` class. If `references` argument is provided foreign keys will be checked on any reading operation.
+
+-   `source (String/Array[]/Stream/Function)` - data source (one of):
+-   local CSV file (path)
+-   remote CSV file (url)
+-   array of arrays representing the rows
+-   readable stream with CSV file contents
+-   function returning readable stream with CSV file contents
+-   `schema (Object)` - data schema in all forms supported by `Schema` class
+-   `strict (Boolean)` - strictness option to pass to `Schema` constructor
+-   `headers (Integer/String[])` - data source headers (one of):
+-   row number containing headers (`source` should contain headers rows)
+-   array of headers (`source` should NOT contain headers rows)
+-   `... (Object)` - options to be used by CSV parser. All options listed at <http://csv.adaltas.com/parse/#parser-options>. By default `ltrim` is true according to the CSV Dialect spec.
+-   `(errors.TableSchemaError)` - raises any error occured in table creation process
+-   `(Table)` - returns data table class instance
+
+#### `table$headers`
+
+-   `(String[])` - returns data source headers
+
+#### `table$schema`
+
+-   `(Schema)` - returns schema class instance
+
+#### `table$iter(keyed, extended, cast=TRUE, relations=FALSE, stream=FALSE)`
+
+Iter through the table data and emits rows cast based on table schema (async for loop). With a `stream` flag instead of async iterator a Node stream will be returned. Data casting could be disabled.
+
+-   `keyed (Boolean)` - iter keyed rows
+-   `extended (Boolean)` - iter extended rows
+-   `cast (Boolean)` - disable data casting if false
+-   `relations (Object)` - object of foreign key references in a form of `{resource1: [{field1: value1, field2: value2}, ...], ...}`. If provided foreign key fields will checked and resolved to its references
+-   `stream (Boolean)` - return Node Readable Stream of table rows
+-   `(errors$TableSchemaError)` - raises any error occured in this process
+-   `(AsyncIterator/Stream)` - async iterator/stream of rows:
+-   `[value1, value2]` - base
+-   `{header1: value1, header2: value2}` - keyed
+-   `[rowNumber, [header1, header2], [value1, value2]]` - extended
+
+#### `table$read(keyed, extended, cast=TRUE, relations=FALSE, limit)`
+
+Read the whole table and returns as array of rows. Count of rows could be limited.
+
+-   `keyed (Boolean)` - flag to emit keyed rows
+-   `extended (Boolean)` - flag to emit extended rows
+-   `cast (Boolean)` - disable data casting if false
+-   `relations (Object)` - object of foreign key references in a form of `{resource1: [{field1: value1, field2: value2}, ...], ...}`. If provided foreign key fields will checked and resolved to its references
+-   `limit (Number)` - integer limit of rows to return
+-   `(errors$TableSchemaError)` - raises any error occured in this process
+-   `(Array[])` - returns array of rows (see `table$iter`)
+
+#### `table$infer(limit=100)`
+
+Infer a schema for the table. It will infer and set Table Schema to `table$schema` based on table data.
+
+-   `limit (Number)` - limit rows samle size
+-   `(Object)` - returns Table Schema descriptor
+
+#### `table$save(target)`
+
+Save data source to file locally in CSV format with `,` (comma) delimiter
+
+-   `target (String)` - path where to save a table data
+-   `(errors$TableSchemaError)` - raises an error if there is saving problem
+-   `(Boolean)` - returns true on success
+
 Schema
 ------
+
+### Schema
+
+A model of a schema with helpful methods for working with the schema and supported data. Schema instances can be initialized with a schema source as a url to a JSON file or a JSON object. The schema is initially validated (see [validate](#validate) below). By default validation errors will be stored in `schema$errors` but in a strict mode it will be instantly raised.
+
+Let's create a blank schema. It's not valid because `descriptor$fields` property is required by the [Table Schema](http://specs.frictionlessdata.io/table-schema/) specification:
+
+``` r
+schema = schema.load({})
+schema$valid # false
+schema$errors
+# Error: Descriptor validation error:
+#         Missing required property: fields
+#         at "" in descriptor and
+#         at "/required/0" in profile
+```
+
+To do not create a schema descriptor by hands we will use a `schema$infer` method to infer the descriptor from given data:
+
+``` r
+Schema$infer(jsonlite::fromJSON('[
+  ["id", "age", "name"],
+  ["1","39","Paul"],
+  ["2","23","Jimmy"],
+  ["3","36","Jane"],
+  ["4","28","Judy"]
+]'))
+schema$valid # true
+schema$descriptor
+#{ fields:
+#   [ { name: 'id', type: 'integer', format: 'default' },
+#     { name: 'age', type: 'integer', format: 'default' },
+#     { name: 'name', type: 'string', format: 'default' } ],
+#  missingValues: [ '' ] }
+```
+
+Now we have an inferred schema and it's valid. We could cast data row against our schema. We provide a string input by an output will be cast correspondingly:
+
+``` r
+schema$castRow(['5', '66', 'Sam'])
+# [ 5, 66, 'Sam' ]
+```
+
+But if we try provide some missing value to `age` field cast will fail because for now only one possible missing value is an empty string. Let's update our schema:
+
+``` r
+schema$castRow(['6', 'N/A', 'Walt'])
+# Cast error
+schema$descriptor$missingValues = list('', 'N/A')
+schema$commit()
+schema$castRow(['6', 'N/A', 'Walt'])
+# [ 6, null, 'Walt' ]
+```
+
+We could save the schema to a local file. And we could continue the work in any time just loading it from the local file:
+
+``` r
+schema$save('schema.json')
+schema = Schema.load('schema.json')
+```
+
+It was onle basic introduction to the `Schema` class. To learn more let's take a look on `Schema` class API reference.
+
+#### `Schema.load(descriptor, {strict=false})`
+
+Constructor to instantiate `Schema` class.
+
+-   `descriptor (String/Object)` - schema descriptor:
+-   local path
+-   remote url
+-   object
+-   `strict (Boolean)` - flag to alter validation behaviour:
+-   if false error will not be raised and all error will be collected in `schema$errors`
+-   if strict is true any validation error will be raised immediately
+-   `(errors$TableSchemaError)` - raises any error occured in the process
+-   `(Schema)` - returns schema class instance
+
+#### `schema$valid`
+
+-   `(Boolean)` - returns validation status. It always true in strict mode.
+
+#### `schema$errors`
+
+-   `(Error[])` - returns validation errors. It always empty in strict mode.
+
+#### `schema$descriptor`
+
+-   `(Object)` - returns schema descriptor
+
+#### `schema$primaryKey`
+
+-   `(str[])` - returns schema primary key
+
+#### `schema$foreignKeys`
+
+-   `(Object[])` - returns schema foreign keys
+
+#### `schema$fields`
+
+-   `(Field[])` - returns an array of `Field` instances.
+
+#### `schema$fieldNames`
+
+-   `(String[])` - returns an array of field names.
+
+#### `schema$getField(name)`
+
+Get schema field by name.
+
+-   `name (String)` - schema field name
+-   `(Field/null)` - returns `Field` instance or null if not found
+
+#### `schema$addField(descriptor)`
+
+Add new field to schema. The schema descriptor will be validated with newly added field descriptor.
+
+-   `descriptor (Object)` - field descriptor
+-   `(errors.TableSchemaError)` - raises any error occured in the process
+-   `(Field/null)` - returns added `Field` instance or null if not added
+
+#### `schema$removeField(name)`
+
+Remove field resource by name. The schema descriptor will be validated after field descriptor removal.
+
+-   `name (String)` - schema field name
+-   `(errors.TableSchemaError)` - raises any error occured in the process
+-   `(Field/null)` - returns removed `Field` instances or null if not found
+
+#### `schema$castRow(row)`
+
+Cast row based on field types and formats.
+
+-   `row (any[])` - data row as an array of values
+-   `(any[])` - returns cast data row
+
+#### `schema$infer(rows, headers=1)`
+
+Infer and set `schema$descriptor` based on data sample.
+
+-   `rows (Array[])` - array of arrays representing rows.
+-   `headers (Integer/String[])` - data sample headers (one of):
+-   row number containing headers (`rows` should contain headers rows)
+-   array of headers (`rows` should NOT contain headers rows)
+-   `{Object}` - returns Table Schema descriptor
+
+#### `schema$commit(strict)`
+
+Update schema instance if there are in-place changes in the descriptor.
+
+-   `strict (Boolean)` - alter `strict` mode for further work
+-   `(errors.TableSchemaError)` - raises any error occured in the process
+-   `(Boolean)` - returns true on success and false if not modified
+
+``` r
+descriptor = jsonlite::fromJSON('{"fields": [{"name": "field", "type": "string"}]}')
+schema = Schema.load(descriptor)
+
+schema$getField('name')$type # string
+schema$descriptor$fields[0]$type = 'number'
+schema$getField('name')$type # string
+schema$commit()
+schema$getField('name')$type # number
+```
+
+#### `schema$save(target)`
+
+Save schema descriptor to target destination.
+
+-   `target (String)` - path where to save a descriptor
+-   `(errors$TableSchemaError)` - raises any error occured in the process
+-   `(Boolean)` - returns true on success
 
 Field
 -----
@@ -201,14 +441,14 @@ Class represents field in the schema.
 
 Data values can be cast to native R types. Casting a value will check the value is of the expected type, is in the correct format, and complies with any constraints imposed by a schema.
 
-``` r
+``` json
 {
-    'name': 'birthday',
-    'type': 'date',
-    'format': 'default',
-    'constraints': {
-        'required': True,
-        'minimum': '2015-05-30'
+    "name": "birthday",
+    "type": "date",
+    "format": "default",
+    "constraints": {
+        "required": TRUE,
+        "minimum": "2015-05-30"
     }
 }
 ```
@@ -220,7 +460,16 @@ dateType = types.castDate(value = '2014-05-29') # cast date
 dateType # print the result
 ```
 
-Values that can't be cast will raise an Error exception. Casting a value that doesn't meet the constraints will raise an Error exception.
+And following example will raise exception, because we set flag 'skip constraints' to `false`, and our date is less than allowed by `minimum` constraints of the field. Exception will be raised as well in situation of trying to cast non-date format values, or empty values
+
+``` r
+tryCatch (
+    dateType = field.castValue('2014-05-29', FALSE), error = function(e) {
+    # uh oh, something went wrong
+}
+```
+
+Values that can't be cast will raise an `Error` exception. Casting a value that doesn't meet the constraints will raise an `Error` exception.
 
 Table below shows the available types, formats and resultant value of the cast:
 
@@ -316,9 +565,151 @@ Table below shows the available types, formats and resultant value of the cast:
 </tbody>
 </table>
 
-### Validate - `is.valid()`
+#### `Field.load(descriptor, {missingValues=['']})`
 
-> `is.valid()` validates whether a **schema** is a validate Table Schema accordingly to the [specifications](http://schemas.datapackages.org/json-table-schema.json). It does **not** validate data against any other schema.
+Constructor to instantiate `Field` class.
+
+-   `descriptor (Object)` - schema field descriptor
+-   `missingValues (String[])` - an array with string representing missing values
+-   `(errors.TableSchemaError)` - raises any error occured in the process
+-   `(Field)` - returns field class instance
+
+#### `field$name`
+
+-   `(String)` - returns field name
+
+#### `field$type`
+
+-   `(String)` - returns field type
+
+#### `field$format`
+
+-   `(String)` - returns field format
+
+#### `field$required`
+
+-   `(Boolean)` - returns true if field is required
+
+#### `field$constraints`
+
+-   `(Object)` - returns an object with field constraints
+
+#### `field$descriptor`
+
+-   `(Object)` - returns field descriptor
+
+#### `field$castValue(value, constraints=TRUE)`
+
+Cast given value according to the field type and format.
+
+-   `value (any)` - value to cast against field
+-   `constraints (Boolean/String[])` - gets constraints configuration
+-   it could be set to true to disable constraint checks
+-   it could be an Array of constraints to check e.g. \['minimum', 'maximum'\]
+-   `(errors$TableSchemaError)` - raises any error occured in the process
+-   `(any)` - returns cast value
+
+#### `field$testValue(value, constraints=TRUE)`
+
+Test if value is compliant to the field.
+
+-   `value (any)` - value to cast against field
+-   `constraints (Boolean/String[])` - constraints configuration
+-   `(Boolean)` - returns if value is compliant to the field
+
+### Validate
+
+> `validate()` validates whether a **schema** is a validate Table Schema accordingly to the [specifications](http://schemas.datapackages.org/json-table-schema.json). It does **not** validate data against a schema.
+
+Given a schema descriptor `validate` returns `Promise` with a validation object:
+
+``` r
+valid_errors = validate('schema.json')
+for (const error of valid_errors$errors) {
+  # inspect Error objects
+}
+```
+
+#### `validate(descriptor)`
+
+Validate a Table Schema descriptor.
+
+-   `descriptor (String/Object)` - schema descriptor (one of):
+-   local path
+-   remote url
+-   object
+-   `(Object)` - returns `{valid, errors}` object
+
+### Infer
+
+Given data source and headers `infer` will return a Table Schema as a JSON object based on the data values.
+
+Given the data file, example.csv:
+
+``` csv
+id,age,name
+1,39,Paul
+2,23,Jimmy
+3,36,Jane
+4,28,Judy
+```
+
+Call `infer` with headers and values from the datafile:
+
+``` r
+descriptor = infer('data.csv')
+```
+
+The `descriptor` variable is now a JSON object:
+
+``` r
+'{
+  "fields": [
+    {
+      "name": "id",
+      "title": "",
+      "description": "",
+      "type": "integer",
+      "format": "default"
+    },
+    {
+      "name": "age",
+      "title": "",
+      "description": "",
+      "type": "integer",
+      "format": "default"
+    },
+    {
+      "name": "name",
+      "title": "",
+      "description": "",
+      "type": "string",
+      "format": "default"
+    }
+  ]
+}'
+```
+
+#### `infer(source, headers=1, ...)`
+
+This funcion is async so it has to be used with `await` keyword or as a `Promise`.
+
+-   `source (String/Array[]/Stream/Function)` - data source (one of):
+-   local CSV file (path)
+-   remote CSV file (url)
+-   array of arrays representing the rows
+-   readable stream with CSV file contents
+-   function returning readable stream with CSV file contents
+-   `headers (String[])` - array of headers
+-   `options (Object)` - any `Table.load` options
+-   `(errors.TableSchemaError)` - raises any error occured in the process
+-   `(Object)` - returns schema descriptor
+
+### Errors
+
+#### `errors.TableSchemaError`
+
+Base class for the all library errors. If there are more than one error you could get an additional information from the error object:
 
 Changelog - News
 ----------------
