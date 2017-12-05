@@ -70,10 +70,126 @@ library(tableschema.r)
 Documentation
 =============
 
+The package is still under development and some properties may not be working properly.
+
 Table
 -----
 
 A table is a core concept in a tabular data world. It represents a data with a metadata (Table Schema). Let's see how we could use it in practice.
+
+Consider we have some local csv file. It could be inline data or remote link - all supported by `Table` class (except local files for in-brower usage of course). But say it's `data.csv` for now:
+
+> data/cities.csv
+
+``` csv
+city,location
+london,"51.50,-0.11"
+paris,"48.85,2.30"
+rome,N/A
+```
+
+Let's create and read a table. We use static `Table.load` method and `table.read` method with a `keyed` option to get array of keyed rows:
+
+``` r
+table = Table.load('data.csv')
+table$headers # ['city', 'location']
+table$read(keyed = TRUE)
+# [
+#   {city: 'london', location: '51.50,-0.11'},
+#   {city: 'paris', location: '48.85,2.30'},
+#   {city: 'rome', location: 'N/A'},
+# ]
+```
+
+As we could see our locations are just a strings. But it should be geopoints. Also Rome's location is not available but it's also just a `N/A` string instead of JavaScript `null`. First we have to infer Table Schema:
+
+``` r
+table$infer()
+table$schema$descriptor
+# { fields:
+#   [ { name: 'city', type: 'string', format: 'default' },
+#     { name: 'location', type: 'geopoint', format: 'default' } ],
+#  missingValues: [ '' ] }
+table.read(keyed = TRUE)
+# Fails with a data validation error
+```
+
+Let's fix not available location. There is a `missingValues` property in Table Schema specification. As a first try we set `missingValues` to `N/A` in `table.schema.descriptor`. Schema descriptor could be changed in-place but all changes sould be commited by `table.schema.commit()`:
+
+``` r
+table$schema$descriptor['missingValues'] = 'N/A'
+table$schema$commit()
+table$schema$valid # false
+table$schema$errors
+# Error: Descriptor validation error:
+#   Invalid type: string (expected array)
+#    at "/missingValues" in descriptor and
+#    at "/properties/missingValues/type" in profile
+```
+
+As a good citiziens we've decided to check out schema descriptor validity. And it's not valid! We sould use an array for `missingValues` property. Also don't forget to have an empty string as a missing value:
+
+``` r
+table$schema$descriptor['missingValues'] = list('', 'N/A')
+table$schema$commit()
+table$schema$valid # true
+```
+
+All good. It looks like we're ready to read our data again:
+
+``` r
+table$read(keyed = TRUE)
+# [
+#   {city: 'london', location: [51.50,-0.11]},
+#   {city: 'paris', location: [48.85,2.30]},
+#   {city: 'rome', location: null},
+# ]
+```
+
+Now we see that: - locations are arrays with numeric lattide and longitude - Rome's location is a native JavaScript `null`
+
+And because there are no errors on data reading we could be sure that our data is valid againt our schema. Let's save it:
+
+``` r
+table$schema$save('schema.json')
+table$save('data.csv')
+```
+
+Our `data.csv` looks the same because it has been stringified back to `csv` format. But now we have `schema.json`:
+
+``` json
+{
+    "fields": [
+        {
+            "name": "city",
+            "type": "string",
+            "format": "default"
+        },
+        {
+            "name": "location",
+            "type": "geopoint",
+            "format": "default"
+        }
+    ],
+    "missingValues": [
+        "",
+        "N/A"
+    ]
+}
+```
+
+If we decide to improve it even more we could update the schema file and then open it again. But now providing a schema path and iterating thru the data using Node Streams:
+
+``` r
+table = Table.load('data.csv', schema = 'schema.json')
+stream = table$iter(stream = TRUE)
+stream.on('data', (row) => {
+  # handle row ['london', [51.50,-0.11]] etc
+  # keyed/extended/cast supported in a stream mode too
+})
+```
+
+It was onle basic introduction to the `Table` class. To learn more let's take a look on `Table` class API reference.
 
 Schema
 ------
@@ -255,14 +371,7 @@ devtools::test()
     ## 
     ##     date
 
-    ## infer: ...
-    ## profile: ..
-
-    ## hash-2.2.6 provided by Decision Patterns
-
-    ## Schema: ...........................1
-    ## table-general: ................
-    ## table-foreign-keys: ....
+    ## profile: 
     ## types.castAny: .....
     ## types.castBoolean: ..........................
     ## types.castDate: .........................
@@ -274,23 +383,6 @@ devtools::test()
     ## types.castString: ...............
     ## types.castYear: ......
     ## types.castYearmonth: ...........
-    ## validate: ..................................
-    ## 
-    ## Failed --------------------------------------------------------------------
-    ## 1. Error: sould work with primary/foreign keys as string (@test-schema.R#232) 
-    ## object 'fk.fields' not found
-    ## 1: def$value() at C:\Users\Kleanthis-Okf\Documents\tableschema-r/tests/testthat/test-schema.R:232
-    ## 2: Schema$new(descriptor = descriptor, strict = strict, caseInsensitiveHeaders = caseInsensitiveHeaders) at C:\Users\Kleanthis-Okf\Documents\tableschema-r/R/schema.R:396
-    ## 3: .subset2(public_bind_env, "initialize")(...)
-    ## 4: private$build_() at C:\Users\Kleanthis-Okf\Documents\tableschema-r/R/schema.R:29
-    ## 5: private$profile_$validate(private$currentDescriptor_json) at C:\Users\Kleanthis-Okf\Documents\tableschema-r/R/schema.R:294
-    ## 6: private$validateForeignKeys(helpers.from.json.to.list(descriptor)) at C:\Users\Kleanthis-Okf\Documents\tableschema-r/R/profile.R:87
-    ## 7: append(messages, list(stringr::str_interp("foreign key ${fk.fields} must match schema field names"))) at C:\Users\Kleanthis-Okf\Documents\tableschema-r/R/profile.R:170
-    ## 8: stringr::str_interp("foreign key ${fk.fields} must match schema field names")
-    ## 9: eval_interp_matches(matches$matches, env)
-    ## 10: lapply(expressions, eval, env = env, enclos = if (is.environment(env)) env else environment(env))
-    ## 11: FUN(X[[i]], ...)
-    ## 12: FUN(X[[i]], ...)
     ## 
     ## DONE ======================================================================
 
