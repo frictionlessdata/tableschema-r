@@ -18,7 +18,7 @@ Profile <- R6Class(
     initialize = function(profile) {
       tryCatch({
         profile =  file.path(stringr::str_interp("${profiles[[profile]]}"))
-        private$jsonschema_ = jsonlite::fromJSON(profile)
+        private$jsonschema_ = jsonlite::toJSON(jsonlite::fromJSON(profile))
         return(private$jsonschema_)
       },
       error = function(cond) {
@@ -48,13 +48,13 @@ Profile <- R6Class(
             ${validationError}
             '
           )
-          ))
+        ))
       }
       
       if (validation == TRUE) {
         
-        validation = jsonvalidate::json_validate(descriptor, private$jsonschema_, greedy = TRUE, verbose = TRUE)
-        errs = attr(validation,"errors")
+        validation = is.valid(descriptor)
+        errs = validation$errors
         for (i in rownames(errs) ) {
           errors = c(errors, stringr::str_interp(
             'Descriptor validation error:
@@ -82,8 +82,8 @@ Profile <- R6Class(
         
       }
       return(list(valid = length(errors) < 1, errors = errors))
-      }
-        ),
+    }
+  ),
   
   active = list(
     

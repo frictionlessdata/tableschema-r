@@ -104,7 +104,7 @@ Schema <- R6Class(
         },
         error = function(e) {
           #TODO:  UniqueConstraintsError
-          
+
           error <-
             stringr::str_interp("Wrong type for header: ${headers[[i]]} and value: ${items[[i]]}")
           if (failFast == TRUE) {
@@ -239,7 +239,7 @@ Schema <- R6Class(
         
       })
       
-      
+    
       return(foreignKeys)
     },
     
@@ -305,8 +305,6 @@ Schema <- R6Class(
       }
       private$currentDescriptor_ = helpers.expandSchemaDescriptor(descriptor)
       private$nextDescriptor_ = private$currentDescriptor_
-      
-      
       # Populate fields
       private$fields_ = list()
       for (field in private$currentDescriptor_$fields) {
@@ -356,7 +354,7 @@ Schema <- R6Class(
     
     
     guessType_ = function(row) {
-      
+
       # Get matching types
       matches = list()
       for (value in row) {
@@ -370,7 +368,7 @@ Schema <- R6Class(
           }
         }
       }
-      
+
       # Get winner type
       winner = 'any'
       count = 0

@@ -30,6 +30,13 @@ helpers.checkUnique <- function(name,
   return(TRUE)
 }
 
+
+
+#' Retrieve Descriptor
+#' @param descriptor descriptor
+#' @rdname helpers.retrieveDescriptor
+#' @export
+
 helpers.retrieveDescriptor <- function(descriptor) {
   return(future::future({
     # Inline
@@ -87,6 +94,12 @@ helpers.retrieveDescriptor <- function(descriptor) {
   }))
 }
 
+
+#' Expand Schema Descriptor
+#' @param descriptor descriptor
+#' @rdname helpers.expandSchemaDescriptor
+#' @export
+#' 
 helpers.expandSchemaDescriptor <- function(descriptor) {
   
   for (index in 1:length(descriptor$fields)) {
@@ -99,7 +112,10 @@ helpers.expandSchemaDescriptor <- function(descriptor) {
 }
 
 
-
+#' Expand Field Descriptor
+#' @param descriptor descriptor
+#' @rdname helpers.expandFieldDescriptor
+#' @export
 
 helpers.expandFieldDescriptor = function(descriptor) {
   if (is.list(descriptor)) {
@@ -112,7 +128,7 @@ helpers.expandFieldDescriptor = function(descriptor) {
 
 
 #' Extract the field descriptors properties
-#' @param descriptor The datapackage.json
+#' @param descriptor descriptor
 #' @rdname get.field.descriptor.properties
 #' @export
 

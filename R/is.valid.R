@@ -6,24 +6,15 @@
 
 is.valid = function(descriptor)  {
   
-  future::plan(future::multiprocess)
+    #local
+    v = jsonvalidate::json_validator(paste(readLines("https://schemas.frictionlessdata.io/data-package.json"), collapse=""))
+
+  validate=v(descriptor, verbose = TRUE, greedy=TRUE,error=FALSE)
+  class(validate)="logical"
   
-  future::future({
-    
-    if(jsonlite::validate(descriptor)==TRUE){
-      
-      path_table_schema <- system.file("profiles/table-schema.json", package = "tableschema.r")
-      
-      v = jsonvalidate::json_validator(paste(readLines(path_table_schema), collapse="")) #"https://schemas.frictionlessdata.io/tabular-data-package.json"
-      
-      
-      valid=v(descriptor,verbose = T, greedy=TRUE,error=F)
-      
-  } else message("This is not a valid JSON file.")
-    
-  })
-  
-  return (list(valid=valid, errors=list()))
+  #.print.validator(valid)
+  validation=list(valid=validate, errors=attr(validate,"errors"))
+  return(validation)
 }
 
 # #' @title print validator

@@ -7,7 +7,7 @@
 get.field.descriptor.properties(descriptor)
 }
 \arguments{
-\item{descriptor}{The datapackage.json}
+\item{descriptor}{descriptor}
 }
 \description{
 Extract the field descriptors properties
