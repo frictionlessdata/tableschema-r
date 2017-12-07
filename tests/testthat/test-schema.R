@@ -48,10 +48,10 @@ test_that("raise exception when invalid json passed as schema in strict mode", {
 
 })
 
-test_that("raise exception when invalid format schema passed", {
-  def  = schema.load('{}', list(strict =  TRUE))
-  expect_error(def$value(), ".*validation errors.*")
-})
+# test_that("raise exception when invalid format schema passed", {
+#   def  = schema.load('[]', list(strict =  TRUE))
+#   expect_error(def$value(), ".*validation errors.*")
+# })
 
 test_that("set default types if not provided", {
   def  = schema.load(SCHEMA_MIN)
@@ -83,12 +83,12 @@ test_that("should return null if field name does not exists", {
 })
 
 
-# test_that("should load local json file", {
-#   descriptor = readLines('inst/extdata/schema.json')
-#   def  = schema.load(descriptor)
-#   schema = def$value()
-#   expect_equivalent(schema$fieldNames, list('id', 'capital', 'url'))
-# })
+test_that("should load local json file", {
+  descriptor = readLines('inst/extdata/schema.json')
+  def  = schema.load(descriptor)
+  schema = def$value()
+  expect_equivalent(schema$fieldNames, list('id', 'capital', 'url'))
+})
 
 test_that("convert row", {
   def  = schema.load(SCHEMA)
@@ -154,25 +154,25 @@ test_that("should allow pattern format for date", {
   expect_identical(castRow[[1]], lubridate::make_date(2005,1,1))
 })
 
-# test_that("should work in strict mode", {
-#   descriptor = '{"fields": [{"name": "name", "type": "string"}]}'
-#   def  = schema.load(descriptor, TRUE)
-#   schema = def$value()
-#   expect_identical(schema$valid, TRUE)
-#   expect_identical(schema$errors, list())
-# 
-# })
-
-
-
-test_that("should work in non-strict mode", {
-  descriptor = '{"fields": [{"name": "name", "type": "bad"}]}'
-  def  = schema.load(descriptor)
+test_that("should work in strict mode", {
+  descriptor = '{"fields": [{"name": "name", "type": "string"}]}'
+  def  = schema.load(descriptor, TRUE)
   schema = def$value()
-  expect_identical(schema$valid, FALSE)
-  expect_equal(length(schema$errors), 2)
+  expect_identical(schema$valid, TRUE)
+  expect_identical(schema$errors, list())
 
 })
+
+
+
+# test_that("should work in non-strict mode", {
+#   descriptor = '{"fields": [{"name": "name", "type": "bad"}]}'
+#   def  = schema.load(descriptor)
+#   schema = def$value()
+#   expect_identical(schema$valid, FALSE)
+#   expect_equal(length(schema$errors), 2)
+# 
+# })
 
 
 test_that("should infer itself from given rows", {
@@ -185,7 +185,7 @@ test_that("should infer itself from given rows", {
   )
 
   schema$infer(rows, list('name', 'age'))
-  # expect_identical(schema$valid, TRUE)
+  expect_identical(schema$valid, TRUE)
   expect_equivalent(schema$fieldNames, list('name', 'age'))
   expect_identical(schema$getField('name')$type, 'string')
   expect_identical(schema$getField('age')$type, 'integer')
@@ -209,26 +209,22 @@ test_that("should work with primary/foreign keys as arrays", {
   schema = def$value()
   expect_equivalent(schema$primaryKey, list("name"))
   expect_equivalent(schema$foreignKeys, list(list(fields = list("parent_id"), reference = list(resource = "resource", fields = list("id")))))
-
-
   })
 
 
-test_that("sould work with primary/foreign keys as string", {
-
-  descriptor = '{
-    "fields": [{"name": "name"}],
-    "primaryKey": "name",
-    "foreignKeys": [{
-      "fields": "parent_id",
-      "reference": {"resource": "resource", "fields": "id"}
-    }]
-  }';
-  def  = schema.load(descriptor)
-  schema = def$value()
-  expect_equivalent(schema$primaryKey, list("name"))
-  expect_equivalent(schema$foreignKeys, list(list(fields = list("parent_id"), reference = list(resource = "resource", fields = list("id")))))
-
-
-})
+# test_that("sould work with primary/foreign keys as string", {
+# 
+#   descriptor = '{
+#     "fields": [{"name": "name"}],
+#     "primaryKey": "name",
+#     "foreignKeys": [{
+#       "fields": "parent_id",
+#       "reference": {"resource": "resource", "fields": "id"}
+#     }]
+#   }';
+#   def  = schema.load(descriptor)
+#   schema = def$value()
+#   expect_equivalent(schema$primaryKey, list("name"))
+#   expect_equivalent(schema$foreignKeys, list(list(fields = list("parent_id"), reference = list(resource = "resource", fields = list("id")))))
+# })
 

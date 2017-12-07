@@ -16,8 +16,10 @@ Profile <- R6Class(
   public = list(
     
     initialize = function(profile) {
+     
       tryCatch({
         profile =  file.path(stringr::str_interp("${profiles[[profile]]}"))
+        private$profile_ = readLines(profile,warn = FALSE)
         private$jsonschema_ = jsonlite::toJSON(jsonlite::fromJSON(profile))
         return(private$jsonschema_)
       },
@@ -53,7 +55,7 @@ Profile <- R6Class(
       
       if (validation == TRUE) {
         
-        validation = is.valid(descriptor)
+        validation = is.valid(descriptor, private$profile_)
         errs = validation$errors
         for (i in rownames(errs) ) {
           errors = c(errors, stringr::str_interp(
