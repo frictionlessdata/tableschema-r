@@ -5,14 +5,6 @@ library(foreach)
 library(lubridate)
 
 
-
-
-
-
-
-
-
-
 testthat::context("table-general")
 
 SOURCE = '[
