@@ -165,14 +165,14 @@ test_that("should work in strict mode", {
 
 
 
-# test_that("should work in non-strict mode", {
-#   descriptor = '{"fields": [{"name": "name", "type": "bad"}]}'
-#   def  = schema.load(descriptor)
-#   schema = def$value()
-#   expect_identical(schema$valid, FALSE)
-#   expect_equal(length(schema$errors), 2)
-# 
-# })
+test_that("should work in non-strict mode", {
+  descriptor = '{"fields": [{"name": "name", "type": "bad"}]}'
+  def  = schema.load(descriptor)
+  schema = def$value()
+  expect_identical(schema$valid, FALSE)
+  expect_equal(length(schema$errors), 1)
+
+})
 
 
 test_that("should infer itself from given rows", {
