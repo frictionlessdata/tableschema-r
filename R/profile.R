@@ -147,25 +147,29 @@ validatePrimaryKey = function(descriptor) {
   
   
   
-  return(messages)
+  return(messages[!duplicated(messages)])
 }
 
 validateForeignKeys = function(descriptor) {
+  
   messages = list()
+  
   fieldNames = if (!("fields" %in% names(descriptor)))
     list()
   else
-    purrr::map(descriptor$fields, "name")
+    purrr::map(descriptor, "name")$fields
+  
   if (!is.null(descriptor$foreignKeys)) {
     foreignKeys = descriptor$foreignKeys
     
     for (fk in foreignKeys) {
+      
       if (is.character(fk$fields)) {
         
         if (!(fk$fields %in% fieldNames )) {
           messages = append(messages, list(
             stringr::str_interp(
-              "foreign key ${fk.fields} must match schema field names"
+              "foreign key ${fk$fields} must match schema field names"
             )
           ))
           
@@ -174,7 +178,7 @@ validateForeignKeys = function(descriptor) {
         if (!is.character(fk$reference$fields)) {
           messages = append(messages, list(
             stringr::str_interp(
-              "foreign key ${fk.reference.fields} must be same type as ${fk.fields}"
+              "foreign key ${fk$reference$fields} must be same type as ${fk$fields}"
             )
           ))
           
@@ -199,7 +203,7 @@ validateForeignKeys = function(descriptor) {
           
           messages = append(messages, list(
             stringr::str_interp(
-              "foreign key ${fk.reference.fields} must be same type as ${fk.fields}"
+              "foreign key ${fk$reference$fields} must be same type as ${fk$fields}"
             )
           ))
           
@@ -219,7 +223,7 @@ validateForeignKeys = function(descriptor) {
           if (!(fk$reference$fields %in%  fieldNames)) {
             messages = append(messages, list(
               stringr::str_interp(
-                "foreign key ${fk.fields} must be found in the schema field names"
+                "foreign key ${fk$fields} must be found in the schema field names"
               )
             ))
             
@@ -247,7 +251,7 @@ validateForeignKeys = function(descriptor) {
     }
     
   }
-  return(messages)
+  return(messages[!duplicated(messages)])
 }
 
 

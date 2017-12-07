@@ -13,13 +13,14 @@ is.valid = function(descriptor, schema = NULL)  {
     
     v = jsonvalidate::json_validator(paste(readLines('inst/profiles/tableschema.json', warn = FALSE, n=-1L), collapse=""))
     
-    validate = v(descriptor, verbose = TRUE, greedy=TRUE)
     
   } else {
+    v = jsonvalidate::json_validator(schema)
     
-    validate = jsonvalidate::json_validate(descriptor, schema)
+    #validate = jsonvalidate::json_validate(descriptor, schema)
     
   }
+  validate = v(descriptor, verbose = TRUE, greedy=TRUE)
   
   class(validate)="logical"
   

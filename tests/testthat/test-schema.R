@@ -48,10 +48,10 @@ test_that("raise exception when invalid json passed as schema in strict mode", {
 
 })
 
-# test_that("raise exception when invalid format schema passed", {
-#   def  = schema.load('[]', list(strict =  TRUE))
-#   expect_error(def$value(), ".*validation errors.*")
-# })
+test_that("raise exception when invalid format schema passed", {
+  def  = schema.load('[]', list(strict =  TRUE))
+  expect_error(def$value(), ".*validation errors.*")
+})
 
 test_that("set default types if not provided", {
   def  = schema.load(SCHEMA_MIN)
@@ -212,19 +212,19 @@ test_that("should work with primary/foreign keys as arrays", {
   })
 
 
-# test_that("sould work with primary/foreign keys as string", {
-# 
-#   descriptor = '{
-#     "fields": [{"name": "name"}],
-#     "primaryKey": "name",
-#     "foreignKeys": [{
-#       "fields": "parent_id",
-#       "reference": {"resource": "resource", "fields": "id"}
-#     }]
-#   }';
-#   def  = schema.load(descriptor)
-#   schema = def$value()
-#   expect_equivalent(schema$primaryKey, list("name"))
-#   expect_equivalent(schema$foreignKeys, list(list(fields = list("parent_id"), reference = list(resource = "resource", fields = list("id")))))
-# })
+test_that("sould work with primary/foreign keys as string", {
+
+  descriptor = '{
+    "fields": [{"name": "name"}],
+    "primaryKey": "name",
+    "foreignKeys": [{
+      "fields": "parent_id",
+      "reference": {"resource": "resource", "fields": "id"}
+    }]
+  }';
+  def  = schema.load(descriptor)
+  schema = def$value()
+  expect_equivalent(schema$primaryKey, list("name"))
+  expect_equivalent(schema$foreignKeys, list(list(fields = list("parent_id"), reference = list(resource = "resource", fields = list("id")))))
+})
 
