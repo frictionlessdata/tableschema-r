@@ -212,7 +212,7 @@ test_that("should work with primary/foreign keys as arrays", {
   })
 
 
-test_that("sould work with primary/foreign keys as string", {
+test_that("should work with primary/foreign keys as string", {
 
   descriptor = '{
     "fields": [{"name": "name"}],
