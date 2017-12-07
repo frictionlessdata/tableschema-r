@@ -181,7 +181,7 @@ test_that("should read source data and return extended rows", {
 # test_that("should infer headers and schema", {
 #   source = file(system.file('inst/extdata/data_infer.csv', package = 'tableschema.r'))
 #   def2  = table.load(source)
-#   table = def2$value();
+#   table = def2$value()
 #   table$infer()
 #   expect_equivalent(table$headers, list('id', 'age', 'name'))
 #   expect_identical(length(table$schema$fields), 3L)

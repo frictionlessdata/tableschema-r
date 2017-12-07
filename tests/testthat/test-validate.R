@@ -287,3 +287,12 @@ test_that("ensure schema has fields and fields are array", {
 
 
 })
+
+test_that("ensure schema has fields", {
+  
+  validation = validate('[]')
+  expect_equal(validation$valid, FALSE)
+  expect_equal(length(validation$errors), 1L)
+  
+  
+})
