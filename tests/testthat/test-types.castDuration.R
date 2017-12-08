@@ -10,10 +10,10 @@ testthat::context("types.castDuration")
 
 TESTS = list(
 
-  # list("default", moment.duration({years: 1}), moment.duration({years: 1})),
-  # list("default", "P1Y10M3DT5H11M7S",  moment.duration({years: 1, months: 10, days: 3, hours: 5, minutes: 11, seconds: 7})),
-  # list("default", "P1Y", moment.duration({years: 1})),
-  # list("default", "P1M", moment.duration({months: 1})),
+  list("default", durations(years= 1), durations(years= 1)),
+  list("default", "P1Y10M3DT5H11M7S",  durations(years= 1, months= 10, days= 3, hours= 5, minutes= 11, seconds= 7)),
+  #list("default", "P1Y", durations({years: 1})),
+  #list("default", "P1M", durations(months = 1)),
   list("default", "P1M1Y", config::get("ERROR")),
   list("default", "P-1Y", config::get("ERROR")),
   list("default", "year", config::get("ERROR")),

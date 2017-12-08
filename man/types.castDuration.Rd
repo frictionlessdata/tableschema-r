@@ -4,7 +4,7 @@
 \alias{types.castDuration}
 \title{cast duration}
 \usage{
-types.castDuration(format = "seconds", value)
+types.castDuration(format = "default", value)
 }
 \arguments{
 \item{format}{time unit of x}
