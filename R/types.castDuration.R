@@ -11,13 +11,16 @@ types.castDuration <- function(format = "default", value) { #format parameter is
   
   if (isTRUE(grepl("(\\d+) Years, (\\d+) Months, (\\d+) Days, ",value)))  duration = value 
   
-  else if (isTRUE(grepl("P(\\d+)Y(\\d+)M(\\d+)DT(\\d+)H(\\d+)M(\\d+)S",value))) duration = gsub("P(\\d+)Y(\\d+)M(\\d+)DT(\\d+)H(\\d+)M(\\d+)S", "\\1 Years, \\2 Months, \\3 Days, 0\\4:\\5:0\\6", value)
+  else if (isTRUE(grepl("P(\\d+)Y(\\d+)M(\\d+)DT(\\d+)H(\\d+)M(\\d+)S",value))) duration = ifelse(grepl(".*M(\\d)S", value), gsub("P(\\d+)Y(\\d+)M(\\d+)DT(\\d+)H(\\d+)M(\\d)S", "\\1 Years, \\2 Months, \\3 Days, \\4:\\5:0\\6", value), 
+                                                                                                  gsub("P(\\d+)Y(\\d+)M(\\d+)DT(\\d+)H(\\d+)M(\\d+)S", "\\1 Years, \\2 Months, \\3 Days, \\4:\\5:\\6", value))
   
   else return(config::get("ERROR"))
     #stop(TableSchemaError$new("Value should be ISO-8601 extended format or duration object, see duration function")$message)
 
   return(duration)
 }
+
+
 
 #' durations
 #' @param years years
@@ -31,7 +34,7 @@ types.castDuration <- function(format = "default", value) { #format parameter is
 #' 
 durations = function(years = 0, months = 0, days = 0, hours = 00, minutes = 00, seconds = 00){
   
-  time = paste( formatC(hours, width = 2, format = "d", flag = "0"), 
+  time = paste( formatC(hours, width = 2, format = "d", flag = ""), 
                 formatC(minutes, width = 2, format = "d", flag = "0"),
                 formatC(seconds, width = 2, format = "d", flag = "0"), sep=":")
   
@@ -39,7 +42,7 @@ durations = function(years = 0, months = 0, days = 0, hours = 00, minutes = 00, 
                paste(formatC(months, width = 1, format = "d", flag = "0"), "Months"),
                paste(formatC(days, width = 1, format = "d", flag = "0"), "Days"), sep = ", ")
   
-  duration = paste(date , time, sep = ", ")
+  duration = paste(date , time, sep = ",")
 
   return(duration)
 }

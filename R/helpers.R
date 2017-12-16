@@ -110,7 +110,7 @@ helpers.expandSchemaDescriptor <- function(descriptor) {
     field = descriptor$fields[[index]]
     descriptor$fields[[index]] = helpers.expandFieldDescriptor(field)
   }
-  if (is.null(descriptor$missingValues) || descriptor$missingValues == FALSE)  descriptor$missingValues = config::get("DEFAULT_MISSING_VALUES")
+  if (isTRUE(is.null(descriptor$missingValues) || descriptor$missingValues == FALSE || descriptor$missingValues == list()))  descriptor$missingValues = config::get("DEFAULT_MISSING_VALUES")
   
   return(descriptor)
 }
