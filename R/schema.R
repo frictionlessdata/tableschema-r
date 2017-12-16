@@ -284,7 +284,7 @@ Schema <- R6Class(
       #private$currentDescriptor_json = jsonlite::toJSON(private$currentDescriptor_, auto_unbox = TRUE)
       # Validate descriptor
       private$errors_ = list()
-      
+      if (!is.character(private$currentDescriptor_json)) private$currentDescriptor_json = jsonlite::toJSON(private$currentDescriptor_json)
       private$currentDescriptor_json =  helpers.retrieveDescriptor(private$currentDescriptor_json)$value
       if (inherits(private$currentDescriptor_json, "simpleError")) {
         stop(private$currentDescriptor_json$message)
