@@ -9,7 +9,7 @@
 validate <- function(descriptor) {
   
   # https://github.com/frictionlessdata/tableschema-js#infer
-  def  = schema.load(descriptor)
+  def  = Schema.load(descriptor)
   schema = def$value()
   return(list(valid = schema$valid, errors = schema$errors))
 }

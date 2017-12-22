@@ -318,18 +318,18 @@ Table <- R6Class(
 #' @param strict strict
 #' @param headers headers
 #' @param ... other arguments to pass
-#' @rdname table.load
+#' @rdname Table.load
 #' @export
 #' 
 
-table.load = function(source,
+Table.load = function(source,
                       schema = NULL,
                       strict = FALSE,
                       headers = 1, ...) {
   return(future::future(function() {
     # Load schema
     if (!is.null(schema) && class(schema)[[1]] != "Schema") {
-      def  = schema.load(schema, strict)
+      def  = Schema.load(schema, strict)
       schema = def$value()
     }
     

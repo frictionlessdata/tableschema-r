@@ -255,7 +255,8 @@ Schema <- R6Class(
     },
     
     
-    descriptor = function() {
+    descriptor = function(x) {
+      if (!missing(x)) private$nextDescriptor_ = x
       return(private$nextDescriptor_)
     },
     
@@ -393,11 +394,11 @@ Schema <- R6Class(
 #' @param descriptor descriptor
 #' @param strict strict
 #' @param caseInsensitiveHeaders caseInsensitiveHeaders
-#' @rdname schema.load
+#' @rdname Schema.load
 #' @export
 #' 
 
-schema.load = function(descriptor = "",
+Schema.load = function(descriptor = "",
                        strict = FALSE,
                        caseInsensitiveHeaders = FALSE) {
   return(future::future(function() {

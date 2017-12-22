@@ -48,7 +48,7 @@ test_that("should read rows if single field foreign keys is valid", {
     list('id', 'bad', 'age', 'name', 'occupation'),
     list(1, '10.0', 1, 'string1', '2012-06-15 00:00:00')
   )
-  def2  = table.load(helpers.from.json.to.list(SOURCE), schema = SCHEMA)
+  def2  = Table.load(helpers.from.json.to.list(SOURCE), schema = SCHEMA)
   table = def2$value();
 
   rows = table$read(relations = helpers.from.json.to.list(RELATIONS))
@@ -69,7 +69,7 @@ test_that("should throw on read if single field foreign keys is invalid", {
     list('id', 'bad', 'age', 'name', 'occupation'),
     list(1, '10.0', 1, 'string1', '2012-06-15 00:00:00')
   )
-  def2  = table.load(helpers.from.json.to.list(SOURCE), schema = SCHEMA)
+  def2  = Table.load(helpers.from.json.to.list(SOURCE), schema = SCHEMA)
   table = def2$value();
   relations = helpers.from.json.to.list(RELATIONS)
   relations[["people"]][[3]][["firstname"]] = 'Max'
@@ -90,7 +90,7 @@ test_that("should read rows if multi field foreign keys is valid", {
   SCHEMA2 = helpers.from.list.to.json(schema)
   relations = helpers.from.json.to.list(RELATIONS)
 
-  def2  = table.load(helpers.from.json.to.list(SOURCE), schema = SCHEMA2)
+  def2  = Table.load(helpers.from.json.to.list(SOURCE), schema = SCHEMA2)
   table = def2$value();
   keyedRows = table$read(keyed = TRUE, relations = relations)
   expect_equivalent(keyedRows, list(
@@ -114,7 +114,7 @@ test_that("should throw on read if multi field foreign keys is invalid", {
   relations = helpers.from.json.to.list(RELATIONS)
   relations$people = rlist::list.remove(relations$people, 3)
 
-  def2  = table.load(helpers.from.json.to.list(SOURCE), schema = SCHEMA2)
+  def2  = Table.load(helpers.from.json.to.list(SOURCE), schema = SCHEMA2)
   table = def2$value();
 
   expect_error(table$read(relations = relations), ".*Foreign key.*")
