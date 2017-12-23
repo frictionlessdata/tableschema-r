@@ -1,0 +1,30 @@
+library(stringr)
+library(tableschema.r)
+library(testthat)
+library(foreach)
+
+testthat::context("constraints.checkMaximum")
+
+# Constants
+TESTS = list(
+  
+  list( 0, 1,  FALSE),
+  
+  list( 1, 1,  TRUE),
+  
+  list( 2, 1,  TRUE)
+  
+)
+
+# Tests
+
+foreach(j = 1:length(TESTS) ) %do% {
+  
+  TESTS[[j]] = setNames(TESTS[[j]], c("constraint", "value", "result"))
+  
+  test_that(stringr::str_interp('constraint "${TESTS[[j]]$constraint}" should check "${TESTS[[j]]$value}" as "${TESTS[[j]]$result}"'), {
+    
+    expect_equal(constraints.checkMaximum(TESTS[[j]]$constraint, TESTS[[j]]$value), TESTS[[j]]$result)
+  })
+}
+

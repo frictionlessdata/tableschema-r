@@ -1,0 +1,17 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^packrat/
+^\.Rprofile$
+^\.travis\.yml$
+^NEWS\.Rmd$
+^README\.Rmd$
+^config\.yml$
+^frictionlessdata\.png$
+^okgr\.png$
+^oklabs\.png$
+^tableschema-r\.rxproj$
+^tableschema-r\.sln$
+^\.coveralls\.yml$
+^\.idea$
+^field\.R\.annot\.R$
+^codecov\.yml$
