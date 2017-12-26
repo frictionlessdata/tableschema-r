@@ -291,9 +291,9 @@ Profile.load = function(profile, ...){
 
 profiles = list(
   
-  geojson = 'inst/profiles/geojson.json',
+  geojson = 'profiles/geojson.json',
   
-  tableschema = 'inst/profiles/tableschema.json'
+  tableschema = 'profiles/tableschema.json'
   
 )
 
