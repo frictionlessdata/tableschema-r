@@ -14,3 +14,4 @@
 ^\.coveralls\.yml$
 ^\.idea$
 ^field\.R\.annot\.R$
+^codecov\.yml$

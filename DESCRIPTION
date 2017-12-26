@@ -1,23 +1,24 @@
 Package: tableschema.r
 Type: Package
 Title: 'R Table Schema'
-Version: 0.0.0.9001
+Version: 0.1.0
 Date: 2017-07-01
-Author: c( person("Lazaros", "Ioannidis", email = "larjohn@gmail.com", role =
-    "cre"), person("Kleanthis", "Koupidis", email = "koupidis.okfgr@gmail.com", role
-    = "cre"))
+Author: c(person("Kleanthis", "Koupidis", email = "koupidis.okfgr@gmail.com", role = c("aut", "cre"), 
+            person("Lazaros", "Ioannidis", email = "larjohn@gmail.com", role = c("aut", "cre")))
 Maintainer: Open Knowledge Greece <info@okfn.gr>
 Description: A library for working with Table Schema (http://
     specs.frictionlessdata.io/table-schema/).
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Imports: brew, config, future, git2r,hash, httr, iterators, itertools2, jsonlite, jsonvalidate, lubridate, pdftools, purrr, R6, Rcpp, RCurl, readr, rlang, rlist, roxygen2, stringi, stringr,  V8,xml2
-Remotes: hadley/testthat, hadley/devtools, okgreece/datapackage.r
+Imports: brew, config, future, git2r, hash, httr, iterators, itertools2, jsonlite, jsonvalidate, lubridate, pdftools, purrr, R6, Rcpp, RCurl, readr, rlang, rlist, roxygen2, stringr, urltools, V8, xml2
+Remotes: hadley/testthat, hadley/devtools, okgreece/datapackage.r, r-lib/covr
 SystemRequirements: V8 <= 3.15: libv8-3.14-dev (deb), v8-314-devel (rpm), v8-3.14 (arch, from AUR), v8@3.15 (homebrew)
 RoxygenNote: 6.0.1
-Suggests:
-    testthat,foreach
+Suggests: 
+    covr,
+    foreach,
+    testthat
 Collate: 
     'constraints.checkUnique.R'
     'constraints.checkRequired.R'
@@ -52,7 +53,6 @@ Collate:
     'methods.R'
     'tableschemaerror.R'
     'profile.R'
-    'profiles.R'
     'readable.R'
     'readable.array.R'
     'readable.connection.R'

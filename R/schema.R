@@ -11,7 +11,7 @@
 #' @return Object of \code{\link{R6Class}} .
 #' @format \code{\link{R6Class}} object.
 
-Schema <- R6::R6Class(
+Schema <- R6Class(
   "Schema",
   public = list(
     initialize = function(descriptor = "{}",
@@ -24,9 +24,10 @@ Schema <- R6::R6Class(
       private$profile_ = Profile$new('tableschema')
       private$errors_ = list()
       private$fields_ = list()
+      
       # Build instance
       private$build_()
-
+      
     },
     
     getField = function(fieldName, index = 1) {
@@ -254,7 +255,8 @@ Schema <- R6::R6Class(
     },
     
     
-    descriptor = function() {
+    descriptor = function(x) {
+      if (!missing(x)) private$nextDescriptor_ = x
       return(private$nextDescriptor_)
     },
     
@@ -283,7 +285,7 @@ Schema <- R6::R6Class(
       #private$currentDescriptor_json = jsonlite::toJSON(private$currentDescriptor_, auto_unbox = TRUE)
       # Validate descriptor
       private$errors_ = list()
-      
+      if (!is.character(private$currentDescriptor_json)) private$currentDescriptor_json = jsonlite::toJSON(private$currentDescriptor_json)
       private$currentDescriptor_json =  helpers.retrieveDescriptor(private$currentDescriptor_json)$value
       if (inherits(private$currentDescriptor_json, "simpleError")) {
         stop(private$currentDescriptor_json$message)
@@ -387,12 +389,16 @@ Schema <- R6::R6Class(
   
   
 )
-#' schema.load
-#' @description schema.load
-#' @rdname schema.load
+
+#' load schema
+#' @param descriptor descriptor
+#' @param strict strict
+#' @param caseInsensitiveHeaders caseInsensitiveHeaders
+#' @rdname Schema.load
 #' @export
-#'
-schema.load = function(descriptor = "",
+#' 
+
+Schema.load = function(descriptor = "",
                        strict = FALSE,
                        caseInsensitiveHeaders = FALSE) {
   return(future::future(function() {

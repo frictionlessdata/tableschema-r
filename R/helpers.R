@@ -23,12 +23,23 @@ Helpers$expandFieldDescriptor <- function(descriptor) {
   }
   return(descriptor)
 }
+
+
+
+
 helpers.checkUnique <- function(name,
                                 value,
                                 uniqueHeaders,
                                 uniqueness){
   return(TRUE)
 }
+
+
+
+#' Retrieve Descriptor
+#' @param descriptor descriptor
+#' @rdname helpers.retrieveDescriptor
+#' @export
 
 helpers.retrieveDescriptor <- function(descriptor) {
   return(future::future({
@@ -47,8 +58,8 @@ helpers.retrieveDescriptor <- function(descriptor) {
       if (httr::status_code(res) >= 400) {
 
         stop(
-          stringr::str_interp("Can\'t load descriptor at '${descriptor}'"),
-          errors
+          stringr::str_interp("Can\'t load descriptor at '${descriptor}'")#,
+          #errors
         )
       }
       
@@ -87,6 +98,12 @@ helpers.retrieveDescriptor <- function(descriptor) {
   }))
 }
 
+
+#' Expand Schema Descriptor
+#' @param descriptor descriptor
+#' @rdname helpers.expandSchemaDescriptor
+#' @export
+#' 
 helpers.expandSchemaDescriptor <- function(descriptor) {
   
   for (index in 1:length(descriptor$fields)) {
@@ -99,7 +116,10 @@ helpers.expandSchemaDescriptor <- function(descriptor) {
 }
 
 
-
+#' Expand Field Descriptor
+#' @param descriptor descriptor
+#' @rdname helpers.expandFieldDescriptor
+#' @export
 
 helpers.expandFieldDescriptor = function(descriptor) {
   if (is.list(descriptor)) {
@@ -112,7 +132,7 @@ helpers.expandFieldDescriptor = function(descriptor) {
 
 
 #' Extract the field descriptors properties
-#' @param descriptor The datapackage.json
+#' @param descriptor descriptor
 #' @rdname get.field.descriptor.properties
 #' @export
 
@@ -289,11 +309,19 @@ is_object = function(x) {
   is.object(x) | is.list(x) | "json" %in% class(x)
   
 }
-
+#' from json to list
+#' @param lst list
+#' @rdname helpers.from.json.to.list
+#' @export
+#'
 helpers.from.json.to.list = function(lst){
   return(jsonlite::fromJSON(lst, simplifyVector = FALSE))
 }
-
+#' from list to json
+#' @param json json
+#' @rdname helpers.from.list.to.json
+#' @export
+#'
 helpers.from.list.to.json = function(json){
   return(jsonlite::toJSON(json, auto_unbox = TRUE))
 }

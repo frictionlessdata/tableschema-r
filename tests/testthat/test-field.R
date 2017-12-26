@@ -43,7 +43,7 @@ test_that("should fail to cast value", {
 
 })
 
-test_that("should cast value", {
+test_that("should expand descriptor by defaults", {
     field <- Field$new(list(name = "name"))
     expect_equivalent(field$descriptor, list(name = "name", type = "string", format = "default"))
 })

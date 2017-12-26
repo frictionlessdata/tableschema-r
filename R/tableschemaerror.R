@@ -12,11 +12,21 @@
 TableSchemaError <- R6Class(
 "TableSchemaError",
 public = list(
-initialize = function(message, errors){
+  message=NULL,
+  error=NULL,
+  initialize = function (message, error=NULL){
+    self$message <- message
+    self$error <- error
+  }),
+
+active = list(
   
-}
+  multiple = function () {
+    if (length(self$error) %in% c(0,1) ) return (FALSE) else return (TRUE)
+  },
+  
+  errors = function () {
+    return (as.list(self$error))
+  }
 )
-
-
-
 )

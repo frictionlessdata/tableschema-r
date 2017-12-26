@@ -13,7 +13,7 @@ infer <- function(source, options = list()) {
   arguments = list(source)
   arguments = append(arguments, options)
 
-  def2  = do.call(table.load, arguments )
+  def2  = do.call(Table.load, arguments )
   table = def2$value();
   
 

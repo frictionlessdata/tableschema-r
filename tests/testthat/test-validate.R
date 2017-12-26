@@ -23,12 +23,10 @@ SCHEMA = '{
 
 
 test_that("should support local descriptors", {
-  
-  validation = validate(system.file('inst/extdata/schema.json', package = 'tableschema.r'))
+
+  validation = validate(readLines('inst/extdata/schema.json'))
   expect_equal(validation$valid, TRUE)
   expect_equal(length(validation$errors), 0)
-  
-  
 })
 
 test_that("empty resource should reference to the self fields", {
@@ -38,20 +36,20 @@ test_that("empty resource should reference to the self fields", {
     {
     "fields": ["id"],
     "reference": {"fields": ["fk_id"], "resource": ""}
-    }, 
+    },
     {
     "fields": ["id", "name"],
     "reference": {"resource": "", "fields": ["fk_id", "fk_name"]}
     }
     ]'
   )
-  
+
   descriptor = helpers.from.list.to.json(descriptor)
   validation = validate(descriptor)
   expect_equal(validation$valid, FALSE)
-  expect_equal(length(validation$errors), 3)
-  
-  
+  expect_equal(length(validation$errors), 4)
+
+
   })
 
 
@@ -64,20 +62,20 @@ test_that("reference.fields should be same type as key.fields", {
         {
             "fields": ["id"],
             "reference": {"fields": ["fk_id"], "resource": "resource"}
-        }, 
+        },
         {
             "fields": ["id", "name"],
             "reference": {"resource": "the-resource", "fields": ["fk_id", "fk_name"]}
         }
   ]'
   )
-  
+
   descriptor = helpers.from.list.to.json(descriptor)
   validation = validate(descriptor)
-  expect_equal(validation$valid, TRUE)
-  expect_equal(length(validation$errors), 0)
-  
-  
+  expect_equal(validation$valid, FALSE)
+  expect_equal(length(validation$errors), 2)
+
+
 })
 
 
@@ -102,13 +100,13 @@ test_that("reference.fields should be same type as key.fields", {
         }
     ]'
   )
-  
+
   descriptor = helpers.from.list.to.json(descriptor)
   validation = validate(descriptor)
   expect_equal(validation$valid, FALSE)
   expect_equal(length(validation$errors), 3L)
-  
-  
+
+
   })
 
 
@@ -133,8 +131,8 @@ test_that("ensure fields exists in schema", {
   validation = validate(descriptor)
   expect_equal(validation$valid, FALSE)
   expect_equal(length(validation$errors), 2L)
-  
-  
+
+
 })
 
 
@@ -147,8 +145,6 @@ test_that("ensure fields in keys a string or an array", {
   validation = validate(descriptor)
   expect_equal(validation$valid, FALSE)
   expect_equal(length(validation$errors), 1L)
-  
-  
 })
 
 test_that("ensure every foreign key has fields", {
@@ -158,8 +154,8 @@ test_that("ensure every foreign key has fields", {
   validation = validate(descriptor)
   expect_equal(validation$valid, FALSE)
   expect_equal(length(validation$errors), 2L)
-  
-  
+
+
 })
 
 
@@ -170,8 +166,8 @@ test_that("ensure foreign keys is an array", {
   validation = validate(descriptor)
   expect_equal(validation$valid, FALSE)
   expect_equal(length(validation$errors), 1L)
-  
-  
+
+
 })
 
 
@@ -182,8 +178,8 @@ test_that("ensure primary key as array match field names", {
   validation = validate(descriptor)
   expect_equal(validation$valid, FALSE)
   expect_equal(length(validation$errors), 1L)
-  
-  
+
+
 })
 
 
@@ -194,8 +190,8 @@ test_that("primary key should match field names", {
   validation = validate(descriptor)
   expect_equal(validation$valid, FALSE)
   expect_equal(length(validation$errors), 1L)
-  
-  
+
+
 })
 
 
@@ -206,8 +202,8 @@ test_that("primary key should be by type one of the allowed by schema", {
   validation = validate(descriptor)
   expect_equal(validation$valid, FALSE)
   expect_equal(length(validation$errors), 1L)
-  
-  
+
+
 })
 
 
@@ -233,7 +229,7 @@ test_that("ensure constraints properties with correct type is valid", {
   validation = validate(descriptor)
   expect_equal(validation$valid, TRUE)
   expect_equal(length(validation$errors), 0)
-  
+
 })
 
 
@@ -258,51 +254,45 @@ test_that("ensure schema fields constraints must be an object", {
   validation = validate(descriptor)
   expect_equal(validation$valid, FALSE)
   expect_equal(length(validation$errors), 1L)
-  
+
 })
 
 
 test_that("ensure schema fields constraints must be an object", {
-  
+
   validation = validate('{"fields": [{"name": "id", "constraints": "string"}]}')
   expect_equal(validation$valid, FALSE)
   expect_equal(length(validation$errors), 1L)
-  
-  
+
+
 })
 
 
 test_that("ensure schema fields has required properties", {
-  
+
   validation = validate('{"fields": [{"name": "id"}, {"type": "number"}]}')
   expect_equal(validation$valid, FALSE)
   expect_equal(length(validation$errors), 1L)
-  
-  
+
+
 })
 
 
 
 test_that("ensure schema has fields and fields are array", {
-  
+
   validation = validate('{"fields": ["1", "2"]}')
   expect_equal(validation$valid, FALSE)
   expect_equal(length(validation$errors), 2L)
-  
-  
-})
 
+
+})
 
 test_that("ensure schema has fields", {
   
-  validation = validate('{}')
+  validation = validate('[]')
   expect_equal(validation$valid, FALSE)
   expect_equal(length(validation$errors), 1L)
   
-
+  
 })
-
-
-
-
-
