@@ -11,7 +11,7 @@
 #' @return Object of \code{\link{R6Class}} .
 #' @format \code{\link{R6Class}} object.
 
-Schema <- R6Class(
+Schema <- R6::R6Class(
   "Schema",
   public = list(
     initialize = function(descriptor = "{}",
@@ -24,10 +24,9 @@ Schema <- R6Class(
       private$profile_ = Profile$new('tableschema')
       private$errors_ = list()
       private$fields_ = list()
-      
       # Build instance
       private$build_()
-      
+
     },
     
     getField = function(fieldName, index = 1) {
@@ -388,12 +387,19 @@ Schema <- R6Class(
   
   
 )
-
+#' schema.load
+#' @description schema.load
+#' @rdname schema.load
+#' @export
+#'
 schema.load = function(descriptor = "",
                        strict = FALSE,
                        caseInsensitiveHeaders = FALSE) {
   return(future::future(function() {
+
     return(
+ 
+      
       Schema$new(
         descriptor = descriptor,
         strict = strict,

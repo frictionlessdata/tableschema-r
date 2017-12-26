@@ -310,7 +310,11 @@ Table <- R6Class(
   )
   
 )
-
+#' table.load
+#' @descriptiontable.load
+#' @rdname table.load
+#' @export
+#'
 table.load = function(source,
                       schema = NULL,
                       strict = FALSE,

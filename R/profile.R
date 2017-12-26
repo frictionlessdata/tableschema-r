@@ -16,16 +16,16 @@ Profile <- R6Class(
   public = list(
     initialize = function(profile) {
       tryCatch({
+
         private$jsonschema_ = readr::read_file( system.file(profiles[[profile]], package = "tableschema.r"))
         return(private$jsonschema_)
       },
       error = function(cond) {
         message = 'Can\'t load profile'
-        stop(TableSchemaError$new(message))
+        stop(message)
       },
       warning = function(cond) {
         field = FALSE
-        
         # Choose a return value in case of warning
         return(field)
       },

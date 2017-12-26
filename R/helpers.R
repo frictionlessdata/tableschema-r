@@ -15,11 +15,11 @@ Helpers$expandFieldDescriptor <- function(descriptor) {
     stop("Field descriptor should be a hash instance.")
   }
   if (!("type" %in% names(descriptor))) {
-    descriptor$type <- config::get("DEFAULT_FIELD_TYPE")
+    descriptor$type <- config::get("DEFAULT_FIELD_TYPE", "config.yml")
   }
   
   if (!("format" %in% names(descriptor))) {
-    descriptor$format <- config::get("DEFAULT_FIELD_FORMAT")
+    descriptor$format <- config::get("DEFAULT_FIELD_FORMAT", "config.yml")
   }
   return(descriptor)
 }
@@ -93,7 +93,7 @@ helpers.expandSchemaDescriptor <- function(descriptor) {
     field = descriptor$fields[[index]]
     descriptor$fields[[index]] = helpers.expandFieldDescriptor(field)
   }
-  if (is.null(descriptor$missingValues) || descriptor$missingValues == FALSE)  descriptor$missingValues = config::get("DEFAULT_MISSING_VALUES")
+  if (is.null(descriptor$missingValues) || length(descriptor$missingValues) == 0)  descriptor$missingValues = config::get("DEFAULT_MISSING_VALUES")
   
   return(descriptor)
 }
