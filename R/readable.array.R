@@ -20,14 +20,17 @@ ReadableArray <- R6Class(
     },
     
     iterable = function(){
-
+  
       return(iterators::iter(function(){
+        
         if (private$index_ <= length(private$array_)) {
           value = private$array_[[private$index_]]
           private$index_ = private$index_ + 1
+          
           return(value)
         }
         else {
+          
           stop('StopIteration')
         }
 
