@@ -309,7 +309,7 @@ Schema <- R6Class(
       # Populate fields
       private$fields_ = list()
       for (field in private$currentDescriptor_$fields) {
-        missingValues = private$currentDescriptor_$missingValues
+        missingValues = as.list(private$currentDescriptor_$missingValues)
         
         field2 =  tryCatch({
           Field$new(field, missingValues)
