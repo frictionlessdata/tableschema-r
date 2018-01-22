@@ -14,9 +14,6 @@ before_install:
 env:
   global:
   - _R_CHECK_FORCE_SUGGESTS_=false
-github_packages:
-  - okgreece/datapackage.r
-  - r-lib/covr
 brew_packages:
  - jsonvalidate
  - V8
