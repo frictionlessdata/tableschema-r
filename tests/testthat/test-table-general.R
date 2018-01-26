@@ -73,24 +73,24 @@ test_that("should work with array source", {
 
 
 
-# test_that("should work with connection", {
-# 
-#   source = file(system.file('inst/extdata/data_big.csv', package = 'tableschema.r'))
-#   def2  = Table.load(source)
-#   table = def2$value();
-#   rows = table$read()
-#   expect_identical(length(rows),100L)
-# })
+test_that("should work with connection", {
+
+  source = 'inst/extdata/data_big.csv'
+  def2  = Table.load(source)
+  table = def2$value()
+  rows = table$read()
+  expect_identical(length(rows),100L)
+})
 
 
 
-# test_that("should work with local path", {
-# 
-#   def2  = Table.load(system.file('inst/extdata/data_big.csv', package = 'tableschema.r'))
-#   table = def2$value();
-#   rows = table$read()
-#   expect_identical(length(rows),100L)
-# })
+test_that("should work with local path", {
+
+  def2  = Table.load('inst/extdata/data_big.csv')
+  table = def2$value()
+  rows = table$read()
+  expect_identical(length(rows),100L)
+})
 
 
 
@@ -178,16 +178,15 @@ test_that("should read source data and return extended rows", {
 
 
 
-# test_that("should infer headers and schema", {
-#   source = file(system.file('inst/extdata/data_infer.csv', package = 'tableschema.r'))
-#   def2  = Table.load(source)
-#   table = def2$value()
-#   table$infer()
-#   expect_equivalent(table$headers, list('id', 'age', 'name'))
-#   expect_identical(length(table$schema$fields), 3L)
-# 
-# })
+test_that("should infer headers and schema", {
+  source = 'inst/extdata/data_infer.csv'
+  def2  = Table.load(source)
+  table = def2$value()
+  table$infer()
+  expect_equivalent(table$headers, list('id', 'age', 'name'))
+  expect_identical(length(table$schema$fields), 3L)
 
+})
 
 
 test_that("should throw on read for headers/fieldNames missmatch", {
