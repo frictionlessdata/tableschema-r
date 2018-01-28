@@ -3,7 +3,7 @@ library(tableschema.r)
 library(testthat)
 library(foreach)
 library(lubridate)
-
+library(jsonlite)
 
 testthat::context("table-general")
 
@@ -169,26 +169,26 @@ test_that('should use utf-8 by default for remote resource', {
   expect_equal(rows, jsonlite::fromJSON('[["1", "39", "Paul"], ["2", "23", "Jimmy"]]',simplifyVector = FALSE) )
 })
 
-# test_that('should read correctly file with other encoding', {
-#   def2 = Table.load('inst/extdata/latin1.csv')
-#   table= def2$value()
-#   rows = table$read(limit = 2)
-#   expect_true(identical(rows, jsonlite::fromJSON('[["1", "english"], ["2", "©"]]',simplifyVector = FALSE)))
-# })
+test_that('should read correctly file with other encoding', {
+  def2 = Table.load('inst/extdata/latin1.csv')
+  table= def2$value();
+  rows = table$read(limit = 2)
+  expect_true(identical(rows, jsonlite::fromJSON('[["1", "english"], ["2", "©"]]',simplifyVector = FALSE)))
+})
 
-# test_that('should support user-defined encoding', {
-#   def2 = Table.load('inst/extdata/latin1.csv', encoding = 'latin1')
-#   table= def2$value()
-#   rows = table$read(limit = 2)
-#   expect_equal(rows,jsonlite::fromJSON('[["1", "english"], ["2", "©"]]',simplifyVector = FALSE))
-# })
+test_that('should support user-defined encoding', {
+  def2 = Table.load('inst/extdata/latin1.csv', encoding = 'latin1')
+  table= def2$value();
+  rows = table$read(limit = 2)
+  expect_equal(rows,jsonlite::fromJSON('[["1", "english"], ["2", "©"]]',simplifyVector = FALSE))
+})
 
-# test_that('should support user-defined encoding for remote resource', {
-#   def2 = Table.load('https://raw.githubusercontent.com/frictionlessdata/tableschema-js/master/data/latin1.csv', encoding = 'latin1')
-#   table= def2$value()
-#   rows = table$read(limit = 2)
-#   expect_equal(rows,jsonlite::fromJSON('[["1", "english"], ["2", "©"]]',simplifyVector = FALSE))
-# })
+test_that('should support user-defined encoding for remote resource', {
+  def2 = Table.load('https://raw.githubusercontent.com/frictionlessdata/tableschema-js/master/data/latin1.csv', encoding = 'latin1')
+  table= def2$value();
+  rows = table$read(limit = 2)
+  expect_equal(rows,jsonlite::fromJSON('[["1", "english"], ["2", "©"]]',simplifyVector = FALSE))
+})
 
 
 
