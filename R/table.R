@@ -4,7 +4,6 @@
 #' @include  field.R
 #' @include  schema.R
 #' @include  readable.array.R
-#' @include  readable.array.R
 #' @keywords data
 #' @return Object of \code{\link{R6Class}} .
 #' @format \code{\link{R6Class}} object.
@@ -183,7 +182,7 @@ Table <- R6Class(
 
         
         count = count + 1
-        finished = withCallingHandlers(tryCatch({
+        finished = tryCatch({
           
           it = iterators::nextElem(iterator)
           
@@ -202,9 +201,8 @@ Table <- R6Class(
             
           }
           stop(cond)
-        }),
+        },
         warning = function(cond) {
-          invokeRestart("muffleWarning")
           stop(cond)
           
         })
