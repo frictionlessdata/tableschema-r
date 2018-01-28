@@ -204,8 +204,8 @@ Table <- R6Class(
           stop(cond)
         }),
         warning = function(cond) {
-          stop(cond)
           invokeRestart("muffleWarning")
+          stop(cond)
           
         })
         if (identical(finished, -1)) {
