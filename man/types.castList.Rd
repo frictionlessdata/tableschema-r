@@ -4,9 +4,11 @@
 \alias{types.castList}
 \title{cast list}
 \usage{
-types.castList(value)
+types.castList(format, value)
 }
 \arguments{
+\item{format}{format}
+
 \item{value}{value}
 }
 \description{
