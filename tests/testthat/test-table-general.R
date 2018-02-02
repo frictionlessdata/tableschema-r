@@ -168,14 +168,14 @@ test_that('should use utf-8 by default for remote resource', {
 })
 
 test_that('should read correctly file with other encoding', {
-  def2 = Table.load('inst/extdata/latin1.csv')
+  def2 = Table.load(system.file('extdata/latin1.csv', package = "tableschema.r"))
   table= def2$value()
   rows = table$read(limit = 2)
   expect_true(identical(rows, jsonlite::fromJSON('[["1", "english"], ["2", "©"]]',simplifyVector = FALSE)))
 })
 
 test_that('should support user-defined encoding', {
-  def2 = Table.load('inst/extdata/latin1.csv', encoding = 'latin1')
+  def2 = Table.load(system.file('extdata/latin1.csv', package = "tableschema.r"), encoding = 'latin1')
   table= def2$value()
   rows = table$read(limit = 2)
   expect_equal(rows,jsonlite::fromJSON('[["1", "english"], ["2", "©"]]',simplifyVector = FALSE))
