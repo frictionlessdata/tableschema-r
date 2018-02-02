@@ -185,7 +185,7 @@ test_that('should support user-defined encoding for remote resource', {
   def2 = Table.load('https://raw.githubusercontent.com/frictionlessdata/tableschema-js/master/data/latin1.csv', encoding = 'latin1')
   table= def2$value()
   rows = table$read(limit = 2)
-  expect_equal(rows, helpers.from.json.to.list('[["1", "english"], ["2", "©"]]'))
+  expect_equal(helpers.from.list.to.json(rows),helpers.from.list.to.json(helpers.from.json.to.list('[["1", "english"], ["2", "©"]]')))
 })
 
 
