@@ -182,7 +182,7 @@ Table <- R6Class(
 
         
         count = count + 1
-        finished = withRestarts(tryCatch({
+        finished = withCallingHandlers(tryCatch({
           
           it = iterators::nextElem(iterator)
           
@@ -204,7 +204,7 @@ Table <- R6Class(
         }),
         warning = function(cond) {
           stop(cond)
-          
+          invokeRestart('muffleWarning')
         })
         if (identical(finished, -1)) {
           count = count - 1

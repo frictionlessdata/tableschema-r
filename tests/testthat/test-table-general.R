@@ -171,21 +171,21 @@ test_that('should read correctly file with other encoding', {
   def2 = Table.load(system.file('extdata/latin1.csv', package = "tableschema.r"))
   table= def2$value()
   rows = table$read(limit = 2)
-  expect_true(identical(rows, jsonlite::fromJSON('[["1", "english"], ["2", "©"]]',simplifyVector = FALSE)))
+  expect_identical(rows, helpers.from.json.to.list('[["1", "english"], ["2", "©"]]'))
 })
 
 test_that('should support user-defined encoding', {
   def2 = Table.load(system.file('extdata/latin1.csv', package = "tableschema.r"), encoding = 'latin1')
   table= def2$value()
   rows = table$read(limit = 2)
-  expect_equal(rows,jsonlite::fromJSON('[["1", "english"], ["2", "©"]]',simplifyVector = FALSE))
+  expect_equivalent(rows, helpers.from.json.to.list('[["1", "english"], ["2", "©"]]'))
 })
 
 test_that('should support user-defined encoding for remote resource', {
   def2 = Table.load('https://raw.githubusercontent.com/frictionlessdata/tableschema-js/master/data/latin1.csv', encoding = 'latin1')
   table= def2$value()
   rows = table$read(limit = 2)
-  expect_equal(rows,jsonlite::fromJSON('[["1", "english"], ["2", "©"]]',simplifyVector = FALSE))
+  expect_equal(rows, helpers.from.json.to.list('[["1", "english"], ["2", "©"]]'))
 })
 
 
