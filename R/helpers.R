@@ -297,17 +297,9 @@ is_empty = function(x) {
 #' @export
 #'
 is_object = function(x) {
-  
-  if (is.character(x)) {
-    
-    valid = jsonlite::validate(x)
-    
-    if (isTRUE(valid)) x = jsonlite::fromJSON(x) else FALSE
-    
-  }
-  
-  is.object(x) | is.list(x) | "json" %in% class(x)
-  
+  if (isTRUE(class(x) %in% c("list","array","json") | 
+             isTRUE(is.object(x))) | (isTRUE(is.character(x) && jsonlite::validate(x)))) TRUE
+  else FALSE
 }
 #' from json to list
 #' @param lst list

@@ -6,38 +6,36 @@
 #' @export
 #' 
 
-types.castObject <- function(format, value) { #format parameter is not used
+types.castObject <- function(format, value) {
   
-  if (!is.object(value)) {
-    
+  if (!is_object(value)) {
     if (!is.character(value))  return(config::get("ERROR"))
-    
-    value = tryCatch(
-      {
-        value = jsonlite::fromJSON(value)
-        if (!is.list(value)){
-          return(config::get("ERROR"))
-        }
-      },
-      warning = function(w) {
-        
-        return(config::get("WARNING"))
-        
-      },
-      
-      error = function(e) {
-        
-        return(config::get("ERROR"))
-        
-      },
-      
-      finally = {
-        
-      })
-    
   }
   
-  #if ( ! plain object ) stop(2,call. = FALSE)
+  if(is.list(value)) {
+    return(value)
+    
+  } else if(isTRUE(jsonlite::validate(value))){
+    
+    value = tryCatch({
+      helpers.from.json.to.list(value)
+    },
+    warning = function(w) {
+      return(config::get("WARNING"))
+    },
+    error = function(e) {
+      return(config::get("ERROR"))
+    },
+    finally = {
+    })
+  }
   
+  if (!is.list(value)){
+    return(config::get("ERROR"))
+  }
+  if (is.null(names(value))) {
+    return(config::get("ERROR"))
+  }
+  #if ( ! plain object ) stop(2,call. = FALSE)
   return(value)
 }

@@ -18,7 +18,7 @@ types.castBoolean <- function (format, value, options={}) { #format parameter is
     
     if ( !is.character(value) ) return(config::get("ERROR"))
     
-    value = trimws(tolower(value))
+    value = trimws(value)
     
     if ( value %in% TRUE_VALUES ) {
       

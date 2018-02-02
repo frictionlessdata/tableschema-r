@@ -14,8 +14,8 @@ types.castTime <- function (format="%H:%M:%S", value) {
     
     value = tryCatch( {
       
-      if (format == "%H:%M:%S") {
-        
+      if (format == "%H:%M:%S" | format == "default" | format == "any") {
+        format = "%H:%M:%S"
         value = format(value, format=format)
         
         value = as.POSIXlt(value, format = format)
