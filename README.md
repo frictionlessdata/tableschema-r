@@ -580,11 +580,28 @@ descriptor = '{"fields": [{"name": "field", "type": "string"}]}'
 def = Schema.load(descriptor)
 schema = def$value()
 schema$getField("field")$name # string
+```
+
+    ## [1] "field"
+
+``` r
 schema$descriptor$fields[[1]]$type = "number"
 schema$getField("field")$type # string
+```
+
+    ## [1] "string"
+
+``` r
 schema$commit()
+```
+
+    ## [1] TRUE
+
+``` r
 schema$getField("field")$type # number
 ```
+
+    ## [1] "number"
 
 #### `schema$save(target)`
 

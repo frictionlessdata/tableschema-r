@@ -428,7 +428,7 @@ Update schema instance if there are in-place changes in the descriptor.
 - `(errors.TableSchemaError)` - raises any error occured in the process
 - `(Boolean)` - returns true on success and false if not modified
 
-```{r, eval=FALSE, include=TRUE}
+```{r, eval=TRUE, include=TRUE}
 descriptor = '{"fields": [{"name": "field", "type": "string"}]}'
 def = Schema.load(descriptor)
 schema = def$value()
