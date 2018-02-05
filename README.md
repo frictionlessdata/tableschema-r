@@ -56,7 +56,7 @@ Install `tableschema.r`
 
 ``` r
 # And then install the development version from github
-devtools::install_github("okgreece/tableschema-r")
+devtools::install_github("frictionlessdata/tableschema-r")
 ```
 
 Load library
@@ -70,7 +70,7 @@ library(tableschema.r)
 Documentation
 =============
 
-The package is still under development and some properties may not be working properly. Json objects are not included in R base data types. [Jsonlite package](https://CRAN.R-project.org/package=jsonlite) is internally used to convert json data to list objects. The input parameters of functions could be json strings, files or lists and the outputs are in list format to easily further process your data in R environment and exported as desired. The examples below show how to use jsonlite package to convert the output back to json adding indentation whitespace. More details about handling json you can see jsonlite documentation or vignettes [here](https://CRAN.R-project.org/package=jsonlite).
+[Jsonlite package](https://CRAN.R-project.org/package=jsonlite) is internally used to convert json data to list objects. The input parameters of functions could be json strings, files or lists and the outputs are in list format to easily further process your data in R environment and exported as desired. The examples below show how to use jsonlite package to convert the output back to json adding indentation whitespace. More details about handling json you can see jsonlite documentation or vignettes [here](https://CRAN.R-project.org/package=jsonlite).
 
 Moreover [future package](https://CRAN.R-project.org/package=future) is also used to load and create Table and Schema class asynchronously. To retrieve the actual result of the loaded Table or Schema you have to call `$value()` to the variable you stored the loaded Table/Schema. More details about future package and sequential and parallel processing you can find [here](https://CRAN.R-project.org/package=future).
 
@@ -136,7 +136,9 @@ jsonlite::toJSON(table$infer(), pretty = TRUE) # add indentation whitespace to J
     ##       "format": ["default"]
     ##     }
     ##   ],
-    ##   "missingValues": ["list()"]
+    ##   "missingValues": [
+    ##     [""]
+    ##   ]
     ## }
 
 ``` r
@@ -156,7 +158,9 @@ jsonlite::toJSON(table$schema$descriptor, pretty = TRUE)
     ##       "format": ["default"]
     ##     }
     ##   ],
-    ##   "missingValues": ["list()"]
+    ##   "missingValues": [
+    ##     [""]
+    ##   ]
     ## }
 
 ``` r
@@ -205,7 +209,7 @@ table$schema$valid # true
 All good. It looks like we're ready to read our data again:
 
 ``` r
-table$read(keyed = TRUE)
+table$read()
 # [
 #   {city: 'london', location: [51.50,-0.11]},
 #   {city: 'paris', location: [48.85,2.30]},
@@ -432,7 +436,9 @@ jsonlite::toJSON(
     ##       "format": ["default"]
     ##     }
     ##   ],
-    ##   "missingValues": ["list()"]
+    ##   "missingValues": [
+    ##     [""]
+    ##   ]
     ## }
 
 Now we have an inferred schema and it's valid. We could cast data row against our schema. We provide a string input by an output will be cast correspondingly:
@@ -573,11 +579,11 @@ Update schema instance if there are in-place changes in the descriptor.
 descriptor = '{"fields": [{"name": "field", "type": "string"}]}'
 def = Schema.load(descriptor)
 schema = def$value()
-schema$getField("name")$type # string
+schema$getField("field")$name # string
 schema$descriptor$fields[[1]]$type = "number"
-schema$getField("name")$type # string
+schema$getField("field")$type # string
 schema$commit()
-schema$getField("name")$type # number
+schema$getField("field")$type # number
 ```
 
 #### `schema$save(target)`
@@ -852,7 +858,9 @@ jsonlite::toJSON(
     ##       "format": ["default"]
     ##     }
     ##   ],
-    ##   "missingValues": ["list()"]
+    ##   "missingValues": [
+    ##     [""]
+    ##   ]
     ## }
 
 #### `infer(source, headers=1, ...)`
@@ -876,7 +884,7 @@ Contributing
 The project follows the [Open Knowledge International coding standards](https://github.com/okfn/coding-standards). There are common commands to work with the project.Recommended way to get started is to create, activate and load the library environment. To install package and development dependencies into active environment:
 
 ``` r
-devtools::install_github("okgreece/tableschema-r",dependencies=TRUE)
+devtools::install_github("frictionlessdata/tableschema-r",dependencies=TRUE)
 ```
 
 To make test:
