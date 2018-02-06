@@ -131,62 +131,62 @@ helpers.expandFieldDescriptor = function(descriptor) {
 
 
 
-#' Extract the field descriptors properties
-#' @param descriptor descriptor
-#' @rdname get.field.descriptor.properties
-#' @export
+# #' Extract the field descriptors properties
+# #' @param descriptor descriptor
+# #' @rdname get.field.descriptor.properties
+# #' @export
+# 
+# 
+# get.field.descriptor.properties = function(descriptor) {
+#   if (is.valid(descriptor) == TRUE) {
+#     descriptor.object = jsonlite::fromJSON(descriptor,
+#                                            simplifyVector = T,
+#                                            flatten = F)
+#     
+#     field_descriptor_classes = purrr::pmap_chr(descriptor.object$resources$schema$fields , class)
+#     
+#     field_descriptor_classes = gsub("data.frame",
+#                                     "array/list/object",
+#                                     field_descriptor_classes) # needs fix
+#     
+#     field_descriptor_classes_length = purrr::pmap_dbl(descriptor.object$resources$schema$fields , function(x)
+#       colSums(!is.na(as.data.frame(x))))
+#     
+#     field_descriptor_classes_missing = purrr::pmap_dbl(descriptor.object$resources$schema$fields , function(x)
+#       colSums(is.na(as.data.frame(x))))
+#     
+#     if (has_name_field_descriptor(descriptor.object)) {
+#       df = data.frame(
+#         root  = rlang::names2(field_descriptor_classes),
+#         class = field_descriptor_classes,
+#         items = field_descriptor_classes_length,
+#         missing = field_descriptor_classes_missing,
+#         
+#         fix.empty.names = FALSE,
+#         stringsAsFactors = FALSE
+#       )
+#       rownames(df) = NULL
+#       
+#     } else
+#       df = message(
+#         "The field descriptor MUST contain a name property. More spec details in https://specs.frictionlessdata.io/table-schema/#field-descriptors."
+#       )
+#     
+#   } else
+#     df = message("This is not a valid descriptor.")
+#   
+#   return(df)
+# }
 
-
-get.field.descriptor.properties = function(descriptor) {
-  if (is.valid(descriptor) == TRUE) {
-    descriptor.object = jsonlite::fromJSON(descriptor,
-                                           simplifyVector = T,
-                                           flatten = F)
-    
-    field_descriptor_classes = purrr::pmap_chr(descriptor.object$resources$schema$fields , class)
-    
-    field_descriptor_classes = gsub("data.frame",
-                                    "array/list/object",
-                                    field_descriptor_classes) # needs fix
-    
-    field_descriptor_classes_length = purrr::pmap_dbl(descriptor.object$resources$schema$fields , function(x)
-      colSums(!is.na(as.data.frame(x))))
-    
-    field_descriptor_classes_missing = purrr::pmap_dbl(descriptor.object$resources$schema$fields , function(x)
-      colSums(is.na(as.data.frame(x))))
-    
-    if (has_name_field_descriptor(descriptor.object)) {
-      df = data.frame(
-        root  = rlang::names2(field_descriptor_classes),
-        class = field_descriptor_classes,
-        items = field_descriptor_classes_length,
-        missing = field_descriptor_classes_missing,
-        
-        fix.empty.names = FALSE,
-        stringsAsFactors = FALSE
-      )
-      rownames(df) = NULL
-      
-    } else
-      df = message(
-        "The field descriptor MUST contain a name property. More spec details in https://specs.frictionlessdata.io/table-schema/#field-descriptors."
-      )
-    
-  } else
-    df = message("This is not a valid descriptor.")
-  
-  return(df)
-}
-
-#' check if name property is missing
-#' @param descriptor descriptor
-#' @rdname has_name_field_descriptor
-#' @export
-#'
-has_name_field_descriptor = function(descriptor) {
-  "name" %in% rlang::names2(descriptor) |
-    all(!is.na(as.data.frame(descriptor$resources$schema$fields)[, "name"]))
-}
+# #' check if name property is missing
+# #' @param descriptor descriptor
+# #' @rdname has_name_field_descriptor
+# #' @export
+# #'
+# has_name_field_descriptor = function(descriptor) {
+#   "name" %in% rlang::names2(descriptor) |
+#     all(!is.na(as.data.frame(descriptor$resources$schema$fields)[, "name"]))
+# }
 
 #' is uri
 #' @param uri uri input
@@ -318,27 +318,27 @@ helpers.from.list.to.json = function(json){
   return(jsonlite::toJSON(json, auto_unbox = TRUE))
 }
 
-#' @title filepath
-#' @description filepath
-#' @param x x
-#' @rdname filepath
-#' @export
-
-filepath <- function(x){
-  
-  files = list.files(recursive = TRUE)
-  
-  matched_files = files[ grep(x, files,fixed = FALSE, ignore.case = F) ]
-  
-  if ( length(matched_files) > 1 ){
-    
-    message("There are multiple matches with the input file." ) 
-    
-    choice = utils::menu(matched_files, title = cat("Please specify the input file:"))
-    
-    matched_files = matched_files[choice]
-    
-  } # else 
-  
-  return (matched_files)
-}
+# #' @title filepath
+# #' @description filepath
+# #' @param x x
+# #' @rdname filepath
+# #' @export
+# 
+# filepath <- function(x){
+#   
+#   files = list.files(recursive = TRUE)
+#   
+#   matched_files = files[ grep(x, files,fixed = FALSE, ignore.case = F) ]
+#   
+#   if ( length(matched_files) > 1 ){
+#     
+#     message("There are multiple matches with the input file." ) 
+#     
+#     choice = utils::menu(matched_files, title = cat("Please specify the input file:"))
+#     
+#     matched_files = matched_files[choice]
+#     
+#   } # else 
+#   
+#   return (matched_files)
+# }

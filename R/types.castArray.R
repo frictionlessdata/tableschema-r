@@ -6,34 +6,34 @@
 #' @export
 #'
 types.castArray <- function (format, value) {
+  types.castList(format, value)
+# if( !is.array(value) )
+#   if(!is.character(value) ) return(config::get("ERROR"))
 
- if( !is.array(value) )
-   if(!is.character(value) ) return(config::get("ERROR"))
+#  value = tryCatch({
 
-  value = tryCatch({
+#    value = jsonlite::fromJSON(value)
 
-    value = jsonlite::fromJSON(value)
+#  },
 
-  },
+#  warning = function(w) {
 
-  warning = function(w) {
+#    return(config::get("WARNING"))
 
-    return(config::get("WARNING"))
+#  },
 
-  },
+#  error = function(e) {
 
-  error = function(e) {
+#    return(config::get("ERROR"))
 
-    return(config::get("ERROR"))
+#  },
 
-  },
+#  finally = {
 
-  finally = {
+#  })
 
-  })
+#  if (!is.array(value) ) return(config::get("ERROR"))
 
-  if (!is.array(value) ) return(config::get("ERROR"))
-
-  return (value)
+#  return (value)
 
 }
