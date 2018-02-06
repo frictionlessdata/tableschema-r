@@ -317,3 +317,28 @@ helpers.from.json.to.list = function(lst){
 helpers.from.list.to.json = function(json){
   return(jsonlite::toJSON(json, auto_unbox = TRUE))
 }
+
+#' @title filepath
+#' @description filepath
+#' @param x x
+#' @rdname filepath
+#' @export
+
+filepath <- function(x){
+  
+  files = list.files(recursive = TRUE)
+  
+  matched_files = files[ grep(x, files,fixed = FALSE, ignore.case = F) ]
+  
+  if ( length(matched_files) > 1 ){
+    
+    message("There are multiple matches with the input file." ) 
+    
+    choice = utils::menu(matched_files, title = cat("Please specify the input file:"))
+    
+    matched_files = matched_files[choice]
+    
+  } # else 
+  
+  return (matched_files)
+}
