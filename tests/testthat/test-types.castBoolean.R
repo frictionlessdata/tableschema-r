@@ -10,17 +10,21 @@ testthat::context("types.castBoolean")
 TESTS = list(
   
   list("default", TRUE, TRUE, {} ),
-  list("default", "TRUE", TRUE, {} ),
-  list("default", "TRUE", TRUE, {} ),
+  list("default", "true", TRUE, {} ),
+  list("default", "True", TRUE, {} ),
   list("default", "TRUE", TRUE, {} ),
   list("default", "1", TRUE,{} ),
   list("default", "yes", TRUE, list(trueValues = list("yes")) ),
+  list("default", "Y", TRUE, list(trueValues = list("Y")) ),
+  
   list("default", FALSE, FALSE, {} ),
-  list("default", "FALSE", FALSE, {} ),
-  list("default", "FALSE", FALSE, {} ),
+  list("default", "false", FALSE, {} ),
+  list("default", "False", FALSE, {} ),
   list("default", "FALSE", FALSE, {} ),
   list("default", "0", FALSE, {}),
   list("default", "no", FALSE, list(falseValues = list("no")) ),
+  list("default", "N", FALSE, list(falseValues = list("N")) ),
+  
   list("default", "YES", config::get("ERROR"), {} ),
   list("default", "Yes", config::get("ERROR"), {} ),
   list("default", "yes", config::get("ERROR"), {} ),
@@ -31,11 +35,14 @@ TESTS = list(
   list("default", "n", config::get("ERROR"), {} ),
   list("default", "NO", config::get("ERROR"), {} ),
   list("default", "No", config::get("ERROR"), {} ),
+  
+  list("default", "N", config::get("ERROR"), list(falseValues = list("n")) ),
+  list("default", "Y", config::get("ERROR"), list(falseValues = list("y")) ),
+  
   list("default", 0, config::get("ERROR"), {} ),
   list("default", 1, config::get("ERROR"), {} ),
   list("default", "3.14", config::get("ERROR"), {} ),
   list("default", "", config::get("ERROR"), {} )
-
 )
 
 # Tests
