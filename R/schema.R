@@ -183,14 +183,10 @@ Schema <- R6Class(
     },
     
     save = function(target) {
-      contents <-
-        jsonlite::toJSON(private$currentDescriptor_, pretty = TRUE)
-      
-      deferred_ = future::future(function() {
-        y <- list(a = 1, b = TRUE, c = "oops")
-        base::save(contents, file = target)
-      })
-      return(deferred_)
+      write_json(private$currentDescriptor_,
+                 file = stringr::str_c(target, "Schema.json", sep = "/"))
+      save = stringr::str_interp('Package saved at: "${target}"')
+      return(save)
     }
     
     

@@ -318,6 +318,20 @@ helpers.from.list.to.json = function(json){
   return(jsonlite::toJSON(json, auto_unbox = TRUE))
 }
 
+
+#' save json
+#' @description save json
+#' @param x x
+#' @param file file
+#' @rdname write_json
+#' @export
+#'
+
+write_json <- function(x, file){
+  x = jsonlite::prettify(helpers.from.list.to.json(x))
+  x = writeLines(x, file)
+}
+
 # #' @title filepath
 # #' @description filepath
 # #' @param x x
@@ -342,3 +356,5 @@ helpers.from.list.to.json = function(json){
 #   
 #   return (matched_files)
 # }
+
+

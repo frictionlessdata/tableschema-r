@@ -3,14 +3,12 @@
 language: r
 sudo: false
 cache: packages
-
 r:
   - oldrel
   - release
   - devel  
 before_install:
   - tlmgr install index
-
 repos:
   CRAN: http://cran.rstudio.com
 addons:

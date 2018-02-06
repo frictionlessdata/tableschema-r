@@ -12,11 +12,10 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: 
-    config, 
+    config,
     devtools, 
     future, 
     git2r, 
-    hash, 
     httr, 
     iterators, 
     itertools2, 

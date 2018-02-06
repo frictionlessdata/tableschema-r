@@ -1,5 +1,4 @@
 library(stringr)
-library(hash)
 library(tableschema.r)
 library(testthat)
 
@@ -228,3 +227,13 @@ test_that("should work with primary/foreign keys as string", {
   expect_equivalent(schema$foreignKeys, list(list(fields = list("parent_id"), reference = list(resource = "resource", fields = list("id")))))
 })
 
+
+testthat::context("Schema #save")
+
+test_that("general", {
+  def  = Schema.load(SCHEMA)
+  schema = def$value()
+  schema$save("inst/extdata")
+  
+  expect_true(file.exists("inst/extdata/schema.json"))
+})
