@@ -40,9 +40,7 @@ testthat::context("TableSchemaError")
         warn <<- w
         invokeRestart("muffleWarning")
       })
-
     
-    expect
       expect_equal(error$message, 'message')
       expect_true(inherits(error,"TableSchemaError"))
     })
