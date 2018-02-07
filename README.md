@@ -893,7 +893,7 @@ Infer source schema..
 Changelog - News
 ----------------
 
-In [NEWS.md](https://github.com/okgreece/tableschema-r/blob/master/NEWS.md) described only breaking and the most important changes. The full changelog could be found in nicely formatted [commit](https://github.com/okgreece/tableschema-r/commits/master) history.
+In [NEWS.md](https://github.com/frictionlessdata/tableschema-r/blob/master/NEWS.md) described only breaking and the most important changes. The full changelog could be found in nicely formatted [commit](https://github.com/frictionlessdata/tableschema-r/commits/master) history.
 
 Contributing
 ============
@@ -923,6 +923,6 @@ more detailed information about how to create and run tests you can find in [tes
 Github
 ======
 
--   <https://github.com/okgreece/tableschema-r>
+-   <https://github.com/frictionlessdata/tableschema-r>
 
 <img src="okgr.png" align="right" width=120px /><img src="oklabs.png" align="right" width=120px />

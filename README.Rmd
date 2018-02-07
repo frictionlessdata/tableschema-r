@@ -665,7 +665,7 @@ more detailed information about how to create and run tests you can find in [tes
 
 # Github 
 
-+ https://github.com/okgreece/tableschema-r
++ https://github.com/frictionlessdata/tableschema-r
 
 <img src="okgr.png" align="right" width=120px /><img src="oklabs.png" align="right" width=120px />
 
@@ -676,5 +676,5 @@ more detailed information about how to create and run tests you can find in [tes
 [Rstudiodown]: https://www.rstudio.com/products/rstudio/download/
 [coding_standards]: https://github.com/okfn/coding-standards
 [tableschema]: http://specs.frictionlessdata.io/table-schema/
-[news]: https://github.com/okgreece/tableschema-r/blob/master/NEWS.md
-[commits]: https://github.com/okgreece/tableschema-r/commits/master
+[news]: https://github.com/frictionlessdata/tableschema-r/blob/master/NEWS.md
+[commits]: https://github.com/frictionlessdata/tableschema-r/commits/master
