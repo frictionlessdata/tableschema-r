@@ -117,7 +117,7 @@ jsonlite::toJSON(table$read(keyed = TRUE), pretty = TRUE) # add indentation whit
     ##   }
     ## ]
 
-As we could see our locations are just a strings. But it should be geopoints. Also Rome's location is not available but it's also just a `N/A` string instead of JavaScript `null`. First we have to infer Table Schema:
+As we could see our locations are just a strings. But it should be geopoints. Also Rome's location is not available but it's also just a `N/A` string instead of `null`. First we have to infer Table Schema:
 
 ``` r
 jsonlite::toJSON(table$infer(), pretty = TRUE) # add indentation whitespace to JSON output with jsonlite
@@ -169,7 +169,7 @@ table$read(keyed = TRUE) # Fails
 
     ## Error: Row dimension doesn't match schema's fields dimension
 
-Let's fix not available location. There is a `missingValues` property in Table Schema specification. As a first try we set `missingValues` to `N/A` in `table.schema.descriptor`. Schema descriptor could be changed in-place but all changes sould be commited by `table.schema.commit()`:
+Let's fix not available location. There is a `missingValues` property in Table Schema specification. As a first try we set `missingValues` to `N/A` in `table$schema$descriptor`. Schema descriptor could be changed in-place but all changes should be commited by `table$schema$commit()`:
 
 ``` r
 table$schema$descriptor['missingValues'] = 'N/A'
@@ -217,7 +217,11 @@ table$read()
 # ]
 ```
 
-Now we see that: - locations are arrays with numeric lattide and longitude - Rome's location is a native JavaScript `null`
+Now we see that:
+
+-   locations are arrays with numeric lattide and longitude
+
+-   Rome's location is `null`
 
 And because there are no errors on data reading we could be sure that our data is valid againt our schema. Let's save it:
 
@@ -279,25 +283,23 @@ table
     ##     strict_: FALSE
     ##     uniqueFieldsCache_: list
 
-It was onle basic introduction to the `Table` class. To learn more let's take a look on `Table` class API reference.
+It was one basic introduction to the `Table` class. To learn more let's take a look on `Table` class API reference.
 
 #### `Table.load(source, schema, strict=FALSE, headers=1, ...)`
-
-Constructor to instantiate `Table` class. If `references` argument is provided foreign keys will be checked on any reading operation.
 
 Factory method to instantiate `Table` class. This method is async and it should be used with `$value()` keyword or as a `Promise`. If references argument is provided foreign keys will be checked on any reading operation.
 
 -   `source (String/list()/Stream/Function)` - data source (one of):
--   local CSV file (path)
--   remote CSV file (url)
--   list of lists representing the rows
--   readable stream with CSV file contents
--   function returning readable stream with CSV file contents
+    -   local CSV file (path)
+    -   remote CSV file (url)
+    -   list of lists representing the rows
+    -   readable stream with CSV file contents
+    -   function returning readable stream with CSV file contents
 -   `schema (Object)` - data schema in all forms supported by `Schema` class
 -   `strict (Boolean)` - strictness option to pass to `Schema` constructor
 -   `headers (Integer/String[])` - data source headers (one of):
--   row number containing headers (`source` should contain headers rows)
--   array of headers (`source` should NOT contain headers rows)
+    -   row number containing headers (`source` should contain headers rows)
+    -   array of headers (`source` should NOT contain headers rows)
 -   `... (Object)` - options to be used by CSV parser. All options listed at <http://csv.adaltas.com/parse/#parser-options>. By default `ltrim` is true according to the CSV Dialect spec.
 -   `(errors.TableSchemaError)` - raises any error occured in table creation process
 -   `(Table)` - returns data table class instance
@@ -317,13 +319,13 @@ Iter through the table data and emits rows cast based on table schema. Data cast
 -   `keyed (Boolean)` - iter keyed rows
 -   `extended (Boolean)` - iter extended rows
 -   `cast (Boolean)` - disable data casting if false
--   `relations (Object)` - object of foreign key references in a form of `{resource1: [{field1: value1, field2: value2}, ...], ...}`. If provided foreign key fields will checked and resolved to its references
+-   `relations (Object)` - list object of foreign key references from a form of JSON `{resource1: [{field1: value1, field2: value2}, ...], ...}`. If provided foreign key fields will checked and resolved to its references
 -   `stream (Boolean)` - return Readable Stream of table rows
 -   `(errors$TableSchemaError)` - raises any error occured in this process
 -   `(Iterator/Stream)` - iterator/stream of rows:
--   `[value1, value2]` - base
--   `{header1: value1, header2: value2}` - keyed
--   `[rowNumber, [header1, header2], [value1, value2]]` - extended
+    -   `[value1, value2]` - base
+    -   `{header1: value1, header2: value2}` - keyed
+    -   `[rowNumber, [header1, header2], [value1, value2]]` - extended
 
 #### `table$read(keyed, extended, cast=TRUE, relations=FALSE, limit)`
 
@@ -332,7 +334,7 @@ Read the whole table and returns as array of rows. Count of rows could be limite
 -   `keyed (Boolean)` - flag to emit keyed rows
 -   `extended (Boolean)` - flag to emit extended rows
 -   `cast (Boolean)` - disable data casting if false
--   `relations (Object)` - object of foreign key references in a form of `{resource1: [{field1: value1, field2: value2}, ...], ...}`. If provided foreign key fields will checked and resolved to its references
+-   `relations (Object)` - list object of foreign key references from a form of JSON `{resource1: [{field1: value1, field2: value2}, ...], ...}`. If provided foreign key fields will checked and resolved to its references
 -   `limit (Number)` - integer limit of rows to return
 -   `(errors$TableSchemaError)` - raises any error occured in this process
 -   `(List[])` - returns list of rows (see `table$iter`)
@@ -465,6 +467,9 @@ schema$castRow(helpers.from.json.to.list('["6", "N/A", "Walt"]'))
 
 ``` r
 # Cast error
+```
+
+``` r
 schema$descriptor$missingValues = list('', 'N/A')
 schema$commit()
 ```
@@ -490,12 +495,12 @@ It was onle basic introduction to the `Schema` class. To learn more let's take a
 Factory method to instantiate `Schema` class. This method is async and it should be used with `$value()` keyword.
 
 -   `descriptor (String/Object)` - schema descriptor:
--   local path
--   remote url
--   object
+    -   local path
+    -   remote url
+    -   object
 -   `strict (Boolean)` - flag to alter validation behaviour:
--   if false error will not be raised and all error will be collected in `schema$errors`
--   if strict is true any validation error will be raised immediately
+    -   if false error will not be raised and all error will be collected in `schema$errors`
+    -   if strict is true any validation error will be raised immediately
 -   `(errors$TableSchemaError)` - raises any error occured in the process
 -   `(Schema)` - returns schema class instance
 
@@ -563,8 +568,8 @@ Infer and set `schema$descriptor` based on data sample.
 
 -   `rows (List())` - list of lists representing rows.
 -   `headers (Integer/String[])` - data sample headers (one of):
--   row number containing headers (`rows` should contain headers rows)
--   list of headers (`rows` should NOT contain headers rows)
+    -   row number containing headers (`rows` should contain headers rows)
+    -   list of headers (`rows` should NOT contain headers rows)
 -   `{Object}` - returns Table Schema descriptor
 
 #### `schema$commit(strict)`
@@ -644,7 +649,7 @@ And following example will raise exception, because we set flag 'skip constraint
 
 ``` r
 tryCatch (
-    dateType = field$cast_value('2014-05-29', FALSE), 
+    dateType = field$cast_value(value = '2014-05-29', constraints = FALSE), 
     error = function(e){# uh oh, something went wrong
     })
 ```
@@ -788,8 +793,8 @@ Cast given value according to the field type and format.
 
 -   `value (any)` - value to cast against field
 -   `constraints (Boolean/String[])` - gets constraints configuration
--   it could be set to true to disable constraint checks
--   it could be a List of constraints to check e.g. \['minimum', 'maximum'\]
+    -   it could be set to true to disable constraint checks
+    -   it could be a List of constraints to check e.g. \['minimum', 'maximum'\]
 -   `(errors$TableSchemaError)` - raises any error occured in the process
 -   `(any)` - returns cast value
 
@@ -823,9 +828,9 @@ valid_errors
 Validate a Table Schema descriptor.
 
 -   `descriptor (String/Object)` - schema descriptor (one of):
--   local path
--   remote url
--   object
+    -   local path
+    -   remote url
+    -   object
 -   `(Object)` - returns `{valid, errors}` object
 
 ### Infer
@@ -918,7 +923,7 @@ To run tests:
 devtools::test()
 ```
 
-more detailed information about how to create and run tests you can find in [testthat package](https://github.com/hadley/testthat)
+More detailed information about how to create and run tests you can find in [testthat package](https://github.com/hadley/testthat).
 
 Github
 ======
