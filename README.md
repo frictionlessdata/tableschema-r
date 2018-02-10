@@ -96,20 +96,18 @@ Let's create and read a table. We use static `Table.load` method and `table.read
 def = Table.load('inst/extdata/data.csv')
 table = def$value()
 table.headers = table$headers # ['city', 'location']
-
-jsonlite::toJSON(table$read(keyed = TRUE), pretty = TRUE) # add indentation whitespace to JSON output with jsonlite
+# add indentation whitespace to JSON output with jsonlite
+jsonlite::toJSON(table$read(keyed = TRUE), pretty = TRUE) 
 ```
 
     ## [
     ##   {
     ##     "city": ["london"],
-    ##     "location": ["\"51.50"],
-    ##     "3": ["-0.11\""]
+    ##     "location": ["\"51.50 -0.11\""]
     ##   },
     ##   {
     ##     "city": ["paris"],
-    ##     "location": ["\"48.85"],
-    ##     "3": ["2.30\""]
+    ##     "location": ["\"48.85 2.30\""]
     ##   },
     ##   {
     ##     "city": ["rome"],
@@ -167,7 +165,28 @@ jsonlite::toJSON(table$schema$descriptor, pretty = TRUE)
 table$read(keyed = TRUE) # Fails
 ```
 
-    ## Error: Row dimension doesn't match schema's fields dimension
+    ## [[1]]
+    ## [[1]]$city
+    ## [1] "london"
+    ## 
+    ## [[1]]$location
+    ## [1] "\"51.50 -0.11\""
+    ## 
+    ## 
+    ## [[2]]
+    ## [[2]]$city
+    ## [1] "paris"
+    ## 
+    ## [[2]]$location
+    ## [1] "\"48.85 2.30\""
+    ## 
+    ## 
+    ## [[3]]
+    ## [[3]]$city
+    ## [1] "rome"
+    ## 
+    ## [[3]]$location
+    ## [1] "N/A"
 
 Let's fix not available location. There is a `missingValues` property in Table Schema specification. As a first try we set `missingValues` to `N/A` in `table$schema$descriptor`. Schema descriptor could be changed in-place but all changes should be commited by `table$schema$commit()`:
 

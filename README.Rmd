@@ -102,8 +102,8 @@ Let's create and read a table. We use static `Table.load` method and `table.read
 def = Table.load('inst/extdata/data.csv')
 table = def$value()
 table.headers = table$headers # ['city', 'location']
-
-jsonlite::toJSON(table$read(keyed = TRUE), pretty = TRUE) # add indentation whitespace to JSON output with jsonlite
+# add indentation whitespace to JSON output with jsonlite
+jsonlite::toJSON(table$read(keyed = TRUE), pretty = TRUE) 
 ```
 
 
