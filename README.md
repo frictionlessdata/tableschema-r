@@ -96,7 +96,7 @@ Let's create and read a table. We use static `Table.load` method and `table.read
 def = Table.load('inst/extdata/data.csv')
 table = def$value()
 table.headers = table$headers # ['city', 'location']
-# add indentation whitespace to JSON output with jsonlite
+# add indentation whitespace to JSON output with jsonlite package
 jsonlite::toJSON(table$read(keyed = TRUE), pretty = TRUE) 
 ```
 
@@ -118,7 +118,8 @@ jsonlite::toJSON(table$read(keyed = TRUE), pretty = TRUE)
 As we could see our locations are just a strings. But it should be geopoints. Also Rome's location is not available but it's also just a `N/A` string instead of `null`. First we have to infer Table Schema:
 
 ``` r
-jsonlite::toJSON(table$infer(), pretty = TRUE) # add indentation whitespace to JSON output with jsonlite
+# add indentation whitespace to JSON output with jsonlite package
+jsonlite::toJSON(table$infer(), pretty = TRUE) 
 ```
 
     ## {
@@ -165,29 +166,6 @@ jsonlite::toJSON(table$schema$descriptor, pretty = TRUE)
 table$read(keyed = TRUE) # Fails
 ```
 
-    ## [[1]]
-    ## [[1]]$city
-    ## [1] "london"
-    ## 
-    ## [[1]]$location
-    ## [1] "\"51.50 -0.11\""
-    ## 
-    ## 
-    ## [[2]]
-    ## [[2]]$city
-    ## [1] "paris"
-    ## 
-    ## [[2]]$location
-    ## [1] "\"48.85 2.30\""
-    ## 
-    ## 
-    ## [[3]]
-    ## [[3]]$city
-    ## [1] "rome"
-    ## 
-    ## [[3]]$location
-    ## [1] "N/A"
-
 Let's fix not available location. There is a `missingValues` property in Table Schema specification. As a first try we set `missingValues` to `N/A` in `table$schema$descriptor`. Schema descriptor could be changed in-place but all changes should be commited by `table$schema$commit()`:
 
 ``` r
@@ -213,7 +191,7 @@ table$schema$errors
 As a good citiziens we've decided to check out schema descriptor validity. And it's not valid! We sould use an array for `missingValues` property. Also don't forget to have an empty string as a missing value:
 
 ``` r
-table$schema$descriptor[['missingValues']] = list("", "NA")
+table$schema$descriptor[['missingValues']] = list("", 'N/A')
 table$schema$commit()
 ```
 
@@ -489,14 +467,26 @@ schema$castRow(helpers.from.json.to.list('["6", "N/A", "Walt"]'))
 ```
 
 ``` r
-schema$descriptor$missingValues = list('', 'N/A')
+schema$descriptor$missingValues = list('', 'NA')
 schema$commit()
 ```
 
     ## [1] TRUE
 
 ``` r
-schema$castRow(helpers.from.json.to.list('["6", "N/A", "Walt"]'))
+schema$castRow(helpers.from.json.to.list('["6", "", "Walt"]'))
+```
+
+    ## [[1]]
+    ## [1] 6
+    ## 
+    ## [[2]]
+    ## NULL
+    ## 
+    ## [[3]]
+    ## [1] "Walt"
+
+``` r
 # [ 6, null, 'Walt' ]
 ```
 

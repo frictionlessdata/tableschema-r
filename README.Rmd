@@ -102,21 +102,22 @@ Let's create and read a table. We use static `Table.load` method and `table.read
 def = Table.load('inst/extdata/data.csv')
 table = def$value()
 table.headers = table$headers # ['city', 'location']
-# add indentation whitespace to JSON output with jsonlite
+# add indentation whitespace to JSON output with jsonlite package
 jsonlite::toJSON(table$read(keyed = TRUE), pretty = TRUE) 
 ```
 
 
 As we could see our locations are just a strings. But it should be geopoints. Also Rome's location is not available but it's also just a `N/A` string instead of `null`. First we have to infer Table Schema:
 ```{r, eval=TRUE, include=TRUE}
-jsonlite::toJSON(table$infer(), pretty = TRUE) # add indentation whitespace to JSON output with jsonlite
+# add indentation whitespace to JSON output with jsonlite package
+jsonlite::toJSON(table$infer(), pretty = TRUE) 
 ```
 
 ```{r, eval=TRUE, include=TRUE}
 jsonlite::toJSON(table$schema$descriptor, pretty = TRUE)
 ```
 
-```{r eval=TRUE, message=TRUE,error=TRUE, warning=FALSE, include=TRUE}
+```{r eval=FALSE, message=TRUE,error=TRUE, warning=FALSE, include=TRUE}
 table$read(keyed = TRUE) # Fails
 ```
 
@@ -134,7 +135,7 @@ table$schema$errors
 As a good citiziens we've decided to check out schema descriptor validity. And it's not valid! We sould use an array for `missingValues` property. Also don't forget to have an empty string as a missing value:
 
 ```{r, eval=TRUE, include=TRUE}
-table$schema$descriptor[['missingValues']] = list("", "NA")
+table$schema$descriptor[['missingValues']] = list("", 'N/A')
 table$schema$commit()
 table$schema$valid # true
 ```
@@ -320,12 +321,12 @@ schema$castRow(helpers.from.json.to.list('["6", "N/A", "Walt"]'))
 ```
 
 ```{r, eval=TRUE, include=TRUE}
-schema$descriptor$missingValues = list('', 'N/A')
+schema$descriptor$missingValues = list('', 'NA')
 schema$commit()
 ```
 
-```{r, eval=FALSE, include=TRUE}
-schema$castRow(helpers.from.json.to.list('["6", "N/A", "Walt"]'))
+```{r, eval=TRUE, include=TRUE}
+schema$castRow(helpers.from.json.to.list('["6", "", "Walt"]'))
 # [ 6, null, 'Walt' ]
 ```
 
