@@ -1,51 +1,16 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
 language: r
-pandoc_version: 1.19
 sudo: false
 cache: packages
-
 r:
   - oldrel
   - release
   - devel  
 before_install:
   - tlmgr install index
-env:
-  global:
-  - _R_CHECK_FORCE_SUGGESTS_=false
-github_packages:
-  - okgreece/datapackage.r
-  - r-lib/covr
-brew_packages:
- - jsonvalidate
- - V8
-r_packages:
- - brew
- - config
- - devtools
- - future
- - git2r
- - hash
- - httr
- - iterators
- - itertools2
- - jsonlite
- - lubridate
- - pdftools
- - purrr
- - R6
- - RCurl
- - Rcpp
- - readr
- - rlang
- - rlist
- - roxygen2
- - stringr
- - urltools		
- - utils
- - unix
- - xml2
+repos:
+  CRAN: http://cran.rstudio.com
 addons:
   apt:
     packages:

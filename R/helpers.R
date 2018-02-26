@@ -15,11 +15,11 @@ Helpers$expandFieldDescriptor <- function(descriptor) {
     stop("Field descriptor should be a hash instance.")
   }
   if (!("type" %in% names(descriptor))) {
-    descriptor$type <- config::get("DEFAULT_FIELD_TYPE")
+    descriptor$type <- config::get("DEFAULT_FIELD_TYPE", "config.yml")
   }
   
   if (!("format" %in% names(descriptor))) {
-    descriptor$format <- config::get("DEFAULT_FIELD_FORMAT")
+    descriptor$format <- config::get("DEFAULT_FIELD_FORMAT", "config.yml")
   }
   return(descriptor)
 }
@@ -110,7 +110,7 @@ helpers.expandSchemaDescriptor <- function(descriptor) {
     field = descriptor$fields[[index]]
     descriptor$fields[[index]] = helpers.expandFieldDescriptor(field)
   }
-  if (isTRUE(is.null(descriptor$missingValues) || descriptor$missingValues == FALSE || descriptor$missingValues == list()))  descriptor$missingValues = config::get("DEFAULT_MISSING_VALUES")
+  if (is.null(descriptor$missingValues) || length(descriptor$missingValues) == 0)  descriptor$missingValues = as.list(config::get("DEFAULT_MISSING_VALUES"))
   
   return(descriptor)
 }
@@ -131,62 +131,62 @@ helpers.expandFieldDescriptor = function(descriptor) {
 
 
 
-#' Extract the field descriptors properties
-#' @param descriptor descriptor
-#' @rdname get.field.descriptor.properties
-#' @export
+# #' Extract the field descriptors properties
+# #' @param descriptor descriptor
+# #' @rdname get.field.descriptor.properties
+# #' @export
+# 
+# 
+# get.field.descriptor.properties = function(descriptor) {
+#   if (is.valid(descriptor) == TRUE) {
+#     descriptor.object = jsonlite::fromJSON(descriptor,
+#                                            simplifyVector = T,
+#                                            flatten = F)
+#     
+#     field_descriptor_classes = purrr::pmap_chr(descriptor.object$resources$schema$fields , class)
+#     
+#     field_descriptor_classes = gsub("data.frame",
+#                                     "array/list/object",
+#                                     field_descriptor_classes) # needs fix
+#     
+#     field_descriptor_classes_length = purrr::pmap_dbl(descriptor.object$resources$schema$fields , function(x)
+#       colSums(!is.na(as.data.frame(x))))
+#     
+#     field_descriptor_classes_missing = purrr::pmap_dbl(descriptor.object$resources$schema$fields , function(x)
+#       colSums(is.na(as.data.frame(x))))
+#     
+#     if (has_name_field_descriptor(descriptor.object)) {
+#       df = data.frame(
+#         root  = rlang::names2(field_descriptor_classes),
+#         class = field_descriptor_classes,
+#         items = field_descriptor_classes_length,
+#         missing = field_descriptor_classes_missing,
+#         
+#         fix.empty.names = FALSE,
+#         stringsAsFactors = FALSE
+#       )
+#       rownames(df) = NULL
+#       
+#     } else
+#       df = message(
+#         "The field descriptor MUST contain a name property. More spec details in https://specs.frictionlessdata.io/table-schema/#field-descriptors."
+#       )
+#     
+#   } else
+#     df = message("This is not a valid descriptor.")
+#   
+#   return(df)
+# }
 
-
-get.field.descriptor.properties = function(descriptor) {
-  if (is.valid(descriptor) == TRUE) {
-    descriptor.object = jsonlite::fromJSON(descriptor,
-                                           simplifyVector = T,
-                                           flatten = F)
-    
-    field_descriptor_classes = purrr::pmap_chr(descriptor.object$resources$schema$fields , class)
-    
-    field_descriptor_classes = gsub("data.frame",
-                                    "array/list/object",
-                                    field_descriptor_classes) # needs fix
-    
-    field_descriptor_classes_length = purrr::pmap_dbl(descriptor.object$resources$schema$fields , function(x)
-      colSums(!is.na(as.data.frame(x))))
-    
-    field_descriptor_classes_missing = purrr::pmap_dbl(descriptor.object$resources$schema$fields , function(x)
-      colSums(is.na(as.data.frame(x))))
-    
-    if (has_name_field_descriptor(descriptor.object)) {
-      df = data.frame(
-        root  = rlang::names2(field_descriptor_classes),
-        class = field_descriptor_classes,
-        items = field_descriptor_classes_length,
-        missing = field_descriptor_classes_missing,
-        
-        fix.empty.names = FALSE,
-        stringsAsFactors = FALSE
-      )
-      rownames(df) = NULL
-      
-    } else
-      df = message(
-        "The field descriptor MUST contain a name property. More spec details in https://specs.frictionlessdata.io/table-schema/#field-descriptors."
-      )
-    
-  } else
-    df = message("This is not a valid descriptor.")
-  
-  return(df)
-}
-
-#' check if name property is missing
-#' @param descriptor descriptor
-#' @rdname has_name_field_descriptor
-#' @export
-#'
-has_name_field_descriptor = function(descriptor) {
-  "name" %in% rlang::names2(descriptor) |
-    all(!is.na(as.data.frame(descriptor$resources$schema$fields)[, "name"]))
-}
+# #' check if name property is missing
+# #' @param descriptor descriptor
+# #' @rdname has_name_field_descriptor
+# #' @export
+# #'
+# has_name_field_descriptor = function(descriptor) {
+#   "name" %in% rlang::names2(descriptor) |
+#     all(!is.na(as.data.frame(descriptor$resources$schema$fields)[, "name"]))
+# }
 
 #' is uri
 #' @param uri uri input
@@ -297,17 +297,9 @@ is_empty = function(x) {
 #' @export
 #'
 is_object = function(x) {
-  
-  if (is.character(x)) {
-    
-    valid = jsonlite::validate(x)
-    
-    if (isTRUE(valid)) x = jsonlite::fromJSON(x) else FALSE
-    
-  }
-  
-  is.object(x) | is.list(x) | "json" %in% class(x)
-  
+  if (isTRUE(class(x) %in% c("list","array","json") | 
+             isTRUE(is.object(x))) | (isTRUE(is.character(x) && jsonlite::validate(x)))) TRUE
+  else FALSE
 }
 #' from json to list
 #' @param lst list
@@ -325,3 +317,44 @@ helpers.from.json.to.list = function(lst){
 helpers.from.list.to.json = function(json){
   return(jsonlite::toJSON(json, auto_unbox = TRUE))
 }
+
+
+#' save json
+#' @description save json
+#' @param x x
+#' @param file file
+#' @rdname write_json
+#' @export
+#'
+
+write_json <- function(x, file){
+  x = jsonlite::prettify(helpers.from.list.to.json(x))
+  x = writeLines(x, file)
+}
+
+# #' @title filepath
+# #' @description filepath
+# #' @param x x
+# #' @rdname filepath
+# #' @export
+# 
+# filepath <- function(x){
+#   
+#   files = list.files(recursive = TRUE)
+#   
+#   matched_files = files[ grep(x, files,fixed = FALSE, ignore.case = F) ]
+#   
+#   if ( length(matched_files) > 1 ){
+#     
+#     message("There are multiple matches with the input file." ) 
+#     
+#     choice = utils::menu(matched_files, title = cat("Please specify the input file:"))
+#     
+#     matched_files = matched_files[choice]
+#     
+#   } # else 
+#   
+#   return (matched_files)
+# }
+
+

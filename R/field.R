@@ -15,7 +15,7 @@ Field <- R6Class(
     initialize = function(descriptor,
                           base_path = NULL,
                           strict = NULL,
-                          missingValues = config::get("DEFAULT_MISSING_VALUES"),
+                          missingValues = as.list(config::get("DEFAULT_MISSING_VALUES")),
                           ...) {
       
       if (missing(base_path)) {
@@ -37,9 +37,9 @@ Field <- R6Class(
         private$descriptor_ <- descriptor
       }
       
-      if (!missing(missingValues)) {
+      
         private$missingValues <- missingValues
-      }
+      
       private$descriptor_ = Helpers$expandFieldDescriptor(descriptor)
       
       
@@ -78,7 +78,7 @@ Field <- R6Class(
     },
     
     required = function(){
-      if(!is.null(private$descriptor_)){
+      if (!is.null(private$descriptor_)){
         return(identical(private$descriptor_$required, TRUE))
       }
       else{
@@ -145,7 +145,7 @@ Field <- R6Class(
     },
     
     castValue = function(value, constraints = TRUE, ...) {
-      
+
       if (value %in% private$missingValues) {
         value <- NULL
         

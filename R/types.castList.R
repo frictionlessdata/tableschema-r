@@ -1,35 +1,41 @@
 #' @title cast list
 #' @description cast list
+#' @param format format
 #' @param value value
 #' @rdname types.castList
 #' @export
 #' 
-types.castList <- function (value) { #format parameter is not used
+types.castList <- function (format, value) {
   
-  if( !is.list(value) )
-    if(!is.character(value) ) return(config::get("ERROR"))
+  if(!is.list(value)) {
+    if(!is.character(value)) {
+      return(config::get("ERROR"))
+    }
+  }
   
-  value = tryCatch({   
+  if(is.list(value)) {
+    return(value)
     
-    value = jsonlite::fromJSON(value)
+  } else if(isTRUE(jsonlite::validate(value))){
     
-  },
-  
-  warning = function(w) {
+    value = tryCatch({
+      
+      helpers.from.json.to.list(value)
+      
+    },
+    warning = function(w) {
+      return(config::get("ERROR"))
+    },
     
-    return(config::get("ERROR"))
+    error = function(e) {
+      return(config::get("ERROR"))
+      
+    },
     
-  },
-  
-  error = function(e) {
-    
-    return(config::get("ERROR"))
-    
-  },
-  
-  finally = {
-    
-  })
+    finally = {
+      
+    })
+  }
   
   if (!is.list(value) ) return(config::get("ERROR"))
   

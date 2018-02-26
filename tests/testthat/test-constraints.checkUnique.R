@@ -11,7 +11,9 @@ TESTS = list(
   
   list(FALSE, "any", TRUE),
   
-  list(TRUE, "any", TRUE)
+  list(TRUE, "any", TRUE),
+  
+  list(TRUE, "other", TRUE)
   
 )
 

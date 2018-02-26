@@ -54,9 +54,7 @@ types.castDatetime <- function (format = "%Y-%m-%dT%H:%M:%SZ", value) {
       
       return(config::get("ERROR"))
       
-      invokeRestart("muffleWarning")
-    }
-    )
+    })
     
   }
   

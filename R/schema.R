@@ -183,14 +183,10 @@ Schema <- R6Class(
     },
     
     save = function(target) {
-      contents <-
-        jsonlite::toJSON(private$currentDescriptor_, pretty = TRUE)
-      
-      deferred_ = future::future(function() {
-        y <- list(a = 1, b = TRUE, c = "oops")
-        base::save(contents, file = target)
-      })
-      return(deferred_)
+      write_json(private$currentDescriptor_,
+                 file = stringr::str_c(target, "Schema.json", sep = "/"))
+      save = stringr::str_interp('Package saved at: "${target}"')
+      return(save)
     }
     
     
@@ -309,7 +305,7 @@ Schema <- R6Class(
       # Populate fields
       private$fields_ = list()
       for (field in private$currentDescriptor_$fields) {
-        missingValues = private$currentDescriptor_$missingValues
+        missingValues = as.list(private$currentDescriptor_$missingValues)
         
         field2 =  tryCatch({
           Field$new(field, missingValues)
@@ -402,7 +398,10 @@ Schema.load = function(descriptor = "",
                        strict = FALSE,
                        caseInsensitiveHeaders = FALSE) {
   return(future::future(function() {
+
     return(
+ 
+      
       Schema$new(
         descriptor = descriptor,
         strict = strict,

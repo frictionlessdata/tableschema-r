@@ -56,7 +56,7 @@ Install `tableschema.r`
 
 ``` r
 # And then install the development version from github
-devtools::install_github("okgreece/tableschema-r")
+devtools::install_github("frictionlessdata/tableschema-r")
 ```
 
 Load library
@@ -70,7 +70,7 @@ library(tableschema.r)
 Documentation
 =============
 
-The package is still under development and some properties may not be working properly. Json objects are not included in R base data types. [Jsonlite package](https://CRAN.R-project.org/package=jsonlite) is internally used to convert json data to list objects. The input parameters of functions could be json strings, files or lists and the outputs are in list format to easily further process your data in R environment and exported as desired. The examples below show how to use jsonlite package to convert the output back to json adding indentation whitespace. More details about handling json you can see jsonlite documentation or vignettes [here](https://CRAN.R-project.org/package=jsonlite).
+[Jsonlite package](https://CRAN.R-project.org/package=jsonlite) is internally used to convert json data to list objects. The input parameters of functions could be json strings, files or lists and the outputs are in list format to easily further process your data in R environment and exported as desired. The examples below show how to use jsonlite package to convert the output back to json adding indentation whitespace. More details about handling json you can see jsonlite documentation or vignettes [here](https://CRAN.R-project.org/package=jsonlite).
 
 Moreover [future package](https://CRAN.R-project.org/package=future) is also used to load and create Table and Schema class asynchronously. To retrieve the actual result of the loaded Table or Schema you have to call `$value()` to the variable you stored the loaded Table/Schema. More details about future package and sequential and parallel processing you can find [here](https://CRAN.R-project.org/package=future).
 
@@ -96,20 +96,18 @@ Let's create and read a table. We use static `Table.load` method and `table.read
 def = Table.load('inst/extdata/data.csv')
 table = def$value()
 table.headers = table$headers # ['city', 'location']
-
-jsonlite::toJSON(table$read(keyed = TRUE), pretty = TRUE) # add indentation whitespace to JSON output with jsonlite
+# add indentation whitespace to JSON output with jsonlite package
+jsonlite::toJSON(table$read(keyed = TRUE), pretty = TRUE) 
 ```
 
     ## [
     ##   {
     ##     "city": ["london"],
-    ##     "location": ["\"51.50"],
-    ##     "3": ["-0.11\""]
+    ##     "location": ["\"51.50 -0.11\""]
     ##   },
     ##   {
     ##     "city": ["paris"],
-    ##     "location": ["\"48.85"],
-    ##     "3": ["2.30\""]
+    ##     "location": ["\"48.85 2.30\""]
     ##   },
     ##   {
     ##     "city": ["rome"],
@@ -117,10 +115,11 @@ jsonlite::toJSON(table$read(keyed = TRUE), pretty = TRUE) # add indentation whit
     ##   }
     ## ]
 
-As we could see our locations are just a strings. But it should be geopoints. Also Rome's location is not available but it's also just a `N/A` string instead of JavaScript `null`. First we have to infer Table Schema:
+As we could see our locations are just a strings. But it should be geopoints. Also Rome's location is not available but it's also just a `N/A` string instead of `null`. First we have to infer Table Schema:
 
 ``` r
-jsonlite::toJSON(table$infer(), pretty = TRUE) # add indentation whitespace to JSON output with jsonlite
+# add indentation whitespace to JSON output with jsonlite package
+jsonlite::toJSON(table$infer(), pretty = TRUE) 
 ```
 
     ## {
@@ -136,7 +135,9 @@ jsonlite::toJSON(table$infer(), pretty = TRUE) # add indentation whitespace to J
     ##       "format": ["default"]
     ##     }
     ##   ],
-    ##   "missingValues": ["list()"]
+    ##   "missingValues": [
+    ##     [""]
+    ##   ]
     ## }
 
 ``` r
@@ -156,16 +157,16 @@ jsonlite::toJSON(table$schema$descriptor, pretty = TRUE)
     ##       "format": ["default"]
     ##     }
     ##   ],
-    ##   "missingValues": ["list()"]
+    ##   "missingValues": [
+    ##     [""]
+    ##   ]
     ## }
 
 ``` r
 table$read(keyed = TRUE) # Fails
 ```
 
-    ## Error: Row dimension doesn't match schema's fields dimension
-
-Let's fix not available location. There is a `missingValues` property in Table Schema specification. As a first try we set `missingValues` to `N/A` in `table.schema.descriptor`. Schema descriptor could be changed in-place but all changes sould be commited by `table.schema.commit()`:
+Let's fix not available location. There is a `missingValues` property in Table Schema specification. As a first try we set `missingValues` to `N/A` in `table$schema$descriptor`. Schema descriptor could be changed in-place but all changes should be commited by `table$schema$commit()`:
 
 ``` r
 table$schema$descriptor['missingValues'] = 'N/A'
@@ -190,7 +191,7 @@ table$schema$errors
 As a good citiziens we've decided to check out schema descriptor validity. And it's not valid! We sould use an array for `missingValues` property. Also don't forget to have an empty string as a missing value:
 
 ``` r
-table$schema$descriptor[['missingValues']] = list("", "NA")
+table$schema$descriptor[['missingValues']] = list("", 'N/A')
 table$schema$commit()
 ```
 
@@ -205,7 +206,7 @@ table$schema$valid # true
 All good. It looks like we're ready to read our data again:
 
 ``` r
-table$read(keyed = TRUE)
+table$read()
 # [
 #   {city: 'london', location: [51.50,-0.11]},
 #   {city: 'paris', location: [48.85,2.30]},
@@ -213,7 +214,11 @@ table$read(keyed = TRUE)
 # ]
 ```
 
-Now we see that: - locations are arrays with numeric lattide and longitude - Rome's location is a native JavaScript `null`
+Now we see that:
+
+-   locations are arrays with numeric lattide and longitude
+
+-   Rome's location is `null`
 
 And because there are no errors on data reading we could be sure that our data is valid againt our schema. Let's save it:
 
@@ -275,25 +280,23 @@ table
     ##     strict_: FALSE
     ##     uniqueFieldsCache_: list
 
-It was onle basic introduction to the `Table` class. To learn more let's take a look on `Table` class API reference.
+It was one basic introduction to the `Table` class. To learn more let's take a look on `Table` class API reference.
 
 #### `Table.load(source, schema, strict=FALSE, headers=1, ...)`
-
-Constructor to instantiate `Table` class. If `references` argument is provided foreign keys will be checked on any reading operation.
 
 Factory method to instantiate `Table` class. This method is async and it should be used with `$value()` keyword or as a `Promise`. If references argument is provided foreign keys will be checked on any reading operation.
 
 -   `source (String/list()/Stream/Function)` - data source (one of):
--   local CSV file (path)
--   remote CSV file (url)
--   list of lists representing the rows
--   readable stream with CSV file contents
--   function returning readable stream with CSV file contents
+    -   local CSV file (path)
+    -   remote CSV file (url)
+    -   list of lists representing the rows
+    -   readable stream with CSV file contents
+    -   function returning readable stream with CSV file contents
 -   `schema (Object)` - data schema in all forms supported by `Schema` class
 -   `strict (Boolean)` - strictness option to pass to `Schema` constructor
 -   `headers (Integer/String[])` - data source headers (one of):
--   row number containing headers (`source` should contain headers rows)
--   array of headers (`source` should NOT contain headers rows)
+    -   row number containing headers (`source` should contain headers rows)
+    -   array of headers (`source` should NOT contain headers rows)
 -   `... (Object)` - options to be used by CSV parser. All options listed at <http://csv.adaltas.com/parse/#parser-options>. By default `ltrim` is true according to the CSV Dialect spec.
 -   `(errors.TableSchemaError)` - raises any error occured in table creation process
 -   `(Table)` - returns data table class instance
@@ -313,13 +316,13 @@ Iter through the table data and emits rows cast based on table schema. Data cast
 -   `keyed (Boolean)` - iter keyed rows
 -   `extended (Boolean)` - iter extended rows
 -   `cast (Boolean)` - disable data casting if false
--   `relations (Object)` - object of foreign key references in a form of `{resource1: [{field1: value1, field2: value2}, ...], ...}`. If provided foreign key fields will checked and resolved to its references
+-   `relations (Object)` - list object of foreign key references from a form of JSON `{resource1: [{field1: value1, field2: value2}, ...], ...}`. If provided foreign key fields will checked and resolved to its references
 -   `stream (Boolean)` - return Readable Stream of table rows
 -   `(errors$TableSchemaError)` - raises any error occured in this process
 -   `(Iterator/Stream)` - iterator/stream of rows:
--   `[value1, value2]` - base
--   `{header1: value1, header2: value2}` - keyed
--   `[rowNumber, [header1, header2], [value1, value2]]` - extended
+    -   `[value1, value2]` - base
+    -   `{header1: value1, header2: value2}` - keyed
+    -   `[rowNumber, [header1, header2], [value1, value2]]` - extended
 
 #### `table$read(keyed, extended, cast=TRUE, relations=FALSE, limit)`
 
@@ -328,7 +331,7 @@ Read the whole table and returns as array of rows. Count of rows could be limite
 -   `keyed (Boolean)` - flag to emit keyed rows
 -   `extended (Boolean)` - flag to emit extended rows
 -   `cast (Boolean)` - disable data casting if false
--   `relations (Object)` - object of foreign key references in a form of `{resource1: [{field1: value1, field2: value2}, ...], ...}`. If provided foreign key fields will checked and resolved to its references
+-   `relations (Object)` - list object of foreign key references from a form of JSON `{resource1: [{field1: value1, field2: value2}, ...], ...}`. If provided foreign key fields will checked and resolved to its references
 -   `limit (Number)` - integer limit of rows to return
 -   `(errors$TableSchemaError)` - raises any error occured in this process
 -   `(List[])` - returns list of rows (see `table$iter`)
@@ -432,7 +435,9 @@ jsonlite::toJSON(
     ##       "format": ["default"]
     ##     }
     ##   ],
-    ##   "missingValues": ["list()"]
+    ##   "missingValues": [
+    ##     [""]
+    ##   ]
     ## }
 
 Now we have an inferred schema and it's valid. We could cast data row against our schema. We provide a string input by an output will be cast correspondingly:
@@ -459,14 +464,29 @@ schema$castRow(helpers.from.json.to.list('["6", "N/A", "Walt"]'))
 
 ``` r
 # Cast error
-schema$descriptor$missingValues = list('', 'N/A')
+```
+
+``` r
+schema$descriptor$missingValues = list('', 'NA')
 schema$commit()
 ```
 
     ## [1] TRUE
 
 ``` r
-schema$castRow(helpers.from.json.to.list('["6", "N/A", "Walt"]'))
+schema$castRow(helpers.from.json.to.list('["6", "", "Walt"]'))
+```
+
+    ## [[1]]
+    ## [1] 6
+    ## 
+    ## [[2]]
+    ## NULL
+    ## 
+    ## [[3]]
+    ## [1] "Walt"
+
+``` r
 # [ 6, null, 'Walt' ]
 ```
 
@@ -484,12 +504,12 @@ It was onle basic introduction to the `Schema` class. To learn more let's take a
 Factory method to instantiate `Schema` class. This method is async and it should be used with `$value()` keyword.
 
 -   `descriptor (String/Object)` - schema descriptor:
--   local path
--   remote url
--   object
+    -   local path
+    -   remote url
+    -   object
 -   `strict (Boolean)` - flag to alter validation behaviour:
--   if false error will not be raised and all error will be collected in `schema$errors`
--   if strict is true any validation error will be raised immediately
+    -   if false error will not be raised and all error will be collected in `schema$errors`
+    -   if strict is true any validation error will be raised immediately
 -   `(errors$TableSchemaError)` - raises any error occured in the process
 -   `(Schema)` - returns schema class instance
 
@@ -557,8 +577,8 @@ Infer and set `schema$descriptor` based on data sample.
 
 -   `rows (List())` - list of lists representing rows.
 -   `headers (Integer/String[])` - data sample headers (one of):
--   row number containing headers (`rows` should contain headers rows)
--   list of headers (`rows` should NOT contain headers rows)
+    -   row number containing headers (`rows` should contain headers rows)
+    -   list of headers (`rows` should NOT contain headers rows)
 -   `{Object}` - returns Table Schema descriptor
 
 #### `schema$commit(strict)`
@@ -573,12 +593,29 @@ Update schema instance if there are in-place changes in the descriptor.
 descriptor = '{"fields": [{"name": "field", "type": "string"}]}'
 def = Schema.load(descriptor)
 schema = def$value()
-schema$getField("name")$type # string
-schema$descriptor$fields[[1]]$type = "number"
-schema$getField("name")$type # string
-schema$commit()
-schema$getField("name")$type # number
+schema$getField("field")$name # string
 ```
+
+    ## [1] "field"
+
+``` r
+schema$descriptor$fields[[1]]$type = "number"
+schema$getField("field")$type # string
+```
+
+    ## [1] "string"
+
+``` r
+schema$commit()
+```
+
+    ## [1] TRUE
+
+``` r
+schema$getField("field")$type # number
+```
+
+    ## [1] "number"
 
 #### `schema$save(target)`
 
@@ -621,7 +658,7 @@ And following example will raise exception, because we set flag 'skip constraint
 
 ``` r
 tryCatch (
-    dateType = field$cast_value('2014-05-29', FALSE), 
+    dateType = field$cast_value(value = '2014-05-29', constraints = FALSE), 
     error = function(e){# uh oh, something went wrong
     })
 ```
@@ -765,8 +802,8 @@ Cast given value according to the field type and format.
 
 -   `value (any)` - value to cast against field
 -   `constraints (Boolean/String[])` - gets constraints configuration
--   it could be set to true to disable constraint checks
--   it could be a List of constraints to check e.g. \['minimum', 'maximum'\]
+    -   it could be set to true to disable constraint checks
+    -   it could be a List of constraints to check e.g. \['minimum', 'maximum'\]
 -   `(errors$TableSchemaError)` - raises any error occured in the process
 -   `(any)` - returns cast value
 
@@ -800,9 +837,9 @@ valid_errors
 Validate a Table Schema descriptor.
 
 -   `descriptor (String/Object)` - schema descriptor (one of):
--   local path
--   remote url
--   object
+    -   local path
+    -   remote url
+    -   object
 -   `(Object)` - returns `{valid, errors}` object
 
 ### Infer
@@ -852,7 +889,9 @@ jsonlite::toJSON(
     ##       "format": ["default"]
     ##     }
     ##   ],
-    ##   "missingValues": ["list()"]
+    ##   "missingValues": [
+    ##     [""]
+    ##   ]
     ## }
 
 #### `infer(source, headers=1, ...)`
@@ -868,7 +907,7 @@ Infer source schema..
 Changelog - News
 ----------------
 
-In [NEWS.md](https://github.com/okgreece/tableschema-r/blob/master/NEWS.md) described only breaking and the most important changes. The full changelog could be found in nicely formatted [commit](https://github.com/okgreece/tableschema-r/commits/master) history.
+In [NEWS.md](https://github.com/frictionlessdata/tableschema-r/blob/master/NEWS.md) described only breaking and the most important changes. The full changelog could be found in nicely formatted [commit](https://github.com/frictionlessdata/tableschema-r/commits/master) history.
 
 Contributing
 ============
@@ -876,7 +915,7 @@ Contributing
 The project follows the [Open Knowledge International coding standards](https://github.com/okfn/coding-standards). There are common commands to work with the project.Recommended way to get started is to create, activate and load the library environment. To install package and development dependencies into active environment:
 
 ``` r
-devtools::install_github("okgreece/tableschema-r",dependencies=TRUE)
+devtools::install_github("frictionlessdata/tableschema-r",dependencies=TRUE)
 ```
 
 To make test:
@@ -893,11 +932,11 @@ To run tests:
 devtools::test()
 ```
 
-more detailed information about how to create and run tests you can find in [testthat package](https://github.com/hadley/testthat)
+More detailed information about how to create and run tests you can find in [testthat package](https://github.com/hadley/testthat).
 
 Github
 ======
 
--   <https://github.com/okgreece/tableschema-r>
+-   <https://github.com/frictionlessdata/tableschema-r>
 
 <img src="okgr.png" align="right" width=120px /><img src="oklabs.png" align="right" width=120px />

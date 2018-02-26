@@ -29,6 +29,7 @@ TESTS = list(
 
   #list('topojson', '{"type": "LineString", "arcs": [42]}',{'type': 'LineString', 'arcs': [42]} ),
 
+  list('topojson', list("arcs" = list(42)), config::get("ERROR")),
   list('topojson', 'string', config::get("ERROR")),
   list('topojson', 1, config::get("ERROR")),
   list('topojson', '3.14', config::get("ERROR")),

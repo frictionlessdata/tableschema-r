@@ -8,11 +8,11 @@ testthat::context("constraints.checkMinLength")
 # Constants
 TESTS = list(
   
-  list( 0, list("1"),  TRUE),
+  list( 0, list(1),  TRUE),
   
-  list( 1, list("1"),  TRUE),
+  list( 1, list(1),  TRUE),
   
-  list( 2, list("1"),  FALSE)
+  list( 2, list(1),  FALSE)
   
 )
 

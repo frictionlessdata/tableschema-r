@@ -11,7 +11,7 @@ is.valid = function(descriptor, schema = NULL)  {
     
     #local
     
-    v = jsonvalidate::json_validator(paste(readLines('inst/profiles/tableschema.json', warn = FALSE, n=-1L), collapse=""))
+    v = jsonvalidate::json_validator(paste(readLines(system.file('profiles/tableschema.json', package = "tableschema.r"), warn = FALSE, n=-1L), collapse=""))
     
     
   } else {

@@ -25,11 +25,10 @@ Profile <- R6Class(
       },
       error = function(cond) {
         message = 'Can\'t load profile'
-        TableSchemaError$new(message)$message
+        stop(message)
       },
       warning = function(cond) {
         field = FALSE
-        
         # Choose a return value in case of warning
         return(field)
       })
@@ -292,9 +291,9 @@ Profile.load = function(profile, ...){
 
 profiles = list(
   
-  geojson = 'inst/profiles/geojson.json',
+  geojson = 'profiles/geojson.json',
   
-  tableschema = 'inst/profiles/tableschema.json'
+  tableschema = 'profiles/tableschema.json'
   
 )
 

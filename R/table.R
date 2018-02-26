@@ -4,7 +4,6 @@
 #' @include  field.R
 #' @include  schema.R
 #' @include  readable.array.R
-#' @include  readable.array.R
 #' @keywords data
 #' @return Object of \code{\link{R6Class}} .
 #' @format \code{\link{R6Class}} object.
@@ -79,18 +78,23 @@ Table <- R6Class(
       # Get table row stream
       private$rowNumber_ = 0
       private$currentStream_ = con
+      
       tableRowStream = iterators::iter(function() {
-
+        
         row = iterators::nextElem(iterable_)
+        
         private$rowNumber_ = private$rowNumber_ + 1
+        
         # Get headers
         if (identical(private$rowNumber_ , private$headersRow_)) {
           private$headers_ = row
           
           stop("HeadersRow")
         }
+        
         # Check headers
         if (cast) {
+          
           if (!is.null(self$schema) && !is.null(self$headers)) {
             if (!identical(self$headers, self$schema$fieldNames)) {
               message = 'Table headers don\'t match schema field names'
@@ -98,15 +102,20 @@ Table <- R6Class(
             }
           }
         }
+        
         # Cast row
         if (cast) {
+          
           if (!is.null(self$schema)) {
             row = self$schema$castRow(row)
           }
         }
+        
         # Check unique
         if (cast && length(private$uniqueFieldsCache_) > 0) {
+          
           for (index in 1:length(private$uniqueFieldsCache_)) {
+            
             if (is.list(private$uniqueFieldsCache_[[index]])) {
               if (row[[index]] %in% private$uniqueFieldsCache_[[index]]) {
                 fieldName = self$schema$fields[[index]]$name
@@ -122,12 +131,13 @@ Table <- R6Class(
         }
         
         
-        
+      
         # Resolve relations
-        if (!is.null(relations)) {
+        if (!is.null(relations) && !isTRUE(identical(relations,FALSE))) {
           if (!is.null(self$schema)) {
+            
             for (foreignKey in self$schema$foreignKeys) {
-
+            
               row = table.resolveRelations(row, self$headers, relations, foreignKey)
               if (is.null(row)) {
                 message =  stringr::str_interp("Foreign key '${foreignKey$fields}' violation in row '${private$rowNumber_}'")
@@ -143,6 +153,8 @@ Table <- R6Class(
         } else if (extended) {
           row = list(private$rowNumber_, self$headers, row)
         }
+        
+        
         
         return(row)
         
@@ -162,21 +174,24 @@ Table <- R6Class(
                     cast = TRUE,
                     relations = FALSE,
                     limit = NULL) {
-      iterator  = self$iter(keyed, extended, cast, relations)
+      
+      iterator  = self$iter(keyed = keyed, extended = extended, cast = cast, relations = relations)
       rows = list()
       count = 0
       repeat {
 
         
         count = count + 1
-        finished = tryCatch({
+        finished = withCallingHandlers(tryCatch({
+          
           it = iterators::nextElem(iterator)
-
+          
           rows = append(rows, list(it))
           0
           
         },
         error = function(cond) {
+          
           if (identical(cond$message, 'StopIteration')) {
             return(1)
             
@@ -186,10 +201,10 @@ Table <- R6Class(
             
           }
           stop(cond)
-        },
+        }),
         warning = function(cond) {
           stop(cond)
-          
+          invokeRestart('muffleWarning')
         })
         if (identical(finished, -1)) {
           count = count - 1
@@ -341,14 +356,17 @@ Table.load = function(source,
 
 table.resolveRelations = function(row, headers, relations, foreignKey) {
   # Prepare helpers - needed data structures
+  
   keyedRow = row
   names(keyedRow) = headers
 
   fields = rlist::list.zip(foreignKey$fields, foreignKey$reference$fields)
 
-  reference = relations[[foreignKey$reference$resource]]
+  actualKey = if (stringr::str_length(foreignKey$reference$resource) < 1) "$" else foreignKey$reference$resource
   
-  if (is.null(reference)) {
+  reference = relations[[actualKey]]
+  
+  if (is.null(reference) || isTRUE(stringr::str_length(reference) < 1)) {
     return(row)
   }
   
@@ -356,10 +374,12 @@ table.resolveRelations = function(row, headers, relations, foreignKey) {
   valid = TRUE
   values = list()
   for (index in 1:length(fields)) {
+  
     field = fields[[index]][[1]]
     refField = fields[[index]][[2]]
     
     if (!is.null(field) && !is.null(refField)) {
+      
       values[[refField]] = keyedRow[[field]]
       if (!is.null(keyedRow[[field]])) {
         valid = FALSE
@@ -390,6 +410,7 @@ table.resolveRelations = function(row, headers, relations, foreignKey) {
     }
 
   }
+
 
   if (valid) {
     return(unname(keyedRow))
