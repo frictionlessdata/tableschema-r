@@ -9,15 +9,12 @@ testthat::context("profile")
 
 
 test_that("table-schema is up-to-date", {
-  # jsonlite::toJSON(jsonlite::fromJSON(profile$jsonschema))
+  # res = jsonlite::toJSON(jsonlite::fromJSON( system.file(stringr::str_interp("profiles/tableschema.json"), package = "tableschema.r")))
   
-  res = jsonlite::toJSON(jsonlite::fromJSON('https://specs.frictionlessdata.io/schemas/table-schema.json',simplifyVector = T))
+  res = jsonlite::toJSON(jsonlite::fromJSON('https://specs.frictionlessdata.io/schemas/table-schema.json',simplifyVector = TRUE))
   profile = Profile.load('tableschema')
-  ## compare the charater lengths instead
-  ## problem with type returned from jsonlite + R6 it's correct if you run identical locally
+
   identical(res,profile$jsonschema)
-  expect_equal(nchar(toString(res)),39829)
-  expect_equal(nchar(toString(profile$jsonschema)),39829)
   expect_type(res,"character")
   expect_type(profile$jsonschema,"character")
 })

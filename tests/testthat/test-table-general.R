@@ -26,28 +26,28 @@ SCHEMA = '{
 
 test_that("should not instantiate with bad schema path", {
   def  = Table.load(SOURCE, 'bad schema path')
-  expect_error(def$value(), ".*load descriptor.*")
+  expect_error(future::value(def), ".*load descriptor.*")
 })
 
 test_that("should work with Schema instance", {
   def1  =  Schema.load(SCHEMA)
-  schema = def1$value()
+  schema = future::value(def1)
   def2  = Table.load( jsonlite::fromJSON(SOURCE, simplifyVector = FALSE), schema = schema)
-  table = def2$value()
+  table = future::value(def2)
   rows = table$read()
   expect_identical(length(rows),5L)
 })
 
 test_that("should work with array source", {
   def2  = Table.load( jsonlite::fromJSON(SOURCE, simplifyVector = FALSE), schema = SCHEMA)
-  table = def2$value()
+  table = future::value(def2)
   rows = table$read()
   expect_identical(length(rows),5L)
 })
 
 test_that("should work with local path", {
   def2  = Table.load('inst/extdata/data_big.csv')
-  table = def2$value()
+  table = future::value(def2)
   rows = table$read()
   expect_identical(length(rows),100L)
 })
@@ -55,14 +55,14 @@ test_that("should work with local path", {
 
 test_that("should cast source data", {
   def2  = Table.load(jsonlite::fromJSON(SOURCE, simplifyVector = FALSE), schema = SCHEMA)
-  table = def2$value()
+  table = future::value(def2)
   rows = table$read()
   expect_equivalent(rows[[1]], list(1, 10.0, 1, 'string1',  lubridate::make_datetime(2012,6,15) ))
 })
 
 test_that("should not cast source data with cast false", {
   def2  = Table.load(jsonlite::fromJSON(SOURCE, simplifyVector = FALSE), schema = SCHEMA)
-  table = def2$value()
+  table = future::value(def2)
   rows = table$read(cast = FALSE)
   expect_equivalent(rows[[1]], list(1, '10.0', 1, 'string1',  '2012-06-15 00:00:00' ))
 })
@@ -73,7 +73,7 @@ test_that("should throw on unique constraints violation", {
     list(2, '10.2', '2', 'string1', '2012-07-15')
   )
   def2  = Table.load(source, schema = SCHEMA, headers = FALSE)
-  table = def2$value()
+  table = future::value(def2)
   expect_error(table$read(), ".*duplicates.*")
 })
 
@@ -83,28 +83,28 @@ test_that("unique constraints violation for primary key", {
     list(1, '10.2', '2', 'string2', '2012-07-15')
   )
   def2  = Table.load(source, schema = SCHEMA, headers = FALSE)
-  table = def2$value()
+  table = future::value(def2)
   expect_error(table$read(), ".*duplicates.*")
 })
 
 
 test_that("should read source data and limit rows", {
   def2  = Table.load(jsonlite::fromJSON(SOURCE, simplifyVector = FALSE), schema = SCHEMA)
-  table = def2$value()
+  table = future::value(def2)
   rows = table$read(limit = 1)
   expect_identical(length(rows),1L)
 })
 
 test_that("should read source data and return keyed rows", {
   def2  = Table.load(jsonlite::fromJSON(SOURCE, simplifyVector = FALSE), schema = SCHEMA)
-  table = def2$value()
+  table = future::value(def2)
   rows = table$read(limit = 1, keyed = TRUE)
   expect_equivalent(rows[[1]], list(id = 1, height = 10.0, age = 1, name = 'string1', occupation =  lubridate::make_datetime(2012,6,15) ))
 })
 
 test_that("should read source data and return extended rows", {
   def2  = Table.load(jsonlite::fromJSON(SOURCE, simplifyVector = FALSE), schema = SCHEMA)
-  table = def2$value()
+  table = future::value(def2)
   rows = table$read(limit = 1, extended = TRUE)
   expect_equivalent(rows[[1]], list(2, list('id', 'height', 'age', 'name', 'occupation'), list(id = 1, height = 10.0, age = 1, name = 'string1', occupation =  lubridate::make_datetime(2012,6,15) )))
 })
@@ -113,7 +113,7 @@ test_that("should read source data and return extended rows", {
 test_that("should infer headers and schema", {
   source = 'inst/extdata/data_infer.csv'
   def2  = Table.load(source)
-  table = def2$value()
+  table = future::value(def2)
   table$infer()
   expect_equivalent(table$headers, list('id', 'age', 'name'))
   expect_identical(length(table$schema$fields), 3L)
@@ -125,14 +125,14 @@ test_that("should throw on read for headers/fieldNames missmatch", {
     list(1, '10.0', 1, 'string1', '2012-06-15 00:00:00')
   )
   def2  = Table.load(source, schema = SCHEMA)
-  table = def2$value()
+  table = future::value(def2)
   expect_error(table$read(), ".*match schema field names.*")
 })
 
 test_that("should work with connection", {
   source = 'inst/extdata/data_big.csv'
   def2  = Table.load(source)
-  table = def2$value()
+  table = future::value(def2)
   rows = table$read()
   expect_identical(length(rows),100L)
 })
@@ -144,7 +144,7 @@ testthat::context("table #format")
 
 test_that('should use csv format by default', {
   def2 = Table.load('inst/extdata/data_infer.csv')
-  table= def2$value()
+  table= future::value(def2)
   rows = table$read(limit = 2)
   expect_equal(rows, jsonlite::fromJSON('[["1", "39", "Paul"], ["2", "23", "Jimmy"]]',simplifyVector = FALSE) )
 })
@@ -155,35 +155,35 @@ testthat::context("table #encoding")
 
 test_that('should use utf-8 by default', {
   def2 = Table.load('inst/extdata/data_infer.csv')
-  table= def2$value()
+  table= future::value(def2)
   rows = table$read(limit = 2)
   expect_equal(rows, jsonlite::fromJSON('[["1", "39", "Paul"], ["2", "23", "Jimmy"]]',simplifyVector = FALSE) )
 })
 
 test_that('should use utf-8 by default for remote resource', {
   def2 = Table.load('https://raw.githubusercontent.com/frictionlessdata/tableschema-js/master/data/data_infer.csv')
-  table= def2$value()
+  table= future::value(def2)
   rows = table$read(limit = 2)
   expect_equal(rows, jsonlite::fromJSON('[["1", "39", "Paul"], ["2", "23", "Jimmy"]]',simplifyVector = FALSE) )
 })
 
 test_that('should read correctly file with other encoding', {
   def2 = Table.load(system.file('extdata/latin1.csv', package = "tableschema.r"))
-  table= def2$value()
+  table= future::value(def2)
   rows = table$read(limit = 2)
   expect_equal(length(rows),length(helpers.from.json.to.list('[["1", "english"], ["2", "©"]]')))
 })
 
 test_that('should support user-defined encoding', {
   def2 = Table.load(system.file('extdata/latin1.csv', package = "tableschema.r"), encoding = 'latin1')
-  table= def2$value()
+  table= future::value(def2)
   rows = table$read(limit = 2)
   expect_equal(length(rows),length(helpers.from.json.to.list('[["1", "english"], ["2", "©"]]')))
 })
 
 test_that('should support user-defined encoding for remote resource', {
   def2 = Table.load('https://raw.githubusercontent.com/frictionlessdata/tableschema-js/master/data/latin1.csv', encoding = 'latin1')
-  table= def2$value()
+  table= future::value(def2)
   rows = table$read(limit = 2)
   expect_equal(length(rows),length(helpers.from.json.to.list('[["1", "english"], ["2", "©"]]')))
 })
@@ -194,7 +194,7 @@ testthat::context("table #parserOptions")
 
 test_that('should use default limit param to parse file', {
   def2 = Table.load('inst/extdata/data_parse_options_default.csv')
-  table= def2$value()
+  table= future::value(def2)
   rows = table$read(extended = TRUE, limit = 1)
   expect_equal(rows[1], list(list(2, list("id", "age", "name"), list("1", "39", "       Paul"))))
 })
@@ -219,6 +219,6 @@ test_that('should fail with composity primary key not unique (issue #91)',{
   ["a", "1"]
   ]'
   def2 = Table.load(jsonlite::fromJSON(source,simplifyVector = FALSE), schema = SCHEMA)
-  table= def2$value()
+  table= future::value(def2)
   expect_error(table$read())
 })

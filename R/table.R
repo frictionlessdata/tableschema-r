@@ -133,7 +133,7 @@ Table <- R6Class(
         
       
         # Resolve relations
-        if (!is.null(relations) && !isTRUE(identical(relations,FALSE))) {
+        if (!is.null(relations) && !isTRUE(identical(relations, FALSE))) {
           if (!is.null(self$schema)) {
             
             for (foreignKey in self$schema$foreignKeys) {
@@ -341,11 +341,11 @@ Table.load = function(source,
                       schema = NULL,
                       strict = FALSE,
                       headers = 1, ...) {
-  return(future::future(function() {
+  return(future::future({
     # Load schema
     if (!is.null(schema) && class(schema)[[1]] != "Schema") {
       def  = Schema.load(schema, strict)
-      schema = def$value()
+      schema = future::value(def)
     }
     
     return(Table$new(source, schema, strict, headers))
@@ -366,7 +366,7 @@ table.resolveRelations = function(row, headers, relations, foreignKey) {
   
   reference = relations[[actualKey]]
   
-  if (is.null(reference) || isTRUE(stringr::str_length(reference) < 1)) {
+  if (is.null(reference) ) { #|| isTRUE(stringr::str_length(reference) < 1)) {
     return(row)
   }
   

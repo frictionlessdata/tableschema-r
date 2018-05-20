@@ -14,7 +14,7 @@ infer <- function(source, options = list()) {
   arguments = append(arguments, options)
 
   def2  = do.call(Table.load, arguments )
-  table = def2$value();
+  table = future::value(def2);
   
 
   descriptor = table$infer(limit = options[["limit"]])

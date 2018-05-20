@@ -10,6 +10,6 @@ validate <- function(descriptor) {
   
   # https://github.com/frictionlessdata/tableschema-js#infer
   def  = Schema.load(descriptor)
-  schema = def$value()
+  schema = future::value(def)
   return(list(valid = schema$valid, errors = schema$errors))
 }
