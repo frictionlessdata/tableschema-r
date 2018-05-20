@@ -255,3 +255,4 @@ test_that("should support local descriptors", {
   expect_equal(validation$valid, TRUE)
   expect_equal(length(validation$errors), 0)
 })
+

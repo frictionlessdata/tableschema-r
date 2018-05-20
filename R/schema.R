@@ -282,7 +282,7 @@ Schema <- R6Class(
       # Validate descriptor
       private$errors_ = list()
       if (!is.character(private$currentDescriptor_json)) private$currentDescriptor_json = jsonlite::toJSON(private$currentDescriptor_json)
-      private$currentDescriptor_json =  helpers.retrieveDescriptor(private$currentDescriptor_json)$value
+      private$currentDescriptor_json =  future::value(helpers.retrieveDescriptor(private$currentDescriptor_json))
       if (inherits(private$currentDescriptor_json, "simpleError")) {
         stop(private$currentDescriptor_json$message)
       }
@@ -397,7 +397,7 @@ Schema <- R6Class(
 Schema.load = function(descriptor = "",
                        strict = FALSE,
                        caseInsensitiveHeaders = FALSE) {
-  return(future::future(function() {
+  return(future::future({
 
     return(
  

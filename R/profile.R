@@ -18,9 +18,10 @@ Profile <- R6Class(
     initialize = function(profile) {
      
       tryCatch({
-        profile =  file.path(stringr::str_interp("${profiles[[profile]]}"))
-        private$profile_ = readLines(profile,warn = FALSE)
-        private$jsonschema_ = jsonlite::toJSON(jsonlite::fromJSON(profile))
+        profile  =  system.file(stringr::str_interp("profiles/${profile}.json"), package = "tableschema.r")
+        private$profile_ = profile
+        # private$profile_ = readLines(profile,warn = FALSE)
+        private$jsonschema_ = jsonlite::toJSON(jsonlite::fromJSON(profile, simplifyVector = TRUE))
         return(private$jsonschema_)
       },
       error = function(cond) {
@@ -277,7 +278,7 @@ Profile.load = function(profile, ...){
         jsonschema = httr::content(response, as = 'text')
       },
       
-      error= function(e) {
+      error = function(e) {
         TableSchemaError$new(stringr::str_interp("Can not retrieve remote profile '${profile}'"))$message
       })
       
