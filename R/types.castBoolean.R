@@ -16,7 +16,7 @@ types.castBoolean <- function (format, value, options={}) { #format parameter is
   
   if  ( !is.logical(value) ) {
     
-    if ( !is.character(value) ) return(config::get("ERROR"))
+    if ( !is.character(value) ) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     
     value = trimws(value)
     
@@ -28,7 +28,7 @@ types.castBoolean <- function (format, value, options={}) { #format parameter is
       
       value = FALSE
       
-    } else  return(config::get("ERROR"))
+    } else  return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     
   }
   

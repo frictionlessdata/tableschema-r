@@ -14,7 +14,7 @@ types.castDuration <- function(format = "default", value) { #format parameter is
   else if (isTRUE(grepl("P(\\d+)Y(\\d+)M(\\d+)DT(\\d+)H(\\d+)M(\\d+)S",value))) duration = ifelse(grepl(".*M(\\d)S", value), gsub("P(\\d+)Y(\\d+)M(\\d+)DT(\\d+)H(\\d+)M(\\d)S", "\\1 Years, \\2 Months, \\3 Days, \\4:\\5:0\\6", value), 
                                                                                                   gsub("P(\\d+)Y(\\d+)M(\\d+)DT(\\d+)H(\\d+)M(\\d+)S", "\\1 Years, \\2 Months, \\3 Days, \\4:\\5:\\6", value))
   
-  else return(config::get("ERROR"))
+  else return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     #stop(TableSchemaError$new("Value should be ISO-8601 extended format or duration object, see duration function")$message)
 
   return(duration)
@@ -83,13 +83,13 @@ durations = function(years = 0, months = 0, days = 0, hours = 00, minutes = 00, 
 #   
 #   if (!lubridate::is.duration(value)) {
 #     
-#     if (!is.character(value)) return(config::get("ERROR"))
+#     if (!is.character(value)) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
 #     
 #     result = tryCatch({
 #       
 #       value = Duration(as.integer(value), type = format)  # as.integer change to types.castInteger function
 #       
-#       if (!lubridate::is.duration(value) || is.na(value)) return(config::get("ERROR"))
+#       if (!lubridate::is.duration(value) || is.na(value)) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
 #       else {
 #         return(value)
 #       }
@@ -97,13 +97,13 @@ durations = function(years = 0, months = 0, days = 0, hours = 00, minutes = 00, 
 #     },
 #     
 #     warning = function(w) {
-#       message(config::get("WARNING"))
-#       return(config::get("ERROR"))
+#       message(config::get("WARNING", file = system.file("config/config.yml", package = "tableschema.r")))
+#       return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
 #       
 #     },
 #     
 #     error = function(e) {
-#       return(config::get("ERROR"))
+#       return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
 #       
 #     },
 #     

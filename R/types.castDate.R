@@ -9,7 +9,7 @@ types.castDate <- function(format, value) {
   if (!lubridate::is.Date(value)) {
 
     if (!is.character(value))
-      return(config::get("ERROR"))
+      return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     withCallingHandlers(
       tryCatch({
 
@@ -21,7 +21,7 @@ types.castDate <- function(format, value) {
             format = "%Y-%m-%d"
           ))
           
-          if (is.na(value) | is.null(value)) return(config::get("ERROR"))
+          if (is.na(value) | is.null(value)) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
           
         } else if (format != "default" &&
                    !startsWith(format, "fmt:")) {
@@ -35,12 +35,12 @@ types.castDate <- function(format, value) {
           
           if (isTRUE(is.na(value) ||
                      nchar(value) > 11))
-            return(config::get("ERROR"))
+            return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
           
         } else {
 
           if (startsWith(format, "fmt:")) {
-            message(config::get("WARNING"))
+            message(config::get("WARNING", file = system.file("config/config.yml", package = "tableschema.r")))
             
             #warn=message("Format ",format," is deprecated.\nPlease use ",unlist(strsplit(format,":"))[2]," without 'fmt:' prefix.", call. = FALSE)
             
@@ -57,7 +57,7 @@ types.castDate <- function(format, value) {
 
           if (isTRUE(is.na(value) ||
                      nchar(value) > 11))
-            return(config::get("ERROR"))
+            return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
           
         }
         
@@ -65,7 +65,7 @@ types.castDate <- function(format, value) {
           parsed_effort = suppressWarnings(lubridate::parse_date_time(value, format))
                   if ((!lubridate::is.instant(parsed_effort)) ||
             is.na(parsed_effort)) {
-          return(config::get("ERROR"))
+          return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
           
         } else {
           value = as.Date(lubridate::parse_date_time(value, format), format = format)
@@ -78,12 +78,12 @@ types.castDate <- function(format, value) {
       }),
       
       warning = function(w) {
-        return(config::get("ERROR"))
+        return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
         
       },
       
       error = function(e) {
-        return(config::get("ERROR"))
+        return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
         invokeRestart("muffleWarning")
       }
     )

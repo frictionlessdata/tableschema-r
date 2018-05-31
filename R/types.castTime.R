@@ -10,7 +10,7 @@ types.castTime <- function (format="%H:%M:%S", value) {
   
   if (!lubridate::is.instant(value)) {
     
-    if (!is.character(value)) return(config::get("ERROR"))
+    if (!is.character(value)) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     
     value = tryCatch( {
       
@@ -24,7 +24,7 @@ types.castTime <- function (format="%H:%M:%S", value) {
         
       } else if (startsWith(format,"fmt:") ){
         
-        message(config::get("WARNING"))
+        message(config::get("WARNING", file = system.file("config/config.yml", package = "tableschema.r")))
         
         #warning("Format ",format," is deprecated.\nPlease use ",unlist(strsplit(format,":"))[2]," without 'fmt:' prefix.", call. = FALSE) 
         
@@ -43,7 +43,7 @@ types.castTime <- function (format="%H:%M:%S", value) {
         #value = strftime(value, format = format)
       }
 
-      if ( !lubridate::is.POSIXlt(strptime(value, format = format)) || is.na(value) ) return(config::get("ERROR"))
+      if ( !lubridate::is.POSIXlt(strptime(value, format = format)) || is.na(value) ) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
       
       value = strftime(as.POSIXlt(value, format = format), format = format) 
       
@@ -51,13 +51,13 @@ types.castTime <- function (format="%H:%M:%S", value) {
     
     warning = function(w) {
       
-      return(config::get("ERROR"))
+      return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
       
     },
     
     error = function(e) {
       
-      return(config::get("ERROR"))
+      return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
       
     },
     

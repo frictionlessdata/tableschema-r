@@ -15,11 +15,11 @@ Helpers$expandFieldDescriptor <- function(descriptor) {
     stop("Field descriptor should be a hash instance.")
   }
   if (!("type" %in% names(descriptor))) {
-    descriptor$type <- config::get("DEFAULT_FIELD_TYPE", "config.yml")
+    descriptor$type <- config::get("DEFAULT_FIELD_TYPE", file = system.file("config/config.yml", package = "tableschema.r"))
   }
   
   if (!("format" %in% names(descriptor))) {
-    descriptor$format <- config::get("DEFAULT_FIELD_FORMAT", "config.yml")
+    descriptor$format <- config::get("DEFAULT_FIELD_FORMAT", file = system.file("config/config.yml", package = "tableschema.r"))
   }
   return(descriptor)
 }
@@ -110,7 +110,7 @@ helpers.expandSchemaDescriptor <- function(descriptor) {
     field = descriptor$fields[[index]]
     descriptor$fields[[index]] = helpers.expandFieldDescriptor(field)
   }
-  if (is.null(descriptor$missingValues) || length(descriptor$missingValues) == 0)  descriptor$missingValues = as.list(config::get("DEFAULT_MISSING_VALUES"))
+  if (is.null(descriptor$missingValues) || length(descriptor$missingValues) == 0)  descriptor$missingValues = as.list(config::get("DEFAULT_MISSING_VALUES", file = system.file("config/config.yml", package = "tableschema.r")))
   
   return(descriptor)
 }
@@ -123,8 +123,8 @@ helpers.expandSchemaDescriptor <- function(descriptor) {
 
 helpers.expandFieldDescriptor = function(descriptor) {
   if (is.list(descriptor)) {
-    if (is.null(descriptor$type)) descriptor$type = config::get("DEFAULT_FIELD_TYPE")
-    if (is.null(descriptor$format)) descriptor$format = config::get("DEFAULT_FIELD_FORMAT")
+    if (is.null(descriptor$type)) descriptor$type = config::get("DEFAULT_FIELD_TYPE", file = system.file("config/config.yml", package = "tableschema.r"))
+    if (is.null(descriptor$format)) descriptor$format = config::get("DEFAULT_FIELD_FORMAT", file = system.file("config/config.yml", package = "tableschema.r"))
   }
   return(descriptor)
 }
@@ -261,12 +261,12 @@ is_integer = function(x) {
     
   },
   warning = function(w) {
-    message(config::get("WARNING"))
+    message(config::get("WARNING", file = system.file("config/config.yml", package = "tableschema.r")))
     
   },
   
   error = function(e) {
-    return(config::get("ERROR"))
+    return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     
   },
   

@@ -11,7 +11,7 @@ types.castInteger <- function (format, value, options={}) {
   
   if (!is_integer(value)) {
     
-    if (!is.character(value)) return(config::get("ERROR"))
+    if (!is.character(value)) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     
     if ("bareNumber" %in% names(options)) {
       
@@ -29,7 +29,7 @@ types.castInteger <- function (format, value, options={}) {
       
       result = as.integer(value)
       
-      if (is.nan(result) || as.character(result) != value) return(config::get("ERROR"))
+      if (is.nan(result) || as.character(result) != value) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
       
       value = result
       
@@ -37,13 +37,13 @@ types.castInteger <- function (format, value, options={}) {
     
     warning = function(w) {
       
-      return(config::get("ERROR"))
+      return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
       
     },
     
     error = function(e) {
       
-      return(config::get("ERROR"))
+      return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
       
     },
     

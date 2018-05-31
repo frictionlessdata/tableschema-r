@@ -15,7 +15,7 @@ Field <- R6Class(
     initialize = function(descriptor,
                           base_path = NULL,
                           strict = NULL,
-                          missingValues = as.list(config::get("DEFAULT_MISSING_VALUES")),
+                          missingValues = as.list(config::get("DEFAULT_MISSING_VALUES", file = system.file("config/config.yml", package = "tableschema.r"))),
                           ...) {
       
       if (missing(base_path)) {
@@ -158,7 +158,7 @@ Field <- R6Class(
         castFunction <- private$castFunction()
         
         castValue = castFunction(value)
-        if (identical(castValue , config::get("ERROR"))) {
+        if (identical(castValue , config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))) {
           err_message <-
             stringr::str_interp(
               "Field ${private$name} can't cast value ${value} for type ${self$type} with format ${self$format}"
