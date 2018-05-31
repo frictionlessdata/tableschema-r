@@ -10,32 +10,32 @@ testthat::context("types.castString")
 TESTS = list(
   list("default", "string", "string"),
   list("default", "", ""),
-  list("default", 0, config::get("ERROR")),
+  list("default", 0, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   list("uri", "http://google.com", "http://google.com"),
   
   # list("uri", "ftp://example.org/resource.txt", "ftp://example.org/resource.txt"),
   
-  list("uri", "string", config::get("ERROR")),
-  list("uri", "", config::get("ERROR")),
-  list("uri", 0, config::get("ERROR")),
+  list("uri", "string", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  list("uri", "", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  list("uri", 0, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   list("email", "name@gmail.com", "name@gmail.com"),
-  list("email", "http://google.com", config::get("ERROR")),
-  list("email", "string", config::get("ERROR")),
-  list("email", "", config::get("ERROR")),
-  list("email", 0, config::get("ERROR")),
+  list("email", "http://google.com", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  list("email", "string", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  list("email", "", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  list("email", 0, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   
   list("uuid", '95ecc380-afe9-11e4-9b6c-751b66dd541e', '95ecc380-afe9-11e4-9b6c-751b66dd541e'),
   list("uuid", '0a7b330a-a736-35ea-8f7f-feaf019cdc00', '0a7b330a-a736-35ea-8f7f-feaf019cdc00'),
-  list("uuid", '0a7b330a-a736-35ea-8f7f-feaf019cdc', config::get("ERROR")),
-  list("uuid", "string", config::get("ERROR")),
-  list("uuid", "", config::get("ERROR")),
-  list("uuid", 0, config::get("ERROR")),
+  list("uuid", '0a7b330a-a736-35ea-8f7f-feaf019cdc', config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  list("uuid", "string", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  list("uuid", "", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  list("uuid", 0, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   
   
   list("binary", "dGVzdA==", "dGVzdA=="),
-  # list("binary", "string", config::get("ERROR")),
+  # list("binary", "string", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   list("binary", "", ""),
-  list("binary", 0, config::get("ERROR"))
+  list("binary", 0, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
 )
 
 # Tests

@@ -11,10 +11,10 @@ TESTS = list(
   list('default', list(), list()),
   list('default', list('key', 'value'), list('key', 'value')),
   list('default', '["key", "value"]', list('key', 'value')),
-  list('default', 'string', config::get("ERROR")),
-  list('default', 1, config::get("ERROR")),
-  list('default', '3.14', config::get("ERROR")),
-  list('default', '', config::get("ERROR"))
+  list('default', 'string', config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  list('default', 1, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  list('default', '3.14', config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  list('default', '', config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
   )
 
 # Tests

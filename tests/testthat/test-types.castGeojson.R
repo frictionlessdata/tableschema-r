@@ -17,23 +17,23 @@ TESTS = list(
   ##  '{"geometry": null, "type": "Feature", "properties": {"\\u00c3": "\\u00c3"}}',
   ##  {'properties': {'Ã': 'Ã'}, 'type': 'Feature', 'geometry': NULL} ),
   
-  list('default', "{'coordinates': [0, 0, 0], 'type': 'Point'}", config::get("ERROR") ),
-  list('default', 'string', config::get("ERROR") ),
-  list('default', 1, config::get("ERROR") ),
-  list('default', '3.14', config::get("ERROR") ),
-  list('default', '', config::get("ERROR") ),
-  list('default', {}, config::get("ERROR") ),
-  list('default', '{}', config::get("ERROR") ),
+  list('default', "{'coordinates': [0, 0, 0], 'type': 'Point'}", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")) ),
+  list('default', 'string', config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")) ),
+  list('default', 1, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")) ),
+  list('default', '3.14', config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")) ),
+  list('default', '', config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")) ),
+  list('default', {}, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")) ),
+  list('default', '{}', config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")) ),
   
   #list('topojson', "{'type': 'LineString', 'arcs': [42]}","{'type': 'LineString', 'arcs': [42]}" ),
 
   #list('topojson', '{"type": "LineString", "arcs": [42]}',{'type': 'LineString', 'arcs': [42]} ),
 
-  list('topojson', list("arcs" = list(42)), config::get("ERROR")),
-  list('topojson', 'string', config::get("ERROR")),
-  list('topojson', 1, config::get("ERROR")),
-  list('topojson', '3.14', config::get("ERROR")),
-  list('topojson', '', config::get("ERROR") )
+  list('topojson', list("arcs" = list(42)), config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  list('topojson', 'string', config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  list('topojson', 1, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  list('topojson', '3.14', config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  list('topojson', '', config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")) )
 )
 
 # Tests

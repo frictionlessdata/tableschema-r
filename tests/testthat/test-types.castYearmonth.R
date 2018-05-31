@@ -14,23 +14,23 @@ TESTS = list(
   
   list("default", "2000-10", list(2000, 10)),
   
-  list("default", list(2000, 10, 20), config::get("ERROR")),
+  list("default", list(2000, 10, 20), config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   
-  list("default", "2000-13-20", config::get("ERROR")),
+  list("default", "2000-13-20", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   
-  list("default", "2000-13", config::get("ERROR")),
+  list("default", "2000-13", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   
-  list("default", "2000-0", config::get("ERROR")),
+  list("default", "2000-0", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   
-  list("default", "13", config::get("ERROR")),
+  list("default", "13", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   
-  list("default", -10, config::get("ERROR")),
+  list("default", -10, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   
-  list("default", 20, config::get("ERROR")),
+  list("default", 20, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   
-  list("default", "3.14", config::get("ERROR")),
+  list("default", "3.14", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   
-  list("default", "", config::get("ERROR"))
+  list("default", "", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
   
 )
 
