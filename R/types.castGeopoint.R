@@ -26,7 +26,7 @@ tryCatch({
         
         lon_lat = value
         
-      } else return(config::get("ERROR"))
+      } else return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
       
     } else if (format == 'array' | format== 'list') {
       
@@ -61,24 +61,24 @@ tryCatch({
   
   error = function(e) {
     
-    return(config::get("ERROR"))
+    return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     
   })
   
   
-  if (is_empty(lon_lat) | is.null(lon_lat) | !is.null(names(lon_lat)) )  return(config::get("ERROR"))
+  if (is_empty(lon_lat) | is.null(lon_lat) | !is.null(names(lon_lat)) )  return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
   
-  if (length(lon_lat) !=2)  return(config::get("ERROR"))
+  if (length(lon_lat) !=2)  return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
   
   if (is.nan(lon_lat[[1]]) | lon_lat[[1]] > 180 | lon_lat[[1]] < -180) {
     
-    return(config::get("ERROR"))
+    return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     
   }
   
   if (is.nan(lon_lat[[2]]) | lon_lat[[2]] > 90 | lon_lat[[2]] < -90) {
     
-    return(config::get("ERROR"))
+    return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     
   }
   

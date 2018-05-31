@@ -359,7 +359,7 @@ Schema <- R6Class(
           cast = private$types$casts[[stringr::str_interp("cast${stringr::str_to_title(type)}")]]
           
           result = cast('default', value)
-          if (result != config::get("ERROR")) {
+          if (result != config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))) {
             matches = append(matches, list(type))
             break
           }

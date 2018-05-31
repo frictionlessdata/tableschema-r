@@ -9,7 +9,7 @@ types.castList <- function (format, value) {
   
   if(!is.list(value)) {
     if(!is.character(value)) {
-      return(config::get("ERROR"))
+      return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     }
   }
   
@@ -24,11 +24,11 @@ types.castList <- function (format, value) {
       
     },
     warning = function(w) {
-      return(config::get("ERROR"))
+      return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     },
     
     error = function(e) {
-      return(config::get("ERROR"))
+      return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
       
     },
     
@@ -37,7 +37,7 @@ types.castList <- function (format, value) {
     })
   }
   
-  if (!is.list(value) ) return(config::get("ERROR"))
+  if (!is.list(value) ) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
   
   return (value)
   

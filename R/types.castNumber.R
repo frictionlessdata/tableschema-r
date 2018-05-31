@@ -16,9 +16,9 @@ types.castNumber <- function (format, value, options={}) {
   
   if ( !is.numeric(value) ) {
     
-    if ( !is.character(value) )  return(config::get("ERROR"))
+    if ( !is.character(value) )  return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     
-    if ( isTRUE(nchar(value) < 1) ) return(config::get("ERROR"))
+    if ( isTRUE(nchar(value) < 1) ) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     
     value = stringr::str_replace_all(string=value, pattern="[\\s]", repl="") #gsub("\\s", "", value)
     
@@ -57,13 +57,13 @@ types.castNumber <- function (format, value, options={}) {
     
     warning = function(w) {
       
-      return(config::get("ERROR"))
+      return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
       
     },
     
     error = function(e) {
       
-      return(config::get("ERROR"))
+      return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
       
     },
     
@@ -74,7 +74,7 @@ types.castNumber <- function (format, value, options={}) {
   }
   
   
-  if (is.null(value) || is.nan(value)) return(config::get("ERROR"))
+  if (is.null(value) || is.nan(value)) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
   
   return(value)
   

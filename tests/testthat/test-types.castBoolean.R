@@ -25,24 +25,24 @@ TESTS = list(
   list("default", "no", FALSE, list(falseValues = list("no")) ),
   list("default", "N", FALSE, list(falseValues = list("N")) ),
   
-  list("default", "YES", config::get("ERROR"), {} ),
-  list("default", "Yes", config::get("ERROR"), {} ),
-  list("default", "yes", config::get("ERROR"), {} ),
-  list("default", "y", config::get("ERROR"), {} ),
-  list("default", "t", config::get("ERROR"), {} ),
-  list("default", "f", config::get("ERROR"), {} ),
-  list("default", "no", config::get("ERROR"), {} ),
-  list("default", "n", config::get("ERROR"), {} ),
-  list("default", "NO", config::get("ERROR"), {} ),
-  list("default", "No", config::get("ERROR"), {} ),
+  list("default", "YES", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {} ),
+  list("default", "Yes", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {} ),
+  list("default", "yes", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {} ),
+  list("default", "y", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {} ),
+  list("default", "t", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {} ),
+  list("default", "f", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {} ),
+  list("default", "no", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {} ),
+  list("default", "n", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {} ),
+  list("default", "NO", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {} ),
+  list("default", "No", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {} ),
   
-  list("default", "N", config::get("ERROR"), list(falseValues = list("n")) ),
-  list("default", "Y", config::get("ERROR"), list(falseValues = list("y")) ),
+  list("default", "N", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), list(falseValues = list("n")) ),
+  list("default", "Y", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), list(falseValues = list("y")) ),
   
-  list("default", 0, config::get("ERROR"), {} ),
-  list("default", 1, config::get("ERROR"), {} ),
-  list("default", "3.14", config::get("ERROR"), {} ),
-  list("default", "", config::get("ERROR"), {} )
+  list("default", 0, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {} ),
+  list("default", 1, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {} ),
+  list("default", "3.14", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {} ),
+  list("default", "", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {} )
 )
 
 # Tests

@@ -10,7 +10,7 @@ types.castDatetime <- function (format = "%Y-%m-%dT%H:%M:%SZ", value) {
   
   if (!lubridate::is.Date(value) ) {
     
-    if (!is.character(value)) return(config::get("ERROR"))
+    if (!is.character(value)) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     value = tryCatch({
       if (format == 'default'){
         value = lubridate::as_datetime(lubridate::fast_strptime(value, "%Y-%m-%dT%H:%M:%SZ" ))
@@ -35,7 +35,7 @@ types.castDatetime <- function (format = "%Y-%m-%dT%H:%M:%SZ", value) {
       }
       
       if (is.na(value)) {
-        return(config::get("ERROR"))
+        return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
         
       }
       
@@ -46,13 +46,13 @@ types.castDatetime <- function (format = "%Y-%m-%dT%H:%M:%SZ", value) {
     
     warning = function(w) {
       
-      return(config::get("ERROR"))
+      return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
       
     },
     
     error = function(e) {
       
-      return(config::get("ERROR"))
+      return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
       
     })
     

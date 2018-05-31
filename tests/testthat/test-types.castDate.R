@@ -14,13 +14,13 @@ TESTS = list(
 
   list("default", "2019-01-01", as.Date("2019-1-1")),
 
-  list("default", "10th Jan 1969", config::get("ERROR")),
+  list("default", "10th Jan 1969", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
 
-  list("default", "invalid", config::get("ERROR")),
+  list("default", "invalid", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
 
-  list("default", TRUE, config::get("ERROR")),
+  list("default", TRUE, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
 
-  list("default", "", config::get("ERROR")),
+  list("default", "", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
 
   list("any", as.Date("2019-1-1"), as.Date("2019-1-1")),
 
@@ -28,40 +28,40 @@ TESTS = list(
 
   #list ("any", "10th Jan 1969", as.Date("1969-1-10")),
 
-  list("any", "10th Jan nineteen sixty nine", config::get("ERROR")),
+  list("any", "10th Jan nineteen sixty nine", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
 
-  list("any", "invalid", config::get("ERROR")),
+  list("any", "invalid", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
 
-  list("any", TRUE, config::get("ERROR")),
+  list("any", TRUE, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
 
-  list("any", "", config::get("ERROR")),
+  list("any", "", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
 
   list("%d/%m/%y", as.Date("2019-1-1"), as.Date("2019-1-1")),
 
   list("%d/%m/%y", "21/11/06", as.Date("2006-11-21")),
 
-  list("%y/%m/%d", "21/11/06 16:30", config::get("ERROR")),
+  list("%y/%m/%d", "21/11/06 16:30", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
 
-  list("%d/%m/%y", "invalid", config::get("ERROR")),
+  list("%d/%m/%y", "invalid", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
 
-  list("%d/%m/%y", TRUE, config::get("ERROR")),
+  list("%d/%m/%y", TRUE, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
 
-  list("%d/%m/%y", "", config::get("ERROR")),
+  list("%d/%m/%y", "", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
 
-  list("invalid", "21/11/06 16:30", config::get("ERROR")),
+  list("invalid", "21/11/06 16:30", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
 
   # Deprecated
   list("fmt:%d/%m/%y", as.Date("2019-1-1"), as.Date("2019-1-1")),
 
   list("fmt:%d/%m/%y", "21/11/06", as.Date("2006-11-21")),
 
-  list("fmt:%y/%m/%d", "21/11/06 16:30", config::get("ERROR")),
+  list("fmt:%y/%m/%d", "21/11/06 16:30", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
 
-  list("fmt:%d/%m/%y", "invalid", config::get("ERROR")),
+  list("fmt:%d/%m/%y", "invalid", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
 
-  list("fmt:%d/%m/%y", TRUE, config::get("ERROR")),
+  list("fmt:%d/%m/%y", TRUE, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
 
-  list("fmt:%d/%m/%y", "", config::get("ERROR"))
+  list("fmt:%d/%m/%y", "", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
 
 )
 

@@ -10,7 +10,7 @@ types.castGeojson <- function(format, value) {
   
   if (!is.object(value)) {
     
-    if (!is.character(value)) return(config::get("ERROR"))
+    if (!is.character(value)) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     
     value = tryCatch( {
       
@@ -19,13 +19,13 @@ types.castGeojson <- function(format, value) {
     
     warning = function(w) {
       
-      return(config::get("ERROR"))
+      return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
       
     },
     
     error = function(e) {
       
-      return(config::get("ERROR"))
+      return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
       
     },
     
@@ -35,7 +35,7 @@ types.castGeojson <- function(format, value) {
     
   }
   
-  # if(value == config::get("ERROR")){
+  # if(value == config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))){
   #   return(value)
   # }
   
@@ -49,7 +49,7 @@ types.castGeojson <- function(format, value) {
       
       valid = v(value,verbose = TRUE, greedy = TRUE, error = FALSE) # ./inst/profiles/geojson.json
       
-      if (!isTRUE(valid)) return(config::get("ERROR"))
+      if (!isTRUE(valid)) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
       
       else return(value)
       
@@ -57,7 +57,7 @@ types.castGeojson <- function(format, value) {
     
     error = function(e) {
       
-      return(config::get("ERROR"))
+      return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
       
     },
     
@@ -68,7 +68,7 @@ types.castGeojson <- function(format, value) {
   } else if (format == "topojson") {
     
     
-    if ( !is_object(value) ) return(config::get("ERROR"))  #!isPlainObject(value)
+    if ( !is_object(value) ) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))  #!isPlainObject(value)
     
   }
   

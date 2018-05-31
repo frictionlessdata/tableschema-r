@@ -6,13 +6,13 @@
 #' @export
 #' 
 
-types.castYearmonth <- function (format, value) { 
+types.castYearmonth <- function(format, value) { 
   
-  if ( isTRUE(is_empty(value))) return(config::get("ERROR"))
+  if ( isTRUE(is_empty(value))) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
   
   if (is.array(value) | is.list(value) ) {
     
-    if (length(value) != 2) return(config::get("ERROR"))
+    if (length(value) != 2) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     
   } else if (is.character(value)) {
     
@@ -20,7 +20,7 @@ types.castYearmonth <- function (format, value) {
       
       value = as.list( unlist( strsplit(value, split = "-")))
       
-      if ( nchar(as.integer(value[[1]])) != 4 ) return(config::get("ERROR"))
+      if ( nchar(as.integer(value[[1]])) != 4 ) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
       
       #names(value) = c("year", "month")
       
@@ -28,9 +28,9 @@ types.castYearmonth <- function (format, value) {
       
       month = as.integer(value[[2]])
       
-      #if (!year | !month) return(config::get("ERROR"))
+      #if (!year | !month) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
       
-      if (month < 1 | month > 12) return(config::get("ERROR"))
+      if (month < 1 | month > 12) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
       
       #value = list(year = year, month = month)
       value = list(year, month)
@@ -38,13 +38,13 @@ types.castYearmonth <- function (format, value) {
       }, 
       warning = function(w) {
         
-        return(config::get("ERROR"))
+        return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
         
       },
       
       error = function(e) {
         
-        return(config::get("ERROR"))
+        return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
         
       },
       
@@ -52,7 +52,7 @@ types.castYearmonth <- function (format, value) {
         
       })
     
-  } else return(config::get("ERROR"))
+  } else return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
   
   return (value)
 }
