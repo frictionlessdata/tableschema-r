@@ -2,10 +2,11 @@
 % Please edit documentation in R/types.castDuration.R
 \name{durations}
 \alias{durations}
-\title{durations}
+\title{Durations
+Help function to use with \code{\link{types.castDuration}}}
 \usage{
-durations(years = 0, months = 0, days = 0, hours = 0, minutes = 0,
-  seconds = 0)
+durations(years = 0, months = 0, days = 0, hours = 0,
+  minutes = 0, seconds = 0)
 }
 \arguments{
 \item{years}{years}
@@ -21,5 +22,9 @@ durations(years = 0, months = 0, days = 0, hours = 0, minutes = 0,
 \item{seconds}{seconds}
 }
 \description{
-durations
+Durations
+Help function to use with \code{\link{types.castDuration}}
+}
+\seealso{
+\code{\link{types.castDuration}}
 }

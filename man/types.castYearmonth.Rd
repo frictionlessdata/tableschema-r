@@ -2,15 +2,26 @@
 % Please edit documentation in R/types.castYearmonth.R
 \name{types.castYearmonth}
 \alias{types.castYearmonth}
-\title{cast yearmonth}
+\title{Cast a specific month in a specific year}
 \usage{
 types.castYearmonth(format, value)
 }
 \arguments{
-\item{format}{format}
+\item{format}{no options (other than the default)}
 
-\item{value}{value}
+\item{value}{list or string with yearmonth to cast}
 }
 \description{
-cast yearmonth
+Cast a specific month in a specific year as per \href{https://www.w3.org/TR/xmlschema-2/#gYearMonth}{XMLSchema gYearMonth}. 
+Usual lexical representation is: YYYY-MM.
+}
+\examples{
+
+types.castYearmonth(format = "default", value = list(2000, 10))
+
+types.castYearmonth(format = "default", value = "2018-11")
+
+}
+\seealso{
+\href{https://frictionlessdata.io/specs/table-schema/#yearmonth}{frictionlessdata yearmonth specification}
 }

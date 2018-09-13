@@ -2,17 +2,36 @@
 % Please edit documentation in R/types.castInteger.R
 \name{types.castInteger}
 \alias{types.castInteger}
-\title{cast integer}
+\title{Cast integer}
 \usage{
 types.castInteger(format, value, options = { })
 }
 \arguments{
-\item{format}{format}
+\item{format}{no options (other than the default)}
 
-\item{value}{value}
+\item{value}{integer to cast}
 
-\item{options}{options bareNumber}
+\item{options}{named list set bareNumber \code{TRUE} or \code{FALSE}, see details}
 }
 \description{
-cast integer
+Cast integer. Integer values are indicated in the standard way for any valid integer.
+}
+\details{
+bareNumber is a boolean field with a default of \code{TRUE}. If \code{TRUE} the physical contents of this field must follow 
+ the formatting constraints already set out. If \code{FALSE} the contents of this field may contain leading 
+ and or trailing non-numeric characters (which implementors MUST therefore strip). 
+ The purpose of \code{bareNumber} is to allow publishers to publish numeric data that contains trailing characters such as percentages
+ e.g. \code{95}% or leading characters such as currencies e.g. €\code{95} or EUR \code{95}. Note that it is entirely up to implementors what, 
+ if anything, they do with stripped text.
+}
+\examples{
+types.castInteger(format = "default", value = 1)
+
+types.castInteger(format = "default", value = "1")
+# cast trailing non numeric character
+types.castInteger(format = "default", value = "1$", options = list(bareNumber = FALSE))
+
+}
+\seealso{
+\href{https://frictionlessdata.io/specs/table-schema/#integer}{frictionlessdata integer specification}
 }

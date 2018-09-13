@@ -2,17 +2,49 @@
 % Please edit documentation in R/types.castBoolean.R
 \name{types.castBoolean}
 \alias{types.castBoolean}
-\title{cast boolean}
+\title{Cast boolean}
 \usage{
-types.castBoolean(format, value, options = { })
+types.castBoolean(format = "default", value, options = { })
 }
 \arguments{
-\item{format}{format}
+\item{format}{no options (other than the default)}
 
-\item{value}{value}
+\item{value}{boolean to cast}
 
-\item{options}{options specify trueValues or/and falseValues}
+\item{options}{specify additioanl true values or/and falsevalues}
 }
 \description{
-cast boolean
+Cast boolean values
+}
+\details{
+In the physical representations of data where boolean values are represented with strings, 
+the values set in trueValues and falseValues are to be cast to their logical representation as booleans. 
+trueValues and falseValues are lists which can be customised to user need. 
+The default values for these are in the additional properties section below.
+
+The boolean field can be customised with these additional properties:
+\itemize{
+\item{trueValues: ["true", "True", "TRUE", "1"]}
+\item{falseValues: ["false", "False", "FALSE", "0"]}
+}
+}
+\examples{
+
+types.castBoolean(format = "default", value =  TRUE)
+
+types.castBoolean(format = "default", value = "true")
+
+types.castBoolean(format = "default", value = "1")
+
+types.castBoolean(format = "default", value = "0")
+
+# set options with additional true value
+types.castBoolean(format = "default", value = "yes", list(trueValues = list("yes")))
+
+# set options with additional false value
+types.castBoolean(format = "default", value = "no", list(falseValues  = list("no")))
+
+}
+\seealso{
+\href{https://frictionlessdata.io/specs/table-schema/#boolean}{frictionlessdata boolean specification}
 }

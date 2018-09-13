@@ -1,9 +1,18 @@
-#' @title cast yearmonth
-#' @description cast yearmonth
-#' @param value value
-#' @param format format
+#' @title Cast a specific month in a specific year
+#' @description  Cast a specific month in a specific year as per \href{https://www.w3.org/TR/xmlschema-2/#gYearMonth}{XMLSchema gYearMonth}. 
+#' Usual lexical representation is: YYYY-MM.
+#' @param format no options (other than the default)
+#' @param value list or string with yearmonth to cast
 #' @rdname types.castYearmonth
 #' @export
+#' 
+#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#yearmonth}{frictionlessdata yearmonth specification}
+#' 
+#' @examples 
+#' 
+#' types.castYearmonth(format = "default", value = list(2000, 10))
+#' 
+#' types.castYearmonth(format = "default", value = "2018-11")
 #' 
 
 types.castYearmonth <- function(format, value) { 

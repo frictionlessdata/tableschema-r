@@ -2,15 +2,32 @@
 % Please edit documentation in R/types.castAny.R
 \name{types.castAny}
 \alias{types.castAny}
-\title{cast any}
+\title{Cast any value}
 \usage{
 types.castAny(format, value)
 }
 \arguments{
-\item{format}{format}
+\item{format}{any format is accepted}
 
-\item{value}{value}
+\item{value}{any value to cast}
 }
 \description{
-cast any
+Cast any value
+}
+\details{
+Any type or format is accepted.
+}
+\examples{
+
+types.castAny(format = "default", value = 1)
+
+types.castAny(format = "default", value = "1")
+
+types.castAny(format = "default", value = "")
+
+types.castAny(format = "default", value = TRUE)
+
+}
+\seealso{
+\href{https://frictionlessdata.io/specs/table-schema/#any}{frictionlessdata any specification}
 }

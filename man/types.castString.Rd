@@ -2,15 +2,43 @@
 % Please edit documentation in R/types.castString.R
 \name{types.castString}
 \alias{types.castString}
-\title{cast string}
+\title{Cast string}
 \usage{
 types.castString(format, value)
 }
 \arguments{
-\item{format}{format}
+\item{format}{available options are "default", "email", "uri", "binary" and "uuid", where
+\describe{
+\item{\code{default }}{Any valid string.}
+\item{\code{email }}{A valid email address.}
+\item{\code{uri }}{A valid URI.}
+\item{\code{binary }}{A base64 encoded string representing binary data.}
+\item{\code{uuid }}{A string that is a uuid.}
+}}
 
-\item{value}{value}
+\item{value}{string to cast}
 }
 \description{
-cast string
+Cast string that is, sequences of characters.
+}
+\examples{
+
+# cast any string
+types.castString(format = "default", value = "string")
+
+# cast email
+types.castString(format = "email", value = "name@gmail.com")
+
+# cast uri
+types.castString(format = "uri", value = "http://google.com")
+
+# cast binary
+types.castString(format = "binary", value = "dGVzdA==")
+
+# cast uuid
+types.castString(format = "uuid", value = "95ecc380-afe9-11e4-9b6c-751b66dd541e")
+
+}
+\seealso{
+\href{https://frictionlessdata.io/specs/table-schema/#string}{frictionlessdata string specification}
 }

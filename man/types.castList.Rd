@@ -2,15 +2,27 @@
 % Please edit documentation in R/types.castList.R
 \name{types.castList}
 \alias{types.castList}
-\title{cast list}
+\title{Cast list}
 \usage{
 types.castList(format, value)
 }
 \arguments{
-\item{format}{format}
+\item{format}{no options (other than the default)}
 
-\item{value}{value}
+\item{value}{lists, or valid JSON format arrays to cast}
 }
 \description{
 cast list
+}
+\examples{
+
+types.castList(format = "default", value =  list())
+
+types.castList(format = "default", value = list('key', 'value'))
+
+types.castList(format = "default", value = '["key", "value"]') # cast valid json array
+
+}
+\seealso{
+\href{https://frictionlessdata.io/specs/table-schema/#array}{frictionlessdata array/list specification}
 }

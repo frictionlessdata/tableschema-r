@@ -2,15 +2,26 @@
 % Please edit documentation in R/types.castYear.R
 \name{types.castYear}
 \alias{types.castYear}
-\title{cast year}
+\title{Cast year}
 \usage{
 types.castYear(format, value)
 }
 \arguments{
-\item{format}{format}
+\item{format}{no options (other than the default)}
 
-\item{value}{value}
+\item{value}{year to cast}
 }
 \description{
-cast year
+Cast year. A calendar year as per \href{https://www.w3.org/TR/xmlschema-2/#gYear}{XMLSchema gYear}. 
+Usual lexical representation is: YYYY.
+}
+\examples{
+
+types.castYear(format = "default", value = 2000)
+
+types.castYear(format = "default", value = "2010")
+
+}
+\seealso{
+\href{https://frictionlessdata.io/specs/table-schema/#year}{frictionlessdata year specification}
 }
