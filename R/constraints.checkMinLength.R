@@ -1,15 +1,24 @@
-#' Check Minimum Length of Character/s according to a constraint
-#' @param constraint constraint
-#' @param value value
-#' @return TRUE if the constraint of minimum character length is met 
+#' Check if minimum character length constraint is met
+#' @description Specify the minimum length of a character
+#' @param constraint numeric constraint, minimum character length
+#' @param value character to meet the constraint
+#' @return TRUE if character length is equal to or greater than the constraint 
 #' @rdname constraints.checkMinLength
 #' @export
+#' 
+#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#constraints}{frictionlessdata constraints specifications}
+#' 
+#' @examples 
+#' 
+#' constraints.checkMinLength(constraint = list(3), value = "hi")
+#' 
+#' constraints.checkMinLength(constraint = 2, value = "hello")
 
 constraints.checkMinLength <- function(constraint, value){
   
-  if( is.null(value) ) return (TRUE)
+  if (is.null(value)) return(TRUE)
   
-  if ( all(nchar(value) >= constraint) ) return (TRUE)
+  if (all(nchar(value) >= constraint)) return(TRUE)
   
-  return (FALSE)
+  return(FALSE)
 }

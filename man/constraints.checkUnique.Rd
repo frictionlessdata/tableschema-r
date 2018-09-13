@@ -7,13 +7,23 @@
 constraints.checkUnique(constraint, value)
 }
 \arguments{
-\item{constraint}{constraint}
+\item{constraint}{set TRUE to check unique values}
 
-\item{value}{value}
+\item{value}{value to check}
 }
 \value{
 TRUE if field is unique
 }
 \description{
-Check if a field is unique
+If \code{TRUE}, then all values for that field \code{MUST} be unique within the data file in which it is found.
+}
+\examples{
+
+constraints.checkUnique(constraint = FALSE, value = "any")
+
+constraints.checkUnique(constraint = TRUE, value = "any")
+
+}
+\seealso{
+\href{https://frictionlessdata.io/specs/table-schema/#constraints}{frictionlessdata constraints specifications}
 }

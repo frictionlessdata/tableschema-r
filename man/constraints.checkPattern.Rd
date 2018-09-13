@@ -2,18 +2,31 @@
 % Please edit documentation in R/constraints.checkPattern.R
 \name{constraints.checkPattern}
 \alias{constraints.checkPattern}
-\title{evaluate value over a constraint}
+\title{Pattern matching}
 \usage{
 constraints.checkPattern(constraint, value)
 }
 \arguments{
-\item{constraint}{constraint}
+\item{constraint}{character vector where matches are sought}
 
-\item{value}{value}
+\item{value}{character string to be matched}
 }
 \value{
-TRUE if the constraint of character pattern is met
+TRUE if the pattern constraint is met
 }
 \description{
-evaluate value over a constraint
+Search for pattern matches (value) within a character vector (constraint).
+A regular expression is used to test field values. 
+If the regular expression matches then the value is valid. 
+The values of this field \code{MUST} conform to the standard 
+\href{http://www.w3.org/TR/xmlschema-2/#regexs}{XML Schema regular expression syntax}.
+}
+\examples{
+
+constraints.checkPattern(constraint = '^test$', value = 'test')
+
+constraints.checkPattern(constraint = '^test$', value = 'TEST')
+}
+\seealso{
+\href{https://frictionlessdata.io/specs/table-schema/#constraints}{frictionlessdata constraints specifications}
 }

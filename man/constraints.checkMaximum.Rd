@@ -7,13 +7,26 @@
 constraints.checkMaximum(constraint, value)
 }
 \arguments{
-\item{constraint}{constraint}
+\item{constraint}{numeric constraint value}
 
-\item{value}{value}
+\item{value}{numeric value to meet the constraint}
 }
 \value{
-TRUE if value is less than the constraint
+TRUE if value is equal to or less than the constraint
 }
 \description{
-Check if maximum constraint is met
+Specifies a maximum value for a field. This is different to \code{maxLength} which checks the number of items in the value. 
+A maximum value constraint checks whether a field value is equal to or less than the specified value. 
+The range checking depends on the type of the field. E.g. an integer field may have a maximum value of 100.
+If a maximum value constraint is specified then the field descriptor \code{MUST} contain a type key.
+}
+\examples{
+
+constraints.checkMaximum(constraint = list(2), value = 1)
+
+constraints.checkMaximum(constraint = 2, value = 3)
+
+}
+\seealso{
+\href{https://frictionlessdata.io/specs/table-schema/#constraints}{frictionlessdata constraints specifications}
 }

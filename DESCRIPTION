@@ -72,6 +72,7 @@ Collate:
     'readable.connection.R'
     'schema.R'
     'table.R'
+    'tableschema.r.R'
     'validate.R'
     'writable.R'
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0.9000
