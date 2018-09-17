@@ -1,5 +1,13 @@
 #' validate descriptor
-#' @param descriptor descriptor
+#' @description Validates whether a schema is a validate Table Schema accordingly to the specifications. 
+#' It does not validate data against a schema.
+#' @param descriptor schema descriptor, one of:
+#' \itemize{
+#' \item string with the local CSV file (path)
+#' \item string with the remote CSV file (url)
+#' \item list object
+#' }
+#' @return \code{TRUE} on valid
 #' @rdname validate
 #' @export
 #' 
