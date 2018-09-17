@@ -9,6 +9,6 @@
 #' \href{https://frictionlessdata.io/specs/table-schema/#array}{frictionlessdata array specification} 
 #' 
 types.castArray <- function(format, value) {
-  .Deprecated(new = "types.castList", msg = "'types.castArray' is deprecated.\n Use 'types.castList' instead.")
+  # .Deprecated(new = "types.castList", msg = "'types.castArray' is deprecated.\n Use 'types.castList' instead.")
   types.castList(format, value)
 }

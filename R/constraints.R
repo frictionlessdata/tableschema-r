@@ -4,8 +4,8 @@
 #' validating field values. For example, validating the data in a Tabular Data Resource against 
 #' its Table Schema; or as a means to validate data being collected or updated via a data entry interface.
 #' 
-#' All constraints MUST be tested against the logical representation of data, and the physical 
-#' representation of constraint values MAY be primitive types as possible in JSON, 
+#' All constraints \code{MUST} be tested against the logical representation of data, and the physical 
+#' representation of constraint values \code{MAY} be primitive types as possible in JSON, 
 #' or represented as strings that are castable with the type and format rules of the field.
 #' 
 #' More details in \href{https://frictionlessdata.io/specs/table-schema/#constraints}{frictionlessdata constraints specifications}.

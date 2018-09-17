@@ -41,7 +41,7 @@ types.castDuration <- function(format = "default", value) {
 
 
 #' Durations
-#' Help function to use with \code{\link{types.castDuration}}
+#' @description Help function to use with \code{\link{types.castDuration}}
 #' @param years years
 #' @param months months
 #' @param days days

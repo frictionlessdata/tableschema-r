@@ -23,10 +23,10 @@
 #' 
 #' # cast email
 #' types.castString(format = "email", value = "name@gmail.com")
-#' 
+#' \dontshow{
 #' # cast uri
 #' types.castString(format = "uri", value = "http://google.com")
-#' 
+#' }
 #' # cast binary
 #' types.castString(format = "binary", value = "dGVzdA==")
 #' 

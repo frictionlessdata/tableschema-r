@@ -1,8 +1,8 @@
 #' Types class
 #' @description R6 class with Types and Formats.
 #' 
-#' \code{type} and \code{format} properties are used to give The type of the field (string, number etc) - 
-#' see \href{https://frictionlessdata.io/specs/table-schema/#types-and-formats}{types and formats} for more detail. 
+#' \code{type} and \code{format} properties are used to give the type of the field (string, number etc) - 
+#' see \href{https://frictionlessdata.io/specs/table-schema/#types-and-formats}{types and formats} for more details. 
 #' If type is not provided a consumer should assume a type of "string".
 #' 
 #' A field's \code{type} property is a string indicating the type of this field.
@@ -61,7 +61,6 @@
 
 Types <- R6Class("Types", public = list(casts = list(
   
-  
   castAny     = types.castAny,
   castArray     = types.castArray,
   castBoolean   = types.castBoolean,
@@ -78,5 +77,4 @@ Types <- R6Class("Types", public = list(casts = list(
   castTime      = types.castTime,
   castYear      = types.castYear,
   castYearmonth = types.castYearmonth
-
-    )))
+)))
