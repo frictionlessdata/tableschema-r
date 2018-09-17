@@ -1,5 +1,81 @@
 #' Field class
 #'
+#' @description Class represents field in the schema.
+#' 
+#' Data values can be cast to native R types. Casting a value will check 
+#' the value is of the expected type, is in the correct format, 
+#' and complies with any constraints imposed by a schema.
+#' @usage Field$new(descriptor, missingValues = list(""))
+#' @param descriptor Schema field descriptor
+#' @param missingValues A list with vector strings representing missing values
+#' 
+#' 
+#' @section Methods:
+#' \describe{
+#' 
+#' \item{\code{Field$new(descriptor, missingValues = list(""))}}{
+#'Constructor to instantiate \code{Field} class.}
+#' \itemize{
+#'  \item{\code{descriptor }}{Schema field descriptor.}  
+#'  \item{\code{missingValues }}{A list with vector strings representing missing values.}
+#'  \item{\code{TableSchemaError }}{Raises any error occured in the process.}
+#'  \item{\code{Field }}{Returns \code{Field} class instance.}
+#'  }
+#'   \item{\code{field$cast_value(value, constraints=TRUE)}}{
+#'   Cast given value according to the field type and format.}
+#' \itemize{
+#'  \item{\code{value }}{Value to cast against field}  
+#'  \item{\code{constraints  }}{ Gets constraints configuration: 
+#'  it could be set to true to disable constraint checks, or 
+#'  it could be a List of constraints to check}
+#'  \item{\code{errors$TableSchemaError }}{Raises any error occured in the process}
+#'  \item{\code{any }}{Returns cast value}
+#'  }
+#'  
+#' \item{\code{field$testValue(value, constraints=TRUE)}}{
+#'   Test if value is compliant to the field.}
+#' \itemize{
+#'  \item{\code{value }}{Value to cast against field}  
+#'  \item{\code{constraints  }}{Constraints configuration}
+#'  \item{\code{Boolean }}{Returns if value is compliant to the field}
+#'  }
+#' }
+#' 
+#' @section Properties:
+#' \describe{
+#'   \item{\code{field$name}}{Returns field name}
+#'   \item{\code{field$type}}{Returns field type}
+#'   \item{\code{field$format}}{Returns field format}
+#'   \item{\code{field$required}}{Returns \code{TRUE} if field is required}
+#'   \item{\code{field$constraints}}{Returns list with field constraints}
+#'   \item{\code{field$descriptor}}{Returns field descriptor}
+#' }
+#'  
+#' 
+#' @details 
+#' A field descriptor \code{MUST} be a JSON object that describes a single field. 
+#' The descriptor provides additional human-readable documentation for a field, 
+#' as well as additional information that may be used to validate the field or 
+#' create a user interface for data entry.
+#' 
+#' The field descriptor \code{object} \code{MAY} contain any number of other properties. 
+#' Some specific properties are defined below. Of these, only the \code{name} property is \code{REQUIRED}.
+#' 
+#' \describe{
+#' \item{\code{name}}{
+#' The field descriptor \code{MUST} contain a \code{name} property. 
+#' This property \code{SHOULD} correspond to the name of field/column in the data file (if it has a name). 
+#' As such it \code{SHOULD} be unique (though it is possible, but very bad practice, for the data file to 
+#' have multiple columns with the same name). \code{name} \code{SHOULD NOT} be considered case sensitive in 
+#' determining uniqueness. However, since it should correspond to the name of the field in the data file 
+#' it may be important to preserve case.}
+#' \item{\code{title}}{
+#' A human readable label or title for the field.}
+#' 
+#' \item{\code{description}}{
+#' A description for this field e.g. "The recipient of the funds".}
+#' }
+#' 
 #' @docType class
 #' @importFrom R6 R6Class
 #' @export
@@ -8,6 +84,56 @@
 #' @keywords data
 #' @return Object of \code{\link{R6Class}} .
 #' @format \code{\link{R6Class}} object.
+#' 
+#' 
+#'  
+#' @examples 
+#' DESCRIPTOR = list(name = "height", type = "number")
+#' 
+#' field <- Field$new(descriptor = DESCRIPTOR)
+#' 
+#' # get correct instance
+#' field$name
+#' field$format
+#' field$type
+#' 
+#' # return true on test
+#' field$testValue(1)
+#' 
+#' # cast value
+#' field$cast_value(1)
+#' 
+#' # expand descriptor by defaults
+#' field <- Field$new(descriptor = list(name = "name"))
+#' 
+#' field$descriptor
+#' 
+#' 
+#' # parse descriptor with "enum" constraint
+#' field <- Field$new(descriptor = list(name = "status", type = "string", 
+#'                    constraints = list(enum = list('active', 'inactive'))))
+#' 
+#' field$testValue('active')
+#' field$testValue('inactive')
+#' field$testValue('activia')
+#' field$cast_value('active')
+#' 
+#' 
+#' # parse descriptor with "minimum" constraint'
+#' field <- Field$new(descriptor = list(name = "length", type = "integer", 
+#'                    constraints = list(minimum = 100)))
+#' 
+#' field$testValue(200)
+#' field$testValue(50)
+#' 
+#' 
+#' # parse descriptor with "maximum" constraint'
+#' field <- Field$new(descriptor = list(name = "length", type = "integer", 
+#'                    constraints = list(maximum = 100)))
+#' 
+#' field$testValue(50)
+#' field$testValue(200)
+#' 
 
 Field <- R6Class(
   "Field",
@@ -38,7 +164,7 @@ Field <- R6Class(
       }
       
       
-        private$missingValues <- missingValues
+      private$missingValues <- missingValues
       
       private$descriptor_ = Helpers$expandFieldDescriptor(descriptor)
       
@@ -64,11 +190,7 @@ Field <- R6Class(
       })
       
       return(result)
-      
-      
     }
-    
-    
   ),
   active = list(
     descriptor = function() {
@@ -78,7 +200,7 @@ Field <- R6Class(
     },
     
     required = function(){
-      if (!is.null(private$descriptor_)){
+      if (!is.null(private$descriptor_)) {
         return(identical(private$descriptor_$required, TRUE))
       }
       else{
@@ -102,12 +224,7 @@ Field <- R6Class(
       else {
         return(list())
       }
-      
     }
-    
-    
-    
-    
   ),
   
   private = list(
@@ -131,10 +248,7 @@ Field <- R6Class(
             options[[key]] = value
           }
         })
-        
-        
       }
-      
       
       func <- private$types$casts[[stringr::str_interp("cast${stringr::str_to_title(self$type)}")]]
       if (is.null(func))
@@ -145,7 +259,7 @@ Field <- R6Class(
     },
     
     castValue = function(value, constraints = TRUE, ...) {
-
+      
       if (value %in% private$missingValues) {
         value <- NULL
         
@@ -202,17 +316,14 @@ Field <- R6Class(
                    
                  })
         }
-        
       }
       return(castValue)
-      
     },
     checkFunctions = function() {
       
       checks = list()
       cast <-
         purrr::partial(private$castValue, constraints = FALSE)
-      
       
       for (name in names(self$constraints)) {
         constraint = self$constraints[[name]]
@@ -224,22 +335,11 @@ Field <- R6Class(
           castConstraint <- cast(constraint)
         }
         
-        
         func <- private$constraints_[[stringr::str_interp("check${stringr::str_to_title(name)}")]]
         check <- purrr::partial(func, constraint = castConstraint)
         checks[[name]] = check
       }
-      
-      
-      
       return(checks)
-      
-      
     }
-    
-    
   )
-  
-  
-  
 )
