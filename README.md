@@ -63,16 +63,29 @@ Load library
 ------------
 
 ``` r
+# Install devtools package if not already
+# install.packages("jsonlite")
+library(jsonlite)
+# Install devtools package if not already
+# install.packages("future")
+library(future)
 # load the library using
 library(tableschema.r)
 ```
+
+    ## 
+    ## Attaching package: 'tableschema.r'
+
+    ## The following objects are masked from 'package:jsonlite':
+    ## 
+    ##     validate, write_json
 
 Documentation
 =============
 
 [Jsonlite package](https://CRAN.R-project.org/package=jsonlite) is internally used to convert json data to list objects. The input parameters of functions could be json strings, files or lists and the outputs are in list format to easily further process your data in R environment and exported as desired. The examples below show how to use jsonlite package to convert the output back to json adding indentation whitespace. More details about handling json you can see jsonlite documentation or vignettes [here](https://CRAN.R-project.org/package=jsonlite).
 
-Moreover [future package](https://CRAN.R-project.org/package=future) is also used to load and create Table and Schema class asynchronously. To retrieve the actual result of the loaded Table or Schema you have to call `$value()` to the variable you stored the loaded Table/Schema. More details about future package and sequential and parallel processing you can find [here](https://CRAN.R-project.org/package=future).
+Moreover [future package](https://CRAN.R-project.org/package=future) is also used to load and create Table and Schema class asynchronously. To retrieve the actual result of the loaded Table or Schema you have to call `value(...)` to the variable you stored the loaded Table/Schema. More details about future package and sequential and parallel processing you can find [here](https://CRAN.R-project.org/package=future).
 
 Table
 -----
@@ -94,10 +107,10 @@ Let's create and read a table. We use static `Table.load` method and `table.read
 
 ``` r
 def = Table.load('inst/extdata/data.csv')
-table = def$value()
+table = value(def)
 table.headers = table$headers # ['city', 'location']
 # add indentation whitespace to JSON output with jsonlite package
-jsonlite::toJSON(table$read(keyed = TRUE), pretty = TRUE) 
+toJSON(table$read(keyed = TRUE), pretty = TRUE) # function from jsonlite package
 ```
 
     ## [
@@ -119,7 +132,7 @@ As we could see our locations are just a strings. But it should be geopoints. Al
 
 ``` r
 # add indentation whitespace to JSON output with jsonlite package
-jsonlite::toJSON(table$infer(), pretty = TRUE) 
+toJSON(table$infer(), pretty = TRUE) # function from jsonlite package
 ```
 
     ## {
@@ -141,7 +154,7 @@ jsonlite::toJSON(table$infer(), pretty = TRUE)
     ## }
 
 ``` r
-jsonlite::toJSON(table$schema$descriptor, pretty = TRUE)
+toJSON(table$schema$descriptor, pretty = TRUE) # function from jsonlite package
 ```
 
     ## {
@@ -212,6 +225,9 @@ table$read()
 #   {city: 'paris', location: [48.85,2.30]},
 #   {city: 'rome', location: null},
 # ]
+
+# or
+toJSON(table$read(), pretty = TRUE) # function from jsonlite package
 ```
 
 Now we see that:
@@ -254,7 +270,7 @@ If we decide to improve it even more we could update the schema file and then op
 
 ``` r
 def = Table.load('inst/extdata/data.csv', schema = 'inst/extdata/schema.json')
-table = def$value()
+table = value(def)
 table
 ```
 
@@ -284,7 +300,7 @@ It was one basic introduction to the `Table` class. To learn more let's take a l
 
 #### `Table.load(source, schema, strict=FALSE, headers=1, ...)`
 
-Factory method to instantiate `Table` class. This method is async and it should be used with `$value()` keyword or as a `Promise`. If references argument is provided foreign keys will be checked on any reading operation.
+Factory method to instantiate `Table` class. This method is async and it should be used with `value(...)` keyword or as a `Promise`. If references argument is provided foreign keys will be checked on any reading operation.
 
 -   `source (String/list()/Stream/Function)` - data source (one of):
     -   local CSV file (path)
@@ -362,7 +378,7 @@ Let's create a blank schema. It's not valid because `descriptor$fields` property
 
 ``` r
 def = Schema.load({})
-schema = def$value()
+schema = value(def)
 schema$valid # false
 ```
 
@@ -378,14 +394,14 @@ schema$errors
 To do not create a schema descriptor by hands we will use a `schema$infer` method to infer the descriptor from given data:
 
 ``` r
-jsonlite::toJSON(
+toJSON(
   schema$infer(helpers.from.json.to.list('[
     ["id", "age", "name"],
     ["1","39","Paul"],
     ["2","23","Jimmy"],
     ["3","36","Jane"],
     ["4","28","Judy"]
-    ]')), pretty = TRUE)
+    ]')), pretty = TRUE) # function from jsonlite package
 ```
 
     ## {
@@ -412,9 +428,9 @@ schema$valid # true
     ## [1] TRUE
 
 ``` r
-jsonlite::toJSON(
-  schema$descriptor, 
-  pretty = TRUE)
+toJSON(
+  schema$descriptor,
+  pretty = TRUE) # function from jsonlite package
 ```
 
     ## {
@@ -443,9 +459,9 @@ jsonlite::toJSON(
 Now we have an inferred schema and it's valid. We could cast data row against our schema. We provide a string input by an output will be cast correspondingly:
 
 ``` r
-jsonlite::toJSON(
+toJSON(
   schema$castRow(helpers.from.json.to.list('["5", "66", "Sam"]')),
-  pretty = TRUE, auto_unbox = TRUE)
+  pretty = TRUE, auto_unbox = TRUE) # function from jsonlite package
 ```
 
     ## [
@@ -501,7 +517,7 @@ It was onle basic introduction to the `Schema` class. To learn more let's take a
 
 #### `Schema.load(descriptor, strict=FALSE)`
 
-Factory method to instantiate `Schema` class. This method is async and it should be used with `$value()` keyword.
+Factory method to instantiate `Schema` class. This method is async and it should be used with `value(...)` keyword.
 
 -   `descriptor (String/Object)` - schema descriptor:
     -   local path
@@ -592,7 +608,7 @@ Update schema instance if there are in-place changes in the descriptor.
 ``` r
 descriptor = '{"fields": [{"name": "field", "type": "string"}]}'
 def = Schema.load(descriptor)
-schema = def$value()
+schema = value(def)
 schema$getField("field")$name # string
 ```
 
@@ -865,10 +881,10 @@ descriptor = infer('inst/extdata/data_infer.csv')
 The `descriptor` variable is now a list object that can easily converted to JSON:
 
 ``` r
-jsonlite::toJSON(
+toJSON(
   descriptor,
   pretty = TRUE
-)
+) # function from jsonlite package
 ```
 
     ## {
