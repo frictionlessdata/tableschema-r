@@ -2,7 +2,7 @@
 % Please edit documentation in R/helpers.R
 \name{is.uuid}
 \alias{is.uuid}
-\title{is uuid}
+\title{Is uuid}
 \usage{
 is.uuid(x)
 }
@@ -13,5 +13,5 @@ is.uuid(x)
 TRUE if uuid
 }
 \description{
-is uuid
+Is uuid
 }

@@ -12,6 +12,6 @@ Helpers
 Object of \code{\link{R6Class}} .
 }
 \description{
-Helpers class
+Helper class to expand field descriptor
 }
 \keyword{data}

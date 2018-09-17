@@ -2,7 +2,7 @@
 % Please edit documentation in R/helpers.R
 \name{write_json}
 \alias{write_json}
-\title{save json}
+\title{Save json file}
 \usage{
 write_json(x, file)
 }

@@ -10,5 +10,5 @@ helpers.expandFieldDescriptor(descriptor)
 \item{descriptor}{descriptor}
 }
 \description{
-Expand Field Descriptor
+Helper function to expand field descriptor
 }

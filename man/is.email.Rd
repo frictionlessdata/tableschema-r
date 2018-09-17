@@ -2,7 +2,7 @@
 % Please edit documentation in R/helpers.R
 \name{is.email}
 \alias{is.email}
-\title{is email}
+\title{Is email}
 \usage{
 is.email(x)
 }
@@ -13,5 +13,5 @@ is.email(x)
 TRUE if email string
 }
 \description{
-is email
+Is email
 }

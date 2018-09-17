@@ -1,5 +1,6 @@
 #' Helpers class
-#'
+#' 
+#' @description Helper class to expand field descriptor
 #' @docType class
 #' @importFrom R6 R6Class
 #' @export
@@ -37,6 +38,7 @@ helpers.checkUnique <- function(name,
 
 
 #' Retrieve Descriptor
+#' @description Helper function to retrieve descriptor
 #' @param descriptor descriptor
 #' @rdname helpers.retrieveDescriptor
 #' @export
@@ -100,6 +102,7 @@ helpers.retrieveDescriptor <- function(descriptor) {
 
 
 #' Expand Schema Descriptor
+#' @description Helper function to expand schema descriptor
 #' @param descriptor descriptor
 #' @rdname helpers.expandSchemaDescriptor
 #' @export
@@ -117,6 +120,7 @@ helpers.expandSchemaDescriptor <- function(descriptor) {
 
 
 #' Expand Field Descriptor
+#' @description Helper function to expand field descriptor
 #' @param descriptor descriptor
 #' @rdname helpers.expandFieldDescriptor
 #' @export
@@ -188,7 +192,7 @@ helpers.expandFieldDescriptor = function(descriptor) {
 #     all(!is.na(as.data.frame(descriptor$resources$schema$fields)[, "name"]))
 # }
 
-#' is uri
+#' Is uri
 #' @param uri uri input
 #' @return TRUE if uri string
 #' @rdname is.uri
@@ -211,7 +215,7 @@ is.uri <- function(uri) {
 }
 
 
-#' is email
+#' Is email
 #' @param x email string
 #' @rdname is.email
 #' @return TRUE if email string
@@ -223,7 +227,7 @@ is.email <- function(x) {
   
 }
 
-#' is binary
+#' Is binary
 #' @param x input
 #' @rdname is.binary
 #' @return TRUE if binary
@@ -232,7 +236,7 @@ is.email <- function(x) {
 is.binary = function(x)
   length(unique(stats::na.omit(x))) <= 2
 
-#' is uuid
+#' Is uuid
 #' @param x input
 #' @rdname is.uuid
 #' @return TRUE if uuid
@@ -301,7 +305,7 @@ is_object = function(x) {
              isTRUE(is.object(x))) | (isTRUE(is.character(x) && jsonlite::validate(x)))) TRUE
   else FALSE
 }
-#' from json to list
+#' Convert json to list
 #' @param lst list
 #' @rdname helpers.from.json.to.list
 #' @export
@@ -309,7 +313,7 @@ is_object = function(x) {
 helpers.from.json.to.list = function(lst){
   return(jsonlite::fromJSON(lst, simplifyVector = FALSE))
 }
-#' from list to json
+#' Convert list to json
 #' @param json json
 #' @rdname helpers.from.list.to.json
 #' @export
@@ -319,7 +323,7 @@ helpers.from.list.to.json = function(json){
 }
 
 
-#' save json
+#' Save json file
 #' @description save json
 #' @param x x
 #' @param file file
