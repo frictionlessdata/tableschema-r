@@ -13,6 +13,7 @@ Encoding: UTF-8
 LazyData: true
 Imports: 
     config,
+    covr,
     devtools, 
     future, 
     git2r, 
@@ -31,7 +32,6 @@ Imports:
     stringr, 
     urltools
 Suggests: 
-    covr,
     foreach,
     testthat
 Collate: 
