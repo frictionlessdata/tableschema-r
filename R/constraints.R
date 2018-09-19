@@ -1,5 +1,6 @@
 #' Constraints class
 #' @description R6 class with constraints.
+#' 
 #' The constraints property on Table Schema Fields can be used by consumers to list constraints for 
 #' validating field values. For example, validating the data in a Tabular Data Resource against 
 #' its Table Schema; or as a means to validate data being collected or updated via a data entry interface.
@@ -8,7 +9,6 @@
 #' representation of constraint values \code{MAY} be primitive types as possible in JSON, 
 #' or represented as strings that are castable with the type and format rules of the field.
 #' 
-#' More details in \href{https://frictionlessdata.io/specs/table-schema/#constraints}{frictionlessdata constraints specifications}.
 #' 
 #' @docType class
 #' @importFrom R6 R6Class
@@ -26,7 +26,7 @@
 #' @include constraints.checkRequired.R
 #' @include constraints.checkUnique.R
 #' 
-#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#constraints}{frictionlessdata constraints specifications},
+#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#constraints}{Constraints specifications},
 #' \code{\link{constraints.checkEnum}}, 
 #' \code{\link{constraints.checkMaximum}},
 #' \code{\link{constraints.checkMaxLength}},

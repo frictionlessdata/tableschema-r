@@ -10,7 +10,7 @@ is.email(x)
 \item{x}{email string}
 }
 \value{
-TRUE if email string
+TRUE if x is email
 }
 \description{
 Is email

@@ -23,5 +23,5 @@ types.castYear(format = "default", value = "2010")
 
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#year}{frictionlessdata year specification}
+\href{https://frictionlessdata.io/specs/table-schema/#year}{Types and formats specifications}
 }

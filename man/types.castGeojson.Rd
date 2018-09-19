@@ -16,5 +16,5 @@ topojson object as per the \href{https://github.com/topojson/topojson-specificat
 Cast JSON object according to GeoJSON or TopoJSON spec
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#geojson}{frictionlessdata geojson specification}
+\href{https://frictionlessdata.io/specs/table-schema/#geojson}{Types and formats specifications}
 }

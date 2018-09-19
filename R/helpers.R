@@ -218,7 +218,7 @@ is.uri <- function(uri) {
 #' Is email
 #' @param x email string
 #' @rdname is.email
-#' @return TRUE if email string
+#' @return TRUE if x is email
 #' @export
 #'
 
@@ -228,16 +228,20 @@ is.email <- function(x) {
 }
 
 #' Is binary
-#' @param x input
+#' @param x input value to check
 #' @rdname is.binary
 #' @return TRUE if binary
 #' @export
 
-is.binary = function(x)
-  length(unique(stats::na.omit(x))) <= 2
+is.binary = function(x){
+  if (any(endsWith(x,suffix = "==") || 
+             is.raw(jsonlite::base64_enc(x)))) TRUE else FALSE
+}
+  
+  # length(unique(stats::na.omit(x))) <= 2
 
 #' Is uuid
-#' @param x input
+#' @param x character
 #' @rdname is.uuid
 #' @return TRUE if uuid
 #' @export
@@ -250,8 +254,8 @@ is.uuid = function(x) {
 }
 
 #' Is integer
-#' @description is integer
-#' @param x value
+#' @description Is integer
+#' @param x number
 #' @rdname is_integer
 #' @export
 #'
@@ -281,8 +285,8 @@ is_integer = function(x) {
 }
 
 #' Is empty
-#' @description is empty
-#' @param x x
+#' @description Is empty list
+#' @param x list object
 #' @rdname is_empty
 #' @export
 #'
@@ -295,8 +299,8 @@ is_empty = function(x) {
 }
 
 #' Is object
-#' @description is object
-#' @param x x
+#' @description Is object
+#' @param x list, array, json string
 #' @rdname is_object
 #' @export
 #'
@@ -314,7 +318,7 @@ helpers.from.json.to.list = function(lst){
   return(jsonlite::fromJSON(lst, simplifyVector = FALSE))
 }
 #' Convert list to json
-#' @param json json
+#' @param json json string
 #' @rdname helpers.from.list.to.json
 #' @export
 #'
@@ -325,7 +329,7 @@ helpers.from.list.to.json = function(json){
 
 #' Save json file
 #' @description save json
-#' @param x x
+#' @param x list object
 #' @param file file
 #' @rdname write_json
 #' @export

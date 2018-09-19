@@ -31,7 +31,7 @@
 #' }
 #' @rdname types.castNumber
 #' 
-#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#number}{frictionlessdata number specification}
+#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#number}{Types and formats specifications}
 #' @export
 #' 
 #' @examples 
@@ -112,6 +112,7 @@ types.castNumber <- function(format, value, options={}) {
 
 #' default decimal char
 #' @export
+
 DEFAULT_DECIMAL_CHAR = '.'
 
 #' default group char

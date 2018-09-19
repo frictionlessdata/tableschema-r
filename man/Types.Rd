@@ -30,7 +30,7 @@ with some additions and minor modifications (cf other type lists include those i
 \href{http://www.elasticsearch.org/guide/reference/mapping/}{Elasticsearch types}).
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#types-and-formats}{frictionlessdata types and formats specifications},
+\href{https://frictionlessdata.io/specs/table-schema/#types-and-formats}{Types and formats specifications},
 \code{\link{types.castAny}},
 \code{\link{types.castBoolean}},
 \code{\link{types.castDate}},

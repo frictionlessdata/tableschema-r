@@ -85,7 +85,7 @@ Documentation
 
 [Jsonlite package](https://CRAN.R-project.org/package=jsonlite) is internally used to convert json data to list objects. The input parameters of functions could be json strings, files or lists and the outputs are in list format to easily further process your data in R environment and exported as desired. The examples below show how to use jsonlite package to convert the output back to json adding indentation whitespace. More details about handling json you can see jsonlite documentation or vignettes [here](https://CRAN.R-project.org/package=jsonlite).
 
-Moreover [future package](https://CRAN.R-project.org/package=future) is also used to load and create Table and Schema class asynchronously. To retrieve the actual result of the loaded Table or Schema you have to call `value(...)` to the variable you stored the loaded Table/Schema. More details about future package and sequential and parallel processing you can find [here](https://CRAN.R-project.org/package=future).
+Moreover [future package](https://CRAN.R-project.org/package=future) is also used to load and create Table and Schema classes asynchronously. To retrieve the actual result of the loaded Table or Schema you have to use `value(...)` to the variable you stored the loaded Table/Schema. More details about future package and sequential and parallel processing you can find [here](https://CRAN.R-project.org/package=future).
 
 Table
 -----
@@ -247,22 +247,22 @@ Our `data.csv` looks the same because it has been stringified back to `csv` form
 
 ``` json
 {
-    "fields": [
-        {
-            "name": "city",
-            "type": "string",
-            "format": "default"
-        },
-        {
-            "name": "location",
-            "type": "geopoint",
-            "format": "default"
-        }
-    ],
-    "missingValues": [
-        "",
-        "N/A"
-    ]
+"fields": [
+{
+"name": "city",
+"type": "string",
+"format": "default"
+},
+{
+"name": "location",
+"type": "geopoint",
+"format": "default"
+}
+],
+"missingValues": [
+"",
+"N/A"
+]
 }
 ```
 
@@ -303,16 +303,16 @@ It was one basic introduction to the `Table` class. To learn more let's take a l
 Factory method to instantiate `Table` class. This method is async and it should be used with `value(...)` keyword or as a `Promise`. If references argument is provided foreign keys will be checked on any reading operation.
 
 -   `source (String/list()/Stream/Function)` - data source (one of):
-    -   local CSV file (path)
-    -   remote CSV file (url)
-    -   list of lists representing the rows
-    -   readable stream with CSV file contents
-    -   function returning readable stream with CSV file contents
+-   local CSV file (path)
+-   remote CSV file (url)
+-   list of lists representing the rows
+-   readable stream with CSV file contents
+-   function returning readable stream with CSV file contents
 -   `schema (Object)` - data schema in all forms supported by `Schema` class
 -   `strict (Boolean)` - strictness option to pass to `Schema` constructor
 -   `headers (Integer/String[])` - data source headers (one of):
-    -   row number containing headers (`source` should contain headers rows)
-    -   array of headers (`source` should NOT contain headers rows)
+-   row number containing headers (`source` should contain headers rows)
+-   array of headers (`source` should NOT contain headers rows)
 -   `... (Object)` - options to be used by CSV parser. All options listed at <http://csv.adaltas.com/parse/#parser-options>. By default `ltrim` is true according to the CSV Dialect spec.
 -   `(errors.TableSchemaError)` - raises any error occured in table creation process
 -   `(Table)` - returns data table class instance
@@ -336,9 +336,9 @@ Iter through the table data and emits rows cast based on table schema. Data cast
 -   `stream (Boolean)` - return Readable Stream of table rows
 -   `(errors$TableSchemaError)` - raises any error occured in this process
 -   `(Iterator/Stream)` - iterator/stream of rows:
-    -   `[value1, value2]` - base
-    -   `{header1: value1, header2: value2}` - keyed
-    -   `[rowNumber, [header1, header2], [value1, value2]]` - extended
+-   `[value1, value2]` - base
+-   `{header1: value1, header2: value2}` - keyed
+-   `[rowNumber, [header1, header2], [value1, value2]]` - extended
 
 #### `table$read(keyed, extended, cast=TRUE, relations=FALSE, limit)`
 
@@ -520,12 +520,12 @@ It was onle basic introduction to the `Schema` class. To learn more let's take a
 Factory method to instantiate `Schema` class. This method is async and it should be used with `value(...)` keyword.
 
 -   `descriptor (String/Object)` - schema descriptor:
-    -   local path
-    -   remote url
-    -   object
+-   local path
+-   remote url
+-   object
 -   `strict (Boolean)` - flag to alter validation behaviour:
-    -   if false error will not be raised and all error will be collected in `schema$errors`
-    -   if strict is true any validation error will be raised immediately
+-   if false error will not be raised and all error will be collected in `schema$errors`
+-   if strict is true any validation error will be raised immediately
 -   `(errors$TableSchemaError)` - raises any error occured in the process
 -   `(Schema)` - returns schema class instance
 
@@ -593,8 +593,8 @@ Infer and set `schema$descriptor` based on data sample.
 
 -   `rows (List())` - list of lists representing rows.
 -   `headers (Integer/String[])` - data sample headers (one of):
-    -   row number containing headers (`rows` should contain headers rows)
-    -   list of headers (`rows` should NOT contain headers rows)
+-   row number containing headers (`rows` should contain headers rows)
+-   list of headers (`rows` should NOT contain headers rows)
 -   `{Object}` - returns Table Schema descriptor
 
 #### `schema$commit(strict)`
@@ -650,13 +650,13 @@ Data values can be cast to native R types. Casting a value will check the value 
 
 ``` json
 {
-    "name": "birthday",
-    "type": "date",
-    "format": "default",
-    "constraints": {
-        "required": true,
-        "minimum": "2015-05-30"
-    }
+"name": "birthday",
+"type": "date",
+"format": "default",
+"constraints": {
+"required": true,
+"minimum": "2015-05-30"
+}
 }
 ```
 
@@ -674,9 +674,9 @@ And following example will raise exception, because we set flag 'skip constraint
 
 ``` r
 tryCatch (
-    dateType = field$cast_value(value = '2014-05-29', constraints = FALSE), 
-    error = function(e){# uh oh, something went wrong
-    })
+  dateType = field$cast_value(value = '2014-05-29', constraints = FALSE), 
+  error = function(e){# uh oh, something went wrong
+  })
 ```
 
     ## Error in private$castValue(...): Field character(0) can't cast value 2014-05-29 for type number with format default
@@ -818,8 +818,8 @@ Cast given value according to the field type and format.
 
 -   `value (any)` - value to cast against field
 -   `constraints (Boolean/String[])` - gets constraints configuration
-    -   it could be set to true to disable constraint checks
-    -   it could be a List of constraints to check e.g. \['minimum', 'maximum'\]
+-   it could be set to true to disable constraint checks
+-   it could be a List of constraints to check e.g. \['minimum', 'maximum'\]
 -   `(errors$TableSchemaError)` - raises any error occured in the process
 -   `(any)` - returns cast value
 
@@ -853,9 +853,9 @@ valid_errors
 Validate a Table Schema descriptor.
 
 -   `descriptor (String/Object)` - schema descriptor (one of):
-    -   local path
-    -   remote url
-    -   object
+-   local path
+-   remote url
+-   object
 -   `(Object)` - returns `{valid, errors}` object
 
 ### Infer
@@ -937,9 +937,9 @@ devtools::install_github("frictionlessdata/tableschema-r",dependencies=TRUE)
 To make test:
 
 ``` r
-  test_that(description, {
-    expect_equal(test, expected result)
-  })
+test_that(description, {
+  expect_equal(test, expected result)
+})
 ```
 
 To run tests:

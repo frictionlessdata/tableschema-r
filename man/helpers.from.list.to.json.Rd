@@ -7,7 +7,7 @@
 helpers.from.list.to.json(json)
 }
 \arguments{
-\item{json}{json}
+\item{json}{json string}
 }
 \description{
 Convert list to json

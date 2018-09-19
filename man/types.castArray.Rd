@@ -16,5 +16,5 @@ Cast array is used for list objects
 }
 \seealso{
 \code{\link{types.castList}}, 
-\href{https://frictionlessdata.io/specs/table-schema/#array}{frictionlessdata array specification}
+\href{https://frictionlessdata.io/specs/table-schema/#array}{Types and formats specifications}
 }

@@ -7,7 +7,7 @@
 is.binary(x)
 }
 \arguments{
-\item{x}{input}
+\item{x}{input value to check}
 }
 \value{
 TRUE if binary

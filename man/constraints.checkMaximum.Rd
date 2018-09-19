@@ -28,5 +28,5 @@ constraints.checkMaximum(constraint = 2, value = 3)
 
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#constraints}{frictionlessdata constraints specifications}
+\href{https://frictionlessdata.io/specs/table-schema/#constraints}{Constraints specifications}
 }

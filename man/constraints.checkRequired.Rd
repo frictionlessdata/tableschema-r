@@ -32,5 +32,5 @@ constraints.checkRequired(constraint = TRUE, value = "undefined")
 
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#constraints}{frictionlessdata constraints specifications}
+\href{https://frictionlessdata.io/specs/table-schema/#constraints}{Constraints specifications}
 }

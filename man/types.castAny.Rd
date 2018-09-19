@@ -29,5 +29,5 @@ types.castAny(format = "default", value = TRUE)
 
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#any}{frictionlessdata any specification}
+\href{https://frictionlessdata.io/specs/table-schema/#any}{Types and formats specifications}
 }

@@ -1,5 +1,101 @@
 #' Schema class
+#' 
+#' @description A model of a schema with helpful methods for working with the schema and supported data. 
+#' Schema instances can be initialized with a schema source as a url to a JSON file or a JSON object. 
+#' The schema is initially validated (see \href{https://github.com/okgreece/tableschema-r#validate}{validate}). 
+#' By default validation errors will be stored in \code{$errors} but in a strict mode it will be instantly raised.
+#' 
+#' @usage # Schema.load(descriptor, strict=FALSE)
+#' @param descriptor schema descriptor, a JSON string, URL or file  
+#' @param strict flag to alter validation behaviour:
+#' \itemize{
+#' \item{if \code{FALSE} error will not be raised and all error will be collected in \code{schema$errors}}
+#' \item{if \code{TRUE} any validation error will be raised immediately}
+#' }
+#' 
+#' 
+#' @section Methods:
+#' \describe{
+#' 
+#' \item{\code{Schema$new(descriptor = descriptor, strict = strict)}}{
+#' Use \code{\link{Schema.load}} to instantiate \code{Schema} class.}
+#' 
+#'   \item{\code{getField(name)}}{
+#' Get schema field by name.}
+#' \itemize{
+#'  \item{\code{name }}{String with schema field name.}  
+#'  \item{\code{(Field/NULL) }}{Returns \code{Field} instance or \code{NULL} if not found.}
+#'  }
+#'  
+#' \item{\code{addField(descriptor)}}{
+#' Add new field to schema. The schema descriptor will be validated with newly added field descriptor.}
+#' \itemize{
+#'  \item{\code{descriptor }}{List of field descriptor.}  
+#'  \item{\code{TableSchemaError }}{Raises any error occured in the process.}
+#'  \item{\code{(Field/NULL) }}{Returns added \code{Field} instance or \code{NULL} if not added.}
+#'  }
+#'  
+#' \item{\code{removeField(name)}}{
+#' Remove field resource by name. The schema descriptor will be validated after field descriptor removal.}
+#' \itemize{
+#'  \item{\code{name }}{String with schema field name.}  
+#'  \item{\code{TableSchemaError }}{Raises any error occured in the process.}
+#'  \item{\code{(Field/NULL) }}{Returns removed \code{Field} instances or \code{NULL} if not found.}
+#'  }  
+#'  
+#' \item{\code{castRow(row)}}{
+#' Cast row based on field types and formats.}
+#' \itemize{
+#'  \item{\code{row }}{Data row as a list of values.}  
+#'  \item{\code{(any) }}{Returns cast data row.}
+#'  }
 #'
+#' \item{\code{infer(rows, headers=1)}}{
+#' Cast row based on field types and formats.}
+#' \itemize{
+#'  \item{\code{rows }}{List of lists representing rows.}  
+#'  \item{\code{headers }}{ data sample headers, one of:
+#'  \itemize{
+#'  \item{row number containing headers (\code{rows} should contain headers rows)}
+#'  \item{list of headers (\code{rows} should NOT contain headers rows)}}
+#'  }
+#'  \item{\code{{Object} }}{Returns Table Schema descriptor.}
+#'  }
+#'  
+#' \item{\code{commit(strict)}}{
+#' Cast row based on field types and formats.}
+#' \itemize{
+#'  \item{\code{strict }}{Boolean, alter strict mode for further work.}  
+#'  \item{\code{TableSchemaError }}{Raises any error occured in the process.}
+#'  \item{\code{(Boolean) }}{Returns \code{TRUE} on success and \code{FALSE} if not modified.}
+#'  }
+#'  
+#'  
+#' \item{\code{save(target)}}{
+#' Cast row based on field types and formats.}
+#' \itemize{
+#'  \item{\code{target }}{String, path where to save a descriptor.}  
+#'  \item{\code{TableSchemaError }}{Raises any error occured in the process.}
+#'  \item{\code{(Boolean) }}{Returns \code{TRUE} on success.}
+#'  }  
+#' }
+#' 
+#' @section Properties:
+#' \describe{
+#'   \item{\code{valid}}{Returns validation status. It always \code{TRUE} in strict mode.}
+#'   \item{\code{errors}}{Returns validation errors. It always empty in strict mode.}
+#'   \item{\code{descriptor}}{Returns list of schema descriptor.}
+#'   \item{\code{primaryKey}}{Returns string list of schema primary key.}
+#'   \item{\code{foreignKeys}}{Returns list of schema foreign keys.}
+#'   \item{\code{fields}}{Returns list of \code{Field} instances.}
+#'   \item{\code{fieldNames}}{Returns a list of field names.}
+#' }
+#' 
+#' @section Language:
+#' The key words \code{MUST}, \code{MUST NOT}, \code{REQUIRED}, \code{SHALL}, \code{SHALL NOT}, 
+#' \code{SHOULD}, \code{SHOULD NOT}, \code{RECOMMENDED}, \code{MAY}, and \code{OPTIONAL} 
+#' in this package documents are to be interpreted as described in \href{https://www.ietf.org/rfc/rfc2119.txt}{RFC 2119}.
+#' 
 #' @docType class
 #' @importFrom R6 R6Class
 #' @export
@@ -10,6 +106,10 @@
 #' @keywords data
 #' @return Object of \code{\link{R6Class}} .
 #' @format \code{\link{R6Class}} object.
+#' 
+#' @seealso \code{\link{Schema.load}}, 
+#' \href{http://frictionlessdata.io/specs/table-schema/}{Table Schema Specifications}
+#' 
 
 Schema <- R6Class(
   "Schema",
@@ -79,7 +179,6 @@ Schema <- R6Class(
         stop(message)
       }
       
-      
       for (i in 1:length(items)) {
         attempt = tryCatch({
           field = self$getField(headers[[i]], i)
@@ -97,14 +196,12 @@ Schema <- R6Class(
                                   self$uniqueHeaders,
                                   self$uniqueness)
             }
-            
           }
-          
           result = append(result, list(value))
         },
         error = function(e) {
           #TODO:  UniqueConstraintsError
-
+          
           error <-
             stringr::str_interp("Wrong type for header: ${headers[[i]]} and value: ${items[[i]]}")
           if (failFast == TRUE) {
@@ -133,7 +230,6 @@ Schema <- R6Class(
       
       return(result)
     },
-    
     
     infer = function(rows, headers = 1) {
       # Get headers
@@ -188,9 +284,6 @@ Schema <- R6Class(
       save = stringr::str_interp('Package saved at: "${target}"')
       return(save)
     }
-    
-    
-    
   ),
   
   active = list(
@@ -202,8 +295,6 @@ Schema <- R6Class(
     
     fields = function() {
       return(private$fields_)
-      
-      
     },
     
     foreignKeys = function() {
@@ -231,11 +322,7 @@ Schema <- R6Class(
         }
         
         return(key)
-        
-        
       })
-      
-    
       return(foreignKeys)
     },
     
@@ -265,7 +352,6 @@ Schema <- R6Class(
     }
     
   ),
-  
   
   private = list(
     strict_ = NULL,
@@ -324,10 +410,7 @@ Schema <- R6Class(
           return(field2)
         })
         private$fields_ = append(private$fields_, list(field2))
-        
-        
       }
-      
     },
     
     GUESS_TYPE_ORDER_ = list(
@@ -348,10 +431,8 @@ Schema <- R6Class(
     types = Types$new(),
     
     
-    
-    
     guessType_ = function(row) {
-
+      
       # Get matching types
       matches = list()
       for (value in row) {
@@ -365,7 +446,7 @@ Schema <- R6Class(
           }
         }
       }
-
+      
       # Get winner type
       winner = 'any'
       count = 0
@@ -379,29 +460,121 @@ Schema <- R6Class(
       }
       return(winner)
     }
-    
   )
-  
-  
-  
 )
 
-#' load schema
-#' @param descriptor descriptor
-#' @param strict strict
-#' @param caseInsensitiveHeaders caseInsensitiveHeaders
+#' Instantiate \code{Schema} class
+#' @description Factory method to instantiate \code{Schema} class. 
+#' This method is async and it should be used with \code{\link[future]{value}} keyword from 
+#' \href{https://CRAN.R-project.org/package=future}{future} package.
+#' 
+#' @usage Schema.load(descriptor, strict=FALSE, caseInsensitiveHeaders = FALSE)
+#' @param descriptor schema descriptor, a JSON string, URL or file  
+#' @param strict flag to alter validation behaviour:
+#' \itemize{
+#' \item{if \code{FALSE} error will not be raised and all error will be collected in \code{schema$errors}}
+#' \item{if \code{TRUE} any validation error will be raised immediately}
+#' }
+#' @param caseInsensitiveHeaders default is set to \code{FALSE}
 #' @rdname Schema.load
+#' 
+#' @return \code{\link{Schema}} class object
+#' @seealso \code{\link{Schema}}, \href{http://frictionlessdata.io/specs/table-schema/}{Table Schema Specifications}
+#' 
 #' @export
+#' 
+#' @examples
+#' SCHEMA <- '{"fields": [
+#'   {"name": "id", "type": "string", "constraints": {"required": true}},
+#'   {"name": "height", "type": "number"},
+#'   {"name": "age", "type": "integer"},
+#'   {"name": "name", "type": "string", "constraints": {"required": true}},
+#'   {"name": "occupation", "type": "string"}
+#'   ]}'
+#' 
+#' # instantiate Schema class
+#' def  = Schema.load(descriptor = SCHEMA)
+#' schema = future::value(def)
+#' 
+#' # correct number of fields
+#' length(schema$fields)
+#' 
+#' # correct field names
+#' schema$fieldNames
+#' 
+#' # convert row
+#' row = list('string', '10.0', '1', 'string', 'string')
+#' castRow = schema$castRow(row)
+#' castRow
+#' 
+#' SCHEMA_MIN <- '{
+#' "fields": [
+#'   {"name": "id"},
+#'   {"name": "height"}
+#'   ]}'
+#' 
+#' # load schema
+#' def2  = Schema.load(descriptor = SCHEMA_MIN)
+#' schema2 = future::value(def2)
+#'   
+#' # set default types if not provided
+#' schema2$fields[[1]]$type
+#' schema2$fields[[2]]$type
+#' 
+#' # fields are not required by default
+#' schema2$fields[[1]]$required
+#' schema2$fields[[2]]$required
+#' 
+#' 
+#' #work in strict mode
+#' descriptor = '{"fields": [{"name": "name", "type": "string"}]}'
+#' def3  = Schema.load(descriptor = descriptor, strict = TRUE)
+#' schema3 = future::value(def3)
+#' schema3$valid
+#' 
+#' # work in non-strict mode
+#' descriptor = '{"fields": [{"name": "name", "type": "string"}]}'
+#' def4 = Schema.load(descriptor = descriptor, strict = FALSE)
+#' schema4 = future::value(def4)
+#' schema4$valid
+#' 
+#' # work with primary/foreign keys as arrays
+#' descriptor2 = '{
+#' "fields": [{"name": "name"}],
+#' "primaryKey": ["name"],
+#' "foreignKeys": [{
+#'   "fields": ["parent_id"],
+#'   "reference": {"resource": "resource", "fields": ["id"]}
+#' }]}'
+#' 
+#' def5 = Schema.load(descriptor2)
+#' schema5 = future::value(def5)
+#' 
+#' schema5$primaryKey
+#' schema5$foreignKeys
+#' 
+#' 
+#' # work with primary/foreign keys as string
+#' descriptor3 = '{
+#' "fields": [{"name": "name"}],
+#' "primaryKey": "name",
+#' "foreignKeys": [{
+#'   "fields": "parent_id",
+#'   "reference": {"resource": "resource", "fields": "id"}
+#' }]}'
+#' 
+#' def6 = Schema.load(descriptor3)
+#' schema6 = future::value(def6)
+#' schema6$primaryKey
+#' schema6$foreignKeys
 #' 
 
 Schema.load = function(descriptor = "",
                        strict = FALSE,
                        caseInsensitiveHeaders = FALSE) {
   return(future::future({
-
+    
     return(
- 
-      
       Schema$new(
         descriptor = descriptor,
         strict = strict,
@@ -409,6 +582,4 @@ Schema.load = function(descriptor = "",
       )
     )
   }))
-  
-  
 }

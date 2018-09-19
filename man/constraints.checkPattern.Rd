@@ -28,5 +28,5 @@ constraints.checkPattern(constraint = '^test$', value = 'test')
 constraints.checkPattern(constraint = '^test$', value = 'TEST')
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#constraints}{frictionlessdata constraints specifications}
+\href{https://frictionlessdata.io/specs/table-schema/#constraints}{Constraints specifications}
 }

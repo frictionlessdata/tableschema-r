@@ -7,7 +7,7 @@
 #' @export
 #' 
 #' 
-#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#geojson}{frictionlessdata geojson specification}
+#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#geojson}{Types and formats specifications}
 #' 
 types.castGeojson <- function(format, value) {
   

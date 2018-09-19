@@ -24,5 +24,5 @@ constraints.checkMinLength(constraint = list(3), value = "hi")
 constraints.checkMinLength(constraint = 2, value = "hello")
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#constraints}{frictionlessdata constraints specifications}
+\href{https://frictionlessdata.io/specs/table-schema/#constraints}{Constraints specifications}
 }

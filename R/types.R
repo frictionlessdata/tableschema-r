@@ -40,7 +40,7 @@
 #' @include types.castArray.R
 #' 
 #' 
-#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#types-and-formats}{frictionlessdata types and formats specifications},
+#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#types-and-formats}{Types and formats specifications},
 #' \code{\link{types.castAny}},
 #' \code{\link{types.castBoolean}},
 #' \code{\link{types.castDate}},

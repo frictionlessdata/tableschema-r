@@ -12,6 +12,6 @@ ReadableArray
 Object of \code{\link{R6Class}} .
 }
 \description{
-ReadableArray class
+Readable Array class
 }
 \keyword{data}

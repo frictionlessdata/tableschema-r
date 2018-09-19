@@ -7,7 +7,7 @@
 write_json(x, file)
 }
 \arguments{
-\item{x}{x}
+\item{x}{list object}
 
 \item{file}{file}
 }

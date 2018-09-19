@@ -61,5 +61,5 @@ options = list(groupChar = '#', decimalChar = '&'))
 
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#number}{frictionlessdata number specification}
+\href{https://frictionlessdata.io/specs/table-schema/#number}{Types and formats specifications}
 }

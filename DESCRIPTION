@@ -1,13 +1,13 @@
 Package: tableschema.r
 Type: Package
-Title: 'R Table Schema'
+Title: 'Table Schema Package'
 Version: 0.1.0
 Date: 2017-07-01
-Author: c(person("Kleanthis", "Koupidis", email = "koupidis.okfgr@gmail.com", role = c("aut", "cre"), 
-            person("Lazaros", "Ioannidis", email = "larjohn@gmail.com", role = c("aut", "cre")))
+Author: c(person("Kleanthis", "Koupidis", email = "koupidis.okfgr@gmail.com", role = c("aut", "cre")), 
+            person("Lazaros", "Ioannidis", email = "larjohn@gmail.com", role = c("aut", "cre")),
             person("Charalampos", "Bratsas", email = "charalampos.bratsas@okfn.org", role = "aut"))
-Maintainer: Open Knowledge Greece <info@okfn.gr>
-Description: A library for working with Table Schema (<http://specs.frictionlessdata.io/table-schema/>).
+Maintainer: Kleanthis Koupidis <koupidis@okfn.gr>
+Description: A library for working with 'Table Schema' (<http://specs.frictionlessdata.io/table-schema/>).
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

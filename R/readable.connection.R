@@ -1,5 +1,5 @@
 #' ReadableConnection class
-#'
+#' @description Readable connection class
 #' @docType class
 #' @importFrom R6 R6Class
 #' @export

@@ -12,7 +12,7 @@
 #' @rdname types.castGeopoint
 #' @export
 #' 
-#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#geopoint}{frictionlessdata geopoint specification}
+#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#geopoint}{Types and formats specifications}
 #' 
 #' @examples 
 #' 
@@ -33,10 +33,10 @@
 
 types.castGeopoint <- function(format, value) {
   
-tryCatch({
-  
-  lon_lat = list()
-  
+  tryCatch({
+    
+    lon_lat = list()
+    
     if (format == 'default') {
       
       if (is.character(value)) {

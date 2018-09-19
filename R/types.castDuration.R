@@ -3,7 +3,7 @@
 #' @param format no options (other than the default)
 #' @param value duration to cast
 #' 
-#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#duration}{frictionlessdata duration specification}, 
+#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#duration}{Types and formats specifications}, 
 #' \href{https://CRAN.R-project.org/package=lubridate}{lubridate} package.
 #' 
 #' @details We follow the definition of \href{https://www.w3.org/TR/xmlschema-2/#duration}{XML Schema duration datatype} 

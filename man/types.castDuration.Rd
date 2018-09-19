@@ -33,6 +33,6 @@ types.castDuration(format = "default", value = "P1Y10M3DT5H11M7S")
  
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#duration}{frictionlessdata duration specification}, 
+\href{https://frictionlessdata.io/specs/table-schema/#duration}{Types and formats specifications}, 
 \href{https://CRAN.R-project.org/package=lubridate}{lubridate} package.
 }

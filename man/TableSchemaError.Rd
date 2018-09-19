@@ -12,6 +12,6 @@ TableSchemaError
 Object of \code{\link{R6Class}} .
 }
 \description{
-TableSchemaError class
+Error class for Table Schema
 }
 \keyword{data}

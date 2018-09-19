@@ -23,5 +23,5 @@ types.castYearmonth(format = "default", value = "2018-11")
 
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#yearmonth}{frictionlessdata yearmonth specification}
+\href{https://frictionlessdata.io/specs/table-schema/#yearmonth}{Types and formats specifications}
 }

@@ -11,13 +11,13 @@ TESTS = list(
   list("default", "string", "string"),
   list("default", "", ""),
   list("default", 0, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  
   list("uri", "http://google.com", "http://google.com"),
-  
-  # list("uri", "ftp://example.org/resource.txt", "ftp://example.org/resource.txt"),
-  
+  list("uri", "://no-scheme.test", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   list("uri", "string", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   list("uri", "", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   list("uri", 0, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  
   list("email", "name@gmail.com", "name@gmail.com"),
   list("email", "http://google.com", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   list("email", "string", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
@@ -33,8 +33,8 @@ TESTS = list(
   
   
   list("binary", "dGVzdA==", "dGVzdA=="),
-  # list("binary", "string", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
-  list("binary", "", ""),
+  list("binary", "string", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  list("binary", "", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   list("binary", 0, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
 )
 

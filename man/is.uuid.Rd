@@ -7,7 +7,7 @@
 is.uuid(x)
 }
 \arguments{
-\item{x}{input}
+\item{x}{character}
 }
 \value{
 TRUE if uuid

@@ -1,5 +1,5 @@
 #' Writeable class
-#'
+#' @description Writable streams class
 #' @docType class
 #' @importFrom R6 R6Class
 #' @export
@@ -9,20 +9,20 @@
 #' @keywords data
 #' @return Object of \code{\link{R6Class}} .
 #' @format \code{\link{R6Class}} object.
+#' 
+
 Writeable <- R6Class(
   "Writeable",
   
   public = list(
     initialize = function(options = list()) {
-     
+      
       private$drain_()
     },
     
     write = function(chunk){
       private$buffer_ = rlist::list.append(private$buffer_, chunk)
     },
-    
-    
     
     
     read = function(size = NULL) {
@@ -46,7 +46,6 @@ Writeable <- R6Class(
     },
     isPaused = function() {
       
-      
     },
     unshift = function(chunk) {
     },
@@ -58,9 +57,7 @@ Writeable <- R6Class(
       
     },
     
-    
     on.drain = NULL,
-    
     
     onClose = function(handler, unsubscribe = FALSE) {
       private$subscribeUnsubscribe_('close', handler, unsubscribe)
@@ -85,10 +82,9 @@ Writeable <- R6Class(
   ),
   active = list(
     destroyed = function(value) {
-      
     }
-    
   ),
+  
   private = list(
     encoding_ = NULL,
     objectMode_ = FALSE,
@@ -137,7 +133,5 @@ Writeable <- R6Class(
         })
       }
     }
-    
-    
   )
 )

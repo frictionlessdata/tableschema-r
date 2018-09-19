@@ -7,8 +7,8 @@
 #' @export
 #' @details 
 #' In the physical representations of data where boolean values are represented with strings, 
-#' the values set in trueValues and falseValues are to be cast to their logical representation as booleans. 
-#' trueValues and falseValues are lists which can be customised to user need. 
+#' the values set in \code{trueValues} and \code{falseValues} are to be cast to their logical representation as booleans. 
+#' \code{trueValues} and \code{falseValues} are lists which can be customised to user need. 
 #' The default values for these are in the additional properties section below.
 #' 
 #' The boolean field can be customised with these additional properties:
@@ -16,7 +16,7 @@
 #' \item{trueValues: ["true", "True", "TRUE", "1"]}
 #' \item{falseValues: ["false", "False", "FALSE", "0"]}
 #' }
-#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#boolean}{frictionlessdata boolean specification} 
+#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#boolean}{Types and formats specifications} 
 #' 
 #' @examples
 #' 
@@ -69,7 +69,8 @@ types.castBoolean <- function(format = "default", value, options={}) { #format p
 #' default true values
 #' @export
  TRUE_VALUES = c("true", "True", "TRUE", "1")
- 
+
 #' default false values
 #' @export
+ 
  FALSE_VALUES = c("false", "False", "FALSE", "0")

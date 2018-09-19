@@ -5,7 +5,8 @@
 #' Data values can be cast to native R types. Casting a value will check 
 #' the value is of the expected type, is in the correct format, 
 #' and complies with any constraints imposed by a schema.
-#' @usage Field$new(descriptor, missingValues = list(""))
+#' 
+#' @usage # Field$new(descriptor, missingValues = list(""))
 #' @param descriptor Schema field descriptor
 #' @param missingValues A list with vector strings representing missing values
 #' 
@@ -21,7 +22,7 @@
 #'  \item{\code{TableSchemaError }}{Raises any error occured in the process.}
 #'  \item{\code{Field }}{Returns \code{Field} class instance.}
 #'  }
-#'   \item{\code{field$cast_value(value, constraints=TRUE)}}{
+#'   \item{\code{cast_value(value, constraints=TRUE)}}{
 #'   Cast given value according to the field type and format.}
 #' \itemize{
 #'  \item{\code{value }}{Value to cast against field}  
@@ -32,7 +33,7 @@
 #'  \item{\code{any }}{Returns cast value}
 #'  }
 #'  
-#' \item{\code{field$testValue(value, constraints=TRUE)}}{
+#' \item{\code{testValue(value, constraints=TRUE)}}{
 #'   Test if value is compliant to the field.}
 #' \itemize{
 #'  \item{\code{value }}{Value to cast against field}  
@@ -43,12 +44,12 @@
 #' 
 #' @section Properties:
 #' \describe{
-#'   \item{\code{field$name}}{Returns field name}
-#'   \item{\code{field$type}}{Returns field type}
-#'   \item{\code{field$format}}{Returns field format}
-#'   \item{\code{field$required}}{Returns \code{TRUE} if field is required}
-#'   \item{\code{field$constraints}}{Returns list with field constraints}
-#'   \item{\code{field$descriptor}}{Returns field descriptor}
+#'   \item{\code{name}}{Returns field name}
+#'   \item{\code{type}}{Returns field type}
+#'   \item{\code{format}}{Returns field format}
+#'   \item{\code{required}}{Returns \code{TRUE} if field is required}
+#'   \item{\code{constraints}}{Returns list with field constraints}
+#'   \item{\code{descriptor}}{Returns field descriptor}
 #' }
 #'  
 #' 
@@ -76,6 +77,14 @@
 #' A description for this field e.g. "The recipient of the funds".}
 #' }
 #' 
+#' 
+#' 
+#' @section Language:
+#' The key words \code{MUST}, \code{MUST NOT}, \code{REQUIRED}, \code{SHALL}, \code{SHALL NOT}, 
+#' \code{SHOULD}, \code{SHOULD NOT}, \code{RECOMMENDED}, \code{MAY}, and \code{OPTIONAL} 
+#' in this package documents are to be interpreted as described in \href{https://www.ietf.org/rfc/rfc2119.txt}{RFC 2119}.
+#' 
+#' 
 #' @docType class
 #' @importFrom R6 R6Class
 #' @export
@@ -85,7 +94,7 @@
 #' @return Object of \code{\link{R6Class}} .
 #' @format \code{\link{R6Class}} object.
 #' 
-#' 
+#' @seealso \href{http://frictionlessdata.io/specs/table-schema/#field-descriptors}{Field Descriptors Specifications}
 #'  
 #' @examples 
 #' DESCRIPTOR = list(name = "height", type = "number")

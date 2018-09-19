@@ -24,5 +24,5 @@ types.castList(format = "default", value = '["key", "value"]') # cast valid json
 
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#array}{frictionlessdata array/list specification}
+\href{https://frictionlessdata.io/specs/table-schema/#array}{Types and formats specifications}
 }

@@ -19,7 +19,7 @@
 #' @param value date to cast
 #' @rdname types.castDate
 #' @export
-#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#date}{frictionlessdata date specification}, 
+#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#date}{Types and formats specifications}, 
 #' \code{\link[base]{strptime}}, \code{\link[base]{DateTimeClasses}},
 #' \href{https://CRAN.R-project.org/package=parsedate}{parsedate} and
 #' \href{https://CRAN.R-project.org/package=lubridate}{lubridate} packages.
@@ -38,15 +38,15 @@
 
 types.castDate <- function(format = "default", value) {
   if (!lubridate::is.Date(value)) {
-
+    
     if (!is.character(value))
       return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     withCallingHandlers(
       tryCatch({
-
+        
         if (is.null(format) ||
             format == "default" || format == "any"  || format == "%Y-%m-%d") {
-    
+          
           value = suppressWarnings(as.Date(
             lubridate::parse_date_time(x = value, orders = "%Y-%m-%d"),
             format = "%Y-%m-%d"
@@ -57,7 +57,7 @@ types.castDate <- function(format = "default", value) {
         } else if (format != "default" &&
                    !startsWith(format, "fmt:")) {
           #format == "any"
-
+          
           if (format == "invalid") {
             value = strptime(x = value, format = format)
             
@@ -69,7 +69,7 @@ types.castDate <- function(format = "default", value) {
             return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
           
         } else {
-
+          
           if (startsWith(format, "fmt:")) {
             message(config::get("WARNING", file = system.file("config/config.yml", package = "tableschema.r")))
             
@@ -85,27 +85,20 @@ types.castDate <- function(format = "default", value) {
           #else
           #  value = as.Date(lubridate::parse_date_time(value, format), format = format)
           
-
           if (isTRUE(is.na(value) ||
                      nchar(value) > 11))
             return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
-          
         }
-        
         if (!lubridate::is.Date(value)) {
           parsed_effort = suppressWarnings(lubridate::parse_date_time(value, format))
-                  if ((!lubridate::is.instant(parsed_effort)) ||
-            is.na(parsed_effort)) {
-          return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
-          
-        } else {
-          value = as.Date(lubridate::parse_date_time(value, format), format = format)
+          if ((!lubridate::is.instant(parsed_effort)) ||
+              is.na(parsed_effort)) {
+            return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
+            
+          } else {
+            value = as.Date(lubridate::parse_date_time(value, format), format = format)
+          }
         }
-      
-       
-        }
-
-        
       }),
       
       warning = function(w) {
@@ -118,8 +111,6 @@ types.castDate <- function(format = "default", value) {
         invokeRestart("muffleWarning")
       }
     )
-    
   }
   return(value)
-  
 }

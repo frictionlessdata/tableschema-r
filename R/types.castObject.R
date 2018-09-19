@@ -5,7 +5,7 @@
 #' @rdname types.castObject
 #' @export
 #' 
-#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#object}{frictionlessdata object specification}
+#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#object}{Types and formats specifications}
 #' 
 #' @examples 
 #' 
