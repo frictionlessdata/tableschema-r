@@ -17,6 +17,7 @@ addons:
       - libxml2-dev
       - libv8-dev
 warnings_are_errors: false
+r_github_packages:
+  - r-lib/covr
 after_success:
-    - Rscript -e 'covr::coveralls()'
- 
+  - Rscript -e 'covr::coveralls()'
