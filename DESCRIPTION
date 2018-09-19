@@ -13,7 +13,6 @@ Encoding: UTF-8
 LazyData: true
 Imports: 
     config,
-    covr,
     devtools, 
     future, 
     git2r, 
@@ -32,8 +31,10 @@ Imports:
     stringr, 
     urltools
 Suggests: 
+    covr,
     foreach,
     testthat
+Remotes: r-lib/covr
 Collate: 
     'constraints.checkUnique.R'
     'constraints.checkRequired.R'
