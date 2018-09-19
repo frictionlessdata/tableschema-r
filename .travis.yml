@@ -19,3 +19,4 @@ addons:
 warnings_are_errors: false
 after_success:
  - Rscript -e 'covr::coveralls()'
+ 
