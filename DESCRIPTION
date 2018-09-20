@@ -1,11 +1,12 @@
 Package: tableschema.r
 Type: Package
-Title: 'Table Schema Package'
+Title: 'Table Schema'
 Version: 0.1.0
 Date: 2018-09-20
 Author: c(person("Kleanthis", "Koupidis", email = "koupidis@okfn.gr", role = c("aut", "cre")), 
             person("Lazaros", "Ioannidis", email = "larjohn@gmail.com", role = c("aut", "cre")),
-            person("Charalampos", "Bratsas", email = "charalampos.bratsas@okfn.org", role = "aut"))
+            person("Charalampos", "Bratsas", email = "charalampos.bratsas@okfn.org", role = "aut"),
+            person("Open Knowledge International", email = "charalampos.bratsas@okfn.org", role = "cph"))
 Maintainer: Kleanthis Koupidis <koupidis@okfn.gr>
 Description: A library for working with 'Table Schema' (<http://specs.frictionlessdata.io/table-schema/>).
 License: MIT + file LICENSE
@@ -31,9 +32,9 @@ Imports:
     stringr, 
     urltools
 Suggests:
+    covr,
     foreach,
-    testthat,
-    covr
+    testthat
 Remotes: r-lib/covr
 Collate:
     'constraints.checkUnique.R'
