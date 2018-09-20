@@ -11,7 +11,7 @@ Description: A library for working with 'Table Schema' (<http://specs.frictionle
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Imports: 
+Imports:
     config,
     devtools, 
     future, 
@@ -30,10 +30,11 @@ Imports:
     rlist, 
     stringr, 
     urltools
-Suggests: 
+Suggests:
     foreach,
-    testthat
-Collate: 
+    testthat,
+    covr
+Collate:
     'constraints.checkUnique.R'
     'constraints.checkRequired.R'
     'constraints.checkPattern.R'

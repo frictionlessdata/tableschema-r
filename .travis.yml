@@ -1,6 +1,6 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
-language: r
+language: R
 sudo: false
 cache: packages
 r:
@@ -11,8 +11,6 @@ before_install:
   - tlmgr install index
 repos:
   CRAN: http://cran.rstudio.com
-install:
-  - ./travis-tool.sh github_package r-lib/covr
 addons:
   apt:
     packages:
