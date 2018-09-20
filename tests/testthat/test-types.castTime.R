@@ -2,11 +2,13 @@ library(stringr)
 library(tableschema.r)
 library(testthat)
 library(foreach)
+library(lubridate)
+library(config)
 
 testthat::context("types.castTime")
 
 Time = function(hour, minute=0, second=0) {
-  value = lubridate::as_datetime(lubridate::make_datetime(0, 0, 1, hour, minute, second,tz = "UTC"))
+  value = as_datetime(make_datetime(0, 0, 1, hour, minute, second,tz = "UTC"))
   unlist(strsplit(as.character(value), " "))[[2]]
 }
 
@@ -55,7 +57,7 @@ foreach(j = 1:length(TESTS) ) %do% {
   
   TESTS[[j]] = setNames(TESTS[[j]], c("format", "value", "result"))
   
-  test_that(stringr::str_interp('format "${TESTS[[j]]$format}" should check "${TESTS[[j]]$value}" as "${TESTS[[j]]$result}"'), {
+  test_that(str_interp('format "${TESTS[[j]]$format}" should check "${TESTS[[j]]$value}" as "${TESTS[[j]]$result}"'), {
     
     expect_equal(types.castTime(TESTS[[j]]$format, TESTS[[j]]$value), TESTS[[j]]$result)
   })

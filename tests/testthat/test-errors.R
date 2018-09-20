@@ -1,4 +1,3 @@
-library(stringr)
 library(tableschema.r)
 library(testthat)
 
@@ -6,7 +5,7 @@ library(testthat)
 
 # Tests
 
-testthat::context("TableSchemaError")
+context("TableSchemaError")
 
 
 test_that('should work with one error', {

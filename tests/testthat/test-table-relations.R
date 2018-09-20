@@ -1,10 +1,9 @@
 library(tableschema.r)
 library(testthat)
-library(foreach)
 library(rlist)
 
 
-testthat::context("table-foreign-keys")
+context("table-foreign-keys")
 
 
 SOURCE = '[
@@ -46,7 +45,7 @@ test_that("should read rows if single field foreign keys is valid", {
     list(1, '10.0', 1, 'string1', '2012-06-15 00:00:00')
   )
   def2  = Table.load(helpers.from.json.to.list(SOURCE), schema = SCHEMA)
-  table = future::value(def2)
+  table = value(def2)
 
   rows = table$read(relations = helpers.from.json.to.list(RELATIONS))
 
@@ -67,7 +66,7 @@ test_that("should throw on read if single field foreign keys is invalid", {
     list(1, '10.0', 1, 'string1', '2012-06-15 00:00:00')
   )
   def2  = Table.load(helpers.from.json.to.list(SOURCE), schema = SCHEMA)
-  table = future::value(def2)
+  table = value(def2)
   relations = helpers.from.json.to.list(RELATIONS)
   relations[["people"]][[3]][["firstname"]] = 'Max'
   expect_error(table$read(relations = relations), ".*Foreign key.*")
@@ -88,7 +87,7 @@ test_that("should read rows if multi field foreign keys is valid", {
   relations = helpers.from.json.to.list(RELATIONS)
 
   def2  = Table.load(helpers.from.json.to.list(SOURCE), schema = SCHEMA2)
-  table = future::value(def2)
+  table = value(def2)
   keyedRows = table$read(keyed = TRUE, relations = relations)
   expect_equivalent(keyedRows, list(
     list('1', name = list(firstname = 'Alex', surname = 'Martin'), surname = list(firstname = 'Alex', surname = 'Martin')),
@@ -125,13 +124,12 @@ test_that("should throw on read if multi field foreign keys is invalid", {
 
   SCHEMA2 = helpers.from.list.to.json(schema)
   relations = helpers.from.json.to.list(RELATIONS)
-  relations$people = rlist::list.remove(relations$people, 3)
+  relations$people = list.remove(relations$people, 3)
 
   def2  = Table.load(helpers.from.json.to.list(SOURCE), schema = SCHEMA2)
-  table = future::value(def2)
+  table = value(def2)
 
   expect_error(table$read(relations = relations), ".*Foreign key.*")
 
 
 })
-

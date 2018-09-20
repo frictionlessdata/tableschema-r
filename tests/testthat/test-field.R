@@ -1,8 +1,7 @@
-library(stringr)
 library(tableschema.r)
 library(testthat)
 
-testthat::context("Fields")
+context("Fields")
 
 
 DESCRIPTOR_MIN = list(name = "height", type = "number")
@@ -76,12 +75,11 @@ test_that('should throw an error on incompatible value', {
   expect_error(field$cast_value('bad-value'))
 })
 
+# test_that('str_length of factor is length of level', { expect_equal(str_length(factor('a')), 1) expect_equal(str_length(factor('ab')), 2) expect_equal(str_length(factor('abc')), 3) })
+# test_that('str_length of missing is missing', { expect_equal(str_length(NA), NA_integer_) expect_equal(str_length(c(NA, 1)), c(NA, 1)) expect_equal(str_length('NA'), 2) })
+
 test_that('should throw an error on incompatible value', {
   field = Field$new(helpers.from.json.to.list('{"name": "column", "type": "integer", "constraints": {"minimum": 1}}'))
   expect_error(field$cast_value(0))
   expect_equal(field$cast_value(1),1)
 })
-
-# test_that('str_length of factor is length of level', { expect_equal(str_length(factor('a')), 1) expect_equal(str_length(factor('ab')), 2) expect_equal(str_length(factor('abc')), 3) })
-
-# test_that('str_length of missing is missing', { expect_equal(str_length(NA), NA_integer_) expect_equal(str_length(c(NA, 1)), c(NA, 1)) expect_equal(str_length('NA'), 2) })
