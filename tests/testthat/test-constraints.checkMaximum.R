@@ -12,7 +12,9 @@ TESTS = list(
   
   list( 1, 1,  TRUE),
   
-  list( 2, 1,  TRUE)
+  list( 2, 1,  TRUE),
+  
+  list( 2, NULL,  TRUE)
   
 )
 

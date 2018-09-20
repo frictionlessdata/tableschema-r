@@ -1,9 +1,7 @@
 library(tableschema.r)
 library(testthat)
 
-
 context("validate")
-
 
 # Fixtures
 
@@ -17,6 +15,8 @@ SCHEMA = '{
     ],
   "primaryKey": ["id"]
 }'
+
+
 
 # Tests
 
@@ -44,7 +44,6 @@ test_that("ensure schema fields constraints must be an object", {
   expect_equal(validation$valid, FALSE)
   expect_equal(length(validation$errors), 1L)
 })
-
 
 test_that("ensure constraints properties have correct type", {
   descriptor = '{

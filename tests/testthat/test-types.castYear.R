@@ -6,7 +6,6 @@ library(config)
 
 context("types.castYear")
 
-
 # Constants
 
 TESTS = list(

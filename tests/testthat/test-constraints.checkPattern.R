@@ -11,7 +11,9 @@ TESTS = list(
   
   list('^test$', 'test', TRUE),
   
-  list('^test$', 'TEST', FALSE)
+  list('^test$', 'TEST', FALSE),
+  
+  list('^test$', NULL, TRUE)
   
   )
 

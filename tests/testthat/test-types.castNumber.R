@@ -1,8 +1,8 @@
 library(stringr)
 library(tableschema.r)
 library(testthat)
-library(config)
 library(foreach)
+library(config)
 
 context("types.castNumber")
 
@@ -30,7 +30,7 @@ TESTS = list(
   list('default', '10@50', 10.5, list(groupChar = '#', decimalChar = '@') ),
   list('default', '1#000', 1000, list(groupChar = '#', decimalChar = '@') ),
   
-  list('default', '10,000.00', 10000, list(groupChar = ',', bareNumber = FALSE) ),
+  list('default', '10,000.00', 10000, list( groupChar = ',', bareNumber = FALSE) ),
   list('default', '10,000,000.00', 10000000, list(groupChar = ',', bareNumber = FALSE) ),
   list('default', '$10000.00', 10000, list(bareNumber = FALSE) ),
   list('default', '  10,000.00 €', 10000, list(groupChar = ',', bareNumber = FALSE) ),
@@ -42,7 +42,11 @@ TESTS = list(
   list('default', '10+000.00', config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {} ),
   list('default', '$10:000.00', config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {} ),
   list('default', 'string', config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {} ),
-  list('default', '', config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {} )
+  list('default', '', config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {} ),
+  list('default', NULL, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {}),
+  list('default', list(1:3), config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {}),
+  list('default', "", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {}),
+  list('default', '1000000', 1000000, list( bareNumber = TRUE) )
 )
 # Tests
 

@@ -5,10 +5,10 @@ library(foreach)
 library(lubridate)
 library(config)
 
-testthat::context("types.castTime")
+context("types.castTime")
 
 Time = function(hour, minute=0, second=0) {
-  value = as_datetime(make_datetime(0, 0, 1, hour, minute, second,tz = "UTC"))
+  value = lubridate::as_datetime(lubridate::make_datetime(0, 0, 1, hour, minute, second,tz = "UTC"))
   unlist(strsplit(as.character(value), " "))[[2]]
 }
 

@@ -1,8 +1,8 @@
 library(stringr)
 library(tableschema.r)
 library(testthat)
-library(foreach)
 library(config)
+library(foreach)
 
 context("types.castObject")
 

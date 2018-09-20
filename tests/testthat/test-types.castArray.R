@@ -2,13 +2,14 @@ library(stringr)
 library(tableschema.r)
 library(testthat)
 library(foreach)
+library(config)
 
 context("types.castArray")
 
 # Constants
 TESTS = list(
   list('default', list(), list()),
-  list('default', list(), list()),
+  list('default', "[]", list()),
   list('default', list('key', 'value'), list('key', 'value')),
   list('default', '["key", "value"]', list('key', 'value')),
   list('default', 'string', config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),

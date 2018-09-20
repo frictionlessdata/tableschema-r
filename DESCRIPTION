@@ -34,8 +34,7 @@ Suggests:
     foreach,
     testthat,
     covr
-Remotes:
-    r-lib/covr
+Remotes: r-lib/covr
 Collate:
     'constraints.checkUnique.R'
     'constraints.checkRequired.R'

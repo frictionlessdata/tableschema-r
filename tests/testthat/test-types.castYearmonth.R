@@ -4,7 +4,6 @@ library(testthat)
 library(foreach)
 library(config)
 
-
 context("types.castYearmonth")
 
 
