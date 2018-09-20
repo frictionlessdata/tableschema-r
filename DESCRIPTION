@@ -2,8 +2,8 @@ Package: tableschema.r
 Type: Package
 Title: 'Table Schema Package'
 Version: 0.1.0
-Date: 2017-07-01
-Author: c(person("Kleanthis", "Koupidis", email = "koupidis.okfgr@gmail.com", role = c("aut", "cre")), 
+Date: 2018-09-20
+Author: c(person("Kleanthis", "Koupidis", email = "koupidis@okfn.gr", role = c("aut", "cre")), 
             person("Lazaros", "Ioannidis", email = "larjohn@gmail.com", role = c("aut", "cre")),
             person("Charalampos", "Bratsas", email = "charalampos.bratsas@okfn.org", role = "aut"))
 Maintainer: Kleanthis Koupidis <koupidis@okfn.gr>
