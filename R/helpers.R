@@ -93,8 +93,6 @@ helpers.retrieveDescriptor <- function(descriptor) {
           stringr::str_interp("Can\'t load descriptor at '${descriptor}': ${cond$message}")
         )
       })
-
-      
     }
     return(descriptor)
   }))
