@@ -31,7 +31,6 @@ Imports:
     stringr, 
     urltools
 Suggests: 
-    covr,
     foreach,
     testthat
 Collate: 
