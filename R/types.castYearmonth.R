@@ -19,11 +19,11 @@ types.castYearmonth <- function(format, value) {
   
   if ( isTRUE(is_empty(value))) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
   
-  if (is.array(value) | is.list(value) ) {
+  if (any(is.array(value) | is.list(value))) {
     
-    if (length(value) != 2) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
+    if (length(value) != 2 | any(unlist(value) < 0) | unlist(value)[2] > 12 ) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     
-  } else if (is.character(value)) {
+  } else if (is.character(value) &  !isTRUE(grepl('[a-zA-Z]', value)) ) {
     
     tryCatch({
       
@@ -63,35 +63,5 @@ types.castYearmonth <- function(format, value) {
     
   } else return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
   
-  return (value)
+  return(value)
 }
-
-# types.castYearmonth <- function (format = "%y-%m", value) {
-#   
-#   
-#   if (is.array(value) | is.list(value)) {
-#     
-#     if (length(value) != 2) stop ("Length of the input object should be 2")
-#     
-#   } else if (is.character(value)) {
-#     
-#     tryCatch({
-#       
-#       value = lubridate::as_date(value,format = "%Y-%m-%d")
-#       
-#       value = format(value, format = format)
-#       
-#       #if (!year || !month) stop()
-#       
-#       if (value$month < 1 | value$month > 12) stop ("Specify a true value for month")
-#       
-#     },
-#     
-#     error=function(e)  e
-#     
-#     )
-#     
-#   } else stop("Could not cast yearmonth from the input")
-#   
-#   return (value)
-# }

@@ -175,7 +175,7 @@ Field <- R6Class(
       
       private$missingValues <- missingValues
       
-      private$descriptor_ = Helpers$expandFieldDescriptor(descriptor)
+      private$descriptor_ = helpers.expandFieldDescriptor(descriptor)
       
       
     },
@@ -343,8 +343,8 @@ Field <- R6Class(
         if (name %in% list('maximum', 'minimum')) {
           castConstraint <- cast(constraint)
         }
-        
-        func <- private$constraints_[[stringr::str_interp("check${stringr::str_to_title(name)}")]]
+
+        func <- private$constraints_[[stringr::str_interp("check${paste0(toupper(substr(name, 1, 1)), substr(name, 2, nchar(name)))}")]]
         check <- purrr::partial(func, constraint = castConstraint)
         checks[[name]] = check
       }

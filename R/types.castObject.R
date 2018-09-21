@@ -39,12 +39,8 @@ types.castObject <- function(format, value) {
     })
   }
   
-  if (!is.list(value)) {
+  if (any(!is.list(value) | is.null(names(value)))) {
     return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
   }
-  if (is.null(names(value))) {
-    return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
-  }
-  #if ( ! plain object ) stop(2,call. = FALSE)
   return(value)
 }

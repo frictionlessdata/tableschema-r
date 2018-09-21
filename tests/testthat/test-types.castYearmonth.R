@@ -29,7 +29,17 @@ TESTS = list(
   
   list("default", 20, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   
+  list("default", list(2000), config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  
+  list("default", list(2000, -10), config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  
+  list("default", list(2000, 13), config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  
+  list("default", c(20,11), config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  
   list("default", "3.14", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  
+  list("default", "abc", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   
   list("default", "", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
   

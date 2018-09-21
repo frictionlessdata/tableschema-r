@@ -119,9 +119,9 @@ Profile <- R6Class(
     
     name = function() {
       
-      if (is.null(private$jsonschema_$title)) return(NULL)
+      if (is.null(jsonlite::fromJSON(private$jsonschema_)$title)) return(NULL)
       
-      return(tolower(gsub(' ', '-', private$jsonschema_$title)))
+      return(tolower(gsub(' ', '-', jsonlite::fromJSON(private$jsonschema_)$title)))
     },
     
     jsonschema = function() {
@@ -279,35 +279,19 @@ validateForeignKeys = function(descriptor) {
 Profile.load = function(profile){
   # Remote
   
-  if (is.character(profile) && (startsWith("http",unlist(strsplit(profile,":")))[1] |
-                                startsWith("https", unlist(strsplit(profile,":")))[1]) ) {
-    
-    jsonschema = profile
-    
-    if (is.null(jsonschema)) {
-      
-      tryCatch( {
-        response = httr::GET(profile)
-        
-        jsonschema = httr::content(response, as = 'text')
-      },
-      
-      error = function(e) {
-        TableSchemaError$new(stringr::str_interp("Can not retrieve remote profile '${profile}'"))$message
-      })
-      
-      #cache_[profile] = jsonschema
-      profile = jsonschema
-    } else profile = urltools::host_extract(urltools::domain(basename(profile)))$host
-  }
+  if (is.character(profile)) {
+    if (startsWith("http",unlist(strsplit(profile,":")))[1] |
+        startsWith("https", unlist(strsplit(profile,":")))[1])  {
+      profile = urltools::host_extract(urltools::domain(basename(profile)))$host
+    } else {
+      profile = unlist(strsplit(basename(profile),".", fixed = TRUE))[1]
+      stopifnot(profile %in% names(profiles))
+    }}
   return(Profile$new(profile))
 }
 
 
 profiles = list(
-  
   geojson = 'profiles/geojson.json',
-  
   tableschema = 'profiles/tableschema.json'
-  
 )

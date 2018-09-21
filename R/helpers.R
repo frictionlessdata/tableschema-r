@@ -1,42 +1,3 @@
-#' Helpers class
-#' 
-#' @description Helper class to expand field descriptor
-#' @docType class
-#' @importFrom R6 R6Class
-#' @export
-#' @keywords data
-#' @return Object of \code{\link{R6Class}} .
-#' @format \code{\link{R6Class}} object.
-
-
-Helpers <- R6Class("Helpers", public = list())
-
-Helpers$expandFieldDescriptor <- function(descriptor) {
-  if (!is.list(descriptor)) {
-    stop("Field descriptor should be a hash instance.")
-  }
-  if (!("type" %in% names(descriptor))) {
-    descriptor$type <- config::get("DEFAULT_FIELD_TYPE", file = system.file("config/config.yml", package = "tableschema.r"))
-  }
-  
-  if (!("format" %in% names(descriptor))) {
-    descriptor$format <- config::get("DEFAULT_FIELD_FORMAT", file = system.file("config/config.yml", package = "tableschema.r"))
-  }
-  return(descriptor)
-}
-
-
-
-
-helpers.checkUnique <- function(name,
-                                value,
-                                uniqueHeaders,
-                                uniqueness){
-  return(TRUE)
-}
-
-
-
 #' Retrieve Descriptor
 #' @description Helper function to retrieve descriptor
 #' @param descriptor descriptor
@@ -46,7 +7,7 @@ helpers.checkUnique <- function(name,
 helpers.retrieveDescriptor <- function(descriptor) {
   return(future::future({
     # Inline
-
+    
     
     if (jsonlite::validate(descriptor)) {
       descriptor = descriptor
@@ -58,7 +19,7 @@ helpers.retrieveDescriptor <- function(descriptor) {
       
       # Loading error
       if (httr::status_code(res) >= 400) {
-
+        
         stop(
           stringr::str_interp("Can\'t load descriptor at '${descriptor}'")#,
           #errors
@@ -74,7 +35,7 @@ helpers.retrieveDescriptor <- function(descriptor) {
         
         if (valid == FALSE) {
           stop(
-          stringr::str_interp("Can\'t load descriptor at '${descriptor}'")          )
+            stringr::str_interp("Can\'t load descriptor at '${descriptor}'")          )
         }
         else{
           return(data)
@@ -105,6 +66,7 @@ helpers.retrieveDescriptor <- function(descriptor) {
 #' @rdname helpers.expandSchemaDescriptor
 #' @export
 #' 
+
 helpers.expandSchemaDescriptor <- function(descriptor) {
   
   for (index in 1:length(descriptor$fields)) {
@@ -122,73 +84,17 @@ helpers.expandSchemaDescriptor <- function(descriptor) {
 #' @param descriptor descriptor
 #' @rdname helpers.expandFieldDescriptor
 #' @export
+#' 
 
 helpers.expandFieldDescriptor = function(descriptor) {
+
   if (is.list(descriptor)) {
-    if (is.null(descriptor$type)) descriptor$type = config::get("DEFAULT_FIELD_TYPE", file = system.file("config/config.yml", package = "tableschema.r"))
-    if (is.null(descriptor$format)) descriptor$format = config::get("DEFAULT_FIELD_FORMAT", file = system.file("config/config.yml", package = "tableschema.r"))
+    if (any(is.null(descriptor$type) | !("type" %in% names(descriptor)))) descriptor$type = config::get("DEFAULT_FIELD_TYPE", file = system.file("config/config.yml", package = "tableschema.r"))
+    if (any(is.null(descriptor$format) | !("format" %in% names(descriptor)))) descriptor$format = config::get("DEFAULT_FIELD_FORMAT", file = system.file("config/config.yml", package = "tableschema.r"))
   }
   return(descriptor)
 }
 
-
-
-# #' Extract the field descriptors properties
-# #' @param descriptor descriptor
-# #' @rdname get.field.descriptor.properties
-# #' @export
-# 
-# 
-# get.field.descriptor.properties = function(descriptor) {
-#   if (is.valid(descriptor) == TRUE) {
-#     descriptor.object = jsonlite::fromJSON(descriptor,
-#                                            simplifyVector = T,
-#                                            flatten = F)
-#     
-#     field_descriptor_classes = purrr::pmap_chr(descriptor.object$resources$schema$fields , class)
-#     
-#     field_descriptor_classes = gsub("data.frame",
-#                                     "array/list/object",
-#                                     field_descriptor_classes) # needs fix
-#     
-#     field_descriptor_classes_length = purrr::pmap_dbl(descriptor.object$resources$schema$fields , function(x)
-#       colSums(!is.na(as.data.frame(x))))
-#     
-#     field_descriptor_classes_missing = purrr::pmap_dbl(descriptor.object$resources$schema$fields , function(x)
-#       colSums(is.na(as.data.frame(x))))
-#     
-#     if (has_name_field_descriptor(descriptor.object)) {
-#       df = data.frame(
-#         root  = rlang::names2(field_descriptor_classes),
-#         class = field_descriptor_classes,
-#         items = field_descriptor_classes_length,
-#         missing = field_descriptor_classes_missing,
-#         
-#         fix.empty.names = FALSE,
-#         stringsAsFactors = FALSE
-#       )
-#       rownames(df) = NULL
-#       
-#     } else
-#       df = message(
-#         "The field descriptor MUST contain a name property. More spec details in https://specs.frictionlessdata.io/table-schema/#field-descriptors."
-#       )
-#     
-#   } else
-#     df = message("This is not a valid descriptor.")
-#   
-#   return(df)
-# }
-
-# #' check if name property is missing
-# #' @param descriptor descriptor
-# #' @rdname has_name_field_descriptor
-# #' @export
-# #'
-# has_name_field_descriptor = function(descriptor) {
-#   "name" %in% rlang::names2(descriptor) |
-#     all(!is.na(as.data.frame(descriptor$resources$schema$fields)[, "name"]))
-# }
 
 #' Is uri
 #' @param uri uri input
@@ -196,19 +102,13 @@ helpers.expandFieldDescriptor = function(descriptor) {
 #' @rdname is.uri
 #' @export
 #'
+
 is.uri <- function(uri) {
   if (!is.character(uri))
     message("The uri should be character")
   
   pattern = grepl("^http[s]?://", uri) |
     RCurl::url.exists(uri) #& !httr::http_error(uri)
-  
-  # if (!isTRUE(pattern)) {
-  #
-  #   pattern = httr::http_status(httr::GET(uri))
-  #
-  # }
-  
   return(pattern)
 }
 
@@ -222,7 +122,6 @@ is.uri <- function(uri) {
 
 is.email <- function(x) {
   grepl("[^@]+@[^@]+\\.[^@]+", as.character(x), ignore.case = TRUE) # other email expr "\\<[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\>"
-  
 }
 
 #' Is binary
@@ -233,10 +132,10 @@ is.email <- function(x) {
 
 is.binary = function(x){
   if (any(endsWith(x,suffix = "==") || 
-             is.raw(jsonlite::base64_enc(x)))) TRUE else FALSE
+          is.raw(jsonlite::base64_enc(x)))) TRUE else FALSE
 }
-  
-  # length(unique(stats::na.omit(x))) <= 2
+
+# length(unique(stats::na.omit(x))) <= 2
 
 #' Is uuid
 #' @param x character
@@ -291,8 +190,8 @@ is_integer = function(x) {
 is_empty = function(x) {
   
   if (is.list(x) & length(x) == 0) TRUE
-    
-    else any(is.na(x) | is.null(x) | x == "")
+  
+  else any(is.na(x) | is.null(x) | x == "")
   
 }
 
@@ -337,30 +236,3 @@ write_json <- function(x, file){
   x = jsonlite::prettify(helpers.from.list.to.json(x))
   x = writeLines(x, file)
 }
-
-# #' @title filepath
-# #' @description filepath
-# #' @param x x
-# #' @rdname filepath
-# #' @export
-# 
-# filepath <- function(x){
-#   
-#   files = list.files(recursive = TRUE)
-#   
-#   matched_files = files[ grep(x, files,fixed = FALSE, ignore.case = F) ]
-#   
-#   if ( length(matched_files) > 1 ){
-#     
-#     message("There are multiple matches with the input file." ) 
-#     
-#     choice = utils::menu(matched_files, title = cat("Please specify the input file:"))
-#     
-#     matched_files = matched_files[choice]
-#     
-#   } # else 
-#   
-#   return (matched_files)
-# }
-
-
