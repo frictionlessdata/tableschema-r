@@ -23,7 +23,7 @@ constraints.checkPattern <- function(constraint, value) {
   
   if (is.null(value)) return(TRUE)
   
-  if (isTRUE(grepl(value, constraint))) return(TRUE)
+  if (isTRUE(grepl(constraint, value))) return(TRUE)
   
   return(FALSE)
   
