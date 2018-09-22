@@ -70,7 +70,7 @@ devtools::install_github("frictionlessdata/tableschema-r")
 ```
 
 ## Load library
-```{r, echo=TRUE}
+```{r echo=TRUE, warning=FALSE}
 # Install devtools package if not already
 # install.packages("jsonlite")
 library(jsonlite)
