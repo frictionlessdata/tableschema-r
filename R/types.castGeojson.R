@@ -1,11 +1,14 @@
-#' @title cast geojson
-#' @description cast geojson
-#' @param format format
-#' @param value value
+#' @title Cast JSON object according to GeoJSON or TopoJSON spec
+#' @description Cast JSON object according to GeoJSON or TopoJSON spec
+#' @param format default is a geojson object as per the \href{http://geojson.org/}{GeoJSON spec} or
+#'  topojson object as per the \href{https://github.com/topojson/topojson-specification/blob/master/README.md}{TopoJSON spec}
+#' @param value GeoJSON to cast
 #' @rdname types.castGeojson
 #' @export
 #' 
-
+#' 
+#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#geojson}{Types and formats specifications}
+#' 
 types.castGeojson <- function(format, value) {
   
   if (!is.object(value)) {
@@ -72,7 +75,7 @@ types.castGeojson <- function(format, value) {
     
   }
   
-  return (value)
+  return(value)
 }
 
 # path_geojson <- system.file("profiles/geojson.json", package = "tableschema.r")

@@ -2,8 +2,9 @@ library(stringr)
 library(tableschema.r)
 library(testthat)
 library(foreach)
+library(config)
 
-testthat::context("types.castBoolean")
+context("types.castBoolean")
 
 # Constants
 
@@ -36,8 +37,8 @@ TESTS = list(
   list("default", "NO", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {} ),
   list("default", "No", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {} ),
   
-  list("default", "N", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), list(falseValues = list("n")) ),
-  list("default", "Y", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), list(falseValues = list("y")) ),
+  list("default", "N", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), list(falseValues = list("n"))),
+  list("default", "Y", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), list(falseValues = list("y"))),
   
   list("default", 0, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {} ),
   list("default", 1, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {} ),
@@ -51,7 +52,7 @@ foreach(j = 1:length(TESTS) ) %do% {
   
   TESTS[[j]] = setNames(TESTS[[j]], c("format", "value", "result", "options"))
   
-  test_that(stringr::str_interp('format "${TESTS[[j]]$format}" should check "${TESTS[[j]]$value}" as "${TESTS[[j]]$result}"'), {
+  test_that(str_interp('format "${TESTS[[j]]$format}" should check "${TESTS[[j]]$value}" as "${TESTS[[j]]$result}"'), {
     
     expect_equal(types.castBoolean(TESTS[[j]]$format, TESTS[[j]]$value, TESTS[[j]]$options), TESTS[[j]]$result)
   })

@@ -1,6 +1,7 @@
 library(stringr)
 library(tableschema.r)
 library(testthat)
+library(future)
 
 
 

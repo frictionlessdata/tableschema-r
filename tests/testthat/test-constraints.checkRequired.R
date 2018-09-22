@@ -3,7 +3,7 @@ library(tableschema.r)
 library(testthat)
 library(foreach)
 
-testthat::context("constraints.checkRequired")
+context("constraints.checkRequired")
 
 # Constants
 
@@ -25,7 +25,7 @@ foreach(j = 1:length(TESTS) ) %do% {
   
   TESTS[[j]] = setNames(TESTS[[j]], c("constraint", "value", "result"))
   
-  test_that(stringr::str_interp('constraint "${TESTS[[j]]$constraint}" should check "${TESTS[[j]]$value}" as "${TESTS[[j]]$result}"'), {
+  test_that(str_interp('constraint "${TESTS[[j]]$constraint}" should check "${TESTS[[j]]$value}" as "${TESTS[[j]]$result}"'), {
     
     expect_equal(constraints.checkRequired(TESTS[[j]]$constraint, TESTS[[j]]$value), TESTS[[j]]$result)
   })

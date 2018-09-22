@@ -2,15 +2,42 @@
 % Please edit documentation in R/types.castGeopoint.R
 \name{types.castGeopoint}
 \alias{types.castGeopoint}
-\title{cast geopoint}
+\title{Cast geographic point}
 \usage{
 types.castGeopoint(format, value)
 }
 \arguments{
-\item{format}{format}
+\item{format}{available options are "default", "array" and "object", where
+\describe{
+\item{\code{default }}{A string of the pattern "lon, lat", where \code{lon} is the longitude 
+and \code{lat} is the latitude (note the space is optional after the \code{,}). E.g. \code{"90, 45"}.}
+\item{\code{array }}{A JSON array, or a string parsable as a JSON array, of exactly two items, 
+where each item is a number, and the first item is \code{lon} and the second item is \code{lat} e.g. \code{[90, 45]}.}
+\item{\code{object }}{A JSON object with exactly two keys, \code{lat} and \code{lon} and each value is a number e.g. \code{{"lon": 90, "lat": 45}}.}
+}}
 
-\item{value}{value}
+\item{value}{geopoint to cast}
 }
 \description{
-cast geopoint
+Cast geographic point
+}
+\examples{
+
+types.castGeopoint(format = "default", value = list(180, 90))
+
+types.castGeopoint(format = "default", value = '180,90')
+
+types.castGeopoint(format = "default", value = '180, -90')
+
+types.castGeopoint(format = "array", value = list(180, 90))
+
+types.castGeopoint(format = "array", value =  '[180, -90]')
+
+types.castGeopoint(format = "object", value = list(lon = 180, lat = 90))
+
+types.castGeopoint(format = "object", value =  '{"lon": 180, "lat": 90}')
+
+}
+\seealso{
+\href{https://frictionlessdata.io/specs/table-schema/#geopoint}{Types and formats specifications}
 }

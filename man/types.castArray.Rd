@@ -2,15 +2,19 @@
 % Please edit documentation in R/types.castArray.R
 \name{types.castArray}
 \alias{types.castArray}
-\title{cast array}
+\title{Cast array}
 \usage{
 types.castArray(format, value)
 }
 \arguments{
-\item{format}{format}
+\item{format}{no options (other than the default)}
 
-\item{value}{value}
+\item{value}{lists, or valid JSON format arrays to cast}
 }
 \description{
-cast array
+Cast array is used for list objects
+}
+\seealso{
+\code{\link{types.castList}}, 
+\href{https://frictionlessdata.io/specs/table-schema/#array}{Types and formats specifications}
 }

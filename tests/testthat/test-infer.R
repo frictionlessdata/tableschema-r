@@ -1,9 +1,8 @@
-library(stringr)
 library(tableschema.r)
 library(testthat)
 
 
-testthat::context("infer")
+context("infer")
 
 
 test_that("produce schema from a generic .csv", {

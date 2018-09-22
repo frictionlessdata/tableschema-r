@@ -2,8 +2,9 @@ library(stringr)
 library(tableschema.r)
 library(testthat)
 library(foreach)
+library(config)
 
-testthat::context("types.castGeopoint")
+context("types.castGeopoint")
 
 # Constants
 
@@ -51,7 +52,7 @@ foreach(j = 1:length(TESTS) ) %do% {
   
   TESTS[[j]] = setNames(TESTS[[j]], c("format", "value", "result"))
   
-  test_that(stringr::str_interp('format "${TESTS[[j]]$format}" should check "${TESTS[[j]]$value}" as "${TESTS[[j]]$result}"'), {
+  test_that(str_interp('format "${TESTS[[j]]$format}" should check "${TESTS[[j]]$value}" as "${TESTS[[j]]$result}"'), {
     
     expect_equal(types.castGeopoint(TESTS[[j]]$format, TESTS[[j]]$value), TESTS[[j]]$result)
   })

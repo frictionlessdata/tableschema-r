@@ -12,6 +12,6 @@ ReadableConnection
 Object of \code{\link{R6Class}} .
 }
 \description{
-ReadableConnection class
+Readable connection class
 }
 \keyword{data}

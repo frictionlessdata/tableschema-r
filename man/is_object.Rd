@@ -7,8 +7,8 @@
 is_object(x)
 }
 \arguments{
-\item{x}{x}
+\item{x}{list, array, json string}
 }
 \description{
-is object
+Is object
 }

@@ -1,22 +1,33 @@
-#' @title cast list
+#' @title Cast list
 #' @description cast list
-#' @param format format
-#' @param value value
+#' @param format no options (other than the default)
+#' @param value lists, or valid JSON format arrays to cast
 #' @rdname types.castList
 #' @export
 #' 
-types.castList <- function (format, value) {
+#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#array}{Types and formats specifications} 
+#' 
+#' @examples 
+#' 
+#' types.castList(format = "default", value =  list())
+#' 
+#' types.castList(format = "default", value = list('key', 'value'))
+#' 
+#' types.castList(format = "default", value = '["key", "value"]') # cast valid json array
+#' 
+
+types.castList <- function(format, value) {
   
-  if(!is.list(value)) {
-    if(!is.character(value)) {
+  if (!is.list(value)) {
+    if (!is.character(value)) {
       return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     }
   }
   
-  if(is.list(value)) {
+  if (is.list(value)) {
     return(value)
     
-  } else if(isTRUE(jsonlite::validate(value))){
+  } else if (isTRUE(jsonlite::validate(value))) {
     
     value = tryCatch({
       
@@ -39,6 +50,6 @@ types.castList <- function (format, value) {
   
   if (!is.list(value) ) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
   
-  return (value)
+  return(value)
   
 }

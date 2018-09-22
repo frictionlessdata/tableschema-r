@@ -2,15 +2,27 @@
 % Please edit documentation in R/types.castObject.R
 \name{types.castObject}
 \alias{types.castObject}
-\title{cast object}
+\title{Cast object}
 \usage{
 types.castObject(format, value)
 }
 \arguments{
-\item{format}{format}
+\item{format}{no options (other than the default)}
 
-\item{value}{value}
+\item{value}{object to cast}
 }
 \description{
-cast object
+Cast object data which is lists or valid JSON.
+}
+\examples{
+
+types.castObject(format = "default", value = list())
+
+types.castObject(format = "default", value = "{}")
+
+types.castObject(format = "default", value = '{"key": "value"}')
+
+}
+\seealso{
+\href{https://frictionlessdata.io/specs/table-schema/#object}{Types and formats specifications}
 }

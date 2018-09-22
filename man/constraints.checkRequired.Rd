@@ -7,13 +7,30 @@
 constraints.checkRequired(constraint, value)
 }
 \arguments{
-\item{constraint}{constraint}
+\item{constraint}{set TRUE to check required values}
 
-\item{value}{value}
+\item{value}{value to check}
 }
 \value{
-TRUE if a field is required
+TRUE if field is required
 }
 \description{
-Check if a field is required
+Indicates whether this field is allowed to be \code{NULL}. 
+If required is \code{TRUE}, then \code{NULL} is disallowed.
+See the section on \href{https://frictionlessdata.io/specs/table-schema/#missing-values}{missingValues} for how, 
+in the physical representation of the data, strings can represent \code{NULL} values.
+}
+\examples{
+
+constraints.checkRequired(constraint = FALSE, value = 1)
+
+constraints.checkRequired(constraint = TRUE, value = 0)
+
+constraints.checkRequired(constraint = TRUE, value = NULL)
+
+constraints.checkRequired(constraint = TRUE, value = "undefined")
+
+}
+\seealso{
+\href{https://frictionlessdata.io/specs/table-schema/#constraints}{Constraints specifications}
 }

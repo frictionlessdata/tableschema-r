@@ -7,8 +7,8 @@
 is_integer(x)
 }
 \arguments{
-\item{x}{value}
+\item{x}{number}
 }
 \description{
-is integer
+Is integer
 }

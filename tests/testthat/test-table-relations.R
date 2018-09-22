@@ -2,9 +2,10 @@ library(tableschema.r)
 library(testthat)
 library(foreach)
 library(rlist)
+library(future)
 
 
-testthat::context("table-foreign-keys")
+context("table-foreign-keys")
 
 
 SOURCE = '[
@@ -132,6 +133,4 @@ test_that("should throw on read if multi field foreign keys is invalid", {
 
   expect_error(table$read(relations = relations), ".*Foreign key.*")
 
-
 })
-

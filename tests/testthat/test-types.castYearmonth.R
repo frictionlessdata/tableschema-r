@@ -2,8 +2,9 @@ library(stringr)
 library(tableschema.r)
 library(testthat)
 library(foreach)
+library(config)
 
-testthat::context("types.castYearmonth")
+context("types.castYearmonth")
 
 
 # Constants
@@ -28,7 +29,17 @@ TESTS = list(
   
   list("default", 20, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   
+  list("default", list(2000), config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  
+  list("default", list(2000, -10), config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  
+  list("default", list(2000, 13), config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  
+  list("default", c(20,11), config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  
   list("default", "3.14", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
+  
+  list("default", "abc", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   
   list("default", "", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
   
@@ -40,7 +51,7 @@ foreach(j = 1:length(TESTS) ) %do% {
   
   TESTS[[j]] = setNames(TESTS[[j]], c("format", "value", "result"))
   
-  test_that(stringr::str_interp('format "${TESTS[[j]]$format}" should check "${TESTS[[j]]$value}" as "${TESTS[[j]]$result}"'), {
+  test_that(str_interp('format "${TESTS[[j]]$format}" should check "${TESTS[[j]]$value}" as "${TESTS[[j]]$result}"'), {
     
     expect_equal(types.castYearmonth(TESTS[[j]]$format, TESTS[[j]]$value), TESTS[[j]]$result)
   })

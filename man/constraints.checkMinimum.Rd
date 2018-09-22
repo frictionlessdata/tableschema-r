@@ -7,13 +7,25 @@
 constraints.checkMinimum(constraint, value)
 }
 \arguments{
-\item{constraint}{constraint}
+\item{constraint}{numeric constraint value}
 
-\item{value}{value}
+\item{value}{numeric value to meet the constraint}
 }
 \value{
-TRUE if value is less than the constraint
+TRUE if value is equal to or greater than the constraint
 }
 \description{
-Check if minimum constraint is met
+Specifies a minimum value for a field. This is different to \code{minLength} which checks the number of items in the value. 
+A minimum value constraint checks whether a field value is greater than or equal to the specified value. 
+The range checking depends on the type of the field. E.g. an integer field may have a minimum value of 100.
+If a minimum value constraint is specified then the field descriptor \code{MUST} contain a type key.
+}
+\examples{
+
+constraints.checkMinimum(constraint = list(2), value = 1)
+
+constraints.checkMinimum(constraint = 2, value = 3)
+}
+\seealso{
+\href{https://frictionlessdata.io/specs/table-schema/#constraints}{Constraints specifications}
 }

@@ -2,18 +2,37 @@
 % Please edit documentation in R/types.castDuration.R
 \name{types.castDuration}
 \alias{types.castDuration}
-\title{cast duration}
+\title{Cast duration of time}
 \usage{
 types.castDuration(format = "default", value)
 }
 \arguments{
-\item{format}{time unit of x}
+\item{format}{no options (other than the default)}
 
-\item{value}{value}
+\item{value}{duration to cast}
 }
 \description{
-cast duration
+Cast duration of time
 }
 \details{
-Available inputs for format of input value are picoseconds, nanoseconds, microseconds, milliseconds, seconds, minutes, hours, days, weeks, years
+We follow the definition of \href{https://www.w3.org/TR/xmlschema-2/#duration}{XML Schema duration datatype} 
+directly and that definition is implicitly inlined here.
+
+To summarize: the lexical representation for duration is the \href{https://en.wikipedia.org/wiki/ISO_8601#Durations}{ISO 8601}
+extended format PnYnMnDTnHnMnS, where nY represents the number of years, nM the number of months, nD the number of days, 
+'T' is the date/time separator, nH the number of hours, nM the number of minutes and nS the number of seconds. 
+The number of seconds can include decimal digits to arbitrary precision. 
+Date and time elements including their designator may be omitted if their value is zero, 
+and lower order elements may also be omitted for reduced precision.
+}
+\examples{
+
+types.castDuration(format = "default", value = durations(years= 10))
+
+types.castDuration(format = "default", value = "P1Y10M3DT5H11M7S")
+ 
+}
+\seealso{
+\href{https://frictionlessdata.io/specs/table-schema/#duration}{Types and formats specifications}, 
+\href{https://CRAN.R-project.org/package=lubridate}{lubridate} package.
 }

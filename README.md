@@ -1,7 +1,7 @@
 <img src="okgr.png" align="right" width=130px /><img src="oklabs.png" align="right" width=130px /><br><br/><img src="frictionlessdata.png" align="left" width=60 />rictionless Data - <br/> Table Schema
 ================
 
-[![Build Status](https://travis-ci.org/okgreece/tableschema-r.svg?branch=master)](https://travis-ci.org/okgreece/tableschema-r) [![Coverage Status](https://coveralls.io/repos/github/okgreece/tableschema-r/badge.svg?branch=master)](https://coveralls.io/github/okgreece/tableschema-r?branch=master) [![Github Issues](http://githubbadges.herokuapp.com/okgreece/tableschema-r/issues.svg)](https://github.com/okgreece/tableschema-r/issues) [![Pending Pull-Requests](http://githubbadges.herokuapp.com/okgreece/tableschema-r/pulls.svg)](https://github.com/okgreece/tableschema-r/pulls) [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![packageversion](https://img.shields.io/badge/Package%20version-0.1.0-orange.svg?style=flat-square)](commits/master) [![minimal R version](https://img.shields.io/badge/R%3E%3D-3.1-6666ff.svg)](https://cran.r-project.org/) [![Licence](https://img.shields.io/badge/licence-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/frictionlessdata/chat)
+[![Build Status](https://travis-ci.org/okgreece/tableschema-r.svg?branch=master)](https://travis-ci.org/okgreece/tableschema-r) [![Coverage status](https://coveralls.io/repos/github/okgreece/tableschema-r/badge.svg)](https://coveralls.io/r/okgreece/tableschema-r?branch=master) [![Github Issues](http://githubbadges.herokuapp.com/okgreece/tableschema-r/issues.svg)](https://github.com/okgreece/tableschema-r/issues) [![Pending Pull-Requests](http://githubbadges.herokuapp.com/okgreece/tableschema-r/pulls.svg)](https://github.com/okgreece/tableschema-r/pulls) [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![packageversion](https://img.shields.io/badge/Package%20version-0.1.0-orange.svg?style=flat-square)](commits/master) [![minimal R version](https://img.shields.io/badge/R%3E%3D-3.1-6666ff.svg)](https://cran.r-project.org/) [![Licence](https://img.shields.io/badge/licence-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/frictionlessdata/chat)
 
 Description
 ===========
@@ -63,16 +63,29 @@ Load library
 ------------
 
 ``` r
+# Install devtools package if not already
+# install.packages("jsonlite")
+library(jsonlite)
+# Install devtools package if not already
+# install.packages("future")
+library(future)
 # load the library using
 library(tableschema.r)
 ```
+
+    ## 
+    ## Attaching package: 'tableschema.r'
+
+    ## The following objects are masked from 'package:jsonlite':
+    ## 
+    ##     validate, write_json
 
 Documentation
 =============
 
 [Jsonlite package](https://CRAN.R-project.org/package=jsonlite) is internally used to convert json data to list objects. The input parameters of functions could be json strings, files or lists and the outputs are in list format to easily further process your data in R environment and exported as desired. The examples below show how to use jsonlite package to convert the output back to json adding indentation whitespace. More details about handling json you can see jsonlite documentation or vignettes [here](https://CRAN.R-project.org/package=jsonlite).
 
-Moreover [future package](https://CRAN.R-project.org/package=future) is also used to load and create Table and Schema class asynchronously. To retrieve the actual result of the loaded Table or Schema you have to call `$value()` to the variable you stored the loaded Table/Schema. More details about future package and sequential and parallel processing you can find [here](https://CRAN.R-project.org/package=future).
+Moreover [future package](https://CRAN.R-project.org/package=future) is also used to load and create Table and Schema classes asynchronously. To retrieve the actual result of the loaded Table or Schema you have to use `value(...)` to the variable you stored the loaded Table/Schema. More details about future package and sequential and parallel processing you can find [here](https://CRAN.R-project.org/package=future).
 
 Table
 -----
@@ -94,10 +107,10 @@ Let's create and read a table. We use static `Table.load` method and `table.read
 
 ``` r
 def = Table.load('inst/extdata/data.csv')
-table = def$value()
+table = value(def)
 table.headers = table$headers # ['city', 'location']
 # add indentation whitespace to JSON output with jsonlite package
-jsonlite::toJSON(table$read(keyed = TRUE), pretty = TRUE) 
+toJSON(table$read(keyed = TRUE), pretty = TRUE) # function from jsonlite package
 ```
 
     ## [
@@ -119,7 +132,7 @@ As we could see our locations are just a strings. But it should be geopoints. Al
 
 ``` r
 # add indentation whitespace to JSON output with jsonlite package
-jsonlite::toJSON(table$infer(), pretty = TRUE) 
+toJSON(table$infer(), pretty = TRUE) # function from jsonlite package
 ```
 
     ## {
@@ -141,7 +154,7 @@ jsonlite::toJSON(table$infer(), pretty = TRUE)
     ## }
 
 ``` r
-jsonlite::toJSON(table$schema$descriptor, pretty = TRUE)
+toJSON(table$schema$descriptor, pretty = TRUE) # function from jsonlite package
 ```
 
     ## {
@@ -212,6 +225,9 @@ table$read()
 #   {city: 'paris', location: [48.85,2.30]},
 #   {city: 'rome', location: null},
 # ]
+
+# or
+toJSON(table$read(), pretty = TRUE) # function from jsonlite package
 ```
 
 Now we see that:
@@ -231,22 +247,22 @@ Our `data.csv` looks the same because it has been stringified back to `csv` form
 
 ``` json
 {
-    "fields": [
-        {
-            "name": "city",
-            "type": "string",
-            "format": "default"
-        },
-        {
-            "name": "location",
-            "type": "geopoint",
-            "format": "default"
-        }
-    ],
-    "missingValues": [
-        "",
-        "N/A"
-    ]
+"fields": [
+{
+"name": "city",
+"type": "string",
+"format": "default"
+},
+{
+"name": "location",
+"type": "geopoint",
+"format": "default"
+}
+],
+"missingValues": [
+"",
+"N/A"
+]
 }
 ```
 
@@ -254,7 +270,7 @@ If we decide to improve it even more we could update the schema file and then op
 
 ``` r
 def = Table.load('inst/extdata/data.csv', schema = 'inst/extdata/schema.json')
-table = def$value()
+table = value(def)
 table
 ```
 
@@ -284,19 +300,19 @@ It was one basic introduction to the `Table` class. To learn more let's take a l
 
 #### `Table.load(source, schema, strict=FALSE, headers=1, ...)`
 
-Factory method to instantiate `Table` class. This method is async and it should be used with `$value()` keyword or as a `Promise`. If references argument is provided foreign keys will be checked on any reading operation.
+Factory method to instantiate `Table` class. This method is async and it should be used with `value(...)` keyword or as a `Promise`. If references argument is provided foreign keys will be checked on any reading operation.
 
 -   `source (String/list()/Stream/Function)` - data source (one of):
-    -   local CSV file (path)
-    -   remote CSV file (url)
-    -   list of lists representing the rows
-    -   readable stream with CSV file contents
-    -   function returning readable stream with CSV file contents
+-   local CSV file (path)
+-   remote CSV file (url)
+-   list of lists representing the rows
+-   readable stream with CSV file contents
+-   function returning readable stream with CSV file contents
 -   `schema (Object)` - data schema in all forms supported by `Schema` class
 -   `strict (Boolean)` - strictness option to pass to `Schema` constructor
 -   `headers (Integer/String[])` - data source headers (one of):
-    -   row number containing headers (`source` should contain headers rows)
-    -   array of headers (`source` should NOT contain headers rows)
+-   row number containing headers (`source` should contain headers rows)
+-   array of headers (`source` should NOT contain headers rows)
 -   `... (Object)` - options to be used by CSV parser. All options listed at <http://csv.adaltas.com/parse/#parser-options>. By default `ltrim` is true according to the CSV Dialect spec.
 -   `(errors.TableSchemaError)` - raises any error occured in table creation process
 -   `(Table)` - returns data table class instance
@@ -320,9 +336,9 @@ Iter through the table data and emits rows cast based on table schema. Data cast
 -   `stream (Boolean)` - return Readable Stream of table rows
 -   `(errors$TableSchemaError)` - raises any error occured in this process
 -   `(Iterator/Stream)` - iterator/stream of rows:
-    -   `[value1, value2]` - base
-    -   `{header1: value1, header2: value2}` - keyed
-    -   `[rowNumber, [header1, header2], [value1, value2]]` - extended
+-   `[value1, value2]` - base
+-   `{header1: value1, header2: value2}` - keyed
+-   `[rowNumber, [header1, header2], [value1, value2]]` - extended
 
 #### `table$read(keyed, extended, cast=TRUE, relations=FALSE, limit)`
 
@@ -362,7 +378,7 @@ Let's create a blank schema. It's not valid because `descriptor$fields` property
 
 ``` r
 def = Schema.load({})
-schema = def$value()
+schema = value(def)
 schema$valid # false
 ```
 
@@ -378,14 +394,14 @@ schema$errors
 To do not create a schema descriptor by hands we will use a `schema$infer` method to infer the descriptor from given data:
 
 ``` r
-jsonlite::toJSON(
+toJSON(
   schema$infer(helpers.from.json.to.list('[
     ["id", "age", "name"],
     ["1","39","Paul"],
     ["2","23","Jimmy"],
     ["3","36","Jane"],
     ["4","28","Judy"]
-    ]')), pretty = TRUE)
+    ]')), pretty = TRUE) # function from jsonlite package
 ```
 
     ## {
@@ -412,9 +428,9 @@ schema$valid # true
     ## [1] TRUE
 
 ``` r
-jsonlite::toJSON(
-  schema$descriptor, 
-  pretty = TRUE)
+toJSON(
+  schema$descriptor,
+  pretty = TRUE) # function from jsonlite package
 ```
 
     ## {
@@ -443,9 +459,9 @@ jsonlite::toJSON(
 Now we have an inferred schema and it's valid. We could cast data row against our schema. We provide a string input by an output will be cast correspondingly:
 
 ``` r
-jsonlite::toJSON(
+toJSON(
   schema$castRow(helpers.from.json.to.list('["5", "66", "Sam"]')),
-  pretty = TRUE, auto_unbox = TRUE)
+  pretty = TRUE, auto_unbox = TRUE) # function from jsonlite package
 ```
 
     ## [
@@ -501,15 +517,15 @@ It was onle basic introduction to the `Schema` class. To learn more let's take a
 
 #### `Schema.load(descriptor, strict=FALSE)`
 
-Factory method to instantiate `Schema` class. This method is async and it should be used with `$value()` keyword.
+Factory method to instantiate `Schema` class. This method is async and it should be used with `value(...)` keyword.
 
 -   `descriptor (String/Object)` - schema descriptor:
-    -   local path
-    -   remote url
-    -   object
+-   local path
+-   remote url
+-   object
 -   `strict (Boolean)` - flag to alter validation behaviour:
-    -   if false error will not be raised and all error will be collected in `schema$errors`
-    -   if strict is true any validation error will be raised immediately
+-   if false error will not be raised and all error will be collected in `schema$errors`
+-   if strict is true any validation error will be raised immediately
 -   `(errors$TableSchemaError)` - raises any error occured in the process
 -   `(Schema)` - returns schema class instance
 
@@ -577,8 +593,8 @@ Infer and set `schema$descriptor` based on data sample.
 
 -   `rows (List())` - list of lists representing rows.
 -   `headers (Integer/String[])` - data sample headers (one of):
-    -   row number containing headers (`rows` should contain headers rows)
-    -   list of headers (`rows` should NOT contain headers rows)
+-   row number containing headers (`rows` should contain headers rows)
+-   list of headers (`rows` should NOT contain headers rows)
 -   `{Object}` - returns Table Schema descriptor
 
 #### `schema$commit(strict)`
@@ -592,7 +608,7 @@ Update schema instance if there are in-place changes in the descriptor.
 ``` r
 descriptor = '{"fields": [{"name": "field", "type": "string"}]}'
 def = Schema.load(descriptor)
-schema = def$value()
+schema = value(def)
 schema$getField("field")$name # string
 ```
 
@@ -634,13 +650,13 @@ Data values can be cast to native R types. Casting a value will check the value 
 
 ``` json
 {
-    "name": "birthday",
-    "type": "date",
-    "format": "default",
-    "constraints": {
-        "required": true,
-        "minimum": "2015-05-30"
-    }
+"name": "birthday",
+"type": "date",
+"format": "default",
+"constraints": {
+"required": true,
+"minimum": "2015-05-30"
+}
 }
 ```
 
@@ -658,9 +674,9 @@ And following example will raise exception, because we set flag 'skip constraint
 
 ``` r
 tryCatch (
-    dateType = field$cast_value(value = '2014-05-29', constraints = FALSE), 
-    error = function(e){# uh oh, something went wrong
-    })
+  dateType = field$cast_value(value = '2014-05-29', constraints = FALSE), 
+  error = function(e){# uh oh, something went wrong
+  })
 ```
 
     ## Error in private$castValue(...): Field character(0) can't cast value 2014-05-29 for type number with format default
@@ -802,8 +818,8 @@ Cast given value according to the field type and format.
 
 -   `value (any)` - value to cast against field
 -   `constraints (Boolean/String[])` - gets constraints configuration
-    -   it could be set to true to disable constraint checks
-    -   it could be a List of constraints to check e.g. \['minimum', 'maximum'\]
+-   it could be set to true to disable constraint checks
+-   it could be a List of constraints to check e.g. \['minimum', 'maximum'\]
 -   `(errors$TableSchemaError)` - raises any error occured in the process
 -   `(any)` - returns cast value
 
@@ -837,9 +853,9 @@ valid_errors
 Validate a Table Schema descriptor.
 
 -   `descriptor (String/Object)` - schema descriptor (one of):
-    -   local path
-    -   remote url
-    -   object
+-   local path
+-   remote url
+-   object
 -   `(Object)` - returns `{valid, errors}` object
 
 ### Infer
@@ -865,10 +881,10 @@ descriptor = infer('inst/extdata/data_infer.csv')
 The `descriptor` variable is now a list object that can easily converted to JSON:
 
 ``` r
-jsonlite::toJSON(
+toJSON(
   descriptor,
   pretty = TRUE
-)
+) # function from jsonlite package
 ```
 
     ## {
@@ -921,9 +937,9 @@ devtools::install_github("frictionlessdata/tableschema-r",dependencies=TRUE)
 To make test:
 
 ``` r
-  test_that(description, {
-    expect_equal(test, expected result)
-  })
+test_that(description, {
+  expect_equal(test, expected result)
+})
 ```
 
 To run tests:

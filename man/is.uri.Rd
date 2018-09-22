@@ -2,7 +2,7 @@
 % Please edit documentation in R/helpers.R
 \name{is.uri}
 \alias{is.uri}
-\title{is uri}
+\title{Is uri}
 \usage{
 is.uri(uri)
 }
@@ -13,5 +13,5 @@ is.uri(uri)
 TRUE if uri string
 }
 \description{
-is uri
+Is uri
 }

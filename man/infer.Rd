@@ -2,15 +2,44 @@
 % Please edit documentation in R/infer.R
 \name{infer}
 \alias{infer}
-\title{infer}
+\title{Infer source schema}
 \usage{
 infer(source, options = list())
 }
 \arguments{
-\item{source}{source}
+\item{source}{data source, one of:
+\itemize{
+ \item string with the local CSV file (path)
+ \item string with the remote CSV file (url)
+ \item list of lists representing the rows
+ \item readable stream with CSV file contents
+ \item function returning readable stream with CSV file contents
+ }}
 
-\item{options}{options}
+\item{options}{any \code{\link{Table.load}} options}
+}
+\value{
+Schema descriptor
 }
 \description{
-infer
+Given data source and headers infer will return a Table Schema based on the data values.
+}
+\examples{
+# list of lists data source
+source = list(
+             list("id"= 1,
+                  "age"= 39,
+                  "name"= "Paul"),
+             list("id"= 2,
+                  "age"= 23,
+                  "name"= "Jimmy"),
+             list("id"= 3,
+                  "age"= 36,
+                  "name"= "Jane"),
+             list("id"= 4,
+                  "age"= 28,
+                  "name"= "Judy"))
+
+infer(source, options=list(headers=list("id","age","name")))$fields
+
 }

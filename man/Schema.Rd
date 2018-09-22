@@ -6,12 +6,116 @@
 \title{Schema class}
 \format{\code{\link{R6Class}} object.}
 \usage{
-Schema
+# Schema.load(descriptor, strict=FALSE)
+}
+\arguments{
+\item{descriptor}{schema descriptor, a JSON string, URL or file}
+
+\item{strict}{flag to alter validation behaviour:
+\itemize{
+\item{if \code{FALSE} error will not be raised and all error will be collected in \code{schema$errors}}
+\item{if \code{TRUE} any validation error will be raised immediately}
+}}
 }
 \value{
 Object of \code{\link{R6Class}} .
 }
 \description{
-Schema class
+A model of a schema with helpful methods for working with the schema and supported data. 
+Schema instances can be initialized with a schema source as a url to a JSON file or a JSON object. 
+The schema is initially validated (see \href{https://github.com/okgreece/tableschema-r#validate}{validate}). 
+By default validation errors will be stored in \code{$errors} but in a strict mode it will be instantly raised.
+}
+\section{Methods}{
+
+\describe{
+
+\item{\code{Schema$new(descriptor = descriptor, strict = strict)}}{
+Use \code{\link{Schema.load}} to instantiate \code{Schema} class.}
+
+  \item{\code{getField(name)}}{
+Get schema field by name.}
+\itemize{
+ \item{\code{name }}{String with schema field name.}  
+ \item{\code{(Field/NULL) }}{Returns \code{Field} instance or \code{NULL} if not found.}
+ }
+ 
+\item{\code{addField(descriptor)}}{
+Add new field to schema. The schema descriptor will be validated with newly added field descriptor.}
+\itemize{
+ \item{\code{descriptor }}{List of field descriptor.}  
+ \item{\code{TableSchemaError }}{Raises any error occured in the process.}
+ \item{\code{(Field/NULL) }}{Returns added \code{Field} instance or \code{NULL} if not added.}
+ }
+ 
+\item{\code{removeField(name)}}{
+Remove field resource by name. The schema descriptor will be validated after field descriptor removal.}
+\itemize{
+ \item{\code{name }}{String with schema field name.}  
+ \item{\code{TableSchemaError }}{Raises any error occured in the process.}
+ \item{\code{(Field/NULL) }}{Returns removed \code{Field} instances or \code{NULL} if not found.}
+ }  
+ 
+\item{\code{castRow(row)}}{
+Cast row based on field types and formats.}
+\itemize{
+ \item{\code{row }}{Data row as a list of values.}  
+ \item{\code{(any) }}{Returns cast data row.}
+ }
+
+\item{\code{infer(rows, headers=1)}}{
+Cast row based on field types and formats.}
+\itemize{
+ \item{\code{rows }}{List of lists representing rows.}  
+ \item{\code{headers }}{ data sample headers, one of:
+ \itemize{
+ \item{row number containing headers (\code{rows} should contain headers rows)}
+ \item{list of headers (\code{rows} should NOT contain headers rows)}}
+ }
+ \item{\code{{Object} }}{Returns Table Schema descriptor.}
+ }
+ 
+\item{\code{commit(strict)}}{
+Cast row based on field types and formats.}
+\itemize{
+ \item{\code{strict }}{Boolean, alter strict mode for further work.}  
+ \item{\code{TableSchemaError }}{Raises any error occured in the process.}
+ \item{\code{(Boolean) }}{Returns \code{TRUE} on success and \code{FALSE} if not modified.}
+ }
+ 
+ 
+\item{\code{save(target)}}{
+Cast row based on field types and formats.}
+\itemize{
+ \item{\code{target }}{String, path where to save a descriptor.}  
+ \item{\code{TableSchemaError }}{Raises any error occured in the process.}
+ \item{\code{(Boolean) }}{Returns \code{TRUE} on success.}
+ }  
+}
+}
+
+\section{Properties}{
+
+\describe{
+  \item{\code{valid}}{Returns validation status. It always \code{TRUE} in strict mode.}
+  \item{\code{errors}}{Returns validation errors. It always empty in strict mode.}
+  \item{\code{descriptor}}{Returns list of schema descriptor.}
+  \item{\code{primaryKey}}{Returns string list of schema primary key.}
+  \item{\code{foreignKeys}}{Returns list of schema foreign keys.}
+  \item{\code{fields}}{Returns list of \code{Field} instances.}
+  \item{\code{fieldNames}}{Returns a list of field names.}
+}
+}
+
+\section{Language}{
+
+The key words \code{MUST}, \code{MUST NOT}, \code{REQUIRED}, \code{SHALL}, \code{SHALL NOT}, 
+\code{SHOULD}, \code{SHOULD NOT}, \code{RECOMMENDED}, \code{MAY}, and \code{OPTIONAL} 
+in this package documents are to be interpreted as described in \href{https://www.ietf.org/rfc/rfc2119.txt}{RFC 2119}.
+}
+
+\seealso{
+\code{\link{Schema.load}}, 
+\href{http://frictionlessdata.io/specs/table-schema/}{Table Schema Specifications}
 }
 \keyword{data}

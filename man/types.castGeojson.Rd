@@ -2,15 +2,19 @@
 % Please edit documentation in R/types.castGeojson.R
 \name{types.castGeojson}
 \alias{types.castGeojson}
-\title{cast geojson}
+\title{Cast JSON object according to GeoJSON or TopoJSON spec}
 \usage{
 types.castGeojson(format, value)
 }
 \arguments{
-\item{format}{format}
+\item{format}{default is a geojson object as per the \href{http://geojson.org/}{GeoJSON spec} or
+topojson object as per the \href{https://github.com/topojson/topojson-specification/blob/master/README.md}{TopoJSON spec}}
 
-\item{value}{value}
+\item{value}{GeoJSON to cast}
 }
 \description{
-cast geojson
+Cast JSON object according to GeoJSON or TopoJSON spec
+}
+\seealso{
+\href{https://frictionlessdata.io/specs/table-schema/#geojson}{Types and formats specifications}
 }

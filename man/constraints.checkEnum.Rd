@@ -2,18 +2,27 @@
 % Please edit documentation in R/constraints.checkEnum.R
 \name{constraints.checkEnum}
 \alias{constraints.checkEnum}
-\title{Check enum}
+\title{Check Enum}
 \usage{
 constraints.checkEnum(constraint, value)
 }
 \arguments{
-\item{constraint}{constraint}
+\item{constraint}{numeric list,matrix or vector with the constraint values}
 
-\item{value}{value}
+\item{value}{numeric value to meet the constraint}
 }
 \value{
-TRUE value in constraint
+TRUE if value meets the constraint
 }
 \description{
-Check enum
+Check if the value is exactly match a constraint.
+}
+\examples{
+
+constraints.checkEnum(constraint = list(1, 2), value = 1)
+
+constraints.checkEnum(constraint = list(1, 2), value = 3)
+}
+\seealso{
+\href{https://frictionlessdata.io/specs/table-schema/#constraints}{Constraints specifications}
 }

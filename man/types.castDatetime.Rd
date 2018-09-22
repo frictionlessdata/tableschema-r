@@ -2,15 +2,33 @@
 % Please edit documentation in R/types.castDatetime.R
 \name{types.castDatetime}
 \alias{types.castDatetime}
-\title{cast date time}
+\title{Cast datetime}
 \usage{
 types.castDatetime(format = "\%Y-\%m-\%dT\%H:\%M:\%SZ", value)
 }
 \arguments{
-\item{format}{specify format, default is "\%Y-\%m-\%dT\%H:\%M:\%SZ"}
+\item{format}{available options are "default", "any", and "<pattern>" where
+\describe{
+\item{\code{default }}{An ISO8601 format string e.g. YYYY-MM-DDThh:mm:ssZ in UTC time}
+\item{\code{any }}{As for \code{\link{types.castDate}}}
+\item{\code{<pattern> }}{As for \code{\link{types.castDate}}}
+}}
 
-\item{value}{value}
+\item{value}{datetime to cast}
 }
 \description{
-cast date time
+Cast date with time
+}
+\examples{
+
+types.castDatetime(format = "default", value = "2014-01-01T06:00:00Z")
+
+types.castDatetime(format = "\%d/\%m/\%y \%H:\%M", value = "21/11/06 16:30")
+ 
+}
+\seealso{
+\href{https://frictionlessdata.io/specs/table-schema/#datetime}{Types and formats specifications}, 
+\code{\link[base]{strptime}}, \code{\link[base]{DateTimeClasses}},
+\href{https://CRAN.R-project.org/package=parsedate}{parsedate} and
+\href{https://CRAN.R-project.org/package=lubridate}{lubridate} packages.
 }

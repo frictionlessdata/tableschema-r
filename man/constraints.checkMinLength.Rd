@@ -2,18 +2,27 @@
 % Please edit documentation in R/constraints.checkMinLength.R
 \name{constraints.checkMinLength}
 \alias{constraints.checkMinLength}
-\title{Check Minimum Length of Character/s according to a constraint}
+\title{Check if minimum character length constraint is met}
 \usage{
 constraints.checkMinLength(constraint, value)
 }
 \arguments{
-\item{constraint}{constraint}
+\item{constraint}{numeric constraint, minimum character length}
 
-\item{value}{value}
+\item{value}{character to meet the constraint}
 }
 \value{
-TRUE if the constraint of minimum character length is met
+TRUE if character length is equal to or greater than the constraint
 }
 \description{
-Check Minimum Length of Character/s according to a constraint
+Specify the minimum length of a character
+}
+\examples{
+
+constraints.checkMinLength(constraint = list(3), value = "hi")
+
+constraints.checkMinLength(constraint = 2, value = "hello")
+}
+\seealso{
+\href{https://frictionlessdata.io/specs/table-schema/#constraints}{Constraints specifications}
 }

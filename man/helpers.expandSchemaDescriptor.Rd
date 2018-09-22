@@ -10,5 +10,5 @@ helpers.expandSchemaDescriptor(descriptor)
 \item{descriptor}{descriptor}
 }
 \description{
-Expand Schema Descriptor
+Helper function to expand schema descriptor
 }

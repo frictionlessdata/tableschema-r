@@ -1,5 +1,5 @@
 #' Readable class
-#'
+#' @description Readable class that allows typed access to its members
 #' @docType class
 #' @importFrom R6 R6Class
 #' @export
@@ -7,28 +7,29 @@
 #' @include tableschemaerror.R
 #' @include profile.R
 #' @keywords data
-#' @return Object of \code{\link{R6Class}} .
+#' @return Object of \code{\link{R6Class}}.
 #' @format \code{\link{R6Class}} object.
+#' 
+
 Readable <- R6Class(
   "Readable",
   
   public = list(
     initialize = function(options = list()) {
-    
     },
-    
     
     read = function(size = NULL) {
       future::future( {
         while (TRUE) {
           if (length(private$buffer_) < 3) {
-
+            
             chunk = private$read_(size)
             private$buffer_ = rlist::list.append(private$buffer_, chunk)
           }
         }
       })
     },
+    
     pipe = function(destination, options = list()) {
       private$pipeDestination_ = destination
       self$read();
@@ -52,7 +53,6 @@ Readable <- R6Class(
       
     },
     isPaused = function() {
-
       
     },
     unshift = function(chunk) {
@@ -60,18 +60,15 @@ Readable <- R6Class(
     destroy = function() {
       private$destroy_()
     },
-
-    push = function(chunk, encoding) {
-     
-    },
     
+    push = function(chunk, encoding) {
+      
+    },
     
     onData = function(chunk){
       if (private$flowing_) {
-        
       }
     },
-    
     
     on.close = function(handler, unsubscribe = FALSE) {
       private$subscribeUnsubscribe_('close', handler, unsubscribe)
@@ -92,14 +89,13 @@ Readable <- R6Class(
     on.readable = function(handler, unsubscribe = FALSE) {
       private$subscribeUnsubscribe_('readable', handler, unsubscribe)
     }
-    
   ),
+  
   active = list(
     destroyed = function(value) {
-     
     }
-    
   ),
+  
   private = list(
     encoding_ = NULL,
     objectMode_ = FALSE,
@@ -144,7 +140,5 @@ Readable <- R6Class(
         })
       }
     }
-    
-
-)
+  )
 )

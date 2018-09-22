@@ -12,6 +12,6 @@ Writeable
 Object of \code{\link{R6Class}} .
 }
 \description{
-Writeable class
+Writable streams class
 }
 \keyword{data}

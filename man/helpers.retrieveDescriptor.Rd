@@ -10,5 +10,5 @@ helpers.retrieveDescriptor(descriptor)
 \item{descriptor}{descriptor}
 }
 \description{
-Retrieve Descriptor
+Helper function to retrieve descriptor
 }

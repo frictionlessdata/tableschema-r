@@ -9,9 +9,9 @@
 Readable
 }
 \value{
-Object of \code{\link{R6Class}} .
+Object of \code{\link{R6Class}}.
 }
 \description{
-Readable class
+Readable class that allows typed access to its members
 }
 \keyword{data}

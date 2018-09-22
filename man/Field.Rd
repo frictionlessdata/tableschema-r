@@ -6,12 +6,148 @@
 \title{Field class}
 \format{\code{\link{R6Class}} object.}
 \usage{
-Field
+# Field$new(descriptor, missingValues = list(""))
+}
+\arguments{
+\item{descriptor}{Schema field descriptor}
+
+\item{missingValues}{A list with vector strings representing missing values}
 }
 \value{
 Object of \code{\link{R6Class}} .
 }
 \description{
-Field class
+Class represents field in the schema.
+
+Data values can be cast to native R types. Casting a value will check 
+the value is of the expected type, is in the correct format, 
+and complies with any constraints imposed by a schema.
+}
+\details{
+A field descriptor \code{MUST} be a JSON object that describes a single field. 
+The descriptor provides additional human-readable documentation for a field, 
+as well as additional information that may be used to validate the field or 
+create a user interface for data entry.
+
+The field descriptor \code{object} \code{MAY} contain any number of other properties. 
+Some specific properties are defined below. Of these, only the \code{name} property is \code{REQUIRED}.
+
+\describe{
+\item{\code{name}}{
+The field descriptor \code{MUST} contain a \code{name} property. 
+This property \code{SHOULD} correspond to the name of field/column in the data file (if it has a name). 
+As such it \code{SHOULD} be unique (though it is possible, but very bad practice, for the data file to 
+have multiple columns with the same name). \code{name} \code{SHOULD NOT} be considered case sensitive in 
+determining uniqueness. However, since it should correspond to the name of the field in the data file 
+it may be important to preserve case.}
+\item{\code{title}}{
+A human readable label or title for the field.}
+
+\item{\code{description}}{
+A description for this field e.g. "The recipient of the funds".}
+}
+}
+\section{Methods}{
+
+\describe{
+
+\item{\code{Field$new(descriptor, missingValues = list(""))}}{
+Constructor to instantiate \code{Field} class.}
+\itemize{
+ \item{\code{descriptor }}{Schema field descriptor.}  
+ \item{\code{missingValues }}{A list with vector strings representing missing values.}
+ \item{\code{TableSchemaError }}{Raises any error occured in the process.}
+ \item{\code{Field }}{Returns \code{Field} class instance.}
+ }
+  \item{\code{cast_value(value, constraints=TRUE)}}{
+  Cast given value according to the field type and format.}
+\itemize{
+ \item{\code{value }}{Value to cast against field}  
+ \item{\code{constraints  }}{ Gets constraints configuration: 
+ it could be set to true to disable constraint checks, or 
+ it could be a List of constraints to check}
+ \item{\code{errors$TableSchemaError }}{Raises any error occured in the process}
+ \item{\code{any }}{Returns cast value}
+ }
+ 
+\item{\code{testValue(value, constraints=TRUE)}}{
+  Test if value is compliant to the field.}
+\itemize{
+ \item{\code{value }}{Value to cast against field}  
+ \item{\code{constraints  }}{Constraints configuration}
+ \item{\code{Boolean }}{Returns if value is compliant to the field}
+ }
+}
+}
+
+\section{Properties}{
+
+\describe{
+  \item{\code{name}}{Returns field name}
+  \item{\code{type}}{Returns field type}
+  \item{\code{format}}{Returns field format}
+  \item{\code{required}}{Returns \code{TRUE} if field is required}
+  \item{\code{constraints}}{Returns list with field constraints}
+  \item{\code{descriptor}}{Returns field descriptor}
+}
+}
+
+\section{Language}{
+
+The key words \code{MUST}, \code{MUST NOT}, \code{REQUIRED}, \code{SHALL}, \code{SHALL NOT}, 
+\code{SHOULD}, \code{SHOULD NOT}, \code{RECOMMENDED}, \code{MAY}, and \code{OPTIONAL} 
+in this package documents are to be interpreted as described in \href{https://www.ietf.org/rfc/rfc2119.txt}{RFC 2119}.
+}
+
+\examples{
+DESCRIPTOR = list(name = "height", type = "number")
+
+field <- Field$new(descriptor = DESCRIPTOR)
+
+# get correct instance
+field$name
+field$format
+field$type
+
+# return true on test
+field$testValue(1)
+
+# cast value
+field$cast_value(1)
+
+# expand descriptor by defaults
+field <- Field$new(descriptor = list(name = "name"))
+
+field$descriptor
+
+
+# parse descriptor with "enum" constraint
+field <- Field$new(descriptor = list(name = "status", type = "string", 
+                   constraints = list(enum = list('active', 'inactive'))))
+
+field$testValue('active')
+field$testValue('inactive')
+field$testValue('activia')
+field$cast_value('active')
+
+
+# parse descriptor with "minimum" constraint'
+field <- Field$new(descriptor = list(name = "length", type = "integer", 
+                   constraints = list(minimum = 100)))
+
+field$testValue(200)
+field$testValue(50)
+
+
+# parse descriptor with "maximum" constraint'
+field <- Field$new(descriptor = list(name = "length", type = "integer", 
+                   constraints = list(maximum = 100)))
+
+field$testValue(50)
+field$testValue(200)
+
+}
+\seealso{
+\href{http://frictionlessdata.io/specs/table-schema/#field-descriptors}{Field Descriptors Specifications}
 }
 \keyword{data}

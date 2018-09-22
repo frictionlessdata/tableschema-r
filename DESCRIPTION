@@ -1,17 +1,18 @@
 Package: tableschema.r
 Type: Package
-Title: 'R Table Schema'
+Title: 'Table Schema'
 Version: 0.1.0
-Date: 2017-07-01
-Author: c(person("Kleanthis", "Koupidis", email = "koupidis.okfgr@gmail.com", role = c("aut", "cre"), 
-            person("Lazaros", "Ioannidis", email = "larjohn@gmail.com", role = c("aut", "cre")))
-            person("Charalampos", "Bratsas", email = "charalampos.bratsas@okfn.org", role = "aut"))
-Maintainer: Open Knowledge Greece <info@okfn.gr>
-Description: A library for working with Table Schema (<http://specs.frictionlessdata.io/table-schema/>).
+Date: 2018-09-20
+Author: c(person("Kleanthis", "Koupidis", email = "koupidis@okfn.gr", role = c("aut", "cre")), 
+            person("Lazaros", "Ioannidis", email = "larjohn@gmail.com", role = c("aut", "cre")),
+            person("Charalampos", "Bratsas", email = "charalampos.bratsas@okfn.org", role = "aut"),
+            person("Open Knowledge International", email = "charalampos.bratsas@okfn.org", role = "cph"))
+Maintainer: Kleanthis Koupidis <koupidis@okfn.gr>
+Description: A library for working with 'Table Schema' (<http://specs.frictionlessdata.io/table-schema/>).
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Imports: 
+Imports:
     config,
     devtools, 
     future, 
@@ -30,11 +31,12 @@ Imports:
     rlist, 
     stringr, 
     urltools
-Suggests: 
+Suggests:
     covr,
     foreach,
     testthat
-Collate: 
+Remotes: r-lib/covr
+Collate:
     'constraints.checkUnique.R'
     'constraints.checkRequired.R'
     'constraints.checkPattern.R'
@@ -72,6 +74,7 @@ Collate:
     'readable.connection.R'
     'schema.R'
     'table.R'
+    'tableschema.r.R'
     'validate.R'
     'writable.R'
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0.9000

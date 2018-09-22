@@ -7,8 +7,8 @@
 is_empty(x)
 }
 \arguments{
-\item{x}{x}
+\item{x}{list object}
 }
 \description{
-is empty
+Is empty list
 }

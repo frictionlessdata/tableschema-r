@@ -2,16 +2,16 @@
 % Please edit documentation in R/helpers.R
 \name{is.uuid}
 \alias{is.uuid}
-\title{is uuid}
+\title{Is uuid}
 \usage{
 is.uuid(x)
 }
 \arguments{
-\item{x}{input}
+\item{x}{character}
 }
 \value{
 TRUE if uuid
 }
 \description{
-is uuid
+Is uuid
 }

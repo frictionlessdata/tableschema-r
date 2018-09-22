@@ -2,15 +2,31 @@
 % Please edit documentation in R/types.castTime.R
 \name{types.castTime}
 \alias{types.castTime}
-\title{cast time}
+\title{Cast time without a date}
 \usage{
 types.castTime(format = "\%H:\%M:\%S", value)
 }
 \arguments{
-\item{format}{format}
+\item{format}{available options are "default", "any", and "<pattern>" where
+\describe{
+\item{\code{default }}{An ISO8601 time string e.g. hh:mm:ss}
+\item{\code{any }}{As for \code{\link{types.castDate}}}
+\item{\code{<pattern> }}{As for \code{\link{types.castDate}}}
+}}
 
-\item{value}{value}
+\item{value}{time to cast}
 }
 \description{
-cast time
+Cast time without a date
+}
+\examples{
+
+types.castTime(format = "default", value = '06:00:00')
+
+}
+\seealso{
+\href{https://frictionlessdata.io/specs/table-schema/#time}{Types and formats specifications},
+\code{\link[base]{strptime}}, \code{\link[base]{DateTimeClasses}},
+\href{https://CRAN.R-project.org/package=parsedate}{parsedate} and
+\href{https://CRAN.R-project.org/package=lubridate}{lubridate} packages.
 }

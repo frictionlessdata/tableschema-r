@@ -2,8 +2,9 @@ library(tableschema.r)
 library(testthat)
 library(lubridate)
 library(jsonlite)
+library(future)
 
-testthat::context("table-general")
+context("table-general")
 
 SOURCE = '[
 ["id", "height", "age", "name", "occupation"],
@@ -23,6 +24,8 @@ SCHEMA = '{
 ],
 "primaryKey": "id"
 }'
+
+
 
 test_that("should not instantiate with bad schema path", {
   def  = Table.load(SOURCE, 'bad schema path')
@@ -140,61 +143,61 @@ test_that("should work with connection", {
 
 
 
-testthat::context("table #format")
+context("table #format")
 
 test_that('should use csv format by default', {
   def2 = Table.load('inst/extdata/data_infer.csv')
-  table= future::value(def2)
+  table = future::value(def2)
   rows = table$read(limit = 2)
   expect_equal(rows, jsonlite::fromJSON('[["1", "39", "Paul"], ["2", "23", "Jimmy"]]',simplifyVector = FALSE) )
 })
 
 
 
-testthat::context("table #encoding")
+context("table #encoding")
 
 test_that('should use utf-8 by default', {
   def2 = Table.load('inst/extdata/data_infer.csv')
-  table= future::value(def2)
+  table = future::value(def2)
   rows = table$read(limit = 2)
   expect_equal(rows, jsonlite::fromJSON('[["1", "39", "Paul"], ["2", "23", "Jimmy"]]',simplifyVector = FALSE) )
 })
 
 test_that('should use utf-8 by default for remote resource', {
   def2 = Table.load('https://raw.githubusercontent.com/frictionlessdata/tableschema-js/master/data/data_infer.csv')
-  table= future::value(def2)
+  table = future::value(def2)
   rows = table$read(limit = 2)
   expect_equal(rows, jsonlite::fromJSON('[["1", "39", "Paul"], ["2", "23", "Jimmy"]]',simplifyVector = FALSE) )
 })
 
 test_that('should read correctly file with other encoding', {
   def2 = Table.load(system.file('extdata/latin1.csv', package = "tableschema.r"))
-  table= future::value(def2)
+  table = future::value(def2)
   rows = table$read(limit = 2)
   expect_equal(length(rows),length(helpers.from.json.to.list('[["1", "english"], ["2", "©"]]')))
 })
 
 test_that('should support user-defined encoding', {
   def2 = Table.load(system.file('extdata/latin1.csv', package = "tableschema.r"), encoding = 'latin1')
-  table= future::value(def2)
+  table = future::value(def2)
   rows = table$read(limit = 2)
   expect_equal(length(rows),length(helpers.from.json.to.list('[["1", "english"], ["2", "©"]]')))
 })
 
 test_that('should support user-defined encoding for remote resource', {
   def2 = Table.load('https://raw.githubusercontent.com/frictionlessdata/tableschema-js/master/data/latin1.csv', encoding = 'latin1')
-  table= future::value(def2)
+  table = future::value(def2)
   rows = table$read(limit = 2)
   expect_equal(length(rows),length(helpers.from.json.to.list('[["1", "english"], ["2", "©"]]')))
 })
 
 
 
-testthat::context("table #parserOptions")
+context("table #parserOptions")
 
 test_that('should use default limit param to parse file', {
   def2 = Table.load('inst/extdata/data_parse_options_default.csv')
-  table= future::value(def2)
+  table = future::value(def2)
   rows = table$read(extended = TRUE, limit = 1)
   expect_equal(rows[1], list(list(2, list("id", "age", "name"), list("1", "39", "       Paul"))))
 })
@@ -202,9 +205,9 @@ test_that('should use default limit param to parse file', {
 
 
 
-testthat::context("table #primaryKey")
+context("table #primaryKey")
 
-SCHEMA =' {
+SCHEMA = ' {
 "fields": [
 {"name": "id1"},
 {"name": "id2"}
@@ -219,6 +222,6 @@ test_that('should fail with composity primary key not unique (issue #91)',{
   ["a", "1"]
   ]'
   def2 = Table.load(jsonlite::fromJSON(source,simplifyVector = FALSE), schema = SCHEMA)
-  table= future::value(def2)
+  table = future::value(def2)
   expect_error(table$read())
 })

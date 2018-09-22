@@ -2,16 +2,16 @@
 % Please edit documentation in R/helpers.R
 \name{is.binary}
 \alias{is.binary}
-\title{is binary}
+\title{Is binary}
 \usage{
 is.binary(x)
 }
 \arguments{
-\item{x}{input}
+\item{x}{input value to check}
 }
 \value{
 TRUE if binary
 }
 \description{
-is binary
+Is binary
 }
