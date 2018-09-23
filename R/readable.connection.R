@@ -20,10 +20,13 @@ ReadableConnection <- R6Class(
     },
     
     iterable = function() {
+      
       open(private$connection_)
       return(iterators::iter(function(){
         if (length(oneLine <- readLines(private$connection_, n = 1, warn = FALSE)) > 0) {
-          value = as.list((strsplit(oneLine, ","))[[1]])
+          numfields <- count.fields(textConnection(oneLine), sep = ";")
+          if (numfields[[1]] == 1) delim = ',' else delim = ';'
+          value = as.list((strsplit(oneLine, delim))[[1]])
           private$index_ = private$index_ + 1
 
           return(value)

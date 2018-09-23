@@ -73,13 +73,6 @@ library(future)
 library(tableschema.r)
 ```
 
-    ## 
-    ## Attaching package: 'tableschema.r'
-
-    ## The following objects are masked from 'package:jsonlite':
-    ## 
-    ##     validate, write_json
-
 Documentation
 =============
 
