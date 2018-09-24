@@ -25,9 +25,11 @@
 
 constraints.checkRequired <- function(constraint, value) {
   
-  if (!(constraint && (is.null(value) | isTRUE(value == "undefined") | exists(deparse(substitute(value)))))) return(TRUE)
+  if (!(constraint && (is.null(value) | 
+                       isTRUE(value == "undefined") | 
+                       exists(deparse(substitute(value)))))) {
+    return(TRUE)
+  }
   
   return(FALSE)
-  
 }
-

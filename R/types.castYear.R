@@ -21,15 +21,21 @@ types.castYear <- function(format, value) {
     
     if (!is.character(value)) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     
-    if (nchar(value) != 4) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
+    if (length(value) > 1) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
+    
+    if (nchar(value) != 4 | isTRUE(grepl('[a-zA-Z]', value))) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     
     tryCatch({
       
-      result = as.integer(value)
+      result <- as.integer(value)
       
-      if (is.nan(result) | as.character(result) != value)  return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
+      if (is.na(result) |
+          is.nan(result) | 
+          as.character(result) != value) {
+        return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
+      }
       
-      value = result
+      value <- result
     },
     
     warning = function(w) {
@@ -41,8 +47,8 @@ types.castYear <- function(format, value) {
     },
     finally = {})
   }
-  
-  if (value < 0 | value > 9999) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
+
+  if (is.na(value) | value < 0 | value > 9999) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
   
   return(value)
 }

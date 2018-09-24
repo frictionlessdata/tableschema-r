@@ -15,7 +15,7 @@ ReadableConnection <- R6Class(
   public = list(
     initialize = function(options = list()) {
 
-      private$connection_ = options$source;
+      private$connection_ <- options$source
       
     },
     
@@ -25,9 +25,9 @@ ReadableConnection <- R6Class(
       return(iterators::iter(function(){
         if (length(oneLine <- readLines(private$connection_, n = 1, warn = FALSE)) > 0) {
           numfields <- count.fields(textConnection(oneLine), sep = ";")
-          if (numfields[[1]] == 1) delim = ',' else delim = ';'
-          value = as.list((strsplit(oneLine, delim))[[1]])
-          private$index_ = private$index_ + 1
+          if (numfields[[1]] == 1) delim <- ',' else delim <- ';'
+          value <- as.list((strsplit(oneLine, delim))[[1]])
+          private$index_ <- private$index_ + 1
 
           return(value)
           

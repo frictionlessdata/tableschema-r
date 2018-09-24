@@ -7,7 +7,7 @@ library(config)
 context("types.castArray")
 
 # Constants
-TESTS = list(
+TESTS <- list(
   list('default', list(), list()),
   list('default', "[]", list()),
   list('default', list('key', 'value'), list('key', 'value')),
@@ -20,9 +20,9 @@ TESTS = list(
 
 # Tests
 
-foreach(j = 1:length(TESTS) ) %do% {
+foreach(j = seq_along(TESTS) ) %do% {
   
-  TESTS[[j]] = setNames(TESTS[[j]], c("format", "value", "result"))
+  TESTS[[j]] <- setNames(TESTS[[j]], c("format", "value", "result"))
   
   test_that(str_interp('format "${TESTS[[j]]$format}" should check "${TESTS[[j]]$value}" as "${TESTS[[j]]$result}"'), {
     

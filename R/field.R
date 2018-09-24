@@ -175,7 +175,7 @@ Field <- R6Class(
       
       private$missingValues <- missingValues
       
-      private$descriptor_ = helpers.expandFieldDescriptor(descriptor)
+      private$descriptor_ <- helpers.expandFieldDescriptor(descriptor)
       
       
     },
@@ -184,7 +184,7 @@ Field <- R6Class(
       return(private$castValue(...))
     },
     testValue = function(value, constraints = TRUE) {
-      result = tryCatch({
+      result <- tryCatch({
         private$castValue(value, constraints)
         
         TRUE
@@ -254,7 +254,7 @@ Field <- R6Class(
           
           
           if (!is.null(value)) {
-            options[[key]] = value
+            options[[key]] <- value
           }
         })
       }
@@ -280,7 +280,7 @@ Field <- R6Class(
         
         castFunction <- private$castFunction()
         
-        castValue = castFunction(value)
+        castValue <- castFunction(value)
         if (identical(castValue , config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))) {
           err_message <-
             stringr::str_interp(
@@ -293,11 +293,11 @@ Field <- R6Class(
       
       if (constraints || is.list(constraints)) {
         
-        checkFunctions = private$checkFunctions()
+        checkFunctions <- private$checkFunctions()
         
         if (is.list(checkFunctions) &
             length(checkFunctions) > 0) {
-          names_ = Filter(function(n) {
+          names_ <- Filter(function(n) {
             if (!is.list(constraints)) {
               return(TRUE)
             }
@@ -313,7 +313,7 @@ Field <- R6Class(
           lapply(checkFunctions[names_],
                  function(check) {
                    
-                   passed = check(castValue)
+                   passed <- check(castValue)
                    
                    if (!passed) {
                      err_message <-
@@ -330,12 +330,12 @@ Field <- R6Class(
     },
     checkFunctions = function() {
       
-      checks = list()
+      checks <- list()
       cast <-
         purrr::partial(private$castValue, constraints = FALSE)
       
       for (name in names(self$constraints)) {
-        constraint = self$constraints[[name]]
+        constraint <- self$constraints[[name]]
         castConstraint <- constraint
         if (name %in% list('enum')) {
           castConstraint <- lapply(constraint, cast)
@@ -346,7 +346,7 @@ Field <- R6Class(
 
         func <- private$constraints_[[stringr::str_interp("check${paste0(toupper(substr(name, 1, 1)), substr(name, 2, nchar(name)))}")]]
         check <- purrr::partial(func, constraint = castConstraint)
-        checks[[name]] = check
+        checks[[name]] <- check
       }
       return(checks)
     }

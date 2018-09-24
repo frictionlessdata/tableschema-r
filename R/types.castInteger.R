@@ -34,23 +34,23 @@ types.castInteger <- function(format, value, options={}) {
     
     if ("bareNumber" %in% names(options)) {
       
-      bareNumber = options[["bareNumber"]]
+      bareNumber <- options[["bareNumber"]]
       
       if (bareNumber == FALSE) {
         
         #value = gsub("(^\\D*)|(\\D*$)", value, "", value)
-        value = stringr::str_replace_all(string = value, pattern = "(^\\D*)|(\\D*$)", replacement = "") #gsub("\\s", "", value)
+        value <- stringr::str_replace_all(string = value, pattern = "(^\\D*)|(\\D*$)", replacement = "") #gsub("\\s", "", value)
         
       }
     }
     
-    value = tryCatch({
+    value <- tryCatch({
       
-      result = as.integer(value)
+      result <- as.integer(value)
       
       if (is.nan(result) || as.character(result) != value) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
       
-      value = result
+      value <- result
       
     },
     

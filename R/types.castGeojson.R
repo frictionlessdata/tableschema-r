@@ -15,9 +15,9 @@ types.castGeojson <- function(format, value) {
     
     if (!is.character(value)) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     
-    value = tryCatch( {
+    value <- tryCatch( {
       
-      value = jsonlite::fromJSON(value)
+      value <- jsonlite::fromJSON(value)
     },
     
     warning = function(w) {
@@ -44,13 +44,13 @@ types.castGeojson <- function(format, value) {
   
   if (format == "default") {
     
-    value = tryCatch( {
+    value <- tryCatch( {
       
       path_geojson <- system.file("profiles/geojson.json", package = "tableschema.r")
       
-      v = jsonvalidate::json_validator(path_geojson)
+      v <- jsonvalidate::json_validator(path_geojson)
       
-      valid = v(value,verbose = TRUE, greedy = TRUE, error = FALSE) # ./inst/profiles/geojson.json
+      valid <- v(value,verbose = TRUE, greedy = TRUE, error = FALSE) # ./inst/profiles/geojson.json
       
       if (!isTRUE(valid)) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
       

@@ -27,9 +27,9 @@
 #'  
 types.castDuration <- function(format = "default", value) {
   
-  if (isTRUE(grepl("(\\d+) Years, (\\d+) Months, (\\d+) Days, ",value)))  duration = value 
+  if (isTRUE(grepl("(\\d+) Years, (\\d+) Months, (\\d+) Days, ",value)))  duration <- value 
   
-  else if (isTRUE(grepl("P(\\d+)Y(\\d+)M(\\d+)DT(\\d+)H(\\d+)M(\\d+)S",value))) duration = ifelse(grepl(".*M(\\d)S", value), gsub("P(\\d+)Y(\\d+)M(\\d+)DT(\\d+)H(\\d+)M(\\d)S", "\\1 Years, \\2 Months, \\3 Days, \\4:\\5:0\\6", value), 
+  else if (isTRUE(grepl("P(\\d+)Y(\\d+)M(\\d+)DT(\\d+)H(\\d+)M(\\d+)S",value))) duration <- ifelse(grepl(".*M(\\d)S", value), gsub("P(\\d+)Y(\\d+)M(\\d+)DT(\\d+)H(\\d+)M(\\d)S", "\\1 Years, \\2 Months, \\3 Days, \\4:\\5:0\\6", value), 
                                                                                                   gsub("P(\\d+)Y(\\d+)M(\\d+)DT(\\d+)H(\\d+)M(\\d+)S", "\\1 Years, \\2 Months, \\3 Days, \\4:\\5:\\6", value))
   
   else return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
@@ -52,17 +52,17 @@ types.castDuration <- function(format = "default", value) {
 #' @seealso \code{\link{types.castDuration}}
 #' @export
 #' 
-durations = function(years = 0, months = 0, days = 0, hours = 00, minutes = 00, seconds = 00) {
+durations <- function(years = 0, months = 0, days = 0, hours = 00, minutes = 00, seconds = 00) {
   
-  time = paste( formatC(hours, width = 2, format = "d", flag = ""), 
+  time <- paste( formatC(hours, width = 2, format = "d", flag = ""), 
                 formatC(minutes, width = 2, format = "d", flag = "0"),
                 formatC(seconds, width = 2, format = "d", flag = "0"), sep = ":")
   
-  date = paste(paste(formatC(years, width = 1, format = "d", flag = "0"), "Years"), 
+  date <- paste(paste(formatC(years, width = 1, format = "d", flag = "0"), "Years"), 
                paste(formatC(months, width = 1, format = "d", flag = "0"), "Months"),
                paste(formatC(days, width = 1, format = "d", flag = "0"), "Days"), sep = ", ")
   
-  duration = paste(date , time, sep = ",")
+  duration <- paste(date , time, sep = ",")
 
   return(duration)
 }

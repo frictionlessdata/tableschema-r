@@ -28,18 +28,18 @@ types.castDatetime <- function(format = "%Y-%m-%dT%H:%M:%SZ", value) {
     
     if (!is.character(value)) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     
-    value = tryCatch({
+    value <- tryCatch({
       if (format == 'default') {
-        value = lubridate::as_datetime(lubridate::fast_strptime(value, "%Y-%m-%dT%H:%M:%SZ" ))
+        value <- lubridate::as_datetime(lubridate::fast_strptime(value, "%Y-%m-%dT%H:%M:%SZ" ))
       }
       else if (format == 'any') {
-        value = lubridate::force_tz(as.POSIXct(value, tz = 'UTC'), 'UTC')
+        value <- lubridate::force_tz(as.POSIXct(value, tz = 'UTC'), 'UTC')
       }
       else{
         if (startsWith(format, 'fmt:')) {
-          format = gsub('fmt:', '', format)
+          format <- gsub('fmt:', '', format)
         }
-        value =  lubridate::as_datetime(lubridate::fast_strptime(value, format))
+        value <- lubridate::as_datetime(lubridate::fast_strptime(value, format))
       }
       if (is.na(value)) {
         return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))

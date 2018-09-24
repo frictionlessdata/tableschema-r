@@ -17,7 +17,7 @@ ReadableArray <- R6Class(
   public = list(
     initialize = function(options = list()) {
       
-      private$array_ = options$source;
+      private$array_ <- options$source
       
     },
     
@@ -26,8 +26,8 @@ ReadableArray <- R6Class(
       return(iterators::iter(function(){
         
         if (private$index_ <= length(private$array_)) {
-          value = private$array_[[private$index_]]
-          private$index_ = private$index_ + 1
+          value <- private$array_[[private$index_]]
+          private$index_ <- private$index_ + 1
           
           return(value)
         }

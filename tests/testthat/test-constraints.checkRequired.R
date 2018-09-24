@@ -7,7 +7,7 @@ context("constraints.checkRequired")
 
 # Constants
 
-TESTS = list(
+TESTS <- list(
   
   list(FALSE, 1, TRUE),
   
@@ -21,9 +21,9 @@ TESTS = list(
 
 # Tests
 
-foreach(j = 1:length(TESTS) ) %do% {
+foreach(j = seq_along(TESTS) ) %do% {
   
-  TESTS[[j]] = setNames(TESTS[[j]], c("constraint", "value", "result"))
+  TESTS[[j]] <- setNames(TESTS[[j]], c("constraint", "value", "result"))
   
   test_that(str_interp('constraint "${TESTS[[j]]$constraint}" should check "${TESTS[[j]]$value}" as "${TESTS[[j]]$result}"'), {
     

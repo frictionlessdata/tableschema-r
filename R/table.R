@@ -152,16 +152,16 @@ Table <- R6Class(
       
       private$src <- src
       
-      private$strict_ = strict
+      private$strict_ <- strict
       
       # Headers
-      private$headers_ = NULL
-      private$headersRow_ = NULL
+      private$headers_ <- NULL
+      private$headersRow_ <- NULL
       if (is.list(headers)) {
-        private$headers_ = headers
+        private$headers_ <- headers
       } else if (is.numeric(headers) &&
                  as.integer(headers) == headers) {
-        private$headersRow_ = headers
+        private$headersRow_ <- headers
       }
     },
     
@@ -169,13 +169,13 @@ Table <- R6Class(
     infer = function(limit = 100) {
       if (is.null(private$schema_) || is.null(private$headers_)) {
         #Headers
-        sample = self$read(limit = limit, cast = FALSE)
+        sample <- self$read(limit = limit, cast = FALSE)
         
         # Schema
         if (is.null(private$schema_)) {
-          schema = Schema$new()
+          schema <- Schema$new()
           schema$infer(sample, headers = self$headers)
-          private$schema_ = Schema$new(jsonlite::toJSON(schema$descriptor, auto_unbox = TRUE), strict = private$strict_)
+          private$schema_ <- Schema$new(jsonlite::toJSON(schema$descriptor, auto_unbox = TRUE), strict = private$strict_)
         }
       }
       return(private$schema_$descriptor)
@@ -186,31 +186,31 @@ Table <- R6Class(
                     cast = TRUE,
                     relations = FALSE,
                     stream = FALSE) {
-      con = private$createRowStream_(private$src)
+      con <- private$createRowStream_(private$src)
       
-      iterable_ = con$iterable()
+      iterable_ <- con$iterable()
       
       # Prepare unique checks
-      private$uniqueFieldsCache_ = list()
+      private$uniqueFieldsCache_ <- list()
       if (cast) {
         if (!is.null(self$schema)) {
-          private$uniqueFieldsCache_ = private$createUniqueFieldsCache(self$schema)
+          private$uniqueFieldsCache_ <- private$createUniqueFieldsCache(self$schema)
         }
       }
       
       # Get table row stream
-      private$rowNumber_ = 0
-      private$currentStream_ = con
+      private$rowNumber_ <- 0
+      private$currentStream_ <- con
       
-      tableRowStream = iterators::iter(function() {
+      tableRowStream <- iterators::iter(function() {
         
-        row = iterators::nextElem(iterable_)
+        row <- iterators::nextElem(iterable_)
         
-        private$rowNumber_ = private$rowNumber_ + 1
+        private$rowNumber_ <- private$rowNumber_ + 1
         
         # Get headers
         if (identical(private$rowNumber_ , private$headersRow_)) {
-          private$headers_ = row
+          private$headers_ <- row
           
           stop("HeadersRow")
         }
@@ -220,7 +220,7 @@ Table <- R6Class(
           
           if (!is.null(self$schema) && !is.null(self$headers)) {
             if (!identical(self$headers, self$schema$fieldNames)) {
-              message = 'Table headers don\'t match schema field names'
+              message <- 'Table headers don\'t match schema field names'
               stop(message)
             }
           }
@@ -230,7 +230,7 @@ Table <- R6Class(
         if (cast) {
           
           if (!is.null(self$schema)) {
-            row = self$schema$castRow(row)
+            row <- self$schema$castRow(row)
           }
         }
         
@@ -241,8 +241,8 @@ Table <- R6Class(
             
             if (is.list(private$uniqueFieldsCache_[[index]])) {
               if (row[[index]] %in% private$uniqueFieldsCache_[[index]]) {
-                fieldName = self$schema$fields[[index]]$name
-                message =    stringr::str_interp("Field '${fieldName}' duplicates in row ${private$rowNumber_}")
+                fieldName <- self$schema$fields[[index]]$name
+                message <- stringr::str_interp("Field '${fieldName}' duplicates in row ${private$rowNumber_}")
                 stop(message)
               } else if (!is.null(row[[index]])) {
                 private$uniqueFieldsCache_[[index]] <-
@@ -259,9 +259,9 @@ Table <- R6Class(
             
             for (foreignKey in self$schema$foreignKeys) {
               
-              row = table.resolveRelations(row, self$headers, relations, foreignKey)
+              row <- table.resolveRelations(row, self$headers, relations, foreignKey)
               if (is.null(row)) {
-                message =  stringr::str_interp("Foreign key '${foreignKey$fields}' violation in row '${private$rowNumber_}'")
+                message <- stringr::str_interp("Foreign key '${foreignKey$fields}' violation in row '${private$rowNumber_}'")
                 stop(message)
               }
             }
@@ -272,7 +272,7 @@ Table <- R6Class(
         if (keyed) {
           names(row) <- self$headers
         } else if (extended) {
-          row = list(private$rowNumber_, self$headers, row)
+          row <- list(private$rowNumber_, self$headers, row)
         }
         return(row)
       })
@@ -290,17 +290,17 @@ Table <- R6Class(
                     relations = FALSE,
                     limit = NULL) {
       
-      iterator  = self$iter(keyed = keyed, extended = extended, cast = cast, relations = relations)
-      rows = list()
-      count = 0
+      iterator <- self$iter(keyed = keyed, extended = extended, cast = cast, relations = relations)
+      rows <- list()
+      count <- 0
       repeat {
         
-        count = count + 1
-        finished = withCallingHandlers(tryCatch({
+        count <- count + 1
+        finished <- withCallingHandlers(tryCatch({
           
-          it = iterators::nextElem(iterator)
+          it <- iterators::nextElem(iterator)
           
-          rows = append(rows, list(it))
+          rows <- append(rows, list(it))
           0
           
         },
@@ -321,7 +321,7 @@ Table <- R6Class(
           invokeRestart('muffleWarning')
         })
         if (identical(finished, -1)) {
-          count = count - 1
+          count <- count - 1
         }
         if (identical(finished, 1)) {
           break
@@ -336,13 +336,13 @@ Table <- R6Class(
     },
     save = function(connection) {
       open(connection)
-      stream = private$createRowStream_(private$src)
+      stream <- private$createRowStream_(private$src)
       
-      iterable_ = stream$iterable()
+      iterable_ <- stream$iterable()
       
       tryCatch({
-        it = iterators::nextElem(iterable_)
-        row = paste(it, collapse = ',')
+        it <- iterators::nextElem(iterable_)
+        row <- paste(it, collapse = ',')
         writeLines(row, con = connection, sep = "\n", useBytes = FALSE)
         
         0
@@ -378,15 +378,15 @@ Table <- R6Class(
     currentStream_ = NULL,
     
     createUniqueFieldsCache = function(schema) {
-      cache = list()
+      cache <- list()
       
       for (index in 1:length(schema$fields)) {
-        field = schema$fields[[index]]
+        field <- schema$fields[[index]]
         
         if ((!is.null(field$constraints$unique) &&
              field$constraints$unique) ||
             field$name %in% schema$primaryKey) {
-          cache[[index]] = list()
+          cache[[index]] <- list()
           
         }
       }
@@ -394,26 +394,26 @@ Table <- R6Class(
     } ,
     
     createRowStream_ = function(src) {
-      stream = NULL
+      stream <- NULL
       # Stream factory
       if ("connection" %in% class(src)) {
-        stream = ReadableConnection$new(options = list(source = src))
+        stream <- ReadableConnection$new(options = list(source = src))
         # stream = stream.pipe(parser)
         
         # Inline source
       } else if (is.list(src)) {
         #con
-        stream = ReadableArray$new(options = list(source = src))
+        stream <- ReadableArray$new(options = list(source = src))
         
         # Remote source
       } else if (is.uri(src)) {
-        connection = url(src)
-        stream = ReadableConnection$new(options = list(source = connection))
+        connection <- url(src)
+        stream <- ReadableConnection$new(options = list(source = connection))
         
         # Local source
       } else {
-        connection = file(src)
-        stream = ReadableConnection$new(options = list(source = connection))
+        connection <- file(src)
+        stream <- ReadableConnection$new(options = list(source = connection))
       }
       return(stream)
     },
@@ -519,50 +519,50 @@ Table <- R6Class(
 #'  
 #'
 
-Table.load = function(source,
+Table.load <- function(source,
                       schema = NULL,
                       strict = FALSE,
                       headers = 1, ...) {
   return(future::future({
     # Load schema
     if (!is.null(schema) && class(schema)[[1]] != "Schema") {
-      def  = Schema.load(schema, strict)
-      schema = future::value(def)
+      def <- Schema.load(schema, strict)
+      schema <- future::value(def)
     }
     
     return(Table$new(source, schema, strict, headers))
   }))
 }
 
-table.resolveRelations = function(row, headers, relations, foreignKey) {
+table.resolveRelations <- function(row, headers, relations, foreignKey) {
   # Prepare helpers - needed data structures
   
-  keyedRow = row
-  names(keyedRow) = headers
+  keyedRow <- row
+  names(keyedRow) <- headers
   
-  fields = rlist::list.zip(foreignKey$fields, foreignKey$reference$fields)
+  fields <- rlist::list.zip(foreignKey$fields, foreignKey$reference$fields)
   
-  actualKey = if (stringr::str_length(foreignKey$reference$resource) < 1) "$" else foreignKey$reference$resource
+  actualKey <- if (stringr::str_length(foreignKey$reference$resource) < 1) "$" else foreignKey$reference$resource
   
-  reference = relations[[actualKey]]
+  reference <- relations[[actualKey]]
   
   if (is.null(reference) ) { #|| isTRUE(stringr::str_length(reference) < 1)) {
     return(row)
   }
   
   # Collect values - valid if all null
-  valid = TRUE
-  values = list()
+  valid <- TRUE
+  values <- list()
   for (index in 1:length(fields)) {
     
-    field = fields[[index]][[1]]
-    refField = fields[[index]][[2]]
+    field <- fields[[index]][[1]]
+    refField <- fields[[index]][[2]]
     
     if (!is.null(field) && !is.null(refField)) {
       
-      values[[refField]] = keyedRow[[field]]
+      values[[refField]] <- keyedRow[[field]]
       if (!is.null(keyedRow[[field]])) {
-        valid = FALSE
+        valid <- FALSE
       }
     }
   }
@@ -573,15 +573,15 @@ table.resolveRelations = function(row, headers, relations, foreignKey) {
     
     for (index in 1:length(reference)) {
       
-      refValues = reference[[index]]
+      refValues <- reference[[index]]
       
       if (all(all.equal(refValues[names(values)], values) == TRUE)) {
         for (index2 in 1:length(fields)) {
           
-          field = fields[[index2]][[1]]
-          keyedRow[[field]] = refValues
+          field <- fields[[index2]][[1]]
+          keyedRow[[field]] <- refValues
         }
-        valid = TRUE
+        valid <- TRUE
         break
       }
     }

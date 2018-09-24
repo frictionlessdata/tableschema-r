@@ -17,32 +17,39 @@
 
 types.castYearmonth <- function(format, value) { 
   
-  if ( isTRUE(is_empty(value))) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
+  if (isTRUE(is_empty(value))) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
   
   if (any(is.array(value) | is.list(value))) {
     
-    if (length(value) != 2 | any(unlist(value) < 0) | unlist(value)[2] > 12 ) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
+    if (length(value) != 2 | any(unlist(value) < 0) | unlist(value)[2] > 12 ) {
+      
+      return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
+    }
     
   } else if (is.character(value) &  !isTRUE(grepl('[a-zA-Z]', value)) ) {
     
     tryCatch({
       
-      value = as.list( unlist( strsplit(value, split = "-")))
+      splitter <- if (length(strsplit(value, split = "/")[[1]]) == 1) "-" else "/"
       
-      if ( nchar(as.integer(value[[1]])) != 4 ) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
+      value <- as.list(unlist(strsplit(value, split = splitter)))
       
+      if (nchar(as.integer(value[[1]])) != 4 ) {
+        return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
+      }
       #names(value) = c("year", "month")
       
-      year = as.integer(value[[1]])
+      year <- as.integer(value[[1]])
       
-      month = as.integer(value[[2]])
+      month <- as.integer(value[[2]])
       
       #if (!year | !month) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
       
-      if (month < 1 | month > 12) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
-      
+      if (month < 1 | month > 12) {
+        return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
+      }
       #value = list(year = year, month = month)
-      value = list(year, month)
+      value <- list(year, month)
       
       }, 
       warning = function(w) {

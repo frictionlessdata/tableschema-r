@@ -7,15 +7,15 @@ context("TableSchemaError")
 
 
   test_that('should work with one error', {
-    error = TableSchemaError$new('message')
+    error <- TableSchemaError$new('message')
     expect_equal(error$message, 'message')
     expect_equal(error$multiple, FALSE)
     expect_equal(error$errors, list())
   })
   
   test_that('should work with multiple errors', {
-    errors = list(Error = 'error1', Error = 'error2')
-    error = TableSchemaError$new('message', errors)
+    errors <- list(Error = 'error1', Error = 'error2')
+    error <- TableSchemaError$new('message', errors)
     expect_equal(error$message, 'message')
     expect_equal(error$multiple, TRUE)
     expect_equal(length(error$errors), 2)
@@ -25,7 +25,7 @@ context("TableSchemaError")
   
   test_that('should be catchable as a normal error', {
     
-    error= withCallingHandlers(
+    error <- withCallingHandlers(
       
       tryCatch(
         TableSchemaError$new('message'), 

@@ -23,20 +23,20 @@ Readable <- R6Class(
         while (TRUE) {
           if (length(private$buffer_) < 3) {
             
-            chunk = private$read_(size)
-            private$buffer_ = rlist::list.append(private$buffer_, chunk)
+            chunk <- private$read_(size)
+            private$buffer_ <- rlist::list.append(private$buffer_, chunk)
           }
         }
       })
     },
     
     pipe = function(destination, options = list()) {
-      private$pipeDestination_ = destination
-      self$read();
+      private$pipeDestination_ <- destination
+      self$read()
       
-      destination$on.drain = private$pipeDrained_
+      destination$on.drain <- private$pipeDrained_
       
-      private$flowing_ = TRUE;
+      private$flowing_ <- TRUE
       return(destination)
       
     },
@@ -112,7 +112,7 @@ Readable <- R6Class(
     flowing_ = FALSE,
     
     pipeDrained_ = function(){
-      chunk = private$buffer[[1]]
+      chunk <- private$buffer[[1]]
       rlist::list.remove(private$buffer,1)
       private$pipeDestination$write(chunk)
     },

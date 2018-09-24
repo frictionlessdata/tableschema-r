@@ -10,12 +10,12 @@ helpers.retrieveDescriptor <- function(descriptor) {
     
     
     if (jsonlite::validate(descriptor)) {
-      descriptor = descriptor
+      descriptor <- descriptor
       
       # Remote
     } else if (is.uri(descriptor)) {
-      res = httr::GET(descriptor)
-      descriptor = httr::content(res, as = 'text')
+      res <- httr::GET(descriptor)
+      descriptor <- httr::content(res, as = 'text')
       
       # Loading error
       if (httr::status_code(res) >= 400) {
@@ -29,9 +29,9 @@ helpers.retrieveDescriptor <- function(descriptor) {
       # Local
     } else {
       # Load/parse data
-      descriptor = tryCatch({
-        data = readLines(descriptor,encoding = "UTF-8", warn = FALSE)
-        valid = jsonlite::validate(data)
+      descriptor <- tryCatch({
+        data <- readLines(descriptor,encoding = "UTF-8", warn = FALSE)
+        valid <- jsonlite::validate(data)
         
         if (valid == FALSE) {
           stop(
@@ -70,10 +70,10 @@ helpers.retrieveDescriptor <- function(descriptor) {
 helpers.expandSchemaDescriptor <- function(descriptor) {
   
   for (index in 1:length(descriptor$fields)) {
-    field = descriptor$fields[[index]]
-    descriptor$fields[[index]] = helpers.expandFieldDescriptor(field)
+    field <- descriptor$fields[[index]]
+    descriptor$fields[[index]] <- helpers.expandFieldDescriptor(field)
   }
-  if (is.null(descriptor$missingValues) || length(descriptor$missingValues) == 0)  descriptor$missingValues = as.list(config::get("DEFAULT_MISSING_VALUES", file = system.file("config/config.yml", package = "tableschema.r")))
+  if (is.null(descriptor$missingValues) || length(descriptor$missingValues) == 0)  descriptor$missingValues <- as.list(config::get("DEFAULT_MISSING_VALUES", file = system.file("config/config.yml", package = "tableschema.r")))
   
   return(descriptor)
 }
@@ -86,11 +86,11 @@ helpers.expandSchemaDescriptor <- function(descriptor) {
 #' @export
 #' 
 
-helpers.expandFieldDescriptor = function(descriptor) {
+helpers.expandFieldDescriptor <- function(descriptor) {
 
   if (is.list(descriptor)) {
-    if (any(is.null(descriptor$type) | !("type" %in% names(descriptor)))) descriptor$type = config::get("DEFAULT_FIELD_TYPE", file = system.file("config/config.yml", package = "tableschema.r"))
-    if (any(is.null(descriptor$format) | !("format" %in% names(descriptor)))) descriptor$format = config::get("DEFAULT_FIELD_FORMAT", file = system.file("config/config.yml", package = "tableschema.r"))
+    if (any(is.null(descriptor$type) | !("type" %in% names(descriptor)))) descriptor$type <- config::get("DEFAULT_FIELD_TYPE", file = system.file("config/config.yml", package = "tableschema.r"))
+    if (any(is.null(descriptor$format) | !("format" %in% names(descriptor)))) descriptor$format <- config::get("DEFAULT_FIELD_FORMAT", file = system.file("config/config.yml", package = "tableschema.r"))
   }
   return(descriptor)
 }
@@ -105,9 +105,9 @@ helpers.expandFieldDescriptor = function(descriptor) {
 
 is.uri <- function(uri) {
   if (!is.character(uri))
-    message("The uri should be character")
+    stop("The uri should be character")
   
-  pattern = grepl("^http[s]?://", uri) |
+  pattern <- grepl("^http[s]?://", uri) |
     RCurl::url.exists(uri) #& !httr::http_error(uri)
   return(pattern)
 }
@@ -130,7 +130,7 @@ is.email <- function(x) {
 #' @return TRUE if binary
 #' @export
 
-is.binary = function(x){
+is.binary <- function(x){
   if (any(endsWith(x,suffix = "==") || 
           is.raw(jsonlite::base64_enc(x)))) TRUE else FALSE
 }
@@ -143,7 +143,7 @@ is.binary = function(x){
 #' @return TRUE if uuid
 #' @export
 
-is.uuid = function(x) {
+is.uuid <- function(x) {
   if (!is.character(x))
     stop("This is not a uuid object", call. = FALSE)
   
@@ -157,7 +157,8 @@ is.uuid = function(x) {
 #' @export
 #'
 
-is_integer = function(x) {
+is_integer <- function(x) {
+  if (is_object(x)) return(FALSE) else
   tryCatch({
     if (!is.character(x))
       x %% 1 == 0
@@ -187,7 +188,7 @@ is_integer = function(x) {
 #' @rdname is_empty
 #' @export
 #'
-is_empty = function(x) {
+is_empty <- function(x) {
   
   if (is.list(x) & length(x) == 0) TRUE
   
@@ -201,7 +202,7 @@ is_empty = function(x) {
 #' @rdname is_object
 #' @export
 #'
-is_object = function(x) {
+is_object <- function(x) {
   if (isTRUE(class(x) %in% c("list","array","json") | 
              isTRUE(is.object(x))) | (isTRUE(is.character(x) && jsonlite::validate(x)))) TRUE
   else FALSE
@@ -211,7 +212,7 @@ is_object = function(x) {
 #' @rdname helpers.from.json.to.list
 #' @export
 #'
-helpers.from.json.to.list = function(lst){
+helpers.from.json.to.list <- function(lst){
   return(jsonlite::fromJSON(lst, simplifyVector = FALSE))
 }
 #' Convert list to json
@@ -219,7 +220,7 @@ helpers.from.json.to.list = function(lst){
 #' @rdname helpers.from.list.to.json
 #' @export
 #'
-helpers.from.list.to.json = function(json){
+helpers.from.list.to.json <- function(json){
   return(jsonlite::toJSON(json, auto_unbox = TRUE))
 }
 
@@ -233,6 +234,6 @@ helpers.from.list.to.json = function(json){
 #'
 
 write_json <- function(x, file){
-  x = jsonlite::prettify(helpers.from.list.to.json(x))
-  x = writeLines(x, file)
+  x <- jsonlite::prettify(helpers.from.list.to.json(x))
+  x <- writeLines(x, file)
 }

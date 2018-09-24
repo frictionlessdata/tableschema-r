@@ -26,7 +26,7 @@ types.castObject <- function(format, value) {
     
   } else if (isTRUE(jsonlite::validate(value))) {
     
-    value = tryCatch({
+    value <- tryCatch({
       helpers.from.json.to.list(value)
     },
     warning = function(w) {
