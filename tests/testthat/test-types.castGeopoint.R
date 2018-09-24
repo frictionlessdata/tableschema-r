@@ -8,7 +8,7 @@ context("types.castGeopoint")
 
 # Constants
 
-TESTS = list(
+TESTS <- list(
   list('default', list(180, 90), list(180, 90) ),
   list('default', '180,90', list(180, 90) ),
   list('default', '180, -90', list(180, -90) ),
@@ -48,9 +48,9 @@ TESTS = list(
 
 # Tests
 
-foreach(j = 1:length(TESTS) ) %do% {
+foreach(j = seq_along(TESTS) ) %do% {
   
-  TESTS[[j]] = setNames(TESTS[[j]], c("format", "value", "result"))
+  TESTS[[j]] <- setNames(TESTS[[j]], c("format", "value", "result"))
   
   test_that(str_interp('format "${TESTS[[j]]$format}" should check "${TESTS[[j]]$value}" as "${TESTS[[j]]$result}"'), {
     

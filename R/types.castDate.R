@@ -47,7 +47,7 @@ types.castDate <- function(format = "default", value) {
         if (is.null(format) ||
             format == "default" || format == "any"  || format == "%Y-%m-%d") {
           
-          value = suppressWarnings(as.Date(
+          value <- suppressWarnings(as.Date(
             lubridate::parse_date_time(x = value, orders = "%Y-%m-%d"),
             format = "%Y-%m-%d"
           ))
@@ -59,10 +59,10 @@ types.castDate <- function(format = "default", value) {
           #format == "any"
           
           if (format == "invalid") {
-            value = strptime(x = value, format = format)
+            value <- strptime(x = value, format = format)
             
           } else
-            value = suppressWarnings(as.Date(lubridate::parse_date_time(value, format), format = format))
+            value <- suppressWarnings(as.Date(lubridate::parse_date_time(value, format), format = format))
           
           if (isTRUE(is.na(value) ||
                      nchar(value) > 11))
@@ -75,11 +75,11 @@ types.castDate <- function(format = "default", value) {
             
             #warn=message("Format ",format," is deprecated.\nPlease use ",unlist(strsplit(format,":"))[2]," without 'fmt:' prefix.", call. = FALSE)
             
-            format = trimws(gsub("fmt:", "", format), which = "both")
+            format <- trimws(gsub("fmt:", "", format), which = "both")
           }
           
           if (format == "invalid") {
-            value = strptime(x = value, format = format)
+            value <- strptime(x = value, format = format)
             
           } 
           #else
@@ -90,13 +90,13 @@ types.castDate <- function(format = "default", value) {
             return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
         }
         if (!lubridate::is.Date(value)) {
-          parsed_effort = suppressWarnings(lubridate::parse_date_time(value, format))
+          parsed_effort <- suppressWarnings(lubridate::parse_date_time(value, format))
           if ((!lubridate::is.instant(parsed_effort)) ||
               is.na(parsed_effort)) {
             return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
             
           } else {
-            value = as.Date(lubridate::parse_date_time(value, format), format = format)
+            value <- as.Date(lubridate::parse_date_time(value, format), format = format)
           }
         }
       }),

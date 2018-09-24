@@ -37,27 +37,30 @@
 
 types.castBoolean <- function(format = "default", value, options={}) { #format parameter is not used
   
-  if ("trueValues" %in% names(options)) TRUE_VALUES = options[["trueValues"]]
+  if ("trueValues" %in% names(options)) TRUE_VALUES <- options[["trueValues"]]
   
-  if ("falseValues" %in% names(options)) FALSE_VALUES = options[["falseValues"]]
+  if ("falseValues" %in% names(options)) FALSE_VALUES <- options[["falseValues"]]
   
   
   if  (!is.logical(value)) {
     
     if (!is.character(value)) return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
     
-    value = trimws(value)
+    value <- trimws(value)
     
     if (value %in% TRUE_VALUES) {
       
-      value = TRUE
+      value <- TRUE
       
     } else if (value %in% FALSE_VALUES) {
       
-      value = FALSE
+      value <- FALSE
       
-    } else  return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
-    
+    } else  {
+      
+      return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
+      
+      }
   }
   
   return(value)
@@ -68,9 +71,9 @@ types.castBoolean <- function(format = "default", value, options={}) { #format p
 
 #' default true values
 #' @export
- TRUE_VALUES = c("true", "True", "TRUE", "1")
+ TRUE_VALUES <- c("true", "True", "TRUE", "1")
 
 #' default false values
 #' @export
  
- FALSE_VALUES = c("false", "False", "FALSE", "0")
+ FALSE_VALUES <- c("false", "False", "FALSE", "0")

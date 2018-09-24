@@ -4,9 +4,16 @@ library(testthat)
 context("Fields")
 
 
-DESCRIPTOR_MIN = list(name = "height", type = "number")
+DESCRIPTOR_MIN <- list(name = "height", type = "number")
 
-
+test_that("should get correct instance", {
+  field <- Field$new(DESCRIPTOR_MIN,strict = FALSE)
+  expect_equal(field$name, "height")
+  expect_equal(field$format, "default")
+  expect_equal(field$type, "number")
+  expect_equal(field$constraints, list())
+  expect_false(field$required)
+})
 
 test_that("should get correct instance", {
     field <- Field$new(DESCRIPTOR_MIN)
@@ -15,6 +22,15 @@ test_that("should get correct instance", {
     expect_equal(field$type, "number")
     expect_equal(field$constraints, list())
     expect_false(field$required)
+})
+
+test_that("null field", {
+  field <- Field$new(NULL)
+  expect_null(field$name)
+  expect_null(field$format)
+  expect_null(field$type)
+  expect_equal(field$constraints, list())
+  expect_false(field$required)
 })
 
 test_that("should return true on test", {
@@ -47,7 +63,7 @@ test_that("should expand descriptor by defaults", {
 
 
 test_that('should throw an error on incompatible value', {
-  field = Field$new(helpers.from.json.to.list('{"name": "column", "type": "integer"}'))
+  field <- Field$new(helpers.from.json.to.list('{"name": "column", "type": "integer"}'))
   expect_error(field$cast_value('bad-value'))
 })
 
@@ -55,7 +71,7 @@ test_that('should throw an error on incompatible value', {
 # test_that('str_length of missing is missing', { expect_equal(str_length(NA), NA_integer_) expect_equal(str_length(c(NA, 1)), c(NA, 1)) expect_equal(str_length('NA'), 2) })
 
 test_that('should throw an error on incompatible value', {
-  field = Field$new(helpers.from.json.to.list('{"name": "column", "type": "integer", "constraints": {"minimum": 1}}'))
+  field <- Field$new(helpers.from.json.to.list('{"name": "column", "type": "integer", "constraints": {"minimum": 1}}'))
   expect_error(field$cast_value(0))
   expect_equal(field$cast_value(1),1)
 })
@@ -150,7 +166,7 @@ test_that('test cast value null with missing values', {
   expect_null(field$cast_value("NULL"))
 })
 
-DESCRIPTOR_MAX = list(name = "height", type = "integer", format = "default",constraints = list(required = TRUE))
+DESCRIPTOR_MAX <- list(name = "height", type = "integer", format = "default",constraints = list(required = TRUE))
 
 test_that("should get correct instance", {
   field <- Field$new(DESCRIPTOR_MAX)

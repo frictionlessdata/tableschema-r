@@ -21,7 +21,7 @@ Writeable <- R6Class(
     },
     
     write = function(chunk){
-      private$buffer_ = rlist::list.append(private$buffer_, chunk)
+      private$buffer_ <- rlist::list.append(private$buffer_, chunk)
     },
     
     
@@ -92,8 +92,8 @@ Writeable <- R6Class(
       future::future( {
         while (TRUE) {
           if (length(private$buffer_) > 0) {
-            chunk = private$buffer_[[1]]
-            private$buffer_ = rlist::list.remove(private$buffer_, 1)
+            chunk <- private$buffer_[[1]]
+            private$buffer_ <- rlist::list.remove(private$buffer_, 1)
             print(chunk)
           }
           else{

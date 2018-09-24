@@ -35,20 +35,20 @@ types.castGeopoint <- function(format, value) {
   
   tryCatch({
     
-    lon_lat = list()
+    lon_lat <- list()
     
     if (format == 'default') {
       
       if (is.character(value)) {
         
-        lon_lat = as.list(unlist(strsplit(value, ",")))
+        lon_lat <- as.list(unlist(strsplit(value, ",")))
         
-        lon_lat[[1]] = trimws(lon_lat[[1]], which = "both")
-        lon_lat[[2]] = trimws(lon_lat[[2]], which = "both")
+        lon_lat[[1]] <- trimws(lon_lat[[1]], which = "both")
+        lon_lat[[2]] <- trimws(lon_lat[[2]], which = "both")
         
       } else if (is.array(value) | is.list(value)) {
         
-        lon_lat = value
+        lon_lat <- value
         
       } else return(config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")))
       
@@ -56,27 +56,27 @@ types.castGeopoint <- function(format, value) {
       
       if (is.character(value)) {
         
-        value = jsonlite::fromJSON(value, simplifyVector = FALSE)
+        value <- jsonlite::fromJSON(value, simplifyVector = FALSE)
         
       }
       
-      lon_lat = value
+      lon_lat <- value
       
     } else if (format == 'object') {
       
       if (is.character(value)) {
         
-        value = jsonlite::fromJSON(value)
+        value <- jsonlite::fromJSON(value)
         
       }  
       
-      lon_lat[[1]] = value[[1]]
-      lon_lat[[2]] = value[[2]]
+      lon_lat[[1]] <- value[[1]]
+      lon_lat[[2]] <- value[[2]]
       
     }
     
-    lon_lat[[1]] = as.numeric(lon_lat[[1]])
-    lon_lat[[2]] = as.numeric(lon_lat[[2]])
+    lon_lat[[1]] <- as.numeric(lon_lat[[1]])
+    lon_lat[[2]] <- as.numeric(lon_lat[[2]])
     
   },
   

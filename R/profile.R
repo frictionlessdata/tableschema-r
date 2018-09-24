@@ -47,18 +47,18 @@ Profile <- R6Class(
     initialize = function(profile) {
       
       tryCatch({
-        profile  =  system.file(stringr::str_interp("profiles/${profile}.json"), package = "tableschema.r")
-        private$profile_ = profile
+        profile <- system.file(stringr::str_interp("profiles/${profile}.json"), package = "tableschema.r")
+        private$profile_ <- profile
         # private$profile_ = readLines(profile,warn = FALSE)
-        private$jsonschema_ = jsonlite::toJSON(jsonlite::fromJSON(profile, simplifyVector = TRUE))
+        private$jsonschema_ <- jsonlite::toJSON(jsonlite::fromJSON(profile, simplifyVector = TRUE))
         return(private$jsonschema_)
       },
       error = function(cond) {
-        message = 'Can\'t load profile'
+        message <- 'Can\'t load profile'
         stop(message)
       },
       warning = function(cond) {
-        field = FALSE
+        field <- FALSE
         # Choose a return value in case of warning
         return(field)
       })
@@ -66,14 +66,14 @@ Profile <- R6Class(
     
     
     validate = function(descriptor) {
-      errors = list()
+      errors <- list()
       
       # Basic validation
       
-      validation = jsonlite::validate(descriptor)
+      validation <- jsonlite::validate(descriptor)
       
       for (validationError in attr(validation, "err")) {
-        errors = append(errors, list(
+        errors <- append(errors, list(
           Error = stringr::str_interp(
             'Descriptor validation error:
             ${validationError}
@@ -84,10 +84,10 @@ Profile <- R6Class(
       
       if (validation == TRUE) {
         
-        validation = is.valid(descriptor, private$profile_)
-        errs = validation$errors
+        validation <- is.valid(descriptor, private$profile_)
+        errs <- validation$errors
         for (i in rownames(errs) ) {
-          errors = c(errors, stringr::str_interp(
+          errors <- c(errors, stringr::str_interp(
             'Descriptor validation error:
             ${errs[i, "field"]} - ${errs[i, "message"]}'
             
@@ -101,13 +101,13 @@ Profile <- R6Class(
       if (length(errors) < 1) {
         # PrimaryKey validation
         for (message in validatePrimaryKey(helpers.from.json.to.list(descriptor))) {
-          errors = append(errors, list(Error = message))
+          errors <- append(errors, list(Error = message))
         }
         
         # ForeignKeys validation
-        messages =  validateForeignKeys(helpers.from.json.to.list(descriptor))
+        messages <- validateForeignKeys(helpers.from.json.to.list(descriptor))
         for (message in messages) {
-          errors = append(errors, list(Error = message))
+          errors <- append(errors, list(Error = message))
         }
         
       }
@@ -138,21 +138,21 @@ Profile <- R6Class(
 
 # INTERNAL
 
-validatePrimaryKey = function(descriptor) {
-  messages = list()
+validatePrimaryKey <- function(descriptor) {
+  messages <- list()
   # const fieldNames = (descriptor.fields || []).map(field => field.name)
   
-  fieldNames = if (!("fields" %in% names(descriptor)))
+  fieldNames <- if (!("fields" %in% names(descriptor)))
     list()
   else
     purrr::map(descriptor$fields, "name")
   
   if (!is.null(descriptor$primaryKey)) {
-    primaryKey = descriptor[["primaryKey"]]
+    primaryKey <- descriptor[["primaryKey"]]
     
     if (is.character(primaryKey)) {
       if (!(primaryKey  %in% fieldNames)) {
-        messages = append(messages, list(
+        messages <- append(messages, list(
           stringr::str_interp("primary key ${primaryKey} must match schema field names")
         ))
       }
@@ -162,7 +162,7 @@ validatePrimaryKey = function(descriptor) {
       for (pk in primaryKey) {
         if (!(pk %in% fieldNames)) {
           
-          messages = append(messages, list(
+          messages <- append(messages, list(
             stringr::str_interp("primary key ${pk} must match schema field names")
           ))
         }
@@ -172,24 +172,24 @@ validatePrimaryKey = function(descriptor) {
   return(messages[!duplicated(messages)])
 }
 
-validateForeignKeys = function(descriptor) {
+validateForeignKeys <- function(descriptor) {
   
-  messages = list()
+  messages <- list()
   
-  fieldNames = if (!("fields" %in% names(descriptor)))
+  fieldNames <- if (!("fields" %in% names(descriptor)))
     list()
   else
     purrr::map(descriptor, "name")$fields
   
   if (!is.null(descriptor$foreignKeys)) {
-    foreignKeys = descriptor$foreignKeys
+    foreignKeys <- descriptor$foreignKeys
     
     for (fk in foreignKeys) {
       
       if (is.character(fk$fields)) {
         
         if (!(fk$fields %in% fieldNames )) {
-          messages = append(messages, list(
+          messages <- append(messages, list(
             stringr::str_interp(
               "foreign key ${fk$fields} must match schema field names"
             )
@@ -197,7 +197,7 @@ validateForeignKeys = function(descriptor) {
         }
         
         if (!is.character(fk$reference$fields)) {
-          messages = append(messages, list(
+          messages <- append(messages, list(
             stringr::str_interp(
               "foreign key ${fk$reference$fields} must be same type as ${fk$fields}"
             )
@@ -210,7 +210,7 @@ validateForeignKeys = function(descriptor) {
         for (field in fk$fields) {
           
           if (!(field %in% fieldNames)) {
-            messages = append(messages, list(
+            messages <- append(messages, list(
               stringr::str_interp("foreign key ${field} must match schema field names")
             ))
           }
@@ -219,14 +219,14 @@ validateForeignKeys = function(descriptor) {
         if (!(is.list(fk$reference$fields) && is.null(names(fk$reference$fields)))) {
           #is.list
           
-          messages = append(messages, list(
+          messages <- append(messages, list(
             stringr::str_interp(
               "foreign key ${fk$reference$fields} must be same type as ${fk$fields}"
             )
           ))
           
         } else if (length(fk$reference$fields) != length(fk$fields)) {
-          messages = append(messages, list(
+          messages <- append(messages, list(
             stringr::str_interp(
               'foreign key fields must have the same length as reference.fields'
             )
@@ -237,7 +237,7 @@ validateForeignKeys = function(descriptor) {
       if (fk$reference$resource == '') {
         if (is.character(fk$reference$fields)) {
           if (!(fk$reference$fields %in%  fieldNames)) {
-            messages = append(messages, list(
+            messages <- append(messages, list(
               stringr::str_interp(
                 "foreign key ${fk$fields} must be found in the schema field names"
               )
@@ -248,7 +248,7 @@ validateForeignKeys = function(descriptor) {
           
           for (field in fk$reference$fields) {
             if (!(field %in% fieldNames)) {
-              messages = append(messages, list(
+              messages <- append(messages, list(
                 stringr::str_interp(
                   "foreign key ${field} must be found in the schema field names"
                 )
@@ -276,22 +276,22 @@ validateForeignKeys = function(descriptor) {
 #' @export
 #' 
 
-Profile.load = function(profile){
+Profile.load <- function(profile){
   # Remote
   
   if (is.character(profile)) {
     if (startsWith("http",unlist(strsplit(profile,":")))[1] |
         startsWith("https", unlist(strsplit(profile,":")))[1])  {
-      profile = urltools::host_extract(urltools::domain(basename(profile)))$host
+      profile <- urltools::host_extract(urltools::domain(basename(profile)))$host
     } else {
-      profile = unlist(strsplit(basename(profile),".", fixed = TRUE))[1]
+      profile <- unlist(strsplit(basename(profile),".", fixed = TRUE))[1]
       stopifnot(profile %in% names(profiles))
     }}
   return(Profile$new(profile))
 }
 
 
-profiles = list(
+profiles <- list(
   geojson = 'profiles/geojson.json',
   tableschema = 'profiles/tableschema.json'
 )

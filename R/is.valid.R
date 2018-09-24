@@ -12,20 +12,20 @@
 #' @export
 #' 
 
-is.valid = function(descriptor, schema = NULL)  {
+is.valid <- function(descriptor, schema = NULL)  {
   
   if (is.null(schema)) {
     #local
-    v = jsonvalidate::json_validator(paste(readLines(system.file('profiles/tableschema.json', package = "tableschema.r"), warn = FALSE, n = -1L), collapse = ""))
+    v <- jsonvalidate::json_validator(paste(readLines(system.file('profiles/tableschema.json', package = "tableschema.r"), warn = FALSE, n = -1L), collapse = ""))
   } else {
-    v = jsonvalidate::json_validator(schema)
+    v <- jsonvalidate::json_validator(schema)
     #validate = jsonvalidate::json_validate(descriptor, schema)
   }
-  validate = v(descriptor, verbose = TRUE, greedy = TRUE)
+  validate <- v(descriptor, verbose = TRUE, greedy = TRUE)
   
-  class(validate) = "logical"
+  class(validate) <- "logical"
 
-  validation = list(valid = validate, errors = attr(validate,"errors"))
+  validation <- list(valid = validate, errors = attr(validate,"errors"))
   
   return(validation)
 }

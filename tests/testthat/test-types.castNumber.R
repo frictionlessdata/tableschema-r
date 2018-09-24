@@ -8,7 +8,7 @@ context("types.castNumber")
 
 # Constants
 
-TESTS = list(
+TESTS <- list(
   list('default', 1, 1, {}), 
   list('default', 1, 1, {}),
   list('default', 1.0, 1, {}),
@@ -46,13 +46,16 @@ TESTS = list(
   list('default', NULL, config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {}),
   list('default', list(1:3), config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {}),
   list('default', "", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {}),
-  list('default', '1000000', 1000000, list( bareNumber = TRUE) )
+  list('default', '1000000', 1000000, list( bareNumber = TRUE)),
+  list('default', "100a", config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r")), {})
+  
 )
+
 # Tests
 
-foreach(j = 1:length(TESTS) ) %do% {
+foreach(j = seq_along(TESTS) ) %do% {
   
-  TESTS[[j]] = setNames(TESTS[[j]], c("format", "value", "result","options"))
+  TESTS[[j]] <- setNames(TESTS[[j]], c("format", "value", "result","options"))
   
   test_that(str_interp('format "${TESTS[[j]]$format}" should check "${TESTS[[j]]$value}" as "${TESTS[[j]]$result}"'), {
     
