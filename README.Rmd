@@ -107,11 +107,13 @@ Let's create and read a table. We use static `Table.load` method and `table.read
 ```{r eval=TRUE, message=FALSE, warning=FALSE, include=TRUE, paged.print=TRUE}
 def = Table.load('inst/extdata/data.csv')
 table = value(def)
-table.headers = table$headers # ['city', 'location']
 # add indentation whitespace to JSON output with jsonlite package
 toJSON(table$read(keyed = TRUE), pretty = TRUE) # function from jsonlite package
 ```
-
+```{r eval=TRUE, message=FALSE, warning=FALSE, include=TRUE, paged.print=TRUE}
+table.headers = table$headers 
+table.headers
+```
 
 As we could see our locations are just a strings. But it should be geopoints. Also Rome's location is not available but it's also just a `N/A` string instead of `null`. First we have to infer Table Schema:
 ```{r eval=TRUE, message=FALSE, warning=FALSE, include=TRUE}
@@ -133,8 +135,11 @@ Let's fix not available location. There is a `missingValues` property in Table S
 table$schema$descriptor['missingValues'] = 'N/A'
 table$schema$commit()
 ```
+
 ```{r, eval = TRUE, include = TRUE, warning=FALSE}
 table$schema$valid # false
+```
+```{r, eval = TRUE, include = TRUE, warning=FALSE}
 table$schema$errors
 ```
 
@@ -149,16 +154,10 @@ table$schema$valid # true
 All good. It looks like we're ready to read our data again:
 
 ```{r, eval=FALSE, include=TRUE}
-table$read()
-# [
-#   {city: 'london', location: [51.50,-0.11]},
-#   {city: 'paris', location: [48.85,2.30]},
-#   {city: 'rome', location: null},
-# ]
-
-# or
+table$read() # or
+```
+```{r, eval=FALSE, include=TRUE}
 toJSON(table$read(), pretty = TRUE) # function from jsonlite package
-
 ```
 
 Now we see that:
@@ -170,7 +169,7 @@ Now we see that:
 And because there are no errors on data reading we could be sure that our data is valid againt our schema. Let's save it:
 
 ```{r, eval=FALSE, include=TRUE}
-table$schema$save('schema.json')$value()
+table$schema$save('schema.json')
 table$save('data.csv')
 ```
 
@@ -337,13 +336,12 @@ schema$commit()
 
 ```{r, eval=TRUE, include=TRUE}
 schema$castRow(helpers.from.json.to.list('["6", "", "Walt"]'))
-# [ 6, null, 'Walt' ]
 ```
 
 We could save the schema to a local file. And we could continue the work in any time just loading it from the local file:
 
 ```{r, eval=FALSE, include=TRUE}
-schema$save('schema.json')$value()
+schema$save('schema.json')
 schema = Schema.load('schema.json')
 ```
 
@@ -443,11 +441,26 @@ Update schema instance if there are in-place changes in the descriptor.
 descriptor = '{"fields": [{"name": "field", "type": "string"}]}'
 def = Schema.load(descriptor)
 schema = value(def)
-schema$getField("field")$name # string
+```
+
+```{r, eval=TRUE, include=TRUE}
+schema$getField("field")$name 
+```
+
+```{r, eval=TRUE, include=TRUE}
 schema$descriptor$fields[[1]]$type = "number"
-schema$getField("field")$type # string
+```
+
+```{r, eval=TRUE, include=TRUE}
+schema$getField("field")$type 
+```
+
+```{r, eval=TRUE, include=TRUE}
 schema$commit()
-schema$getField("field")$type # number
+```
+
+```{r, eval=TRUE, include=TRUE}
+schema$getField("field")$type 
 ```
 
 #### `schema$save(target)`
@@ -489,7 +502,7 @@ dateType # print the result
 And following example will raise exception, because we set flag 'skip constraints' to `false`, and our date is less than allowed by `minimum` constraints of the field. Exception will be raised as well in situation of trying to cast non-date format values, or empty values
 
 ```{r, eval=TRUE, error=TRUE, include=TRUE}
-tryCatch (
+tryCatch(
   dateType = field$cast_value(value = '2014-05-29', constraints = FALSE), 
   error = function(e){# uh oh, something went wrong
   })
@@ -658,7 +671,7 @@ In [NEWS.md][news] described only breaking and the most important changes. The f
 The project follows the [Open Knowledge International coding standards][coding_standards]. There are common commands to work with the project.Recommended way to get started is to create, activate and load the library environment. To install package and development dependencies into active environment:
 
 ```{r, eval=FALSE, include=TRUE}
-devtools::install_github("frictionlessdata/tableschema-r",dependencies=TRUE)
+devtools::install_github("frictionlessdata/tableschema-r", dependencies = TRUE)
 ```
 
 To make test:

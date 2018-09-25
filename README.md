@@ -101,7 +101,6 @@ Let's create and read a table. We use static `Table.load` method and `table.read
 ``` r
 def = Table.load('inst/extdata/data.csv')
 table = value(def)
-table.headers = table$headers # ['city', 'location']
 # add indentation whitespace to JSON output with jsonlite package
 toJSON(table$read(keyed = TRUE), pretty = TRUE) # function from jsonlite package
 ```
@@ -120,6 +119,17 @@ toJSON(table$read(keyed = TRUE), pretty = TRUE) # function from jsonlite package
     ##     "location": ["N/A"]
     ##   }
     ## ]
+
+``` r
+table.headers = table$headers 
+table.headers
+```
+
+    ## [[1]]
+    ## [1] "city"
+    ## 
+    ## [[2]]
+    ## [1] "location"
 
 As we could see our locations are just a strings. But it should be geopoints. Also Rome's location is not available but it's also just a `N/A` string instead of `null`. First we have to infer Table Schema:
 
@@ -212,14 +222,10 @@ table$schema$valid # true
 All good. It looks like we're ready to read our data again:
 
 ``` r
-table$read()
-# [
-#   {city: 'london', location: [51.50,-0.11]},
-#   {city: 'paris', location: [48.85,2.30]},
-#   {city: 'rome', location: null},
-# ]
+table$read() # or
+```
 
-# or
+``` r
 toJSON(table$read(), pretty = TRUE) # function from jsonlite package
 ```
 
@@ -232,7 +238,7 @@ Now we see that:
 And because there are no errors on data reading we could be sure that our data is valid againt our schema. Let's save it:
 
 ``` r
-table$schema$save('schema.json')$value()
+table$schema$save('schema.json')
 table$save('data.csv')
 ```
 
@@ -495,14 +501,10 @@ schema$castRow(helpers.from.json.to.list('["6", "", "Walt"]'))
     ## [[3]]
     ## [1] "Walt"
 
-``` r
-# [ 6, null, 'Walt' ]
-```
-
 We could save the schema to a local file. And we could continue the work in any time just loading it from the local file:
 
 ``` r
-schema$save('schema.json')$value()
+schema$save('schema.json')
 schema = Schema.load('schema.json')
 ```
 
@@ -602,14 +604,20 @@ Update schema instance if there are in-place changes in the descriptor.
 descriptor = '{"fields": [{"name": "field", "type": "string"}]}'
 def = Schema.load(descriptor)
 schema = value(def)
-schema$getField("field")$name # string
+```
+
+``` r
+schema$getField("field")$name 
 ```
 
     ## [1] "field"
 
 ``` r
 schema$descriptor$fields[[1]]$type = "number"
-schema$getField("field")$type # string
+```
+
+``` r
+schema$getField("field")$type 
 ```
 
     ## [1] "string"
@@ -621,7 +629,7 @@ schema$commit()
     ## [1] TRUE
 
 ``` r
-schema$getField("field")$type # number
+schema$getField("field")$type 
 ```
 
     ## [1] "number"
@@ -666,7 +674,7 @@ dateType # print the result
 And following example will raise exception, because we set flag 'skip constraints' to `false`, and our date is less than allowed by `minimum` constraints of the field. Exception will be raised as well in situation of trying to cast non-date format values, or empty values
 
 ``` r
-tryCatch (
+tryCatch(
   dateType = field$cast_value(value = '2014-05-29', constraints = FALSE), 
   error = function(e){# uh oh, something went wrong
   })
@@ -924,7 +932,7 @@ Contributing
 The project follows the [Open Knowledge International coding standards](https://github.com/okfn/coding-standards). There are common commands to work with the project.Recommended way to get started is to create, activate and load the library environment. To install package and development dependencies into active environment:
 
 ``` r
-devtools::install_github("frictionlessdata/tableschema-r",dependencies=TRUE)
+devtools::install_github("frictionlessdata/tableschema-r", dependencies = TRUE)
 ```
 
 To make test:
