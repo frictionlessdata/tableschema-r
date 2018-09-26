@@ -65,6 +65,14 @@ test_that("should work with local path and ';' delimiter", {
   rows <- table$read()
   expect_equal(rows,list(list("1",'"abc, ab"')))
 })
+
+test_that("should work with local path and ignore delimiter inside quotes", {
+  def3 <- Table.load('inst/extdata/data_delim2.csv')
+  table <- future::value(def3)
+  rows <- table$read()
+  expect_equal(rows,list(list("1",'"abc, ab"'),list("2",'"cba, ba"')))
+})
+
 test_that("should cast source data", {
   def2 <- Table.load(jsonlite::fromJSON(SOURCE, simplifyVector = FALSE), schema = SCHEMA)
   table <- future::value(def2)

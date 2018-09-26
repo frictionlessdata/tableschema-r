@@ -44,7 +44,7 @@ ReadableConnection <- R6Class(
           stop('StopIteration')
         }
 
-      },by = 'row'))
+      }))
     }
     
     
