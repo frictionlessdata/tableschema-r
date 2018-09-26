@@ -26,7 +26,13 @@ ReadableConnection <- R6Class(
         if (length(oneLine <- readLines(private$connection_, n = 1, warn = FALSE)) > 0) {
           numfields <- count.fields(textConnection(oneLine), sep = ";")
           if (numfields[[1]] == 1) delim <- ',' else delim <- ';'
-          value <- as.list((strsplit(oneLine, delim))[[1]])
+
+          value <- as.list(strsplit(x = oneLine,
+                   split =  paste0(delim,'(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))'),
+                   perl = TRUE)[[1]])
+          
+          
+          # value <- as.list((strsplit(oneLine, delim))[[1]])
           private$index_ <- private$index_ + 1
 
           return(value)
@@ -38,7 +44,7 @@ ReadableConnection <- R6Class(
           stop('StopIteration')
         }
 
-      }))
+      },by = 'row'))
     }
     
     
