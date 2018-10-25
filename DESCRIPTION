@@ -14,7 +14,7 @@ BugReports: https://github.com/frictionlessdata/tableschema-r/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Depends: R (>= 3.5.1)
+Depends: R (>= 3.4.4)
 Imports:
     config,
     future, 
