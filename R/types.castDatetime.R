@@ -12,8 +12,8 @@
 #' 
 #' @seealso \href{https://frictionlessdata.io/specs/table-schema/#datetime}{Types and formats specifications}, 
 #' \code{\link[base]{strptime}}, \code{\link[base]{DateTimeClasses}},
-#' \href{https://CRAN.R-project.org/package=parsedate}{parsedate} and
-#' \href{https://CRAN.R-project.org/package=lubridate}{lubridate} packages.
+#' \code{\link[parsedate]{parsedate-package}} and 
+#' \code{\link[lubridate]{lubridate-package}}.
 #' 
 #' @examples 
 #' 

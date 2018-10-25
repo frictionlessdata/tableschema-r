@@ -2,11 +2,11 @@ Package: tableschema.r
 Type: Package
 Title: 'Table Schema'
 Version: 1.1.0
-Date: 2018-09-25
+Date: 2018-10-25
 Author: c(person("Kleanthis", "Koupidis", email = "koupidis@okfn.gr", role = c("aut", "cre")), 
             person("Lazaros", "Ioannidis", email = "larjohn@gmail.com", role = c("aut", "cre")),
-            person("Charalampos", "Bratsas", email = "charalampos.bratsas@okfn.org", role = "aut"),
-            person("Open Knowledge International", email = "charalampos.bratsas@okfn.org", role = "cph"))
+            person("Charalampos", "Bratsas", email = "cbratsas@math.auth.gr", role = "aut"),
+            person("Open Knowledge International", email = "info@okfn.org", role = "cph"))
 Maintainer: Kleanthis Koupidis <koupidis@okfn.gr>
 Description: A library for working with 'Table Schema' (<http://specs.frictionlessdata.io/table-schema/>).
 URL: https://github.com/frictionlessdata/tableschema-r
@@ -32,7 +32,6 @@ Suggests:
     covr,
     foreach,
     testthat
-Remotes: r-lib/covr
 Collate:
     'constraints.checkUnique.R'
     'constraints.checkRequired.R'
