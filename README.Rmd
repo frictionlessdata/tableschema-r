@@ -604,7 +604,7 @@ Test if value is compliant to the field.
 
 ### Validate
 
-> `validate()` validates whether a **schema** is a validate Table Schema accordingly to the [specifications](http://schemas.datapackages.org/json-table-schema.json). It does **not** validate data against a schema.
+> `validate()` validates whether a **schema** is a validate Table Schema accordingly to the [specifications](https://frictionlessdata.io/schemas/table-schema.json). It does **not** validate data against a schema.
 
 Given a schema descriptor `validate` returns a validation object:
 
@@ -694,7 +694,7 @@ More detailed information about how to create and run tests you can find in [tes
 <img src="okgr.png" align="right" width=120px /><img src="oklabs.png" align="right" width=120px />
 
 [Rs]: https://www.r-project.org/
-[R]: https://cloud.r-project.org/
+[R]: https://cran.r-project.org/
 [Rman]: https://cran.r-project.org/doc/manuals/R-admin.html
 [Rstudio]: https://www.rstudio.com/
 [Rstudiodown]: https://www.rstudio.com/products/rstudio/download/

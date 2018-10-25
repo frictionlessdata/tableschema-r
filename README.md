@@ -23,7 +23,7 @@ Getting started
 Installation
 ------------
 
-In order to install the latest distribution of [R software](https://www.r-project.org/) to your computer you have to select one of the mirror sites of the [Comprehensive R Archive Network](https://cloud.r-project.org/), select the appropriate link for your operating system and follow the wizard instructions.
+In order to install the latest distribution of [R software](https://www.r-project.org/) to your computer you have to select one of the mirror sites of the [Comprehensive R Archive Network](https://cran.r-project.org/), select the appropriate link for your operating system and follow the wizard instructions.
 
 For windows users you can:
 
@@ -834,7 +834,7 @@ Test if value is compliant to the field.
 
 ### Validate
 
-> `validate()` validates whether a **schema** is a validate Table Schema accordingly to the [specifications](http://schemas.datapackages.org/json-table-schema.json). It does **not** validate data against a schema.
+> `validate()` validates whether a **schema** is a validate Table Schema accordingly to the [specifications](https://frictionlessdata.io/schemas/table-schema.json). It does **not** validate data against a schema.
 
 Given a schema descriptor `validate` returns a validation object:
 
