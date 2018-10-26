@@ -1,6 +1,6 @@
 Package: tableschema.r
 Type: Package
-Title: A library for working with 'Table Schema'
+Title: A Library for Working with 'Table Schema'
 Version: 1.1.0
 Date: 2018-10-25
 Authors@R: c(person("Kleanthis", "Koupidis", email = "koupidis@okfn.gr", role = c("aut", "cre")), 
