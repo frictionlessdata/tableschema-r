@@ -81,7 +81,10 @@ install.packages("devtools")
 Install `tableschema.r`
 
 ``` r
-# And then install the development version from github
+# from CRAN version
+install.packages("tableschema.r")
+
+# or install the development version from github
 devtools::install_github("frictionlessdata/tableschema-r")
 ```
 
