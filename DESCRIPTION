@@ -1,14 +1,14 @@
 Package: tableschema.r
 Type: Package
-Title: A Library for Working with 'Table Schema'
+Title: Frictionless Data Table Schema
 Version: 1.1.0
-Date: 2018-10-25
+Date: 2018-11-5
 Authors@R: c(person("Kleanthis", "Koupidis", email = "koupidis@okfn.gr", role = c("aut", "cre")), 
             person("Lazaros", "Ioannidis", email = "larjohn@gmail.com", role = "aut"),
             person("Charalampos", "Bratsas", email = "cbratsas@math.auth.gr", role = "aut"),
             person("Open Knowledge International", email = "info@okfn.org", role = "cph"))
 Maintainer: Kleanthis Koupidis <koupidis@okfn.gr>
-Description: A library for working with 'Table Schema' (<http://specs.frictionlessdata.io/table-schema/>).
+Description: Allows to work with 'Table Schema' (<http://specs.frictionlessdata.io/table-schema/>). 'Table Schema' is well suited for use cases around handling and validating tabular data in text formats such as 'csv', but its utility extends well beyond this core usage, towards a range of applications where data benefits from a portable schema format. The 'tableschema.r' package can load and validate any table schema descriptor, allow the creation and modification of descriptors, expose methods for reading and streaming data that conforms to a 'Table Schema' via the 'Tabular Data Resource' abstraction.
 URL: https://github.com/frictionlessdata/tableschema-r
 BugReports: https://github.com/frictionlessdata/tableschema-r/issues
 License: MIT + file LICENSE
