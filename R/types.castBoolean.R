@@ -37,9 +37,9 @@
 
 types.castBoolean <- function(format = "default", value, options={}) { #format parameter is not used
   
-  if ("trueValues" %in% names(options)) TRUE_VALUES <- options[["trueValues"]]
+  if ("trueValues" %in% names(options) || "_TRUE_VALUES" %in% names(options)) TRUE_VALUES <- options[["trueValues"]]
   
-  if ("falseValues" %in% names(options)) FALSE_VALUES <- options[["falseValues"]]
+  if ("falseValues" %in% names(options)|| "_FALSE_VALUES" %in% names(options)) FALSE_VALUES <- options[["falseValues"]]
   
   
   if  (!is.logical(value)) {

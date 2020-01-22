@@ -131,7 +131,8 @@ is.email <- function(x) {
 #' @export
 
 is.binary <- function(x){
-  if (any(endsWith(x,suffix = "==") || 
+  if (any(endsWith(x,suffix = "==") ||endsWith(x,suffix = "=") ||
+          (grepl("^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$",x) & isTRUE(x!="") )||
           is.raw(jsonlite::base64_enc(x)))) TRUE else FALSE
 }
 
