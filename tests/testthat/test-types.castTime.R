@@ -41,8 +41,8 @@ TESTS <- list(
   list('%H:%M', '', config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   list('invalid', '', config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   ### list(/ Deprecat)d
-  list('fmt:%H:%M', Time(6), Time(6)),
-  list('fmt:%H:%M', '06:00', Time(6)),
+  # list('fmt:%H:%M', Time(6), Time(6)),
+  # list('fmt:%H:%M', '06:00', Time(6)),
   # list(/ ['fmt:%M:%H', '06:50', config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   list('fmt:%M:%H', '06:50', config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),
   # list(/ ['fmt:%M:%H', '06:50', config::get("ERROR", file = system.file("config/config.yml", package = "tableschema.r"))),

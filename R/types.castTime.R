@@ -48,7 +48,7 @@ types.castTime <- function(format="%H:%M:%S", value) {
         #value = strftime(value, format = format)
           
       } else if ( format != "%H:%M:%S" & !startsWith(format,"fmt:") ) {
-        
+        format <- "%H:%M:%S"
         value <- format(value, format = format)
         
         value <- as.POSIXlt(value, format = format)
