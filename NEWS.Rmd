@@ -5,6 +5,12 @@ output:
     html_preview: yes
 ---
 
+#### tableschema-r v1.1.1
+
+add tests, improve castboolean, cast_time and check required
+
+----------------------------------------------------------------
+
 #### tableschema-r v1.1
 
 Auto detect delimiter , or ;
