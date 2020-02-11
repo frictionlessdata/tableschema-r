@@ -73,4 +73,4 @@ Collate:
     'tableschema.r.R'
     'validate.R'
     'writable.R'
-RoxygenNote: 6.1.0.9000
+RoxygenNote: 7.0.0

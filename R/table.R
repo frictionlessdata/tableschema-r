@@ -19,7 +19,7 @@
 #'  \item list of headers (\code{source} should NOT contain headers rows)
 #'  }
 #' @param ...  options to be used by CSV parser. 
-#' All options listed at \href{http://csv.adaltas.com/parse/#parser-options}{http://csv.adaltas.com/parse/#parser-options}. 
+#' All options listed at \href{https://csv.js.org/parse/options/}{https://csv.js.org/parse/options/}. 
 #' By default \code{ltrim} is \code{TRUE} according to the \href{https://frictionlessdata.io/specs/csv-dialect/#specification}{CSV Dialect spec}. 
 #' 
 #' @docType class
@@ -450,7 +450,7 @@ Table <- R6Class(
 #'  \item list of headers (\code{source} should NOT contain headers rows)
 #'  }
 #' @param ...  options to be used by CSV parser. 
-#' All options listed at \href{http://csv.adaltas.com/parse/#parser-options}{http://csv.adaltas.com/parse/#parser-options}. 
+#' All options listed at \href{https://csv.js.org/parse/options/}{https://csv.js.org/parse/options/}. 
 #' By default \code{ltrim} is \code{TRUE} according to the \href{https://frictionlessdata.io/specs/csv-dialect/#specification}{CSV Dialect spec}. 
 #' 
 #' 
