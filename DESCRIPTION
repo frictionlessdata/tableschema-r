@@ -1,6 +1,6 @@
 Package: tableschema.r
 Type: Package
-Title: Frictionless Data Table Schema
+Title: Table Schema 'Frictionless Data'
 Version: 1.1.1
 Date: 2020-02-11
 Authors@R: c(person("Kleanthis", "Koupidis", email = "koupidis@okfn.gr", role = c("aut", "cre")), 
