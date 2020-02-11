@@ -5,9 +5,6 @@
 \alias{Readable}
 \title{Readable class}
 \format{\code{\link{R6Class}} object.}
-\usage{
-Readable
-}
 \value{
 Object of \code{\link{R6Class}}.
 }
@@ -15,3 +12,179 @@ Object of \code{\link{R6Class}}.
 Readable class that allows typed access to its members
 }
 \keyword{data}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-new}{\code{Readable$new()}}
+\item \href{#method-read}{\code{Readable$read()}}
+\item \href{#method-pipe}{\code{Readable$pipe()}}
+\item \href{#method-unpipe}{\code{Readable$unpipe()}}
+\item \href{#method-pause}{\code{Readable$pause()}}
+\item \href{#method-resume}{\code{Readable$resume()}}
+\item \href{#method-setEncoding}{\code{Readable$setEncoding()}}
+\item \href{#method-isPaused}{\code{Readable$isPaused()}}
+\item \href{#method-unshift}{\code{Readable$unshift()}}
+\item \href{#method-destroy}{\code{Readable$destroy()}}
+\item \href{#method-push}{\code{Readable$push()}}
+\item \href{#method-onData}{\code{Readable$onData()}}
+\item \href{#method-on.close}{\code{Readable$on.close()}}
+\item \href{#method-on.data}{\code{Readable$on.data()}}
+\item \href{#method-on.end}{\code{Readable$on.end()}}
+\item \href{#method-on.error}{\code{Readable$on.error()}}
+\item \href{#method-on.readable}{\code{Readable$on.readable()}}
+\item \href{#method-clone}{\code{Readable$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-new"></a>}}
+\subsection{Method \code{new()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Readable$new(options = list())}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-read"></a>}}
+\subsection{Method \code{read()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Readable$read(size = NULL)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-pipe"></a>}}
+\subsection{Method \code{pipe()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Readable$pipe(destination, options = list())}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-unpipe"></a>}}
+\subsection{Method \code{unpipe()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Readable$unpipe(destination)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-pause"></a>}}
+\subsection{Method \code{pause()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Readable$pause()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-resume"></a>}}
+\subsection{Method \code{resume()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Readable$resume()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-setEncoding"></a>}}
+\subsection{Method \code{setEncoding()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Readable$setEncoding()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-isPaused"></a>}}
+\subsection{Method \code{isPaused()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Readable$isPaused()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-unshift"></a>}}
+\subsection{Method \code{unshift()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Readable$unshift(chunk)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-destroy"></a>}}
+\subsection{Method \code{destroy()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Readable$destroy()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-push"></a>}}
+\subsection{Method \code{push()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Readable$push(chunk, encoding)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-onData"></a>}}
+\subsection{Method \code{onData()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Readable$onData(chunk)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-on.close"></a>}}
+\subsection{Method \code{on.close()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Readable$on.close(handler, unsubscribe = FALSE)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-on.data"></a>}}
+\subsection{Method \code{on.data()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Readable$on.data(handler, unsubscribe = FALSE)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-on.end"></a>}}
+\subsection{Method \code{on.end()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Readable$on.end(handler, unsubscribe = FALSE)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-on.error"></a>}}
+\subsection{Method \code{on.error()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Readable$on.error(handler, unsubscribe = FALSE)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-on.readable"></a>}}
+\subsection{Method \code{on.readable()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Readable$on.readable(handler, unsubscribe = FALSE)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-clone"></a>}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Readable$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

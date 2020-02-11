@@ -5,9 +5,6 @@
 \alias{Types}
 \title{Types class}
 \format{\code{\link{R6Class}} object.}
-\usage{
-Types
-}
 \value{
 Object of \code{\link{R6Class}} .
 }
@@ -49,3 +46,26 @@ with some additions and minor modifications (cf other type lists include those i
 \code{\link{types.castArray}}
 }
 \keyword{data}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-clone}{\code{Types$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-clone"></a>}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Types$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

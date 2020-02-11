@@ -4,7 +4,8 @@
 \alias{types.castBoolean}
 \title{Cast boolean}
 \usage{
-types.castBoolean(format = "default", value, options = { })
+types.castBoolean(format = "default", value, options = {
+})
 }
 \arguments{
 \item{format}{no options (other than the default)}

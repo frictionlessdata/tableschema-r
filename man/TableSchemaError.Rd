@@ -5,9 +5,6 @@
 \alias{TableSchemaError}
 \title{TableSchemaError class}
 \format{\code{\link{R6Class}} object.}
-\usage{
-TableSchemaError
-}
 \value{
 Object of \code{\link{R6Class}} .
 }
@@ -15,3 +12,35 @@ Object of \code{\link{R6Class}} .
 Error class for Table Schema
 }
 \keyword{data}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-new}{\code{TableSchemaError$new()}}
+\item \href{#method-clone}{\code{TableSchemaError$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-new"></a>}}
+\subsection{Method \code{new()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TableSchemaError$new(message, error = NULL)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-clone"></a>}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TableSchemaError$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

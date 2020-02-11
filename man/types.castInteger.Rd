@@ -4,7 +4,8 @@
 \alias{types.castInteger}
 \title{Cast integer}
 \usage{
-types.castInteger(format, value, options = { })
+types.castInteger(format, value, options = {
+})
 }
 \arguments{
 \item{format}{no options (other than the default)}

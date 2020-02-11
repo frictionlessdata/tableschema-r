@@ -5,9 +5,6 @@
 \alias{ReadableConnection}
 \title{ReadableConnection class}
 \format{\code{\link{R6Class}} object.}
-\usage{
-ReadableConnection
-}
 \value{
 Object of \code{\link{R6Class}} .
 }
@@ -15,3 +12,69 @@ Object of \code{\link{R6Class}} .
 Readable connection class
 }
 \keyword{data}
+\section{Super class}{
+\code{\link[tableschema.r:Readable]{tableschema.r::Readable}} -> \code{ReadableConnection}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-new}{\code{ReadableConnection$new()}}
+\item \href{#method-iterable}{\code{ReadableConnection$iterable()}}
+\item \href{#method-clone}{\code{ReadableConnection$clone()}}
+}
+}
+\if{html}{
+\out{<details ><summary>Inherited methods</summary>}
+\itemize{
+\item \out{<span class="pkg-link" data-pkg="tableschema.r" data-topic="Readable" data-id="destroy">}\href{../../tableschema.r/html/Readable.html#method-destroy}{\code{tableschema.r::Readable$destroy()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="tableschema.r" data-topic="Readable" data-id="isPaused">}\href{../../tableschema.r/html/Readable.html#method-isPaused}{\code{tableschema.r::Readable$isPaused()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="tableschema.r" data-topic="Readable" data-id="on.close">}\href{../../tableschema.r/html/Readable.html#method-on.close}{\code{tableschema.r::Readable$on.close()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="tableschema.r" data-topic="Readable" data-id="on.data">}\href{../../tableschema.r/html/Readable.html#method-on.data}{\code{tableschema.r::Readable$on.data()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="tableschema.r" data-topic="Readable" data-id="on.end">}\href{../../tableschema.r/html/Readable.html#method-on.end}{\code{tableschema.r::Readable$on.end()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="tableschema.r" data-topic="Readable" data-id="on.error">}\href{../../tableschema.r/html/Readable.html#method-on.error}{\code{tableschema.r::Readable$on.error()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="tableschema.r" data-topic="Readable" data-id="on.readable">}\href{../../tableschema.r/html/Readable.html#method-on.readable}{\code{tableschema.r::Readable$on.readable()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="tableschema.r" data-topic="Readable" data-id="onData">}\href{../../tableschema.r/html/Readable.html#method-onData}{\code{tableschema.r::Readable$onData()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="tableschema.r" data-topic="Readable" data-id="pause">}\href{../../tableschema.r/html/Readable.html#method-pause}{\code{tableschema.r::Readable$pause()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="tableschema.r" data-topic="Readable" data-id="pipe">}\href{../../tableschema.r/html/Readable.html#method-pipe}{\code{tableschema.r::Readable$pipe()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="tableschema.r" data-topic="Readable" data-id="push">}\href{../../tableschema.r/html/Readable.html#method-push}{\code{tableschema.r::Readable$push()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="tableschema.r" data-topic="Readable" data-id="read">}\href{../../tableschema.r/html/Readable.html#method-read}{\code{tableschema.r::Readable$read()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="tableschema.r" data-topic="Readable" data-id="resume">}\href{../../tableschema.r/html/Readable.html#method-resume}{\code{tableschema.r::Readable$resume()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="tableschema.r" data-topic="Readable" data-id="setEncoding">}\href{../../tableschema.r/html/Readable.html#method-setEncoding}{\code{tableschema.r::Readable$setEncoding()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="tableschema.r" data-topic="Readable" data-id="unpipe">}\href{../../tableschema.r/html/Readable.html#method-unpipe}{\code{tableschema.r::Readable$unpipe()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="tableschema.r" data-topic="Readable" data-id="unshift">}\href{../../tableschema.r/html/Readable.html#method-unshift}{\code{tableschema.r::Readable$unshift()}}\out{</span>}
+}
+\out{</details>}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-new"></a>}}
+\subsection{Method \code{new()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ReadableConnection$new(options = list())}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-iterable"></a>}}
+\subsection{Method \code{iterable()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ReadableConnection$iterable()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-clone"></a>}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ReadableConnection$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

@@ -5,9 +5,6 @@
 \alias{Constraints}
 \title{Constraints class}
 \format{\code{\link{R6Class}} object.}
-\usage{
-Constraints
-}
 \value{
 Object of \code{\link{R6Class}} .
 }
@@ -34,3 +31,26 @@ or represented as strings that are castable with the type and format rules of th
 \code{\link{constraints.checkUnique}}
 }
 \keyword{data}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-clone}{\code{Constraints$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-clone"></a>}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Constraints$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

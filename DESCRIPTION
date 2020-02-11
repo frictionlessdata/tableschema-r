@@ -2,7 +2,7 @@ Package: tableschema.r
 Type: Package
 Title: Frictionless Data Table Schema
 Version: 1.1.1
-Date: 2020-02-10
+Date: 2020-02-11
 Authors@R: c(person("Kleanthis", "Koupidis", email = "koupidis@okfn.gr", role = c("aut", "cre")), 
             person("Lazaros", "Ioannidis", email = "larjohn@gmail.com", role = "aut"),
             person("Charalampos", "Bratsas", email = "cbratsas@math.auth.gr", role = "aut"),
@@ -73,4 +73,4 @@ Collate:
     'tableschema.r.R'
     'validate.R'
     'writable.R'
-RoxygenNote: 7.0.0
+RoxygenNote: 7.0.2

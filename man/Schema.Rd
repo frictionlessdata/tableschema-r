@@ -8,15 +8,6 @@
 \usage{
 # Schema.load(descriptor, strict=FALSE)
 }
-\arguments{
-\item{descriptor}{schema descriptor, a JSON string, URL or file}
-
-\item{strict}{flag to alter validation behaviour:
-\itemize{
-\item{if \code{FALSE} error will not be raised and all error will be collected in \code{schema$errors}}
-\item{if \code{TRUE} any validation error will be raised immediately}
-}}
-}
 \value{
 Object of \code{\link{R6Class}} .
 }
@@ -119,3 +110,129 @@ in this package documents are to be interpreted as described in \href{https://ww
 \href{http://frictionlessdata.io/specs/table-schema/}{Table Schema Specifications}
 }
 \keyword{data}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-new}{\code{Schema$new()}}
+\item \href{#method-getField}{\code{Schema$getField()}}
+\item \href{#method-addField}{\code{Schema$addField()}}
+\item \href{#method-removeField}{\code{Schema$removeField()}}
+\item \href{#method-castRow}{\code{Schema$castRow()}}
+\item \href{#method-infer}{\code{Schema$infer()}}
+\item \href{#method-commit}{\code{Schema$commit()}}
+\item \href{#method-save}{\code{Schema$save()}}
+\item \href{#method-clone}{\code{Schema$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-new"></a>}}
+\subsection{Method \code{new()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Schema$new(descriptor = "{}", strict = FALSE, caseInsensitiveHeaders = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{descriptor}}{schema descriptor, a JSON string, URL or file}
+
+\item{\code{strict}}{flag to alter validation behaviour:
+\itemize{
+\item{if \code{FALSE} error will not be raised and all error will be collected in \code{schema$errors}}
+\item{if \code{TRUE} any validation error will be raised immediately}
+}}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getField"></a>}}
+\subsection{Method \code{getField()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Schema$getField(fieldName, index = 1)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-addField"></a>}}
+\subsection{Method \code{addField()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Schema$addField(descriptor)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{descriptor}}{schema descriptor, a JSON string, URL or file}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-removeField"></a>}}
+\subsection{Method \code{removeField()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Schema$removeField(name)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-castRow"></a>}}
+\subsection{Method \code{castRow()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Schema$castRow(items, failFast = FALSE, skipConstraints = FALSE)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-infer"></a>}}
+\subsection{Method \code{infer()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Schema$infer(rows, headers = 1)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-commit"></a>}}
+\subsection{Method \code{commit()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Schema$commit(strict = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{strict}}{flag to alter validation behaviour:
+\itemize{
+\item{if \code{FALSE} error will not be raised and all error will be collected in \code{schema$errors}}
+\item{if \code{TRUE} any validation error will be raised immediately}
+}}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-save"></a>}}
+\subsection{Method \code{save()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Schema$save(target)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-clone"></a>}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Schema$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

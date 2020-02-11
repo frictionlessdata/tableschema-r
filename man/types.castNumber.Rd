@@ -4,7 +4,8 @@
 \alias{types.castNumber}
 \title{Cast numbers of any kind including decimals}
 \usage{
-types.castNumber(format, value, options = { })
+types.castNumber(format, value, options = {
+})
 }
 \arguments{
 \item{format}{no options (other than the default)}
