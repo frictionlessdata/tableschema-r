@@ -1118,9 +1118,3 @@ described only breaking and the most important changes. The full
 changelog could be found in nicely formatted
 [commit](https://github.com/frictionlessdata/tableschema-r/commits/master)
 history.
-
-# Github
-
-  - <https://github.com/frictionlessdata/tableschema-r>
-
-<img src="okgr.png" align="right" width=120px /><img src="oklabs.png" align="right" width=120px />

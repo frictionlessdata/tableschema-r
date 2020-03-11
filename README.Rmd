@@ -2,7 +2,7 @@
 title: <img src="okgr.png" align="right" width=100px /><img src="oklabs.png" align="right" width=100px /><br><br/><br/><img src="Ffrictionless.png" align="left" width=120 /><br/>rictionless Data - <br/>Table Schema 
 output: 
   github_document:
-    html_preview: yes
+    html_preview: no
   number_sections: yes
 ---
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/tableschema.r)](https://cran.r-project.org/package=tableschema.r)
@@ -814,12 +814,6 @@ More detailed information about how to create and run tests you can find in [tes
 
 In [NEWS.md][news] described only breaking and the most important changes. The full changelog could be found in nicely formatted [commit][commits] history.  
 
-
-# Github 
-
-+ https://github.com/frictionlessdata/tableschema-r
-
-<img src="okgr.png" align="right" width=120px /><img src="oklabs.png" align="right" width=120px />
 
 [Rs]: https://www.r-project.org/
 [R]: https://cran.r-project.org/
