@@ -8,30 +8,6 @@
 \usage{
 # Table.load(source, schema = NULL, strict = FALSE, headers = 1, ...)
 }
-\arguments{
-\item{source}{data source, one of:
-\itemize{
- \item string with the path of the local CSV file
- \item string with the url of the remote CSV file
- \item list of lists representing the rows
- \item readable stream with CSV file contents
- \item function returning readable stream with CSV file contents
- }}
-
-\item{schema}{data schema in all forms supported by \code{Schema} class}
-
-\item{strict}{strictness option \code{TRUE} or \code{FALSE}, to pass to \code{Schema} constructor}
-
-\item{headers}{data source headers, one of:
-\itemize{
- \item row number containing headers (\code{source} should contain headers rows)
- \item list of headers (\code{source} should NOT contain headers rows)
- }}
-
-\item{...}{options to be used by CSV parser. 
-All options listed at \href{http://csv.adaltas.com/parse/#parser-options}{http://csv.adaltas.com/parse/#parser-options}. 
-By default \code{ltrim} is \code{TRUE} according to the \href{https://frictionlessdata.io/specs/csv-dialect/#specification}{CSV Dialect spec}.}
-}
 \value{
 Object of \code{\link{R6Class}} .
 }
@@ -147,3 +123,92 @@ in this package documents are to be interpreted as described in \href{https://ww
 \href{http://frictionlessdata.io/specs/table-schema/}{Table Schema Specifications}
 }
 \keyword{data}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-new}{\code{Table$new()}}
+\item \href{#method-infer}{\code{Table$infer()}}
+\item \href{#method-iter}{\code{Table$iter()}}
+\item \href{#method-read}{\code{Table$read()}}
+\item \href{#method-save}{\code{Table$save()}}
+\item \href{#method-clone}{\code{Table$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-new"></a>}}
+\subsection{Method \code{new()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Table$new(src, schema = NULL, strict = FALSE, headers = 1)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{schema}}{data schema in all forms supported by \code{Schema} class}
+
+\item{\code{strict}}{strictness option \code{TRUE} or \code{FALSE}, to pass to \code{Schema} constructor}
+
+\item{\code{headers}}{data source headers, one of:
+\itemize{
+ \item row number containing headers (\code{source} should contain headers rows)
+ \item list of headers (\code{source} should NOT contain headers rows)
+ }}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-infer"></a>}}
+\subsection{Method \code{infer()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Table$infer(limit = 100)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-iter"></a>}}
+\subsection{Method \code{iter()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Table$iter(keyed, extended, cast = TRUE, relations = FALSE, stream = FALSE)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-read"></a>}}
+\subsection{Method \code{read()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Table$read(
+  keyed = FALSE,
+  extended = FALSE,
+  cast = TRUE,
+  relations = FALSE,
+  limit = NULL
+)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-save"></a>}}
+\subsection{Method \code{save()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Table$save(connection)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-clone"></a>}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Table$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

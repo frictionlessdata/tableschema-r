@@ -1,5 +1,5 @@
-<img src="okgr.png" align="right" width=130px /><img src="oklabs.png" align="right" width=130px /><br><br/><img src="frictionlessdata.png" align="left" width=60 />rictionless
-Data - <br/> Table Schema
+<img src="okgr.png" align="right" width=100px /><img src="oklabs.png" align="right" width=100px /><br><br/><br/><img src="Ffrictionless.png" align="left" width=120 /><br/>rictionless
+Data - <br/>Table Schema
 ================
 
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/tableschema.r)](https://cran.r-project.org/package=tableschema.r)
@@ -319,8 +319,7 @@ Our `data.csv` looks the same because it has been stringified back to
 ```
 
 If we decide to improve it even more we could update the schema file and
-then open it again. But now providing a schema
-path.
+then open it again. But now providing a schema path.
 
 ``` r
 def = Table.load('inst/extdata/data.csv', schema = 'inst/extdata/schema.json')
@@ -386,8 +385,7 @@ reading operation.
 
 #### `table$schema`
 
-  - `(Schema)` - returns schema class
-instance
+  - `(Schema)` - returns schema class instance
 
 #### `table$iter(keyed, extended, cast=TRUE, relations=FALSE, stream=FALSE)`
 
@@ -558,8 +556,7 @@ toJSON(
 
 But if we try provide some missing value to `age` field cast will fail
 because for now only one possible missing value is an empty string.
-Let’s update our
-    schema:
+Let’s update our schema:
 
 ``` r
 schema$castRow(helpers.from.json.to.list('["6", "N/A", "Walt"]'))
@@ -770,8 +767,7 @@ complies with any constraints imposed by a schema.
 
 Following code will not raise the exception, despite the fact our date
 is less than minimum constraints in the field, because we do not check
-constraints of the field
-descriptor
+constraints of the field descriptor
 
 ``` r
 field = Field$new(helpers.from.json.to.list('{"name": "name", "type": "number"}'))
@@ -988,8 +984,7 @@ The project follows the [Open Knowledge International coding
 standards](https://github.com/okfn/coding-standards). There are common
 commands to work with the project.Recommended way to get started is to
 create, activate and load the library environment. To install package
-and development dependencies into active
-environment:
+and development dependencies into active environment:
 
 ``` r
 devtools::install_github("frictionlessdata/tableschema-r", dependencies = TRUE)
@@ -1010,8 +1005,7 @@ devtools::test()
 ```
 
 More detailed information about how to create and run tests you can find
-in [testthat
-package](https://github.com/hadley/testthat).
+in [testthat package](https://github.com/hadley/testthat).
 
 # Github
 
