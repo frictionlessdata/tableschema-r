@@ -18,3 +18,5 @@
 ^\.github
 ^Ffrictionless\.png
 ^docs$
+^LEAD\.md
+^MAKEFILE

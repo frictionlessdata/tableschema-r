@@ -4,7 +4,9 @@
 \name{TRUE_VALUES}
 \alias{TRUE_VALUES}
 \title{default true values}
-\format{An object of class \code{character} of length 4.}
+\format{
+An object of class \code{character} of length 4.
+}
 \usage{
 TRUE_VALUES
 }

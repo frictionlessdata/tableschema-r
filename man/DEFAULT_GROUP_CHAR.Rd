@@ -4,7 +4,9 @@
 \name{DEFAULT_GROUP_CHAR}
 \alias{DEFAULT_GROUP_CHAR}
 \title{default group char}
-\format{An object of class \code{character} of length 1.}
+\format{
+An object of class \code{character} of length 1.
+}
 \usage{
 DEFAULT_GROUP_CHAR
 }

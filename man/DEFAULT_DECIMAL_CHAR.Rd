@@ -4,7 +4,9 @@
 \name{DEFAULT_DECIMAL_CHAR}
 \alias{DEFAULT_DECIMAL_CHAR}
 \title{default decimal char}
-\format{An object of class \code{character} of length 1.}
+\format{
+An object of class \code{character} of length 1.
+}
 \usage{
 DEFAULT_DECIMAL_CHAR
 }

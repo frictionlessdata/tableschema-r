@@ -4,7 +4,9 @@
 \name{Table}
 \alias{Table}
 \title{Table Class}
-\format{\code{\link{R6Class}} object.}
+\format{
+\code{\link{R6Class}} object.
+}
 \usage{
 # Table.load(source, schema = NULL, strict = FALSE, headers = 1, ...)
 }
@@ -136,6 +138,7 @@ in this package documents are to be interpreted as described in \href{https://ww
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Table$new(src, schema = NULL, strict = FALSE, headers = 1)}\if{html}{\out{</div>}}
@@ -159,6 +162,7 @@ in this package documents are to be interpreted as described in \href{https://ww
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-infer"></a>}}
+\if{latex}{\out{\hypertarget{method-infer}{}}}
 \subsection{Method \code{infer()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Table$infer(limit = 100)}\if{html}{\out{</div>}}
@@ -167,6 +171,7 @@ in this package documents are to be interpreted as described in \href{https://ww
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-iter"></a>}}
+\if{latex}{\out{\hypertarget{method-iter}{}}}
 \subsection{Method \code{iter()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Table$iter(keyed, extended, cast = TRUE, relations = FALSE, stream = FALSE)}\if{html}{\out{</div>}}
@@ -175,6 +180,7 @@ in this package documents are to be interpreted as described in \href{https://ww
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-read"></a>}}
+\if{latex}{\out{\hypertarget{method-read}{}}}
 \subsection{Method \code{read()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Table$read(
@@ -189,6 +195,7 @@ in this package documents are to be interpreted as described in \href{https://ww
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-save"></a>}}
+\if{latex}{\out{\hypertarget{method-save}{}}}
 \subsection{Method \code{save()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Table$save(connection)}\if{html}{\out{</div>}}
@@ -197,6 +204,7 @@ in this package documents are to be interpreted as described in \href{https://ww
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

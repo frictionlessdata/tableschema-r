@@ -4,7 +4,9 @@
 \name{Types}
 \alias{Types}
 \title{Types class}
-\format{\code{\link{R6Class}} object.}
+\format{
+\code{\link{R6Class}} object.
+}
 \value{
 Object of \code{\link{R6Class}} .
 }
@@ -54,6 +56,7 @@ with some additions and minor modifications (cf other type lists include those i
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

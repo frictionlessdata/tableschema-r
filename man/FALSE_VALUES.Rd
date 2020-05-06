@@ -4,7 +4,9 @@
 \name{FALSE_VALUES}
 \alias{FALSE_VALUES}
 \title{default false values}
-\format{An object of class \code{character} of length 4.}
+\format{
+An object of class \code{character} of length 4.
+}
 \usage{
 FALSE_VALUES
 }

@@ -4,7 +4,9 @@
 \name{Constraints}
 \alias{Constraints}
 \title{Constraints class}
-\format{\code{\link{R6Class}} object.}
+\format{
+\code{\link{R6Class}} object.
+}
 \value{
 Object of \code{\link{R6Class}} .
 }
@@ -39,6 +41,7 @@ or represented as strings that are castable with the type and format rules of th
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

@@ -4,7 +4,9 @@
 \name{Writeable}
 \alias{Writeable}
 \title{Writeable class}
-\format{\code{\link{R6Class}} object.}
+\format{
+\code{\link{R6Class}} object.
+}
 \value{
 Object of \code{\link{R6Class}} .
 }
@@ -37,6 +39,7 @@ Writable streams class
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Writeable$new(options = list())}\if{html}{\out{</div>}}
@@ -45,6 +48,7 @@ Writable streams class
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-write"></a>}}
+\if{latex}{\out{\hypertarget{method-write}{}}}
 \subsection{Method \code{write()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Writeable$write(chunk)}\if{html}{\out{</div>}}
@@ -53,6 +57,7 @@ Writable streams class
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-read"></a>}}
+\if{latex}{\out{\hypertarget{method-read}{}}}
 \subsection{Method \code{read()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Writeable$read(size = NULL)}\if{html}{\out{</div>}}
@@ -61,6 +66,7 @@ Writable streams class
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-pipe"></a>}}
+\if{latex}{\out{\hypertarget{method-pipe}{}}}
 \subsection{Method \code{pipe()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Writeable$pipe(destination, options = list())}\if{html}{\out{</div>}}
@@ -69,6 +75,7 @@ Writable streams class
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-unpipe"></a>}}
+\if{latex}{\out{\hypertarget{method-unpipe}{}}}
 \subsection{Method \code{unpipe()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Writeable$unpipe(destination)}\if{html}{\out{</div>}}
@@ -77,6 +84,7 @@ Writable streams class
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-pause"></a>}}
+\if{latex}{\out{\hypertarget{method-pause}{}}}
 \subsection{Method \code{pause()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Writeable$pause()}\if{html}{\out{</div>}}
@@ -85,6 +93,7 @@ Writable streams class
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-resume"></a>}}
+\if{latex}{\out{\hypertarget{method-resume}{}}}
 \subsection{Method \code{resume()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Writeable$resume()}\if{html}{\out{</div>}}
@@ -93,6 +102,7 @@ Writable streams class
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-setEncoding"></a>}}
+\if{latex}{\out{\hypertarget{method-setEncoding}{}}}
 \subsection{Method \code{setEncoding()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Writeable$setEncoding()}\if{html}{\out{</div>}}
@@ -101,6 +111,7 @@ Writable streams class
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-isPaused"></a>}}
+\if{latex}{\out{\hypertarget{method-isPaused}{}}}
 \subsection{Method \code{isPaused()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Writeable$isPaused()}\if{html}{\out{</div>}}
@@ -109,6 +120,7 @@ Writable streams class
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-unshift"></a>}}
+\if{latex}{\out{\hypertarget{method-unshift}{}}}
 \subsection{Method \code{unshift()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Writeable$unshift(chunk)}\if{html}{\out{</div>}}
@@ -117,6 +129,7 @@ Writable streams class
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-destroy"></a>}}
+\if{latex}{\out{\hypertarget{method-destroy}{}}}
 \subsection{Method \code{destroy()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Writeable$destroy()}\if{html}{\out{</div>}}
@@ -125,6 +138,7 @@ Writable streams class
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-push"></a>}}
+\if{latex}{\out{\hypertarget{method-push}{}}}
 \subsection{Method \code{push()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Writeable$push(chunk, encoding)}\if{html}{\out{</div>}}
@@ -133,6 +147,7 @@ Writable streams class
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-onClose"></a>}}
+\if{latex}{\out{\hypertarget{method-onClose}{}}}
 \subsection{Method \code{onClose()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Writeable$onClose(handler, unsubscribe = FALSE)}\if{html}{\out{</div>}}
@@ -141,6 +156,7 @@ Writable streams class
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-onData"></a>}}
+\if{latex}{\out{\hypertarget{method-onData}{}}}
 \subsection{Method \code{onData()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Writeable$onData(handler, unsubscribe = FALSE)}\if{html}{\out{</div>}}
@@ -149,6 +165,7 @@ Writable streams class
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-onEnd"></a>}}
+\if{latex}{\out{\hypertarget{method-onEnd}{}}}
 \subsection{Method \code{onEnd()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Writeable$onEnd(handler, unsubscribe = FALSE)}\if{html}{\out{</div>}}
@@ -157,6 +174,7 @@ Writable streams class
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-onError"></a>}}
+\if{latex}{\out{\hypertarget{method-onError}{}}}
 \subsection{Method \code{onError()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Writeable$onError(handler, unsubscribe = FALSE)}\if{html}{\out{</div>}}
@@ -165,6 +183,7 @@ Writable streams class
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-onReadable"></a>}}
+\if{latex}{\out{\hypertarget{method-onReadable}{}}}
 \subsection{Method \code{onReadable()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Writeable$onReadable(handler, unsubscribe = FALSE)}\if{html}{\out{</div>}}
@@ -173,6 +192,7 @@ Writable streams class
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

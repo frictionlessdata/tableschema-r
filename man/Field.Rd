@@ -4,7 +4,9 @@
 \name{Field}
 \alias{Field}
 \title{Field class}
-\format{\code{\link{R6Class}} object.}
+\format{
+\code{\link{R6Class}} object.
+}
 \usage{
 # Field$new(descriptor, missingValues = list(""))
 }
@@ -157,6 +159,7 @@ field$testValue(200)
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Field$new(
@@ -181,6 +184,7 @@ field$testValue(200)
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-cast_value"></a>}}
+\if{latex}{\out{\hypertarget{method-cast_value}{}}}
 \subsection{Method \code{cast_value()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Field$cast_value(...)}\if{html}{\out{</div>}}
@@ -189,6 +193,7 @@ field$testValue(200)
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-testValue"></a>}}
+\if{latex}{\out{\hypertarget{method-testValue}{}}}
 \subsection{Method \code{testValue()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Field$testValue(value, constraints = TRUE)}\if{html}{\out{</div>}}
@@ -197,6 +202,7 @@ field$testValue(200)
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

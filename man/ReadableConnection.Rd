@@ -4,7 +4,9 @@
 \name{ReadableConnection}
 \alias{ReadableConnection}
 \title{ReadableConnection class}
-\format{\code{\link{R6Class}} object.}
+\format{
+\code{\link{R6Class}} object.
+}
 \value{
 Object of \code{\link{R6Class}} .
 }
@@ -47,6 +49,7 @@ Readable connection class
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReadableConnection$new(options = list())}\if{html}{\out{</div>}}
@@ -55,6 +58,7 @@ Readable connection class
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-iterable"></a>}}
+\if{latex}{\out{\hypertarget{method-iterable}{}}}
 \subsection{Method \code{iterable()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ReadableConnection$iterable()}\if{html}{\out{</div>}}
@@ -63,6 +67,7 @@ Readable connection class
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

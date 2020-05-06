@@ -4,7 +4,9 @@
 \name{Schema}
 \alias{Schema}
 \title{Schema class}
-\format{\code{\link{R6Class}} object.}
+\format{
+\code{\link{R6Class}} object.
+}
 \usage{
 # Schema.load(descriptor, strict=FALSE)
 }
@@ -126,6 +128,7 @@ in this package documents are to be interpreted as described in \href{https://ww
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Schema$new(descriptor = "{}", strict = FALSE, caseInsensitiveHeaders = FALSE)}\if{html}{\out{</div>}}
@@ -147,6 +150,7 @@ in this package documents are to be interpreted as described in \href{https://ww
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getField"></a>}}
+\if{latex}{\out{\hypertarget{method-getField}{}}}
 \subsection{Method \code{getField()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Schema$getField(fieldName, index = 1)}\if{html}{\out{</div>}}
@@ -155,6 +159,7 @@ in this package documents are to be interpreted as described in \href{https://ww
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-addField"></a>}}
+\if{latex}{\out{\hypertarget{method-addField}{}}}
 \subsection{Method \code{addField()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Schema$addField(descriptor)}\if{html}{\out{</div>}}
@@ -170,6 +175,7 @@ in this package documents are to be interpreted as described in \href{https://ww
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-removeField"></a>}}
+\if{latex}{\out{\hypertarget{method-removeField}{}}}
 \subsection{Method \code{removeField()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Schema$removeField(name)}\if{html}{\out{</div>}}
@@ -178,6 +184,7 @@ in this package documents are to be interpreted as described in \href{https://ww
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-castRow"></a>}}
+\if{latex}{\out{\hypertarget{method-castRow}{}}}
 \subsection{Method \code{castRow()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Schema$castRow(items, failFast = FALSE, skipConstraints = FALSE)}\if{html}{\out{</div>}}
@@ -186,6 +193,7 @@ in this package documents are to be interpreted as described in \href{https://ww
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-infer"></a>}}
+\if{latex}{\out{\hypertarget{method-infer}{}}}
 \subsection{Method \code{infer()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Schema$infer(rows, headers = 1)}\if{html}{\out{</div>}}
@@ -194,6 +202,7 @@ in this package documents are to be interpreted as described in \href{https://ww
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-commit"></a>}}
+\if{latex}{\out{\hypertarget{method-commit}{}}}
 \subsection{Method \code{commit()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Schema$commit(strict = NULL)}\if{html}{\out{</div>}}
@@ -213,6 +222,7 @@ in this package documents are to be interpreted as described in \href{https://ww
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-save"></a>}}
+\if{latex}{\out{\hypertarget{method-save}{}}}
 \subsection{Method \code{save()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Schema$save(target)}\if{html}{\out{</div>}}
@@ -221,6 +231,7 @@ in this package documents are to be interpreted as described in \href{https://ww
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
