@@ -50,7 +50,7 @@ For windows users you can:
 2.  Click download R for Windows
 3.  Click Base (This is what you want to install R for the first time)
 4.  Download the latest R version
-5.  Run installation file and follow the instrustions of the installer.
+5.  Run installation file and follow the instructions of the installer.
 
 (Mac) OS X and Linux users may need to follow different steps depending
 on their system version to install R successfully and it is recommended
@@ -253,7 +253,7 @@ table$schema$errors
     ## [[1]]
     ## [1] "Descriptor validation error:\n            data.missingValues - is the wrong type"
 
-As a good citiziens we’ve decided to check out schema descriptor
+As a good citizens we’ve decided to check out schema descriptor
 validity. And it’s not valid\! We sould use an list for `missingValues`
 property. Also don’t forget to have an empty string as a missing value:
 
@@ -282,7 +282,7 @@ toJSON(table$read(), pretty = TRUE) # function from jsonlite package
 
 Now we see that:
 
-  - locations are lists with numeric lattide and longitude
+  - locations are lists with numeric latitude and longitude
 
   - Rome’s location is `null`
 
