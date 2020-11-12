@@ -147,7 +147,7 @@ table$schema$valid # false
 table$schema$errors
 ```
 
-As a good citiziens we've decided to check out schema descriptor validity. And it's not valid! We sould use an list for `missingValues` property. Also don't forget to have an empty string as a missing value:
+As a good citizens we've decided to check out schema descriptor validity. And it's not valid! We sould use an list for `missingValues` property. Also don't forget to have an empty string as a missing value:
 
 ```{r, eval=TRUE, include=TRUE}
 table$schema$descriptor[['missingValues']] = list("", 'N/A')
@@ -166,7 +166,7 @@ toJSON(table$read(), pretty = TRUE) # function from jsonlite package
 
 Now we see that:
 
-+ locations are lists with numeric lattide and longitude
++ locations are lists with numeric latitude and longitude
 
 + Rome's location is `null`
 
