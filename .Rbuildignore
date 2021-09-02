@@ -2,7 +2,6 @@
 ^\.Rproj\.user$
 ^packrat/
 ^\.Rprofile$
-^\.travis\.yml$
 ^NEWS\.Rmd$
 ^README\.Rmd$
 ^config\.yml$
@@ -20,3 +19,4 @@
 ^docs$
 ^LEAD\.md
 ^MAKEFILE
+^\.github$
