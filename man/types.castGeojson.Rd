@@ -7,7 +7,7 @@
 types.castGeojson(format, value)
 }
 \arguments{
-\item{format}{default is a geojson object as per the \href{http://geojson.org/}{GeoJSON spec} or
+\item{format}{default is a geojson object as per the \href{https://geojson.org/}{GeoJSON spec} or
 topojson object as per the \href{https://github.com/topojson/topojson-specification/blob/master/README.md}{TopoJSON spec}}
 
 \item{value}{GeoJSON to cast}
@@ -16,5 +16,5 @@ topojson object as per the \href{https://github.com/topojson/topojson-specificat
 Cast JSON object according to GeoJSON or TopoJSON spec
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#geojson}{Types and formats specifications}
+\href{https://specs.frictionlessdata.io//table-schema/#geojson}{Types and formats specifications}
 }

@@ -24,5 +24,5 @@ types.castObject(format = "default", value = '{"key": "value"}')
 
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#object}{Types and formats specifications}
+\href{https://specs.frictionlessdata.io//table-schema/#object}{Types and formats specifications}
 }

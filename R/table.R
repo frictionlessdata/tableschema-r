@@ -20,7 +20,7 @@
 #'  }
 #' @param ...  options to be used by CSV parser. 
 #' All options listed at \href{https://csv.js.org/parse/options/}{https://csv.js.org/parse/options/}. 
-#' By default \code{ltrim} is \code{TRUE} according to the \href{https://frictionlessdata.io/specs/csv-dialect/#specification}{CSV Dialect spec}. 
+#' By default \code{ltrim} is \code{TRUE} according to the \href{https://specs.frictionlessdata.io//csv-dialect/#specification}{CSV Dialect spec}. 
 #' 
 #' @docType class
 #' @include  field.R
@@ -133,7 +133,7 @@
 #' in this package documents are to be interpreted as described in \href{https://www.ietf.org/rfc/rfc2119.txt}{RFC 2119}.
 #'
 #' @seealso \code{\link{Table.load}}, 
-#' \href{http://frictionlessdata.io/specs/table-schema/}{Table Schema Specifications}
+#' \href{https://specs.frictionlessdata.io//table-schema/}{Table Schema Specifications}
 #'
 
 Table <- R6Class(
@@ -451,7 +451,7 @@ Table <- R6Class(
 #'  }
 #' @param ...  options to be used by CSV parser. 
 #' All options listed at \href{https://csv.js.org/parse/options/}{https://csv.js.org/parse/options/}. 
-#' By default \code{ltrim} is \code{TRUE} according to the \href{https://frictionlessdata.io/specs/csv-dialect/#specification}{CSV Dialect spec}. 
+#' By default \code{ltrim} is \code{TRUE} according to the \href{https://specs.frictionlessdata.io//csv-dialect/#specification}{CSV Dialect spec}. 
 #' 
 #' 
 #' @details
@@ -465,7 +465,7 @@ Table <- R6Class(
 #' 
 #' Term array refers to json arrays which if converted in R will be \code{\link[base:list]{list objects}}.
 #' 
-#' @seealso \code{\link{Table}}, \href{http://frictionlessdata.io/specs/table-schema/}{Table Schema Specifications}
+#' @seealso \code{\link{Table}}, \href{https://specs.frictionlessdata.io//table-schema/}{Table Schema Specifications}
 #' @rdname Table.load
 #' @export
 #' 

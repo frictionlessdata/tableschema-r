@@ -14,7 +14,7 @@
 #' 
 #' @export
 #' 
-#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#string}{Types and formats specifications}
+#' @seealso \href{https://specs.frictionlessdata.io//table-schema/#string}{Types and formats specifications}
 #' 
 #' @examples
 #' 

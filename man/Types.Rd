@@ -14,7 +14,7 @@ Object of \code{\link{R6Class}} .
 R6 class with Types and Formats.
 
 \code{type} and \code{format} properties are used to give the type of the field (string, number etc) - 
-see \href{https://frictionlessdata.io/specs/table-schema/#types-and-formats}{types and formats} for more details. 
+see \href{https://specs.frictionlessdata.io//table-schema/#types-and-formats}{types and formats} for more details. 
 If type is not provided a consumer should assume a type of "string".
 
 A field's \code{type} property is a string indicating the type of this field.
@@ -24,12 +24,18 @@ A field's \code{format} property is a string, indicating a format for the field 
 Both \code{type} and format are optional: in a field descriptor, the absence of a \code{type} property indicates that 
 the field is of the type "string", and the absence of a \code{format} property indicates that the field's type \code{format} is "default".
 
-Types are based on the \href{https://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.1}{type set of json-schema} 
+Types are based on the \href{https://datatracker.ietf.org/doc/html/draft-zyp-json-schema-03#section-5.1}{type set of json-schema} 
 with some additions and minor modifications (cf other type lists include those in 
 \href{http://www.elasticsearch.org/guide/reference/mapping/}{Elasticsearch types}).
 }
+\section{Fields}{
+
+\describe{
+\item{\code{casts}}{see Section See also}
+}}
+
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#types-and-formats}{Types and formats specifications},
+\href{https://specs.frictionlessdata.io//table-schema/#types-and-formats}{Types and formats specifications},
 \code{\link{types.castAny}},
 \code{\link{types.castBoolean}},
 \code{\link{types.castDate}},
@@ -48,27 +54,3 @@ with some additions and minor modifications (cf other type lists include those i
 \code{\link{types.castArray}}
 }
 \keyword{data}
-\section{Methods}{
-\subsection{Public methods}{
-\itemize{
-\item \href{#method-clone}{\code{Types$clone()}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Types$clone(deep = FALSE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
-}

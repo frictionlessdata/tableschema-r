@@ -40,5 +40,5 @@ types.castString(format = "uuid", value = "95ecc380-afe9-11e4-9b6c-751b66dd541e"
 
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#string}{Types and formats specifications}
+\href{https://specs.frictionlessdata.io//table-schema/#string}{Types and formats specifications}
 }

@@ -10,7 +10,7 @@
 #' @rdname constraints.checkMinimum
 #' @export
 #' 
-#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#constraints}{Constraints specifications}
+#' @seealso \href{https://specs.frictionlessdata.io//table-schema/#constraints}{Constraints specifications}
 #' 
 #' @examples 
 #' 

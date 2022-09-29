@@ -42,7 +42,7 @@ types.castDate(format = "\%d/\%m/\%y", value = as.Date("2019-1-1"))
 
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#date}{Types and formats specifications}, 
+\href{https://specs.frictionlessdata.io//table-schema/#date}{Types and formats specifications}, 
 \code{\link[base]{strptime}}, \code{\link[base]{DateTimeClasses}},
 \code{\link[parsedate]{parsedate-package}} and 
 \code{\link[lubridate]{lubridate-package}}.

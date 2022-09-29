@@ -25,5 +25,5 @@ constraints.checkUnique(constraint = TRUE, value = "any")
 
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#constraints}{Constraints specifications}
+\href{https://specs.frictionlessdata.io//table-schema/#constraints}{Constraints specifications}
 }

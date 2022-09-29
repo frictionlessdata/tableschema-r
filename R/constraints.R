@@ -17,6 +17,8 @@
 #' @return Object of \code{\link{R6Class}} .
 #' @format \code{\link{R6Class}} object.
 #' 
+#' @field constraints see Section See Also
+#' 
 #' @include constraints.checkEnum.R
 #' @include constraints.checkMaximum.R
 #' @include constraints.checkMaxLength.R
@@ -26,7 +28,7 @@
 #' @include constraints.checkRequired.R
 #' @include constraints.checkUnique.R
 #' 
-#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#constraints}{Constraints specifications},
+#' @seealso \href{https://specs.frictionlessdata.io//table-schema/#constraints}{Constraints specifications},
 #' \code{\link{constraints.checkEnum}}, 
 #' \code{\link{constraints.checkMaximum}},
 #' \code{\link{constraints.checkMaxLength}},

@@ -16,7 +16,7 @@
 #' \item{trueValues: ["true", "True", "TRUE", "1"]}
 #' \item{falseValues: ["false", "False", "FALSE", "0"]}
 #' }
-#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#boolean}{Types and formats specifications} 
+#' @seealso \href{https://specs.frictionlessdata.io//table-schema/#boolean}{Types and formats specifications} 
 #' 
 #' @examples
 #' 

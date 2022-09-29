@@ -10,6 +10,21 @@
 \usage{
 # Field$new(descriptor, missingValues = list(""))
 }
+\arguments{
+\item{descriptor}{Schema field descriptor}
+
+\item{missingValues}{A list with vector strings representing missing values}
+
+\item{base_path}{see description}
+
+\item{strict}{see description}
+
+\item{value}{see description}
+
+\item{constraints}{see description}
+
+\item{...}{see description}
+}
 \value{
 Object of \code{\link{R6Class}} .
 }
@@ -145,76 +160,6 @@ field$testValue(200)
 
 }
 \seealso{
-\href{http://frictionlessdata.io/specs/table-schema/#field-descriptors}{Field Descriptors Specifications}
+\href{https://specs.frictionlessdata.io//table-schema/#field-descriptors}{Field Descriptors Specifications}
 }
 \keyword{data}
-\section{Methods}{
-\subsection{Public methods}{
-\itemize{
-\item \href{#method-new}{\code{Field$new()}}
-\item \href{#method-cast_value}{\code{Field$cast_value()}}
-\item \href{#method-testValue}{\code{Field$testValue()}}
-\item \href{#method-clone}{\code{Field$clone()}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
-\subsection{Method \code{new()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Field$new(
-  descriptor,
-  base_path = NULL,
-  strict = NULL,
-  missingValues = as.list(config::get("DEFAULT_MISSING_VALUES", file =
-    system.file("config/config.yml", package = "tableschema.r"))),
-  ...
-)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{descriptor}}{Schema field descriptor}
-
-\item{\code{missingValues}}{A list with vector strings representing missing values}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-cast_value"></a>}}
-\if{latex}{\out{\hypertarget{method-cast_value}{}}}
-\subsection{Method \code{cast_value()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Field$cast_value(...)}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-testValue"></a>}}
-\if{latex}{\out{\hypertarget{method-testValue}{}}}
-\subsection{Method \code{testValue()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Field$testValue(value, constraints = TRUE)}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Field$clone(deep = FALSE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
-}

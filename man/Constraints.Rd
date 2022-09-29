@@ -21,8 +21,14 @@ All constraints \code{MUST} be tested against the logical representation of data
 representation of constraint values \code{MAY} be primitive types as possible in JSON, 
 or represented as strings that are castable with the type and format rules of the field.
 }
+\section{Fields}{
+
+\describe{
+\item{\code{constraints}}{see Section See Also}
+}}
+
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#constraints}{Constraints specifications},
+\href{https://specs.frictionlessdata.io//table-schema/#constraints}{Constraints specifications},
 \code{\link{constraints.checkEnum}}, 
 \code{\link{constraints.checkMaximum}},
 \code{\link{constraints.checkMaxLength}},
@@ -33,27 +39,3 @@ or represented as strings that are castable with the type and format rules of th
 \code{\link{constraints.checkUnique}}
 }
 \keyword{data}
-\section{Methods}{
-\subsection{Public methods}{
-\itemize{
-\item \href{#method-clone}{\code{Constraints$clone()}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Constraints$clone(deep = FALSE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
-}

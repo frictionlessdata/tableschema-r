@@ -4,8 +4,12 @@
 \alias{types.castInteger}
 \title{Cast integer}
 \usage{
-types.castInteger(format, value, options = {
-})
+types.castInteger(
+  format,
+  value,
+  options = {
+ }
+)
 }
 \arguments{
 \item{format}{no options (other than the default)}
@@ -34,5 +38,5 @@ types.castInteger(format = "default", value = "1$", options = list(bareNumber = 
 
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#integer}{Types and formats specifications}
+\href{https://specs.frictionlessdata.io//table-schema/#integer}{Types and formats specifications}
 }

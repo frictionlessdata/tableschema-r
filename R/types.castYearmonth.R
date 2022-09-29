@@ -6,7 +6,7 @@
 #' @rdname types.castYearmonth
 #' @export
 #' 
-#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#yearmonth}{Types and formats specifications}
+#' @seealso \href{https://specs.frictionlessdata.io//table-schema/#yearmonth}{Types and formats specifications}
 #' 
 #' @examples 
 #' 

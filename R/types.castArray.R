@@ -6,7 +6,7 @@
 #' @export
 #' 
 #' @seealso \code{\link{types.castList}}, 
-#' \href{https://frictionlessdata.io/specs/table-schema/#array}{Types and formats specifications} 
+#' \href{https://specs.frictionlessdata.io//table-schema/#array}{Types and formats specifications} 
 #' 
 types.castArray <- function(format, value) {
   # .Deprecated(new = "types.castList", msg = "'types.castArray' is deprecated.\n Use 'types.castList' instead.")

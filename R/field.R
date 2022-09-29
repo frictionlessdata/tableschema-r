@@ -93,8 +93,12 @@
 #' @keywords data
 #' @return Object of \code{\link{R6Class}} .
 #' @format \code{\link{R6Class}} object.
-#' 
-#' @seealso \href{http://frictionlessdata.io/specs/table-schema/#field-descriptors}{Field Descriptors Specifications}
+#' @param base_path see description
+#' @param strict see description
+#' @param value see description
+#' @param constraints see description
+#' @param ... see description
+#' @seealso \href{https://specs.frictionlessdata.io//table-schema/#field-descriptors}{Field Descriptors Specifications}
 #'  
 #' @examples 
 #' DESCRIPTOR = list(name = "height", type = "number")

@@ -4,8 +4,12 @@
 \alias{types.castBoolean}
 \title{Cast boolean}
 \usage{
-types.castBoolean(format = "default", value, options = {
-})
+types.castBoolean(
+  format = "default",
+  value,
+  options = {
+ }
+)
 }
 \arguments{
 \item{format}{no options (other than the default)}
@@ -47,5 +51,5 @@ types.castBoolean(format = "default", value = "no", list(falseValues  = list("no
 
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#boolean}{Types and formats specifications}
+\href{https://specs.frictionlessdata.io//table-schema/#boolean}{Types and formats specifications}
 }

@@ -25,7 +25,7 @@ types.castTime(format = "default", value = '06:00:00')
 
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#time}{Types and formats specifications},
+\href{https://specs.frictionlessdata.io//table-schema/#time}{Types and formats specifications},
 \code{\link[base]{strptime}}, \code{\link[base]{DateTimeClasses}},
 \code{\link[parsedate]{parsedate-package}} and 
 \code{\link[lubridate]{lubridate-package}}.

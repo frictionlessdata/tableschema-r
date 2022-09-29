@@ -2,7 +2,7 @@
 #' @description R6 class with Types and Formats.
 #' 
 #' \code{type} and \code{format} properties are used to give the type of the field (string, number etc) - 
-#' see \href{https://frictionlessdata.io/specs/table-schema/#types-and-formats}{types and formats} for more details. 
+#' see \href{https://specs.frictionlessdata.io//table-schema/#types-and-formats}{types and formats} for more details. 
 #' If type is not provided a consumer should assume a type of "string".
 #' 
 #' A field's \code{type} property is a string indicating the type of this field.
@@ -12,7 +12,7 @@
 #' Both \code{type} and format are optional: in a field descriptor, the absence of a \code{type} property indicates that 
 #' the field is of the type "string", and the absence of a \code{format} property indicates that the field's type \code{format} is "default".
 #' 
-#' Types are based on the \href{https://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.1}{type set of json-schema} 
+#' Types are based on the \href{https://datatracker.ietf.org/doc/html/draft-zyp-json-schema-03#section-5.1}{type set of json-schema} 
 #' with some additions and minor modifications (cf other type lists include those in 
 #' \href{http://www.elasticsearch.org/guide/reference/mapping/}{Elasticsearch types}).
 #' 
@@ -20,6 +20,7 @@
 #' @importFrom R6 R6Class
 #' @export
 #' @keywords data
+#' @field casts see Section See also
 #' @return Object of \code{\link{R6Class}} .
 #' @format \code{\link{R6Class}} object.
 #' @include types.castAny.R
@@ -40,7 +41,7 @@
 #' @include types.castArray.R
 #' 
 #' 
-#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#types-and-formats}{Types and formats specifications},
+#' @seealso \href{https://specs.frictionlessdata.io//table-schema/#types-and-formats}{Types and formats specifications},
 #' \code{\link{types.castAny}},
 #' \code{\link{types.castBoolean}},
 #' \code{\link{types.castDate}},

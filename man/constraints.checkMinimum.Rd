@@ -27,5 +27,5 @@ constraints.checkMinimum(constraint = list(2), value = 1)
 constraints.checkMinimum(constraint = 2, value = 3)
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#constraints}{Constraints specifications}
+\href{https://specs.frictionlessdata.io//table-schema/#constraints}{Constraints specifications}
 }

@@ -39,5 +39,5 @@ types.castGeopoint(format = "object", value =  '{"lon": 180, "lat": 90}')
 
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#geopoint}{Types and formats specifications}
+\href{https://specs.frictionlessdata.io//table-schema/#geopoint}{Types and formats specifications}
 }

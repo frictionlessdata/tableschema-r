@@ -12,7 +12,7 @@
 #' @rdname types.castGeopoint
 #' @export
 #' 
-#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#geopoint}{Types and formats specifications}
+#' @seealso \href{https://specs.frictionlessdata.io//table-schema/#geopoint}{Types and formats specifications}
 #' 
 #' @examples 
 #' 

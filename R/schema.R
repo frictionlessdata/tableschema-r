@@ -108,7 +108,7 @@
 #' @format \code{\link{R6Class}} object.
 #' 
 #' @seealso \code{\link{Schema.load}}, 
-#' \href{http://frictionlessdata.io/specs/table-schema/}{Table Schema Specifications}
+#' \href{https://specs.frictionlessdata.io//table-schema/}{Table Schema Specifications}
 #' 
 
 Schema <- R6Class(
@@ -479,7 +479,7 @@ Schema <- R6Class(
 #' @rdname Schema.load
 #' 
 #' @return \code{\link{Schema}} class object
-#' @seealso \code{\link{Schema}}, \href{http://frictionlessdata.io/specs/table-schema/}{Table Schema Specifications}
+#' @seealso \code{\link{Schema}}, \href{https://specs.frictionlessdata.io//table-schema/}{Table Schema Specifications}
 #' 
 #' @export
 #' 

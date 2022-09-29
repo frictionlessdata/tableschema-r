@@ -1,7 +1,7 @@
 #' Check if a field is required
 #' @description Indicates whether this field is allowed to be \code{NULL}. 
 #' If required is \code{TRUE}, then \code{NULL} is disallowed.
-#' See the section on \href{https://frictionlessdata.io/specs/table-schema/#missing-values}{missingValues} for how, 
+#' See the section on \href{https://specs.frictionlessdata.io//table-schema/#missing-values}{missingValues} for how, 
 #' in the physical representation of the data, strings can represent \code{NULL} values. 
 #'  
 #' @param constraint set TRUE to check required values
@@ -10,7 +10,7 @@
 #' @rdname constraints.checkRequired
 #' @export
 #' 
-#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#constraints}{Constraints specifications}
+#' @seealso \href{https://specs.frictionlessdata.io//table-schema/#constraints}{Constraints specifications}
 #' 
 #' @examples 
 #' 

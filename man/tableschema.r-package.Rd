@@ -200,5 +200,5 @@ in this package documents are to be interpreted as described in \href{https://ww
 }
 
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/}{Table Schema Specifications}
+\href{https://specs.frictionlessdata.io//table-schema/}{Table Schema Specifications}
 }

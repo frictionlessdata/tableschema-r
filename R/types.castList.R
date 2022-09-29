@@ -5,7 +5,7 @@
 #' @rdname types.castList
 #' @export
 #' 
-#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#array}{Types and formats specifications} 
+#' @seealso \href{https://specs.frictionlessdata.io//table-schema/#array}{Types and formats specifications} 
 #' 
 #' @examples 
 #' 

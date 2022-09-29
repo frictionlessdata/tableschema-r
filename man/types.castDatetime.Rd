@@ -27,7 +27,7 @@ types.castDatetime(format = "\%d/\%m/\%y \%H:\%M", value = "21/11/06 16:30")
  
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#datetime}{Types and formats specifications}, 
+\href{https://specs.frictionlessdata.io//table-schema/#datetime}{Types and formats specifications}, 
 \code{\link[base]{strptime}}, \code{\link[base]{DateTimeClasses}},
 \code{\link[parsedate]{parsedate-package}} and 
 \code{\link[lubridate]{lubridate-package}}.

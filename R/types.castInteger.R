@@ -16,7 +16,7 @@
 #' 
 #' @export
 #' 
-#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#integer}{Types and formats specifications}
+#' @seealso \href{https://specs.frictionlessdata.io//table-schema/#integer}{Types and formats specifications}
 #' 
 #' @examples 
 #' types.castInteger(format = "default", value = 1)

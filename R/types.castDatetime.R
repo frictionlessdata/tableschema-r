@@ -10,7 +10,7 @@
 #' @rdname types.castDatetime
 #' @export
 #' 
-#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#datetime}{Types and formats specifications}, 
+#' @seealso \href{https://specs.frictionlessdata.io//table-schema/#datetime}{Types and formats specifications}, 
 #' \code{\link[base]{strptime}}, \code{\link[base]{DateTimeClasses}},
 #' \code{\link[parsedate]{parsedate-package}} and 
 #' \code{\link[lubridate]{lubridate-package}}.

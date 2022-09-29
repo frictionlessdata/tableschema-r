@@ -4,8 +4,12 @@
 \alias{types.castNumber}
 \title{Cast numbers of any kind including decimals}
 \usage{
-types.castNumber(format, value, options = {
-})
+types.castNumber(
+  format,
+  value,
+  options = {
+ }
+)
 }
 \arguments{
 \item{format}{no options (other than the default)}
@@ -62,5 +66,5 @@ options = list(groupChar = '#', decimalChar = '&'))
 
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#number}{Types and formats specifications}
+\href{https://specs.frictionlessdata.io//table-schema/#number}{Types and formats specifications}
 }

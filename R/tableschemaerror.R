@@ -8,8 +8,11 @@
 #' @keywords data
 #' @return Object of \code{\link{R6Class}} .
 #' @format \code{\link{R6Class}} object.
-#' 
-
+#'
+#' @field message 
+#' @field error 
+#' @param message message
+#' @param error error
 TableSchemaError <- R6Class(
   "TableSchemaError",
   public = list(

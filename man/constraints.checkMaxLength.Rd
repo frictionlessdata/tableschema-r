@@ -24,5 +24,5 @@ constraints.checkMaxLength(constraint = list(2), value = "hi")
 constraints.checkMaxLength(constraint = 2, value = "hello")
 }
 \seealso{
-\href{https://frictionlessdata.io/specs/table-schema/#constraints}{Constraints specifications}
+\href{https://specs.frictionlessdata.io//table-schema/#constraints}{Constraints specifications}
 }

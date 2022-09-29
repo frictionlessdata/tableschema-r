@@ -5,7 +5,7 @@
 #' @rdname types.castAny
 #' @export
 #' @details Any type or format is accepted.
-#' @seealso \href{https://frictionlessdata.io/specs/table-schema/#any}{Types and formats specifications}
+#' @seealso \href{https://specs.frictionlessdata.io//table-schema/#any}{Types and formats specifications}
 #' 
 #' @examples 
 #' 

@@ -28,7 +28,7 @@ Table.load(source, schema = NULL, strict = FALSE, headers = 1, ...)
 
 \item{...}{options to be used by CSV parser. 
 All options listed at \href{https://csv.js.org/parse/options/}{https://csv.js.org/parse/options/}. 
-By default \code{ltrim} is \code{TRUE} according to the \href{https://frictionlessdata.io/specs/csv-dialect/#specification}{CSV Dialect spec}.}
+By default \code{ltrim} is \code{TRUE} according to the \href{https://specs.frictionlessdata.io//csv-dialect/#specification}{CSV Dialect spec}.}
 }
 \description{
 Factory method to instantiate \code{Table} class. 
@@ -98,5 +98,5 @@ rows4 = table$read(limit = 1, extended = TRUE)
 
 }
 \seealso{
-\code{\link{Table}}, \href{http://frictionlessdata.io/specs/table-schema/}{Table Schema Specifications}
+\code{\link{Table}}, \href{https://specs.frictionlessdata.io//table-schema/}{Table Schema Specifications}
 }

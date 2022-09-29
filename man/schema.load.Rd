@@ -112,5 +112,5 @@ schema6$foreignKeys
 
 }
 \seealso{
-\code{\link{Schema}}, \href{http://frictionlessdata.io/specs/table-schema/}{Table Schema Specifications}
+\code{\link{Schema}}, \href{https://specs.frictionlessdata.io//table-schema/}{Table Schema Specifications}
 }
