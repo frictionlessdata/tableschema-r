@@ -1,5 +1,5 @@
 ---
-title: <img src="okgr.png" align="right" width=100px /><img src="oklabs.png" align="right" width=100px /><br><br/><br/><img src="Ffrictionless.png" align="left" width=120 /><br/>rictionless Data - <br/>Table Schema 
+title: <img src="okgr.png" align="right" width=100px /><img src="oklabs.png" align="right" width=100px /><br><br/><br/><img src="Ffrictionless.png" align="left" width=120 /><br/>rictionless Data - <br/>Table Schema  
 output: 
   github_document:
     html_preview: no
@@ -213,7 +213,7 @@ It was only basic introduction to the `Table` class. To learn more let's take a 
 
 A model of a schema with helpful methods for working with the schema and supported data. Schema instances can be initialized with a schema source as a url to a JSON file or a JSON object. The schema is initially validated (see [validate](#validate) below). By default validation errors will be stored in `schema$errors` but in a strict mode it will be instantly raised.
 
-Let's create a blank schema. It's not valid because `descriptor$fields` property is required by the [Table Schema](http://specs.frictionlessdata.io/table-schema/) specification:
+Let's create a blank schema. It's not valid because `descriptor$fields` property is required by the [Table Schema](https://specs.frictionlessdata.io/table-schema/) specification:
 
 ```{r, eval=TRUE, include=TRUE}
 def = Schema.load({})
@@ -357,7 +357,7 @@ Table below shows the available types, formats and resultant value of the cast:
 
 ### Working with Validate
 
-> `validate()` validates whether a **schema** is a validate Table Schema accordingly to the [specifications](https://frictionlessdata.io/schemas/table-schema.json). It does **not** validate data against a schema.
+> `validate()` validates whether a **schema** is a validate Table Schema accordingly to the [specifications](https://specs.frictionlessdata.io/schemas/table-schema.json). It does **not** validate data against a schema.
 
 Given a schema descriptor `validate` returns a validation object:
 
@@ -803,7 +803,7 @@ To run tests:
 ```{r, eval=FALSE, include=TRUE}
 devtools::test()
 ```
-More detailed information about how to create and run tests you can find in [testthat package](https://github.com/hadley/testthat).
+More detailed information about how to create and run tests you can find in [testthat package](https://github.com/r-lib/testthat).
 
 
 ## Changelog - News
@@ -817,6 +817,6 @@ In [NEWS.md][news] described only breaking and the most important changes. The f
 [Rstudio]: https://www.rstudio.com/
 [Rstudiodown]: https://www.rstudio.com/products/rstudio/download/
 [coding_standards]: https://github.com/okfn/coding-standards
-[tableschema]: http://specs.frictionlessdata.io/table-schema/
+[tableschema]: https://specs.frictionlessdata.io/table-schema/
 [news]: https://github.com/frictionlessdata/tableschema-r/blob/master/NEWS.md
 [commits]: https://github.com/frictionlessdata/tableschema-r/commits/master
