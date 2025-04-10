@@ -11,104 +11,75 @@
 # Field$new(descriptor, missingValues = list(""))
 }
 \arguments{
-\item{descriptor}{Schema field descriptor}
+\item{descriptor}{Schema field descriptor.}
 
-\item{missingValues}{A list with vector strings representing missing values}
-
-\item{base_path}{see description}
-
-\item{strict}{see description}
-
-\item{value}{see description}
-
-\item{constraints}{see description}
-
-\item{...}{see description}
+\item{missingValues}{A list with vector strings representing missing values.}
 }
 \value{
-Object of \code{\link{R6Class}} .
+Object of class \code{\link{R6Class}}.
 }
 \description{
-Class represents field in the schema.
+Class representing a field in the schema.
 
-Data values can be cast to native R types. Casting a value will check 
-the value is of the expected type, is in the correct format, 
-and complies with any constraints imposed by a schema.
+Data values can be cast to native R types. Casting a value checks whether it is of the expected type, in the correct format, and compliant with any constraints imposed by the schema.
 }
 \details{
-A field descriptor \code{MUST} be a JSON object that describes a single field. 
-The descriptor provides additional human-readable documentation for a field, 
-as well as additional information that may be used to validate the field or 
-create a user interface for data entry.
+A field descriptor \code{MUST} be a JSON object that describes a single field. The descriptor provides both human-readable documentation and machine-readable validation rules. It may also guide user interface generation for data entry.
 
-The field descriptor \code{object} \code{MAY} contain any number of other properties. 
-Some specific properties are defined below. Of these, only the \code{name} property is \code{REQUIRED}.
+The descriptor \code{object} \code{MAY} include additional custom properties. Of these, only the \code{name} property is \code{REQUIRED}.
 
 \describe{
-\item{\code{name}}{
-The field descriptor \code{MUST} contain a \code{name} property. 
-This property \code{SHOULD} correspond to the name of field/column in the data file (if it has a name). 
-As such it \code{SHOULD} be unique (though it is possible, but very bad practice, for the data file to 
-have multiple columns with the same name). \code{name} \code{SHOULD NOT} be considered case sensitive in 
-determining uniqueness. However, since it should correspond to the name of the field in the data file 
-it may be important to preserve case.}
-\item{\code{title}}{
-A human readable label or title for the field.}
-
-\item{\code{description}}{
-A description for this field e.g. "The recipient of the funds".}
+  \item{\code{name}}{The descriptor \code{MUST} contain a \code{name} property, typically corresponding to the column name in the data file. This name \code{SHOULD} be unique, and while not case-sensitive for uniqueness, preserving case is advisable.}
+  \item{\code{title}}{A human-readable label for the field.}
+  \item{\code{description}}{A text description of the field, e.g., "The recipient of the funds".}
 }
 }
 \section{Methods}{
 
 \describe{
+  \item{\code{Field$new(descriptor, missingValues = list(""))}}{Constructor to instantiate the \code{Field} class. Accepts the following arguments:
+    \describe{
+      \item{\code{descriptor}}{Schema field descriptor.}
+      \item{\code{missingValues}}{A list of strings representing missing values.}
+      \item{\code{TableSchemaError}}{Raised if an error occurs during instantiation.}
+      \item{\code{Field}}{Returns a \code{Field} class instance.}
+    }
+  }
 
-\item{\code{Field$new(descriptor, missingValues = list(""))}}{
-Constructor to instantiate \code{Field} class.}
-\itemize{
- \item{\code{descriptor }}{Schema field descriptor.}  
- \item{\code{missingValues }}{A list with vector strings representing missing values.}
- \item{\code{TableSchemaError }}{Raises any error occured in the process.}
- \item{\code{Field }}{Returns \code{Field} class instance.}
- }
-  \item{\code{cast_value(value, constraints=TRUE)}}{
-  Cast given value according to the field type and format.}
-\itemize{
- \item{\code{value }}{Value to cast against field}  
- \item{\code{constraints  }}{ Gets constraints configuration: 
- it could be set to true to disable constraint checks, or 
- it could be a List of constraints to check}
- \item{\code{errors$TableSchemaError }}{Raises any error occured in the process}
- \item{\code{any }}{Returns cast value}
- }
- 
-\item{\code{testValue(value, constraints=TRUE)}}{
-  Test if value is compliant to the field.}
-\itemize{
- \item{\code{value }}{Value to cast against field}  
- \item{\code{constraints  }}{Constraints configuration}
- \item{\code{Boolean }}{Returns if value is compliant to the field}
- }
+  \item{\code{cast_value(value, constraints = TRUE)}}{Casts a given value according to the field's type and format.
+    \describe{
+      \item{\code{value}}{Value to cast.}
+      \item{\code{constraints}}{Logical or list of constraints to apply.}
+      \item{\code{errors$TableSchemaError}}{Raised if casting fails due to a constraint violation.}
+      \item{\code{any}}{Returns the cast value.}
+    }
+  }
+
+  \item{\code{testValue(value, constraints = TRUE)}}{Tests if a value complies with the field definition.
+    \describe{
+      \item{\code{value}}{Value to test.}
+      \item{\code{constraints}}{Constraints configuration.}
+      \item{\code{Boolean}}{Returns \code{TRUE} if the value is compliant.}
+    }
+  }
 }
 }
 
 \section{Properties}{
 
 \describe{
-  \item{\code{name}}{Returns field name}
-  \item{\code{type}}{Returns field type}
-  \item{\code{format}}{Returns field format}
-  \item{\code{required}}{Returns \code{TRUE} if field is required}
-  \item{\code{constraints}}{Returns list with field constraints}
-  \item{\code{descriptor}}{Returns field descriptor}
+  \item{\code{name}}{Returns the field name.}
+  \item{\code{type}}{Returns the field type.}
+  \item{\code{format}}{Returns the field format.}
+  \item{\code{required}}{Returns \code{TRUE} if the field is required.}
+  \item{\code{constraints}}{Returns a list of field constraints.}
+  \item{\code{descriptor}}{Returns the field descriptor.}
 }
 }
 
 \section{Language}{
 
-The key words \code{MUST}, \code{MUST NOT}, \code{REQUIRED}, \code{SHALL}, \code{SHALL NOT}, 
-\code{SHOULD}, \code{SHOULD NOT}, \code{RECOMMENDED}, \code{MAY}, and \code{OPTIONAL} 
-in this package documents are to be interpreted as described in \href{https://www.ietf.org/rfc/rfc2119.txt}{RFC 2119}.
+The key words \code{MUST}, \code{MUST NOT}, \code{REQUIRED}, \code{SHALL}, \code{SHALL NOT}, \code{SHOULD}, \code{SHOULD NOT}, \code{RECOMMENDED}, \code{MAY}, and \code{OPTIONAL} in this documentation are to be interpreted as described in \href{https://www.ietf.org/rfc/rfc2119.txt}{RFC 2119}.
 }
 
 \examples{

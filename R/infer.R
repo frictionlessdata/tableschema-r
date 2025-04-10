@@ -8,7 +8,7 @@
 #'  \item readable stream with CSV file contents
 #'  \item function returning readable stream with CSV file contents
 #'  }
-#' @param options any \code{\link{Table.load}} options
+#' @param options any \code{Table.load} options
 #' @rdname infer
 #' @export
 #' @return Schema descriptor

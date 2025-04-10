@@ -8,39 +8,36 @@
 \code{\link{R6Class}} object.
 }
 \usage{
-# Profile.load(profile)
+# Profile$load(profile)
 }
 \arguments{
-\item{profile}{string profile name in registry or URL to JSON Schema}
+\item{profile}{String: the name of a profile from the registry or a URL pointing to a JSON Schema.}
 }
 \value{
-Object of \code{\link{R6Class}} .
+Object of class \code{\link{R6Class}}.
 }
 \description{
-Class to represent JSON Schema profile from \href{https://specs.frictionlessdata.io/schemas/registry.json}{Profiles Registry}.
+Class to represent a JSON Schema profile from the \href{https://specs.frictionlessdata.io/schemas/registry.json}{Profiles Registry}.
 }
 \section{Methods}{
 
 \describe{
+  \item{\code{Profile$new(descriptor = descriptor)}}{Use \code{Profile$load} to instantiate a \code{Profile} class.}
 
-\item{\code{Profile$new(descriptor = descriptor)}}{
-Use \code{\link{Profile.load}} to instantiate \code{Profile} class.}
-
-  \item{\code{validate(descriptor)}}{
-Validate a tabular data package descriptor against the \code{Profile}.}
-\itemize{
- \item{\code{descriptor }}{Retrieved and dereferenced tabular data package descriptor.}  
- \item{\code{(Object) }}{Returns \code{TRUE} if descriptor is valid or \code{FALSE} with error message.}
- }
-
+  \item{\code{validate(descriptor)}}{Validate a tabular data package descriptor against the \code{Profile}.
+    \describe{
+      \item{\code{descriptor}}{The dereferenced tabular data package descriptor to validate.}
+      \item{Return value}{Returns \code{TRUE} if the descriptor is valid; otherwise returns \code{FALSE} with an error message.}
+    }
+  }
 }
 }
 
 \section{Properties}{
 
 \describe{
-  \item{\code{name}}{Returns profile name if available.}
-  \item{\code{jsonschema}}{Returns profile JSON Schema contents.}
+  \item{\code{name}}{Returns the profile name, if available.}
+  \item{\code{jsonschema}}{Returns the contents of the profile's JSON Schema.}
 }
 }
 

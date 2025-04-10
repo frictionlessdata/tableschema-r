@@ -8,144 +8,110 @@
 \code{\link{R6Class}} object.
 }
 \usage{
-# Table.load(source, schema = NULL, strict = FALSE, headers = 1, ...)
+# Table$load(source, schema = NULL, strict = FALSE, headers = 1, ...)
 }
 \arguments{
-\item{source}{data source, one of:
-\itemize{
- \item string with the path of the local CSV file
- \item string with the url of the remote CSV file
- \item list of lists representing the rows
- \item readable stream with CSV file contents
- \item function returning readable stream with CSV file contents
- }}
+\item{source}{Data source. Can be one of:
+\describe{
+  \item{String}{Path to a local CSV file or a URL to a remote CSV file.}
+  \item{List of lists}{Each sublist represents a row.}
+  \item{Connection}{A readable stream with CSV content.}
+  \item{Function}{Function returning a readable stream.}
+}}
 
-\item{schema}{data schema in all forms supported by \code{Schema} class}
+\item{schema}{Optional. Schema object or schema descriptor as JSON, list, or URL.}
 
-\item{strict}{strictness option \code{TRUE} or \code{FALSE}, to pass to \code{Schema} constructor}
+\item{strict}{Logical. If \code{TRUE}, validation errors raise immediately. If \code{FALSE}, errors are stored in \code{$errors}.}
 
-\item{headers}{data source headers, one of:
-\itemize{
- \item row number containing headers (\code{source} should contain headers rows)
- \item list of headers (\code{source} should NOT contain headers rows)
- }}
+\item{headers}{Data source headers. Can be:
+\describe{
+  \item{Integer}{Row number containing the headers.}
+  \item{List}{Vector of header names if the data does not contain a header row.}
+}}
 
-\item{...}{options to be used by CSV parser. 
-All options listed at \href{https://csv.js.org/parse/options/}{https://csv.js.org/parse/options/}. 
-By default \code{ltrim} is \code{TRUE} according to the \href{https://specs.frictionlessdata.io//csv-dialect/#specification}{CSV Dialect spec}.}
+\item{...}{Additional options passed to the CSV parser.
+See \href{https://csv.js.org/parse/options/}{CSV Parser Options}. By default, \code{ltrim} is \code{TRUE}
+according to the \href{https://specs.frictionlessdata.io//csv-dialect/#specification}{CSV Dialect spec}.}
 }
 \value{
-Object of \code{\link{R6Class}} .
+Object of class \code{\link{R6Class}}.
 }
 \description{
-Table class for working with data and schema.
+Table class for working with tabular data and associated schema.
+A table is created from a data source and optionally a schema. It provides methods
+for iteration, reading, inference, validation, and saving of tabular data.
 }
 \section{Methods}{
 
-
 \describe{
+  \item{\code{Table$new(source, schema, strict, headers)}}{Use \code{Table$load} to instantiate a Table object.}
 
-\item{\code{Table$new(source, schema, strict, headers)}}{
-Use \code{\link{Table.load}} to instantiate \code{Table} class.}
+  \item{\code{iter(keyed, extended, cast = TRUE, relations = FALSE, stream = FALSE)}}{Iterates over table rows.
+  \describe{
+    \item{\code{keyed}}{Logical. Whether to return rows as named lists.}
+    \item{\code{extended}}{Logical. Whether to include row metadata.}
+    \item{\code{cast}}{Logical. Whether to cast data to schema types.}
+    \item{\code{relations}}{List of foreign key references (named list of resource names with reference rows).}
+    \item{\code{stream}}{Logical. Return an R stream if \code{TRUE}.}
+  }}
 
-\item{\code{iter(keyed, extended, cast=TRUE, relations=FALSE, stream=FALSE)}}{
-  Iter through the table data and emits rows cast based on table schema. Data casting could be disabled.}
-\itemize{
- \item{\code{keyed }}{Iter keyed rows - \code{TRUE}/\code{FALSE}}  
- \item{\code{extended }}{Iter extended rows - \code{TRUE}/\code{FALSE}}
- \item{\code{cast }}{Disable data casting if \code{FALSE}}
- \item{\code{relations }}{List object of foreign key references from a form of JSON \code{{resource1: [{field1: value1, field2: value2},...],...}}.
- If provided foreign key fields will checked and resolved to its references}
- \item{\code{stream }}{Return Readable Stream of table rows if \code{TRUE}}
- }
- 
- 
- \item{\code{read(keyed, extended, cast=TRUE, relations=FALSE, limit)}}{
-  Read the whole table and returns as array of rows. Count of rows could be limited.}
-\itemize{
- \item{\code{keyed }}{Flag to emit keyed rows - \code{TRUE}/\code{FALSE}}  
- \item{\code{extended }}{Flag to emit extended rows - \code{TRUE}/\code{FALSE}}
- \item{\code{cast }}{Disable data casting if \code{FALSE}}
- \item{\code{relations }}{List object of foreign key references from a form of JSON \code{{resource1: [{field1: value1, field2: value2},...],...}}.
- If provided foreign key fields will checked and resolved to its references}
- \item{\code{limit }}{Integer limit of rows to return if specified}
- }
+  \item{\code{read(keyed, extended, cast = TRUE, relations = FALSE, limit)}}{Reads and returns the entire table as rows.
+  \describe{
+    \item{\code{keyed}}{Logical. Whether to return keyed rows.}
+    \item{\code{extended}}{Logical. Whether to include row metadata.}
+    \item{\code{cast}}{Logical. Whether to cast values.}
+    \item{\code{relations}}{List of foreign key references (see \code{iter}).}
+    \item{\code{limit}}{Integer. Maximum number of rows to return.}
+  }}
 
+  \item{\code{infer(limit = 100)}}{Infers the schema from the data.
+  \describe{
+    \item{\code{limit}}{Integer. Number of rows to use for inference.}
+  }}
 
-\item{\code{infer(limit=100)}}{
-  Infer a schema for the table. It will infer and set \code{Table Schema} to \code{table$schema} based on table data.}
-\itemize{
- \item{\code{limit }}{Limit rows samle size - number}
- }
- 
- 
-\item{\code{save(target)}}{
-  Save data source to file locally in CSV format with \code{,} (comma) delimiter.}
-\itemize{
- \item{\code{target }}{String path where to save a table data}
- }
+  \item{\code{save(target)}}{Saves the table as a CSV file.
+  \describe{
+    \item{\code{target}}{File path to save to.}
+  }}
 }
 }
 
 \section{Properties}{
 
 \describe{
-  \item{\code{headers}}{Returns data source headers}
-  \item{\code{schema}}{Returns schema class instance}
+  \item{\code{headers}}{Returns headers detected or provided.}
+  \item{\code{schema}}{Returns the associated Schema instance.}
 }
 }
 
 \section{Details}{
 
+A table is a fundamental concept in tabular data management. It represents rows and columns of structured data,
+often accompanied by a schema (metadata describing field types, constraints, etc.).
 
-A table is a core concept in a tabular data world. It represents a data with a metadata (Table Schema).
-Tabular data consists of a set of rows. Each row has a set of fields (columns). 
-We usually expect that each row has the same set of fields and thus we can talk about the 
-fields for the table as a whole. In case of tables in spreadsheets or CSV files we often interpret 
-the first row as a header row, giving the names of the fields. By contrast, in other situations, 
-e.g. tables in SQL databases, the field names are explicitly designated.
+The \emph{physical representation} of a table refers to the raw data (e.g., in CSV or JSON form).
+The \emph{logical representation} corresponds to the parsed and typed values conforming to schema definitions.
 
+This class supports both representations, applying validation, constraint checking, and conversion between them.
 
-In order to talk about the representation and processing of tabular data from text-based sources, 
-it is useful to introduce the concepts of the \emph{physical} and the \emph{logical} representation of data.
+Internally, the package uses:
+\itemize{
+  \item \href{https://CRAN.R-project.org/package=jsonlite}{jsonlite} for JSON parsing to and from R lists.
+  \item \href{https://CRAN.R-project.org/package=future}{future} for asynchronous loading (e.g., \code{future::value(future_obj)}).
+}
 
-The \emph{physical representation} of data refers to the representation of data as text on disk, 
-for example, in a CSV or JSON file. This representation may have some type information 
-(JSON, where the primitive types that JSON supports can be used) or not 
-(CSV, where all data is represented in string form).
-
-The \emph{logical representation} of data refers to the "ideal" representation of the data 
-in terms of primitive types, data structures, and relations, all as defined by the specification. 
-We could say that the specification is about the logical representation of data, 
-as well as about ways in which to handle conversion of a physical representation to a logical one.
-
-We'll explicitly refer to either the \emph{physical} or \emph{logical} representation 
-in places where it prevents ambiguity for those engaging with the specification, especially implementors.
-
-For example, \code{constraints} should be tested on the logical representation of data, 
-whereas a property like \code{missingValues} applies to the physical representation of the data.
-
-
-\href{https://CRAN.R-project.org/package=jsonlite}{Jsolite package} is internally used to convert json data to list objects. The input parameters of functions could be json strings, 
-files or lists and the outputs are in list format to easily further process your data in R environment and exported as desired. 
-More details about handling json you can see jsonlite documentation or vignettes \href{https://CRAN.R-project.org/package=jsonlite}{here}.
-
-\href{https://CRAN.R-project.org/package=future}{Future package} is also used to load and create Table and Schema class asynchronously. 
-To retrieve the actual result of the loaded Table or Schema you have to call \code{value(future)} to the variable you stored the loaded Table/Schema. 
-More details about future package and sequential and parallel processing you can find \href{https://CRAN.R-project.org/package=future}{here}.
-
-Examples section of each function show how to use jsonlite and future packages with tableschema.r.
+See the examples in function documentation for how to use these features with `tableschema.r`.
 }
 
 \section{Language}{
 
-The key words \code{MUST}, \code{MUST NOT}, \code{REQUIRED}, \code{SHALL}, \code{SHALL NOT}, 
-\code{SHOULD}, \code{SHOULD NOT}, \code{RECOMMENDED}, \code{MAY}, and \code{OPTIONAL} 
-in this package documents are to be interpreted as described in \href{https://www.ietf.org/rfc/rfc2119.txt}{RFC 2119}.
+The key words \code{MUST}, \code{MUST NOT}, \code{REQUIRED}, \code{SHALL}, \code{SHALL NOT},
+\code{SHOULD}, \code{SHOULD NOT}, \code{RECOMMENDED}, \code{MAY}, and \code{OPTIONAL}
+in this documentation are interpreted as described in \href{https://www.ietf.org/rfc/rfc2119.txt}{RFC 2119}.
 }
 
 \seealso{
-\code{\link{Table.load}}, 
+\code{Table$load},
 \href{https://specs.frictionlessdata.io//table-schema/}{Table Schema Specifications}
 }
 \keyword{data}

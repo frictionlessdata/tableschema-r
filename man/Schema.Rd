@@ -8,116 +8,105 @@
 \code{\link{R6Class}} object.
 }
 \usage{
-# Schema.load(descriptor, strict=FALSE)
+# Schema$load(descriptor, strict = FALSE)
 }
 \arguments{
-\item{descriptor}{schema descriptor, a JSON string, URL or file}
+\item{descriptor}{A schema descriptor; can be a JSON string, URL, or local file.}
 
-\item{strict}{flag to alter validation behaviour:
-\itemize{
-\item{if \code{FALSE} error will not be raised and all error will be collected in \code{schema$errors}}
-\item{if \code{TRUE} any validation error will be raised immediately}
-}}
+\item{strict}{Logical flag. If \code{TRUE}, validation errors are raised immediately; if \code{FALSE}, they are stored in \code{schema$errors}.}
 }
 \value{
-Object of \code{\link{R6Class}} .
+Object of class \code{\link{R6Class}}.
 }
 \description{
-A model of a schema with helpful methods for working with the schema and supported data. 
-Schema instances can be initialized with a schema source as a url to a JSON file or a JSON object. 
-The schema is initially validated (see \href{https://github.com/okgreece/tableschema-r#validate}{validate}). 
-By default validation errors will be stored in \code{$errors} but in a strict mode it will be instantly raised.
+A model of a Table Schema with helpful methods for working with the schema and supported data.
+Schema instances can be initialized using a schema source, either as a URL to a JSON file or as a JSON object.
+The schema is validated upon initialization (see \href{https://github.com/okgreece/tableschema-r#validate}{validate}).
+By default, validation errors are stored in \code{$errors}, but in strict mode, they are raised immediately.
 }
 \section{Methods}{
 
 \describe{
+  \item{\code{Schema$new(descriptor = descriptor, strict = strict)}}{Use \code{Schema$load} to instantiate a \code{Schema} class.}
 
-\item{\code{Schema$new(descriptor = descriptor, strict = strict)}}{
-Use \code{\link{Schema.load}} to instantiate \code{Schema} class.}
+  \item{\code{getField(name)}}{Returns a schema field by name.
+    \describe{
+      \item{\code{name}}{String. Name of the schema field.}
+      \item{Returns}{A \code{Field} instance if found, or \code{NULL}.}
+    }
+  }
 
-  \item{\code{getField(name)}}{
-Get schema field by name.}
-\itemize{
- \item{\code{name }}{String with schema field name.}  
- \item{\code{(Field/NULL) }}{Returns \code{Field} instance or \code{NULL} if not found.}
- }
- 
-\item{\code{addField(descriptor)}}{
-Add new field to schema. The schema descriptor will be validated with newly added field descriptor.}
-\itemize{
- \item{\code{descriptor }}{List of field descriptor.}  
- \item{\code{TableSchemaError }}{Raises any error occured in the process.}
- \item{\code{(Field/NULL) }}{Returns added \code{Field} instance or \code{NULL} if not added.}
- }
- 
-\item{\code{removeField(name)}}{
-Remove field resource by name. The schema descriptor will be validated after field descriptor removal.}
-\itemize{
- \item{\code{name }}{String with schema field name.}  
- \item{\code{TableSchemaError }}{Raises any error occured in the process.}
- \item{\code{(Field/NULL) }}{Returns removed \code{Field} instances or \code{NULL} if not found.}
- }  
- 
-\item{\code{castRow(row)}}{
-Cast row based on field types and formats.}
-\itemize{
- \item{\code{row }}{Data row as a list of values.}  
- \item{\code{(any) }}{Returns cast data row.}
- }
+  \item{\code{addField(descriptor)}}{Adds a new field to the schema.
+    \describe{
+      \item{\code{descriptor}}{A list representing the field descriptor.}
+      \item{Raises}{\code{TableSchemaError} if the field is invalid.}
+      \item{Returns}{The added \code{Field} instance, or \code{NULL} if unsuccessful.}
+    }
+  }
 
-\item{\code{infer(rows, headers=1)}}{
-Cast row based on field types and formats.}
-\itemize{
- \item{\code{rows }}{List of lists representing rows.}  
- \item{\code{headers }}{ data sample headers, one of:
- \itemize{
- \item{row number containing headers (\code{rows} should contain headers rows)}
- \item{list of headers (\code{rows} should NOT contain headers rows)}}
- }
- \item{\code{{Object} }}{Returns Table Schema descriptor.}
- }
- 
-\item{\code{commit(strict)}}{
-Cast row based on field types and formats.}
-\itemize{
- \item{\code{strict }}{Boolean, alter strict mode for further work.}  
- \item{\code{TableSchemaError }}{Raises any error occured in the process.}
- \item{\code{(Boolean) }}{Returns \code{TRUE} on success and \code{FALSE} if not modified.}
- }
- 
- 
-\item{\code{save(target)}}{
-Cast row based on field types and formats.}
-\itemize{
- \item{\code{target }}{String, path where to save a descriptor.}  
- \item{\code{TableSchemaError }}{Raises any error occured in the process.}
- \item{\code{(Boolean) }}{Returns \code{TRUE} on success.}
- }  
+  \item{\code{removeField(name)}}{Removes a field by name from the schema.
+    \describe{
+      \item{\code{name}}{Name of the field to remove.}
+      \item{Raises}{\code{TableSchemaError} if removal causes invalid schema.}
+      \item{Returns}{The removed \code{Field} instance, or \code{NULL}.}
+    }
+  }
+
+  \item{\code{castRow(row)}}{Casts a row of values based on field types and formats.
+    \describe{
+      \item{\code{row}}{A list representing a data row.}
+      \item{Returns}{The cast row as a list of typed values.}
+    }
+  }
+
+  \item{\code{infer(rows, headers = 1)}}{Infers schema from given data.
+    \describe{
+      \item{\code{rows}}{A list of lists representing data rows.}
+      \item{\code{headers}}{Either a row number (index) of headers or a list of header names.}
+      \item{Returns}{A schema descriptor as an object.}
+    }
+  }
+
+  \item{\code{commit(strict)}}{Finalizes schema updates.
+    \describe{
+      \item{\code{strict}}{Logical. Whether to enable strict validation mode.}
+      \item{Raises}{\code{TableSchemaError} on failure.}
+      \item{Returns}{\code{TRUE} on success; \code{FALSE} if not modified.}
+    }
+  }
+
+  \item{\code{save(target)}}{Saves schema descriptor to a file.
+    \describe{
+      \item{\code{target}}{File path to save the schema.}
+      \item{Raises}{\code{TableSchemaError} on failure.}
+      \item{Returns}{\code{TRUE} on success.}
+    }
+  }
 }
 }
 
 \section{Properties}{
 
 \describe{
-  \item{\code{valid}}{Returns validation status. It always \code{TRUE} in strict mode.}
-  \item{\code{errors}}{Returns validation errors. It always empty in strict mode.}
-  \item{\code{descriptor}}{Returns list of schema descriptor.}
-  \item{\code{primaryKey}}{Returns string list of schema primary key.}
-  \item{\code{foreignKeys}}{Returns list of schema foreign keys.}
+  \item{\code{valid}}{Returns \code{TRUE} if schema is valid. Always \code{TRUE} in strict mode.}
+  \item{\code{errors}}{Returns list of validation errors. Empty in strict mode.}
+  \item{\code{descriptor}}{Returns the full schema descriptor as a list.}
+  \item{\code{primaryKey}}{Returns a vector of field names that compose the primary key.}
+  \item{\code{foreignKeys}}{Returns a list of foreign key definitions.}
   \item{\code{fields}}{Returns list of \code{Field} instances.}
-  \item{\code{fieldNames}}{Returns a list of field names.}
+  \item{\code{fieldNames}}{Returns vector of field names.}
 }
 }
 
 \section{Language}{
 
-The key words \code{MUST}, \code{MUST NOT}, \code{REQUIRED}, \code{SHALL}, \code{SHALL NOT}, 
-\code{SHOULD}, \code{SHOULD NOT}, \code{RECOMMENDED}, \code{MAY}, and \code{OPTIONAL} 
-in this package documents are to be interpreted as described in \href{https://www.ietf.org/rfc/rfc2119.txt}{RFC 2119}.
+The key words \code{MUST}, \code{MUST NOT}, \code{REQUIRED}, \code{SHALL}, \code{SHALL NOT},
+\code{SHOULD}, \code{SHOULD NOT}, \code{RECOMMENDED}, \code{MAY}, and \code{OPTIONAL}
+in this documentation are interpreted as described in \href{https://www.ietf.org/rfc/rfc2119.txt}{RFC 2119}.
 }
 
 \seealso{
-\code{\link{Schema.load}}, 
+\code{Schema$load},
 \href{https://specs.frictionlessdata.io//table-schema/}{Table Schema Specifications}
 }
 \keyword{data}

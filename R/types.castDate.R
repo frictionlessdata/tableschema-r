@@ -1,28 +1,35 @@
 #' @title Cast date
-#' @description cast date without a time
-#' @param format available options are "default", "any", and "<pattern>" where
+#' @description Cast date without a time.
+#'
+#' @param format Available options are \code{"default"}, \code{"any"}, and \code{"<pattern>"}, where:
 #' \describe{
-#' \item{\code{default }}{An ISO8601 format string
-#' \itemize{
-#' \item{\code{date:}}{ This \code{MUST} be in ISO8601 format YYYY-MM-DD}
-#' \item{\code{datetime:}}{ a date-time. This \code{MUST} be in ISO 8601 format of YYYY-MM-DDThh:mm:ssZ in UTC time}
-#' \item{\code{time:}}{ a time without a date}
-#' }}
-#' \item{\code{any }}{Any parsable representation of the type. The implementing library 
-#' can attempt to parse the datetime via a range of strategies, e.g. \href{https://CRAN.R-project.org/package=lubridate}{lubridate}, 
-#' \href{https://CRAN.R-project.org/package=parsedate}{parsedate},\code{\link[base]{strptime}},
-#' \code{\link[base]{DateTimeClasses}}.}
-#' \item{\code{<pattern> }}{date/time values in this field can be parsed according to \code{pattern}.
-#'  \code{<pattern>} MUST follow the syntax of \code{\link[base]{strptime}}. 
-#'  (That is, values in the this field should be parseable by R using \code{<pattern>}).}
+#'   \item{\code{default}}{An ISO8601 format string:
+#'     \describe{
+#'       \item{\code{date:}}{This \code{MUST} be in ISO8601 format \code{YYYY-MM-DD}.}
+#'       \item{\code{datetime:}}{A date-time. This \code{MUST} be in ISO 8601 format \code{YYYY-MM-DDThh:mm:ssZ} in UTC time.}
+#'       \item{\code{time:}}{A time without a date.}
+#'     }
+#'   }
+#'   \item{\code{any}}{Any parsable representation of the type. The implementing library 
+#'   may attempt to parse the datetime using various strategies, e.g., 
+#'   \href{https://CRAN.R-project.org/package=lubridate}{lubridate}, 
+#'   \href{https://CRAN.R-project.org/package=parsedate}{parsedate}, 
+#'   \code{\link[base]{strptime}}, or \code{\link[base]{DateTimeClasses}}.}
+#'   \item{\code{<pattern>}}{Date/time values in this field can be parsed according to the specified \code{pattern}.
+#'   \code{<pattern>} MUST follow the syntax of \code{\link[base]{strptime}}. That is, values in this field should be parseable by R using the given pattern.}
 #' }
-#' @param value date to cast
+#'
+#' @param value Date to cast.
+#'
 #' @rdname types.castDate
 #' @export
-#' @seealso \href{https://specs.frictionlessdata.io//table-schema/#date}{Types and formats specifications}, 
-#' \code{\link[base]{strptime}}, \code{\link[base]{DateTimeClasses}},
-#' \code{\link[parsedate]{parsedate-package}} and 
-#' \code{\link[lubridate]{lubridate-package}}.
+#'
+#' @seealso 
+#'   \href{https://specs.frictionlessdata.io//table-schema/#date}{Types and formats specifications}, 
+#'   \code{\link[base]{strptime}}, 
+#'   \code{\link[base]{DateTimeClasses}}, 
+#'   \code{\link[parsedate]{parsedate-package}}, 
+#'   \code{\link[lubridate]{lubridate-package}}.
 #' 
 #' @examples 
 #' types.castDate(format = "default", value =  as.Date("2019-1-1"))

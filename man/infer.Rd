@@ -16,7 +16,7 @@ infer(source, options = list())
  \item function returning readable stream with CSV file contents
  }}
 
-\item{options}{any \code{\link{Table.load}} options}
+\item{options}{any \code{Table.load} options}
 }
 \value{
 Schema descriptor

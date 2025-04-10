@@ -4,6 +4,9 @@ output:
   github_document:
     html_preview: yes
 ---
+#### tableschema-r v1.1.3
+
+update roxygen documentation
 
 #### tableschema-r v1.1.2
 

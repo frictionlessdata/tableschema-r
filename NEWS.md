@@ -1,6 +1,10 @@
 NEWS
 ================
 
+#### tableschema-r v1.1.3
+
+update roxygen documentation
+
 #### tableschema-r v1.1.2
 
 update links in documentation
