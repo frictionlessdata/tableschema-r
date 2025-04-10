@@ -3,7 +3,7 @@ Data - <br/>Table Schema
 ================
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/tableschema.r)](https://cran.r-project.org/package=tableschema.r)
-[![R-CMD-check](https://github.com/frictionlessdata/tableschema-r/workflows/R-CMD-check/badge.svg)](https://github.com/frictionlessdata/tableschema-r/actions)
+[![R-CMD-check](https://github.com/frictionlessdata/tableschema-r/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/frictionlessdata/tableschema-r/actions/workflows/R-CMD-check.yaml)
 [![Coverage
 status](https://coveralls.io/repos/github/frictionlessdata/tableschema-r/badge.svg)](https://coveralls.io/r/frictionlessdata/tableschema-r?branch=master)
 [![Project Status: Active – The project has reached a stable, usable
@@ -20,11 +20,11 @@ Schema](https://specs.frictionlessdata.io/table-schema/).
 
 # Features
 
--   `Table` class for working with data and schema
--   `Schema` class for working with schemas
--   `Field` class for working with schema fields
--   `validate` function for validating schema descriptors
--   `infer` function that creates a schema based on a data sample
+- `Table` class for working with data and schema
+- `Schema` class for working with schemas
+- `Field` class for working with schema fields
+- `validate` function for validating schema descriptors
+- `infer` function that creates a schema based on a data sample
 
 # Getting started
 
@@ -274,9 +274,9 @@ toJSON(table$read(), pretty = TRUE) # function from jsonlite package
 
 Now we see that:
 
--   locations are lists with numeric lattide and longitude
+- locations are lists with numeric lattide and longitude
 
--   Rome’s location is `null`
+- Rome’s location is `null`
 
 And because there are no errors on data reading we could be sure that
 our data is valid againt our schema. Let’s save it:
@@ -551,23 +551,23 @@ value that doesn’t meet the constraints will raise an `Error` exception.
 Table below shows the available types, formats and resultant value of
 the cast:
 
-| Type      | Formats                     | Casting result     |
-|:----------|:----------------------------|:-------------------|
-| any       | default                     | Any                |
-| list \|   | default \|                  | List               |
-| boolean   | default                     | Boolean            |
-| date      | default, any                | Date               |
-| datetime  | default, any                | Date               |
-| duration  | default                     | Duration           |
-| geojson   | default, topojson           | Object             |
-| geopoint  | default, list, object       | \[Number, Number\] |
-| integer   | default                     | Number             |
-| number    | default                     | Number             |
-| object    | default                     | Object             |
-| string    | default, uri, email, binary | String             |
-| time      | default, any                | Date               |
-| year      | default                     | Number             |
-| yearmonth | default                     | \[Number, Number\] |
+| Type                       | Formats                     | Casting result     |
+|:---------------------------|:----------------------------|:-------------------|
+| any                        | default                     | Any                |
+| list \| default \| List \| |                             |                    |
+| boolean                    | default                     | Boolean            |
+| date                       | default, any                | Date               |
+| datetime                   | default, any                | Date               |
+| duration                   | default                     | Duration           |
+| geojson                    | default, topojson           | Object             |
+| geopoint                   | default, list, object       | \[Number, Number\] |
+| integer                    | default                     | Number             |
+| number                     | default                     | Number             |
+| object                     | default                     | Object             |
+| string                     | default, uri, email, binary | String             |
+| time                       | default, any                | Date               |
+| year                       | default                     | Number             |
+| yearmonth                  | default                     | \[Number, Number\] |
 
 ### Working with Validate
 
@@ -649,20 +649,20 @@ toJSON(
 
 Table representation
 
--   [Table](#Table)
-    -   *instance*
-        -   [\$headers](#Table+headers) ⇒ <code>List.\<string\></code>
-        -   [\$schema](#Table+schema) ⇒ <code>Schema</code>
-        -   [\$iter(keyed, extended, cast, forceCast, relations,
-            stream)](#Table+iter) ⇒ <code>AsyncIterator</code> \|
-            <code>Stream</code>
-        -   [\$read(limit)](#Table+read) ⇒ <code>List.\<List\></code> \|
-            <code>List.\<Object\></code>
-        -   [\$infer(limit)](#Table+infer) ⇒ <code>Object</code>
-        -   [\$save(target)](#Table+save) ⇒ <code>Boolean</code>
-    -   *static*
-        -   [.load(source, schema, strict, headers,
-            parserOptions)](#Table.load) ⇒ [<code>Table</code>](#Table)
+- [Table](#Table)
+  - *instance*
+    - [\$headers](#Table+headers) ⇒ <code>List.\<string\></code>
+    - [\$schema](#Table+schema) ⇒ <code>Schema</code>
+    - [\$iter(keyed, extended, cast, forceCast, relations,
+      stream)](#Table+iter) ⇒ <code>AsyncIterator</code> \|
+      <code>Stream</code>
+    - [\$read(limit)](#Table+read) ⇒ <code>List.\<List\></code> \|
+      <code>List.\<Object\></code>
+    - [\$infer(limit)](#Table+infer) ⇒ <code>Object</code>
+    - [\$save(target)](#Table+save) ⇒ <code>Boolean</code>
+  - *static*
+    - [.load(source, schema, strict, headers,
+      parserOptions)](#Table.load) ⇒ [<code>Table</code>](#Table)
 
 #### table\$headers ⇒ <code>List.\<string\></code>
 
@@ -690,17 +690,17 @@ iterator/stream of rows: - `[value1, value2]` - base -
 `[rowNumber, [header1, header2], [value1, value2]]` - extended
 **Throws**:
 
--   <code>TableSchemaError</code> raises any error occurred in this
-    process
+- <code>TableSchemaError</code> raises any error occurred in this
+  process
 
-| Param     | Type                 | Description                                                                                                                                                                                                                                                                           |
-|-----------|----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| keyed     | <code>boolean</code> | iter keyed rows                                                                                                                                                                                                                                                                       |
-| extended  | <code>boolean</code> | iter extended rows                                                                                                                                                                                                                                                                    |
-| cast      | <code>boolean</code> | disable data casting if false                                                                                                                                                                                                                                                         |
+| Param | Type | Description |
+|----|----|----|
+| keyed | <code>boolean</code> | iter keyed rows |
+| extended | <code>boolean</code> | iter extended rows |
+| cast | <code>boolean</code> | disable data casting if false |
 | forceCast | <code>boolean</code> | instead of raising on the first row with cast error return an error object to replace failed row. It will allow to iterate over the whole data file even if it’s not compliant to the schema. Example of output stream: `[['val1', 'val2'], TableSchemaError, ['val3', 'val4'], ...]` |
-| relations | <code>Object</code>  | object of foreign key references in a form of `{resource1: [{field1: value1, field2: value2}, ...], ...}`. If provided foreign key fields will checked and resolved to its references                                                                                                 |
-| stream    | <code>boolean</code> | return Node Readable Stream of table rows                                                                                                                                                                                                                                             |
+| relations | <code>Object</code> | object of foreign key references in a form of `{resource1: [{field1: value1, field2: value2}, ...], ...}`. If provided foreign key fields will checked and resolved to its references |
+| stream | <code>boolean</code> | return Node Readable Stream of table rows |
 
 #### table\$read(limit) ⇒ <code>List.\<List\></code> \| <code>List.\<Object\></code>
 
@@ -737,7 +737,7 @@ delimiter
 
 **Returns**: <code>Boolean</code> - true on success **Throws**:
 
--   <code>TableSchemaError</code> an error if there is saving problem
+- <code>TableSchemaError</code> an error if there is saving problem
 
 | Param  | Type                | Description                     |
 |--------|---------------------|---------------------------------|
@@ -754,48 +754,44 @@ checked on any reading operation.
 **Returns**: [<code>Table</code>](#Table) - data table class instance
 **Throws**:
 
--   <code>TableSchemaError</code> raises any error occurred in table
-    creation process
+- <code>TableSchemaError</code> raises any error occurred in table
+  creation process
 
-| Param         | Type                                                                                              | Description                                                                                                                                                                                                      |
-|---------------|---------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| source        | <code>string</code> \| <code>List.\<List\></code> \| <code>Stream</code> \| <code>function</code> | data source (one of): - local CSV file (path) - remote CSV file (url) - list of lists representing the rows - readable stream with CSV file contents - function returning readable stream with CSV file contents |
-| schema        | <code>string</code> \| <code>Object</code>                                                        | data schema in all forms supported by `Schema` class                                                                                                                                                             |
-| strict        | <code>boolean</code>                                                                              | strictness option to pass to `Schema` constructor                                                                                                                                                                |
-| headers       | <code>number</code> \| <code>List.\<string\></code>                                               | data source headers (one of): - row number containing headers (`source` should contain headers rows) - list of headers (`source` should NOT contain headers rows)                                                |
-| parserOptions | <code>Object</code>                                                                               | options to be used by CSV parser. All options listed at <https://csv.js.org/parse/options/>. By default `ltrim` is true according to the CSV Dialect spec.                                                       |
+| Param | Type | Description |
+|----|----|----|
+| source | <code>string</code> \| <code>List.\<List\></code> \| <code>Stream</code> \| <code>function</code> | data source (one of): - local CSV file (path) - remote CSV file (url) - list of lists representing the rows - readable stream with CSV file contents - function returning readable stream with CSV file contents |
+| schema | <code>string</code> \| <code>Object</code> | data schema in all forms supported by `Schema` class |
+| strict | <code>boolean</code> | strictness option to pass to `Schema` constructor |
+| headers | <code>number</code> \| <code>List.\<string\></code> | data source headers (one of): - row number containing headers (`source` should contain headers rows) - list of headers (`source` should NOT contain headers rows) |
+| parserOptions | <code>Object</code> | options to be used by CSV parser. All options listed at <https://csv.js.org/parse/options/>. By default `ltrim` is true according to the CSV Dialect spec. |
 
 ### Schema
 
 Schema representation
 
--   [Schema](#Schema)
-    -   *instance*
-        -   [\$valid](#Schema+valid) ⇒ <code>Boolean</code>
-        -   [\$errors](#Schema+errors) ⇒ <code>List.\<Error\></code>
-        -   [\$descriptor](#Schema+descriptor) ⇒ <code>Object</code>
-        -   [\$primaryKey](#Schema+primaryKey) ⇒
-            <code>List.\<string\></code>
-        -   [\$foreignKeys](#Schema+foreignKeys) ⇒
-            <code>List.\<Object\></code>
-        -   [\$fields](#Schema+fields) ⇒ <code>List.\<Field\></code>
-        -   [\$fieldNames](#Schema+fieldNames) ⇒
-            <code>List.\<string\></code>
-        -   [\$getField(fieldName)](#Schema+getField) ⇒
-            <code>Field</code> \| <code>null</code>
-        -   [\$addField(descriptor)](#Schema+addField) ⇒
-            <code>Field</code>
-        -   [\$removeField(name)](#Schema+removeField) ⇒
-            <code>Field</code> \| <code>null</code>
-        -   [\$castRow(row, failFalst)](#Schema+castRow) ⇒
-            <code>List.\<List\></code>
-        -   [\$infer(rows, headers)](#Schema+infer) ⇒
-            <code>Object</code>
-        -   [\$commit(strict)](#Schema+commit) ⇒ <code>Boolean</code>
-        -   [\$save(target)](#Schema+save) ⇒ <code>boolean</code>
-    -   *static*
-        -   [.load(descriptor, strict)](#Schema.load) ⇒
-            [<code>Schema</code>](#Schema)
+- [Schema](#Schema)
+  - *instance*
+    - [\$valid](#Schema+valid) ⇒ <code>Boolean</code>
+    - [\$errors](#Schema+errors) ⇒ <code>List.\<Error\></code>
+    - [\$descriptor](#Schema+descriptor) ⇒ <code>Object</code>
+    - [\$primaryKey](#Schema+primaryKey) ⇒ <code>List.\<string\></code>
+    - [\$foreignKeys](#Schema+foreignKeys) ⇒
+      <code>List.\<Object\></code>
+    - [\$fields](#Schema+fields) ⇒ <code>List.\<Field\></code>
+    - [\$fieldNames](#Schema+fieldNames) ⇒ <code>List.\<string\></code>
+    - [\$getField(fieldName)](#Schema+getField) ⇒ <code>Field</code> \|
+      <code>null</code>
+    - [\$addField(descriptor)](#Schema+addField) ⇒ <code>Field</code>
+    - [\$removeField(name)](#Schema+removeField) ⇒ <code>Field</code> \|
+      <code>null</code>
+    - [\$castRow(row, failFalst)](#Schema+castRow) ⇒
+      <code>List.\<List\></code>
+    - [\$infer(rows, headers)](#Schema+infer) ⇒ <code>Object</code>
+    - [\$commit(strict)](#Schema+commit) ⇒ <code>Boolean</code>
+    - [\$save(target)](#Schema+save) ⇒ <code>boolean</code>
+  - *static*
+    - [.load(descriptor, strict)](#Schema.load) ⇒
+      [<code>Schema</code>](#Schema)
 
 #### schema\$valid ⇒ <code>Boolean</code>
 
@@ -892,9 +888,9 @@ Infer and set `schema.descriptor` based on data sample.
 
 **Returns**: <code>Object</code> - Table Schema descriptor
 
-| Param   | Type                                                 | Description                                                                                                                                                                   |
-|---------|------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| rows    | <code>List.\<List\></code>                           | list of lists representing rows                                                                                                                                               |
+| Param | Type | Description |
+|----|----|----|
+| rows | <code>List.\<List\></code> | list of lists representing rows |
 | headers | <code>integer</code> \| <code>List.\<string\></code> | data sample headers (one of): - row number containing headers (`rows` should contain headers rows) - list of headers (`rows` should NOT contain headers rows) - defaults to 1 |
 
 #### schema\$commit(strict) ⇒ <code>Boolean</code>
@@ -904,8 +900,7 @@ Update schema instance if there are in-place changes in the descriptor.
 **Returns**: <code>Boolean</code> - returns true on success and false if
 not modified **Throws**:
 
--   <code>TableSchemaError</code> raises any error occurred in the
-    process
+- <code>TableSchemaError</code> raises any error occurred in the process
 
 | Param  | Type                 | Description                          |
 |--------|----------------------|--------------------------------------|
@@ -947,8 +942,7 @@ Save schema descriptor to target destination.
 
 **Returns**: <code>boolean</code> - returns true on success **Throws**:
 
--   <code>TableSchemaError</code> raises any error occurred in the
-    process
+- <code>TableSchemaError</code> raises any error occurred in the process
 
 | Param  | Type                | Description                     |
 |--------|---------------------|---------------------------------|
@@ -964,30 +958,29 @@ This method is async and it should be used with await keyword or as a
 **Returns**: [<code>Schema</code>](#Schema) - returns schema class
 instance **Throws**:
 
--   <code>TableSchemaError</code> raises any error occurred in the
-    process
+- <code>TableSchemaError</code> raises any error occurred in the process
 
-| Param      | Type                                       | Description                                                                                                                                                                                    |
-|------------|--------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| descriptor | <code>string</code> \| <code>Object</code> | schema descriptor: - local path - remote url - object                                                                                                                                          |
-| strict     | <code>boolean</code>                       | flag to alter validation behaviour: - if false error will not be raised and all error will be collected in `schema.errors` - if strict is true any validation error will be raised immediately |
+| Param | Type | Description |
+|----|----|----|
+| descriptor | <code>string</code> \| <code>Object</code> | schema descriptor: - local path - remote url - object |
+| strict | <code>boolean</code> | flag to alter validation behaviour: - if false error will not be raised and all error will be collected in `schema.errors` - if strict is true any validation error will be raised immediately |
 
 ### Field
 
 Field representation
 
--   [Field](#Field)
-    -   [new Field(descriptor, missingValues)](#new_Field_new)
-    -   [\$name](#Field+name) ⇒ <code>string</code>
-    -   [\$type](#Field+type) ⇒ <code>string</code>
-    -   [\$format](#Field+format) ⇒ <code>string</code>
-    -   [\$required](#Field+required) ⇒ <code>boolean</code>
-    -   [\$constraints](#Field+constraints) ⇒ <code>Object</code>
-    -   [\$descriptor](#Field+descriptor) ⇒ <code>Object</code>
-    -   [\$castValue(value, constraints)](#Field+castValue) ⇒
-        <code>any</code>
-    -   [\$testValue(value, constraints)](#Field+testValue) ⇒
-        <code>boolean</code>
+- [Field](#Field)
+  - [new Field(descriptor, missingValues)](#new_Field_new)
+  - [\$name](#Field+name) ⇒ <code>string</code>
+  - [\$type](#Field+type) ⇒ <code>string</code>
+  - [\$format](#Field+format) ⇒ <code>string</code>
+  - [\$required](#Field+required) ⇒ <code>boolean</code>
+  - [\$constraints](#Field+constraints) ⇒ <code>Object</code>
+  - [\$descriptor](#Field+descriptor) ⇒ <code>Object</code>
+  - [\$castValue(value, constraints)](#Field+castValue) ⇒
+    <code>any</code>
+  - [\$testValue(value, constraints)](#Field+testValue) ⇒
+    <code>boolean</code>
 
 #### new Field(descriptor, missingValues)
 
@@ -996,12 +989,11 @@ Constructor to instantiate `Field` class.
 **Returns**: [<code>Field</code>](#Field) - returns field class instance
 **Throws**:
 
--   <code>TableSchemaError</code> raises any error occured in the
-    process
+- <code>TableSchemaError</code> raises any error occured in the process
 
-| Param         | Type                         | Description                                     |
-|---------------|------------------------------|-------------------------------------------------|
-| descriptor    | <code>Object</code>          | schema field descriptor                         |
+| Param | Type | Description |
+|----|----|----|
+| descriptor | <code>Object</code> | schema field descriptor |
 | missingValues | <code>List.\<string\></code> | an list with string representing missing values |
 
 #### field\$name ⇒ <code>string</code>
@@ -1055,8 +1047,8 @@ This function is async so it has to be used with `await` keyword or as a
 
 **Returns**: <code>Object</code> - returns `{valid, errors}` object
 
-| Param      | Type                                       | Description                                                    |
-|------------|--------------------------------------------|----------------------------------------------------------------|
+| Param | Type | Description |
+|----|----|----|
 | descriptor | <code>string</code> \| <code>Object</code> | schema descriptor (one of): - local path - remote url - object |
 
 ### infer(source, headers, options) ⇒ <code>Object</code>
@@ -1066,14 +1058,13 @@ This function is async so it has to be used with `await` keyword or as a
 
 **Returns**: <code>Object</code> - returns schema descriptor **Throws**:
 
--   <code>TableSchemaError</code> raises any error occured in the
-    process
+- <code>TableSchemaError</code> raises any error occured in the process
 
-| Param   | Type                                                                                              | Description                                                                                                                                                                                                      |
-|---------|---------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| source  | <code>string</code> \| <code>List.\<List\></code> \| <code>Stream</code> \| <code>function</code> | data source (one of): - local CSV file (path) - remote CSV file (url) - list of lists representing the rows - readable stream with CSV file contents - function returning readable stream with CSV file contents |
-| headers | <code>List.\<string\></code>                                                                      | list of headers                                                                                                                                                                                                  |
-| options | <code>Object</code>                                                                               | any `Table.load` options                                                                                                                                                                                         |
+| Param | Type | Description |
+|----|----|----|
+| source | <code>string</code> \| <code>List.\<List\></code> \| <code>Stream</code> \| <code>function</code> | data source (one of): - local CSV file (path) - remote CSV file (url) - list of lists representing the rows - readable stream with CSV file contents - function returning readable stream with CSV file contents |
+| headers | <code>List.\<string\></code> | list of headers |
+| options | <code>Object</code> | any `Table.load` options |
 
 # Contributing
 

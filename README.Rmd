@@ -6,7 +6,7 @@ output:
   number_sections: yes
 ---
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/tableschema.r)](https://cran.r-project.org/package=tableschema.r)
-[![R-CMD-check](https://github.com/frictionlessdata/tableschema-r/workflows/R-CMD-check/badge.svg)](https://github.com/frictionlessdata/tableschema-r/actions)
+[![R-CMD-check](https://github.com/frictionlessdata/tableschema-r/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/frictionlessdata/tableschema-r/actions/workflows/R-CMD-check.yaml)
 [![Coverage status](https://coveralls.io/repos/github/frictionlessdata/tableschema-r/badge.svg)](https://coveralls.io/r/frictionlessdata/tableschema-r?branch=master)
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/tableschema.r)](http://cran.rstudio.com/web/packages/tableschema.r/index.html)
